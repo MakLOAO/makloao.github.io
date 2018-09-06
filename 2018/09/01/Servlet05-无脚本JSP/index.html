@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Servlet,JSP,EL,bean," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Servlet05-无脚本JSPbean法则-使用bean的规范 必须有一个无参数的公共构造函数 必须按命名规范来命名公共的getter和setter setter的参数类型和getter的返回类型必须一致 性质名和类型是由setter和getter得出，而不得来自于类中的一个成员 结合JSP使用时，性质类型必须是String或其他基本类型  使用EL对于model Person，它是一个Java">
+<meta name="keywords" content="Servlet,JSP,EL,bean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet05-无脚本JSP">
+<meta property="og:url" content="http://yoursite.com/2018/09/01/Servlet05-无脚本JSP/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="Servlet05-无脚本JSPbean法则-使用bean的规范 必须有一个无参数的公共构造函数 必须按命名规范来命名公共的getter和setter setter的参数类型和getter的返回类型必须一致 性质名和类型是由setter和getter得出，而不得来自于类中的一个成员 结合JSP使用时，性质类型必须是String或其他基本类型  使用EL对于model Person，它是一个Java">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-06T15:21:08.898Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servlet05-无脚本JSP">
+<meta name="twitter:description" content="Servlet05-无脚本JSPbean法则-使用bean的规范 必须有一个无参数的公共构造函数 必须按命名规范来命名公共的getter和setter setter的参数类型和getter的返回类型必须一致 性质名和类型是由setter和getter得出，而不得来自于类中的一个成员 结合JSP使用时，性质类型必须是String或其他基本类型  使用EL对于model Person，它是一个Java">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/01/Servlet05-无脚本JSP/"/>
+
+
+
+
+
+  <title>Servlet05-无脚本JSP | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">aha~~~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet05-无脚本JSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servlet05-无脚本JSP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index">
+                    <span itemprop="name">Servlet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/01/Servlet05-无脚本JSP/" class="leancloud_visitors" data-flag-title="Servlet05-无脚本JSP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Servlet05-无脚本JSP"><a href="#Servlet05-无脚本JSP" class="headerlink" title="Servlet05-无脚本JSP"></a>Servlet05-无脚本JSP</h1><h2 id="bean法则-使用bean的规范"><a href="#bean法则-使用bean的规范" class="headerlink" title="bean法则-使用bean的规范"></a>bean法则-使用bean的规范</h2><ol>
+<li>必须有一个无参数的公共构造函数</li>
+<li>必须按命名规范来命名公共的getter和setter</li>
+<li>setter的参数类型和getter的返回类型必须一致</li>
+<li>性质名和类型是由setter和getter得出，而不得来自于类中的一个成员</li>
+<li>结合JSP使用时，性质类型必须是String或其他基本类型</li>
+</ol>
+<h2 id="使用EL"><a href="#使用EL" class="headerlink" title="使用EL"></a>使用EL</h2><p>对于model Person，它是一个JavaBean，所以我们要使用与bean相关的标准动作</p>
+<p>使用脚本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">foo.Person</span> <span class="attr">p</span> = <span class="string">(foo.Person)</span> <span class="attr">request.getAttribute</span>("<span class="attr">person</span>"); %&gt;</span></span><br><span class="line">Person is : <span class="tag">&lt;<span class="name">%=</span> <span class="attr">p.getName</span>() %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用标准动作：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"request"</span> /&gt;</span></span><br><span class="line">Person created by servlet: <span class="tag">&lt;<span class="name">jsp:getProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt"><a href="#分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt" class="headerlink" title="分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;"></a>分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;</h3><h4 id="lt-jsp-useBean-gt"><a href="#lt-jsp-useBean-gt" class="headerlink" title="&lt;jsp:useBean&gt;"></a>&lt;jsp:useBean&gt;</h4><p>用 <code>&lt;jsp:useBean&gt;</code> 声明和初始化一个bean属性，id为声明bean对象的标识符，对应于servlet的<code>request.setAttribute(&quot;person&quot;, p)</code>，class为声明的对象的类类型，scope标识这个bean对象的属性作用域</p>
+<p>&lt;jsp:useBean&gt;还可以创建一个bean，如果它找不到一个名为”person”的属性对象，它就会建一个</p>
+<h4 id="lt-jsp-getProperty-gt"><a href="#lt-jsp-getProperty-gt" class="headerlink" title="&lt;jsp:getProperty&gt;"></a>&lt;jsp:getProperty&gt;</h4><p>用 <code>&lt;jsp:getProperty&gt;</code>得到bean属性的性质值，name标识具体的bean对象，与&lt;jsp:useBean&gt;的id属性相匹配，property标识属性中的性质名(也就是与bean类中getter和setter对应的性质)</p>
+<h4 id="lt-jsp-setProperty-gt"><a href="#lt-jsp-setProperty-gt" class="headerlink" title="&lt;jsp:setProperty&gt;"></a>&lt;jsp:setProperty&gt;</h4><p>&lt;jsp:setProperty&gt;是第三个（也是最后一个）bean标准动作，具体使用如下</p>
+<p><code>&lt;jsp:setProperty name=&quot;person&quot; property=&quot;name&quot; value=&quot;yourNameVal&quot; /&gt;</code></p>
+<h4 id="lt-jsp-useBean-gt-可以有体"><a href="#lt-jsp-useBean-gt-可以有体" class="headerlink" title="&lt;jsp:useBean&gt;可以有体"></a>&lt;jsp:useBean&gt;可以有体</h4><p>如果把设置方法代码<code>&lt;jsp:setProperty&gt;</code>放在<code>&lt;jsp:useBean&gt;</code>的体中，就可以有条件地设置性质，只有创建新bean时才设置性质值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"page"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"yourNameVal"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="多态bean引用-lt-jsp-useBean-gt-的type属性"><a href="#多态bean引用-lt-jsp-useBean-gt-的type属性" class="headerlink" title="多态bean引用  &lt;jsp:useBean&gt;的type属性"></a>多态bean引用  &lt;jsp:useBean&gt;的type属性</h4><p>可以用&lt;jsp:useBean&gt;的type属性实现引用类型不同于具体的对象类型，假设新对象的类型为Employee，引用类型是Person</p>
+<p><code>&lt;jsp:useBean id=&quot;person&quot; type=&quot;foo.Person&quot; class=&quot;foo.Employee&quot; scope=&quot;page&quot;&gt;</code></p>
+<p>可以实现效果，生成的servlet代码大概如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo.Person person = <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">// 得到person属性的代码</span></span><br><span class="line"><span class="keyword">if</span> (person == <span class="keyword">null</span>) &#123;</span><br><span class="line">  person = <span class="keyword">new</span> foo.Employee();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>type可以是class类型，抽象类型或者是一个接口，class必须是type的一个子类或具体实现，<strong>type是声明的类型，而class是要实例化的类</strong></p>
+<h3 id="直接从表单请求到JSP-param属性"><a href="#直接从表单请求到JSP-param属性" class="headerlink" title="直接从表单请求到JSP - param属性"></a>直接从表单请求到JSP - param属性</h3><p>可以通过设置name一致达到直接从请求到JSP的效果，不需要途中经过servlet</p>
+<p>假设表单是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userName"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">param</span>=<span class="string">"userName"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>利用param属性，可以把bean的性质值设置为一个请求参数的值，只需指定请求参数</p>
+<h4 id="甚至不需要param属性"><a href="#甚至不需要param属性" class="headerlink" title="甚至不需要param属性"></a>甚至不需要param属性</h4><p>只要把表单内的内容设置与bean的性质一致，甚至可以不需要param属性，如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果设置表单中所有请求参数名都与bean性质名匹配，那么甚至连property都可以省略</p>
+<p>如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="性质是引用类型的情况"><a href="#性质是引用类型的情况" class="headerlink" title="性质是引用类型的情况"></a>性质是引用类型的情况</h3><p>假如Person有一个Dog “dog”性质，Dog有一个String “name”性质，如果想打印Person的dog的name，可以用到EL，如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">Dog's name is : $&#123;person.dog.name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="对-person-dog-name-的解释"><a href="#对-person-dog-name-的解释" class="headerlink" title="对${person.dog.name}的解释"></a>对${person.dog.name}的解释</h4><p><code>${person.dog.name}</code> 等同于 <code>&lt;%= ((foo.Person) request.getAttribute(&quot;person&quot;)).getDog().getName() %&gt;</code></p>
+<p>使用点号(.)可以访问性质和映射值</p>
+<h4 id="使用中括号-，更好的点号"><a href="#使用中括号-，更好的点号" class="headerlink" title="使用中括号[]，更好的点号"></a>使用中括号[]，更好的点号</h4><p>点号右边是一个bean性质或映射键的时候，点号操作符才能正常工作，但[]操作符就强大很多，<strong>它既可以完成点号操作符能完成的工作，也可以当左边变量是一个数组或者List或者右边不遵循正常的Java命名规范的时候仍然可以正常工作</strong></p>
+<h3 id="EL中的隐式对象param与paramValues"><a href="#EL中的隐式对象param与paramValues" class="headerlink" title="EL中的隐式对象param与paramValues"></a>EL中的隐式对象param与paramValues</h3><p>HTML表单中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">  name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">  ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  First food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  Second food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于单个值，可以在JSP中<code>${param.name}</code>获取表单的name<br>对于多个值，可以在JSP中<code>${paramValues.food[0]}</code>获取多个值中的一个</p>
+<h3 id="EL的其他隐式对象"><a href="#EL的其他隐式对象" class="headerlink" title="EL的其他隐式对象"></a>EL的其他隐式对象</h3><h4 id="得到”host”首部"><a href="#得到”host”首部" class="headerlink" title="得到”host”首部"></a>得到”host”首部</h4><p><code>${header[&quot;host&quot;]}</code>或<code>${header.host}</code></p>
+<h4 id="得到Cookie"><a href="#得到Cookie" class="headerlink" title="得到Cookie"></a>得到Cookie</h4><p>打印”userName” Cookie的值</p>
+<p>使用脚本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">Cookie</span>[] <span class="attr">cookies</span> = <span class="string">request.getCookies();</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line">for (int i = 0; i &lt; cookies.length; i++) &#123;</span><br><span class="line">  if ((cookies[i].getName()).equals("userName")) &#123;</span><br><span class="line">    out.println(cookies[i].getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>使用EL：</p>
+<p><code>${cookie.uesrName.value}</code></p>
+<h4 id="上下文参数"><a href="#上下文参数" class="headerlink" title="上下文参数"></a>上下文参数</h4><p>在web.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>mainEmail<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>12345@outlook.com<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用脚本：<br><code>&lt;%= application.getInitParameter(&quot;mainEmail&quot;) %&gt;</code></p>
+<p>使用EL：<br><code>${initParam.mainEmail}</code></p>
+<h3 id="EL函数"><a href="#EL函数" class="headerlink" title="EL函数"></a>EL函数</h3><p>使用EL函数有如下四步骤</p>
+<ol>
+<li>编写一个有<strong>公共静态</strong>方法的Java类</li>
+<li>编写一个标记库描述文件(.tld)</li>
+<li>在JSP中放一个taglib指令</li>
+<li>使用EL调用函数</li>
+</ol>
+<h4 id="编写一个有公共静态方法的Java类"><a href="#编写一个有公共静态方法的Java类" class="headerlink" title="编写一个有公共静态方法的Java类"></a>编写一个有公共静态方法的Java类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xhj.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiceRoller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">rollDice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) ((Math.random() * <span class="number">6</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编写一个标记库描述文件"><a href="#编写一个标记库描述文件" class="headerlink" title="编写一个标记库描述文件"></a>编写一个标记库描述文件</h4><p>IDEA中在web目录右键new -&gt; xml configuration file -&gt; JSP tag library descriptor 重命名为*.tld</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">taglib</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">version</span>=<span class="string">"2.1"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">tlib-version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">tlib-version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uri</span>&gt;</span>DiceFunctions<span class="tag">&lt;/<span class="name">uri</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">function</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>rollIt<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-class</span>&gt;</span>com.xhj.web.DiceRoller<span class="tag">&lt;/<span class="name">function-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-signature</span>&gt;</span>int rollDice()<span class="tag">&lt;/<span class="name">function-signature</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">function</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Invoke 'Generate' action to add tags or functions --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">taglib</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="在JSP中放一个taglib指令"><a href="#在JSP中放一个taglib指令" class="headerlink" title="在JSP中放一个taglib指令"></a>在JSP中放一个taglib指令</h4><p><code>&lt;%@ taglib prefix=&quot;mine&quot; uri=&quot;DiceFunctions&quot; %&gt;</code></p>
+<h4 id="使用EL调用函数"><a href="#使用EL调用函数" class="headerlink" title="使用EL调用函数"></a>使用EL调用函数</h4><p>正文添加<br><code>${mine:rollIt()}</code></p>
+<h4 id="对TLD文件的解释"><a href="#对TLD文件的解释" class="headerlink" title="对TLD文件的解释"></a>对TLD文件的解释</h4><ul>
+<li>TLD中的uri对应JSP中taglib指令的uri属性</li>
+<li>TLD中function里的name标签的值对应EL表达式中冒号右边使用的函数</li>
+<li>TLD中function-class标签对应.class</li>
+<li>TLD中function-signature标签的值对应.class里的公共静态方法及其返回值</li>
+<li>taglib指令中的prefix属性的值对应EL表达式冒号左边的值</li>
+</ul>
+<p>*.tld文件可以放在WEB-INF目录或者其某个子目录中</p>
+<h3 id="EL处理null"><a href="#EL处理null" class="headerlink" title="EL处理null"></a>EL处理null</h3><p>对于找不到表达式中指定的属性/性质/键，也会显示页面，<strong>在算术表达式中，EL把null值看做是0，在逻辑表达式中，EL把null看做是false</strong></p>
+<h3 id="可复用的模板部件"><a href="#可复用的模板部件" class="headerlink" title="可复用的模板部件"></a>可复用的模板部件</h3><p>对于网站上每个页面的页眉和页脚都一样的情况下，每个JSP反复编写同样的页眉页脚，会显得效率低下，这个时候可以使用include指令把相同的页面放在不同网页对应的位置上</p>
+<h4 id="lt-include-gt-指令"><a href="#lt-include-gt-指令" class="headerlink" title="&lt;include&gt;指令"></a>&lt;include&gt;指令</h4><p>用法：<br><code>&lt;%@ include file=&quot;*.jsp&quot; %&gt;</code></p>
+<h4 id="lt-jsp-include-gt-标准动作"><a href="#lt-jsp-include-gt-标准动作" class="headerlink" title="&lt;jsp:include&gt;标准动作"></a>&lt;jsp:include&gt;标准动作</h4><p>用法<br><code>&lt;jsp:include page=&quot;*.jsp&quot; /&gt;</code></p>
+<h4 id="lt-include-gt-与-lt-jsp-include-gt-的区别"><a href="#lt-include-gt-与-lt-jsp-include-gt-的区别" class="headerlink" title="&lt;include&gt;与&lt;jsp:include&gt;的区别"></a>&lt;include&gt;与&lt;jsp:include&gt;的区别</h4><p>include指令在转换时发生，&lt;jsp:include&gt;标准动作在运行时发生<br>include指令相当于复制代码粘贴，标准动作则根据页面属性创建一个RequestDispatcher，并应用include()方法。</p>
+<p><strong>注意！不需要把&lt;html&gt;和&lt;body&gt;标签放到可复用部件中</strong></p>
+<h3 id="lt-jsp-param-gt-定制包含的内容"><a href="#lt-jsp-param-gt-定制包含的内容" class="headerlink" title="&lt;jsp:param&gt;定制包含的内容"></a>&lt;jsp:param&gt;定制包含的内容</h3><p>假设我们已经有了一个页眉，但是如果我们想要定制页眉的某一部分，比如我希望在页眉上有一个与上下文相关的子标题，它要依页面而定，如下</p>
+<p>在对应的jsp文件中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"Header.jsp"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"subTitle"</span> <span class="attr">value</span>=<span class="string">"aha!this is a sub title."</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:include</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在Header.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"directory/images/xxx.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>$&#123;param.subTitle&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="lt-jsp-forward-gt-转发"><a href="#lt-jsp-forward-gt-转发" class="headerlink" title="&lt;jsp:forward&gt;转发"></a>&lt;jsp:forward&gt;转发</h3><p>可以从一个JSP转发到另一个JSP，或者从一个JSP转发到一个servlet，还可以从一个JSP转发到WEB应用中任何其他资源。比如客户访问页面，如果没有登录，就转向另一个页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">request.getParameter</span>("<span class="attr">userName</span>") == <span class="string">null)</span> &#123; &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">"xx.jsp"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Servlet/" rel="tag"># Servlet</a>
+          
+            <a href="/tags/JSP/" rel="tag"># JSP</a>
+          
+            <a href="/tags/EL/" rel="tag"># EL</a>
+          
+            <a href="/tags/bean/" rel="tag"># bean</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/" rel="next" title="Servlet02-ServletConfig,ServletContext与监听器">
+                <i class="fa fa-chevron-left"></i> Servlet02-ServletConfig,ServletContext与监听器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" rel="prev" title="Servlet之WEB应用体系与MVC">
+                Servlet之WEB应用体系与MVC <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet05-无脚本JSP"><span class="nav-number">1.</span> <span class="nav-text">Servlet05-无脚本JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bean法则-使用bean的规范"><span class="nav-number">1.1.</span> <span class="nav-text">bean法则-使用bean的规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用EL"><span class="nav-number">1.2.</span> <span class="nav-text">使用EL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt"><span class="nav-number">1.2.1.</span> <span class="nav-text">分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-jsp-useBean-gt"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">&lt;jsp:useBean&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-jsp-getProperty-gt"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">&lt;jsp:getProperty&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-jsp-setProperty-gt"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">&lt;jsp:setProperty&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-jsp-useBean-gt-可以有体"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">&lt;jsp:useBean&gt;可以有体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态bean引用-lt-jsp-useBean-gt-的type属性"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">多态bean引用  &lt;jsp:useBean&gt;的type属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接从表单请求到JSP-param属性"><span class="nav-number">1.2.2.</span> <span class="nav-text">直接从表单请求到JSP - param属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#甚至不需要param属性"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">甚至不需要param属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性质是引用类型的情况"><span class="nav-number">1.2.3.</span> <span class="nav-text">性质是引用类型的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对-person-dog-name-的解释"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">对${person.dog.name}的解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用中括号-，更好的点号"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">使用中括号[]，更好的点号</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL中的隐式对象param与paramValues"><span class="nav-number">1.2.4.</span> <span class="nav-text">EL中的隐式对象param与paramValues</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL的其他隐式对象"><span class="nav-number">1.2.5.</span> <span class="nav-text">EL的其他隐式对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#得到”host”首部"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">得到”host”首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#得到Cookie"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">得到Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上下文参数"><span class="nav-number">1.2.5.3.</span> <span class="nav-text">上下文参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL函数"><span class="nav-number">1.2.6.</span> <span class="nav-text">EL函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写一个有公共静态方法的Java类"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">编写一个有公共静态方法的Java类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写一个标记库描述文件"><span class="nav-number">1.2.6.2.</span> <span class="nav-text">编写一个标记库描述文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在JSP中放一个taglib指令"><span class="nav-number">1.2.6.3.</span> <span class="nav-text">在JSP中放一个taglib指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用EL调用函数"><span class="nav-number">1.2.6.4.</span> <span class="nav-text">使用EL调用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对TLD文件的解释"><span class="nav-number">1.2.6.5.</span> <span class="nav-text">对TLD文件的解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EL处理null"><span class="nav-number">1.2.7.</span> <span class="nav-text">EL处理null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可复用的模板部件"><span class="nav-number">1.2.8.</span> <span class="nav-text">可复用的模板部件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-include-gt-指令"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">&lt;include&gt;指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-jsp-include-gt-标准动作"><span class="nav-number">1.2.8.2.</span> <span class="nav-text">&lt;jsp:include&gt;标准动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-include-gt-与-lt-jsp-include-gt-的区别"><span class="nav-number">1.2.8.3.</span> <span class="nav-text">&lt;include&gt;与&lt;jsp:include&gt;的区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-jsp-param-gt-定制包含的内容"><span class="nav-number">1.2.9.</span> <span class="nav-text">&lt;jsp:param&gt;定制包含的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-jsp-forward-gt-转发"><span class="nav-number">1.2.10.</span> <span class="nav-text">&lt;jsp:forward&gt;转发</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
