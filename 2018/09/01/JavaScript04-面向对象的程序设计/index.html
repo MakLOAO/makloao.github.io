@@ -127,14 +127,16 @@
 <meta name="keywords" content="基础,JS面向对象,JS原型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaSCript04-面向对象的程序设计">
-<meta property="og:url" content="http://yoursite.com/2018/09/04/JavaScript04-面向对象的程序设计/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/09/01/JavaScript04-面向对象的程序设计/index.html">
 <meta property="og:site_name" content="MakaL-0-">
 <meta property="og:description" content="JavaSCript04-面向对象的程序设计理解对象可以通过以下方式初始化一个对象 123456789var person = &amp;#123;    name: &quot;Nicholas&quot;,    age: 29,    job: &quot;Software Engineer&quot;,    sayName: function() &amp;#123;        alert(this.name);    &amp;#125;&amp;#1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-01T15:12:43.413Z">
+<meta property="og:image" content="https://i.imgur.com/IHYBV4M.png">
+<meta property="og:updated_time" content="2019-03-13T13:56:24.436Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaSCript04-面向对象的程序设计">
 <meta name="twitter:description" content="JavaSCript04-面向对象的程序设计理解对象可以通过以下方式初始化一个对象 123456789var person = &amp;#123;    name: &quot;Nicholas&quot;,    age: 29,    job: &quot;Software Engineer&quot;,    sayName: function() &amp;#123;        alert(this.name);    &amp;#125;&amp;#1">
+<meta name="twitter:image" content="https://i.imgur.com/IHYBV4M.png">
 
 
 
@@ -164,7 +166,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/04/JavaScript04-面向对象的程序设计/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/01/JavaScript04-面向对象的程序设计/"/>
 
 
 
@@ -370,7 +372,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/JavaScript04-面向对象的程序设计/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/JavaScript04-面向对象的程序设计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -399,8 +401,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T11:08:34+08:00">
-                2018-09-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
               </time>
             
 
@@ -439,7 +441,7 @@
 
           
           
-             <span id="/2018/09/04/JavaScript04-面向对象的程序设计/" class="leancloud_visitors" data-flag-title="JavaSCript04-面向对象的程序设计">
+             <span id="/2018/09/01/JavaScript04-面向对象的程序设计/" class="leancloud_visitors" data-flag-title="JavaSCript04-面向对象的程序设计">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -514,7 +516,7 @@
 <p>虽然可以通过对象实例访问保存在原型中的值，但不能通过对象实例重写原型中的值，如果我们在实例中添加一个与原型中一个属性同名的属性，那我们就在实例中创建该属性，并屏蔽原型中的那个属性。通过delete可以重新获取来自原型的属性</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</span><br><span class="line">person1.name = <span class="string">"Greg"</span>;</span><br><span class="line"><span class="keyword">delete</span> person1.name;</span><br><span class="line">alert(person1.name); <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure>
 <h4 id="理解原型对象"><a href="#理解原型对象" class="headerlink" title="理解原型对象"></a>理解原型对象</h4><p>无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。默认情况下，所有原型对象都会自动获得一个constructor（构造函数）属性，这个属性是一个指向prototype属性所在函数的指针，关系如下图。</p>
-<!-- TODO: JS原型与对象的关系.png -->
+<p><img src="https://i.imgur.com/IHYBV4M.png" alt=""></p>
 <h4 id="更简单的原型语法"><a href="#更简单的原型语法" class="headerlink" title="更简单的原型语法"></a>更简单的原型语法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    name : <span class="string">"Nicholas"</span>,</span><br><span class="line">    age : <span class="number">29</span>,</span><br><span class="line">    job : <span class="string">"Software Engineer"</span>,</span><br><span class="line">    sayName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        alert(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>但是使用对象字面量重写prototype的问题是constructor属性不再指向Person了，可以通过Object.defineProperty()方法解决</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.defineProperty(Person.prototype, <span class="string">"constructor"</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: Person</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
@@ -603,8 +605,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/03/JavaScript03-引用类型/" rel="next" title="JavaScript03-引用类型">
-                <i class="fa fa-chevron-left"></i> JavaScript03-引用类型
+              <a href="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" rel="next" title="Servlet之WEB应用体系与MVC">
+                <i class="fa fa-chevron-left"></i> Servlet之WEB应用体系与MVC
               </a>
             
           </div>
@@ -613,8 +615,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/09/Servlet06-JSTL/" rel="prev" title="Servlet06-JSTL-强大的定制标记">
-                Servlet06-JSTL-强大的定制标记 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/" rel="prev" title="Servlet02-ServletConfig,ServletContext与监听器">
+                Servlet02-ServletConfig,ServletContext与监听器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -801,7 +803,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
