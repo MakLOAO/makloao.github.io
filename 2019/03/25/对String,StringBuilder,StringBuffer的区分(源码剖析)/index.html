@@ -112,7 +112,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java,StringBuilder,StringBuffer,String," />
 
 
 
@@ -123,16 +123,20 @@
 
 
 
-<meta name="description" content="Beautifully struggle every day">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MakaL-0-">
-<meta property="og:url" content="http://yoursite.com/tags/ServletConfig/index.html">
+<meta name="description" content="源码剖析-对String,StringBuilder,StringBuffer的区分首先观察他们继承的类和接口 String：public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {}StringBuilder：public final class Stri">
+<meta name="keywords" content="Java,StringBuilder,StringBuffer,String">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源码剖析-对String,StringBuilder,StringBuffer的区分">
+<meta property="og:url" content="http://yoursite.com/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="Beautifully struggle every day">
+<meta property="og:description" content="源码剖析-对String,StringBuilder,StringBuffer的区分首先观察他们继承的类和接口 String：public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {}StringBuilder：public final class Stri">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/PMITMBm.png">
+<meta property="og:updated_time" content="2019-03-24T10:35:41.049Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MakaL-0-">
-<meta name="twitter:description" content="Beautifully struggle every day">
+<meta name="twitter:title" content="源码剖析-对String,StringBuilder,StringBuffer的区分">
+<meta name="twitter:description" content="源码剖析-对String,StringBuilder,StringBuffer的区分首先观察他们继承的类和接口 String：public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {}StringBuilder：public final class Stri">
+<meta name="twitter:image" content="https://i.imgur.com/PMITMBm.png">
 
 
 
@@ -162,13 +166,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/ServletConfig/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/"/>
 
 
 
 
 
-  <title>标签: ServletConfig | MakaL-0-</title>
+  <title>源码剖析-对String,StringBuilder,StringBuffer的区分 | MakaL-0-</title>
   
 
 
@@ -206,7 +210,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -354,54 +358,234 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>ServletConfig<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/" itemprop="url">
-              
-                <span itemprop="name">Servlet02-ServletConfig,ServletContext与监听器</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">源码剖析-对String,StringBuilder,StringBuffer的区分</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-01T11:08:34+08:00"
-              content="2018-09-01" >
-          09-01
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T10:41:18+08:00">
+                2019-03-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/" class="leancloud_visitors" data-flag-title="源码剖析-对String,StringBuilder,StringBuffer的区分">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="源码剖析-对String-StringBuilder-StringBuffer的区分"><a href="#源码剖析-对String-StringBuilder-StringBuffer的区分" class="headerlink" title="源码剖析-对String,StringBuilder,StringBuffer的区分"></a>源码剖析-对String,StringBuilder,StringBuffer的区分</h1><p>首先观察他们继承的类和接口</p>
+<p>String：<code>public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {}</code><br>StringBuilder：<code>public final class StringBuilder extends AbstractStringBuilder implements java.io.Serializable, CharSequence {}</code><br>StringBuffer：<code>public final class StringBuffer extends AbstractStringBuilder implements java.io.Serializable, CharSequence {}</code></p>
+<p>可以观察到，String对象继承了Serializable，Comparable，CharSequence接口<br>StringBuilder与StringBuffer均继承自AbstractStringBuilder父类，Serializable，CharSequence接口</p>
+<p>Serializable是序列化接口，它的作用是：</p>
+<blockquote>
+<p>Serializability of a class is enabled by the class implementing the java.io.Serializable interface.</p>
+</blockquote>
+<h2 id="String-源码剖析"><a href="#String-源码剖析" class="headerlink" title="String 源码剖析"></a>String 源码剖析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Stable</span><br><span class="line">private final byte[] value;</span><br><span class="line"></span><br><span class="line">private final byte coder;</span><br><span class="line"></span><br><span class="line">public String() &#123;</span><br><span class="line">    this.value = &quot;&quot;.value;</span><br><span class="line">    this.coder = &quot;&quot;.coder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>String由value和coder组成，coder应该是它的编码格式，value就是它的值了，注意value是final类型的，即String对象是不可变的</p>
+<h3 id="Comparable接口"><a href="#Comparable接口" class="headerlink" title="Comparable接口"></a>Comparable接口</h3><p>String实现了Comparable接口，即String对象可以通过调用<code>compareTo()</code>方法进行比较，这是String与StringBuilder和StringBuffer的第一个区别</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">byte</span> v1[] = value;</span><br><span class="line">    <span class="keyword">byte</span> v2[] = anotherString.value;</span><br><span class="line">    <span class="keyword">if</span> (coder() == anotherString.coder()) &#123;</span><br><span class="line">        <span class="keyword">return</span> isLatin1() ? StringLatin1.compareTo(v1, v2)</span><br><span class="line">                          : StringUTF16.compareTo(v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isLatin1() ? StringLatin1.compareToUTF16(v1, v2)</span><br><span class="line">                      : StringUTF16.compareToLatin1(v1, v2);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>他主要实现了在当前字符编码上对字符串的比较，判断字符串是否相等</p>
+<h2 id="StringBuilder与StringBuffer"><a href="#StringBuilder与StringBuffer" class="headerlink" title="StringBuilder与StringBuffer"></a>StringBuilder与StringBuffer</h2><h3 id="AbstractStringBuilder"><a href="#AbstractStringBuilder" class="headerlink" title="AbstractStringBuilder"></a>AbstractStringBuilder</h3><p>注意到在这个抽象类中定义了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] value;</span><br><span class="line"><span class="keyword">byte</span> coder;</span><br><span class="line"><span class="keyword">int</span> count;</span><br></pre></td></tr></table></figure>
+<p>但注意到value不是final类型，即他是可变的，这个是与String的第二个区别</p>
+<p>他主要有扩容方法和添加方法，添加方法的参数类型有很多，比如String类型的，AbstactStringBuilder的，StringBuffer的，CharSequence的等等，下面是其中一个例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AbstractStringBuilder <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> appendNull();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = str.length();</span><br><span class="line">    ensureCapacityInternal(count + len);</span><br><span class="line">    putStringAt(count, str);</span><br><span class="line">    count += len;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>扩容方法如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minimumCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = value.length &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">if</span> (minimumCapacity - oldCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        value = Arrays.copyOf(value,</span><br><span class="line">				newCapacity(minimumCapacity) &lt;&lt; coder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">newCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = value.length &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = (oldCapacity &lt;&lt; <span class="number">1</span>) + <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> SAFE_BOUND = MAX_ARRAY_SIZE &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">return</span> (newCapacity &lt;= <span class="number">0</span> || SAFE_BOUND - newCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        ? hugeCapacity(minCapacity)</span><br><span class="line">        : newCapacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码大概是若为utf16编码，则容量*2再+2，若为latin1编码，则容量+2，且设置了安全上限保护</p>
+<h3 id="CharSequence"><a href="#CharSequence" class="headerlink" title="CharSequence"></a>CharSequence</h3><p><img src="https://i.imgur.com/PMITMBm.png" alt=""><br><!-- TODO: 这个是CharSequence.png --></p>
+<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><p>StringBuilder继承自AbstractStringBuilder，大部分代码都已经由其实现，StringBuilder只需要在构造器中调用super()方法即可，包括append()方法，delete()方法，replace()方法，insert()方法，indexOf()方法，lastIndexOf()方法，reverse()方法也都是调用super()方法即可。</p>
+<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><p>而StringBuffer则是在AbstractStringBuilder的方法上添加了synchronized的关键字，即它是线程安全的</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>String是可以比较的，通过compareTo()方法，而StringBuilder和StringBuffer只能通过toString()方法后再调用compareTo()方法来比较。</li>
+<li>String对象是不可变的，其值是final类型，而StringBuilder和StringBuffer对象可变，并没有final修饰。</li>
+<li>String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。 </li>
+</ol>
+<p>对他们的使用，应该遵循下面原则：</p>
+<ul>
+<li>操作少量的数据 = String</li>
+<li>单线程操作字符串缓冲区下操作大量数据 = StringBuilder</li>
+<li>多线程操作字符串缓冲区下操作大量数据 = StringBuffer</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/StringBuilder/" rel="tag"># StringBuilder</a>
+          
+            <a href="/tags/StringBuffer/" rel="tag"># StringBuffer</a>
+          
+            <a href="/tags/String/" rel="tag"># String</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/17/git快速入门/" rel="next" title="Git快速入门">
+                <i class="fa fa-chevron-left"></i> Git快速入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -409,6 +593,16 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
 
         </div>
         
@@ -429,8 +623,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -518,6 +721,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#源码剖析-对String-StringBuilder-StringBuffer的区分"><span class="nav-number">1.</span> <span class="nav-text">源码剖析-对String,StringBuilder,StringBuffer的区分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-源码剖析"><span class="nav-number">1.1.</span> <span class="nav-text">String 源码剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Comparable接口"><span class="nav-number">1.1.1.</span> <span class="nav-text">Comparable接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringBuilder与StringBuffer"><span class="nav-number">1.2.</span> <span class="nav-text">StringBuilder与StringBuffer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AbstractStringBuilder"><span class="nav-number">1.2.1.</span> <span class="nav-text">AbstractStringBuilder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CharSequence"><span class="nav-number">1.2.2.</span> <span class="nav-text">CharSequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder"><span class="nav-number">1.2.3.</span> <span class="nav-text">StringBuilder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuffer"><span class="nav-number">1.2.4.</span> <span class="nav-text">StringBuffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -657,6 +876,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -685,6 +908,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
