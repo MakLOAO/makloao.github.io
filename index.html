@@ -369,6 +369,422 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/进程管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/07/进程管理/" itemprop="url">进程管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-07T10:41:18+08:00">
+                2019-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/07/进程管理/" class="leancloud_visitors" data-flag-title="进程管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程的定义，与程序的区别"><a href="#进程的定义，与程序的区别" class="headerlink" title="进程的定义，与程序的区别"></a>进程的定义，与程序的区别</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位，是程序的一次执行。</p>
+<h3 id="与程序的区别"><a href="#与程序的区别" class="headerlink" title="与程序的区别"></a>与程序的区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">进程</th>
+<th style="text-align:left">程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">程序是指令的集合，是静态的概念</td>
+<td style="text-align:left">进程是处理机上的一次执行过程，动态的概念</td>
+</tr>
+<tr>
+<td style="text-align:left">程序是长期存在的</td>
+<td style="text-align:left">进程有生命周期，有创建，活动和消亡</td>
+</tr>
+<tr>
+<td style="text-align:left">程序是指令的有序集合</td>
+<td style="text-align:left">进程由程序，PCB和数据组成</td>
+</tr>
+<tr>
+<td style="text-align:left">程序和进程并非一一对应，同一程序同时运行在若干不同数据集上，它将属于若干个不同进程</td>
+<td style="text-align:left">一个进程可以执行多个程序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="进程的状态及其转换"><a href="#进程的状态及其转换" class="headerlink" title="进程的状态及其转换"></a>进程的状态及其转换</h2><p>进程三种基本状态分别是</p>
+<ul>
+<li>就绪状态</li>
+<li>执行状态</li>
+<li>阻塞状态</li>
+</ul>
+<p>它们的转换关系如下</p>
+<p><img src="https://i.imgur.com/NKJai9R.png" alt=""></p>
+<p>引入挂起状态（被换出内存的状态）后，进程的转换如下</p>
+<p><img src="https://i.imgur.com/I6mlock.png" alt=""></p>
+<h3 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h3><p>挂起状态是把进程从内存移出外存，不释放CPU，是主动行为</p>
+<p>而阻塞状态是释放CPU，但不释放内存，是被动行为</p>
+<p>引入挂起状态的原因是</p>
+<ul>
+<li>终端用户请求</li>
+<li>父进程请求</li>
+<li>负荷调节需要</li>
+<li>操作系统需要</li>
+</ul>
+<h2 id="进程控制块PCB"><a href="#进程控制块PCB" class="headerlink" title="进程控制块PCB"></a>进程控制块PCB</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
+<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/JavaScript09-事件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -632,224 +1048,6 @@ alert(isSupported);</code></p>
 <p><code>var isSupported = document.implementation.hasFeature(&quot;MutationEvents&quot;, &quot;2.0&quot;);</code>检查是否支持变动事件。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events" target="_blank" rel="noopener">MDN的mutation事件</a></p>
 <h3 id="设备事件与触摸手势事件"><a href="#设备事件与触摸手势事件" class="headerlink" title="设备事件与触摸手势事件"></a>设备事件与触摸手势事件</h3><p>主要用于智能手机和平板电脑</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
-                2019-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
-<ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
-</ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
-<ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
-</ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
-<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
-<ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
-</ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
-<ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
-</ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
 
           
         
@@ -2561,322 +2759,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript06-BOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/JavaScript06-BOM/" itemprop="url">JavaSCript06-BOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/26/JavaScript06-BOM/" class="leancloud_visitors" data-flag-title="JavaSCript06-BOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript06-BOM"><a href="#JavaScript06-BOM" class="headerlink" title="JavaScript06-BOM"></a>JavaScript06-BOM</h1><p>BOM是浏览器对象模型，它提供了很多用于访问浏览器的功能。</p>
-<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h2><p>window对象表示浏览器的一个实例，它既是通过JavaScript访问浏览器的一个接口，又是ECMAScript规定的Global对象。这意味着在网页中定义的任何一个对象，变量和函数，都以window作为其Global对象，因此有权访问parseInt等方法。</p>
-<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>所有在全局作用域中声明的变量，函数都会变成window对象的属性和方法，但注意，定义全局变量与在window对象直接定义还是有一点差别：全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">29</span>;</span><br><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.age; <span class="comment">// return false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.color; <span class="comment">// return true</span></span><br></pre></td></tr></table></figure>
-<p>可以通过window对象查询变量是否存在</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newValue = oldValue; <span class="comment">// error,oldValue not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newValue = <span class="built_in">window</span>.oldValue; <span class="comment">// OK,newValue is undefined</span></span><br></pre></td></tr></table></figure>
-<h3 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h3><p>IE，Safari，Opera，Chrome提供了screenLeft，screenTop属性表示窗口相对于屏幕左边和上边的位置。Firefox提供了screenX和screenY属性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取窗口左边和上边的位置</span></span><br><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenLeft:<span class="built_in">window</span>.screenX;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> winodw.screenTop == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenTop:<span class="built_in">window</span>.screenY;</span><br></pre></td></tr></table></figure>
-<p>可以使用moveTo()和moveBy()将窗口精确移动到某个位置<br>moveTo()接收的是新位置的x和y坐标，而moveBy()接收的是在水平和锤石方向上移动的像素数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将窗口移动到屏幕左上角</span></span><br><span class="line"><span class="built_in">window</span>.moveTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将窗口向左移动50像素</span></span><br><span class="line"><span class="built_in">window</span>.moveBy(<span class="number">-50</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>需要注意这两个方法可能会被浏览器禁用</p>
-<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><p>IE9+,Firefox,Safari,Opera和Chrome提供4个属性：innerWidth,innerHeight,outerWidth,outerHeight。在Chrome中，outer和inner返回的是相同的值，都是viewport大小而非浏览器窗口大小。在Firefox中，outer返回的是浏览器窗口本身的尺寸，inner返回的是该容器中页面视图区的大小（减去边框宽度）。</p>
-<p>下面方法可以获得viewport大小</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth,</span><br><span class="line">    pageHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth != <span class="string">"number"</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>) &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以使用resizeTo()和resizeBy()方法来调整浏览器窗口大小。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调整到100*100</span></span><br><span class="line"><span class="built_in">window</span>.resizeTo(<span class="number">100</span>,<span class="number">100</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 调整到200*150</span></span><br><span class="line"><span class="built_in">window</span>.resizeBy(<span class="number">100</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
-<p>同样的，部分浏览器可能禁用这两个方法</p>
-<h3 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h3><p>使用window.open()方法既可以导航到一个特定的URL，也可以打开一个新的浏览器窗口。这个方法接收4个参数：要加载的URL，窗口目标，一个特性字符串以及一个表示新页面是否取代浏览器历史纪录中当前加载页面的布尔值。如果传递第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。看下面例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等同于&lt;a href="http://www.wrox.com" target="topFrame"&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"topFrame"</span>);</span><br></pre></td></tr></table></figure>
-<p>如果有topFrame的窗口，就会在该窗口加载URL，否则创建一个新窗口并命名为topFrame,第二个参数也可以是下列特殊名称:_self,_parent,_top或_blank。</p>
-<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>若第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的参数创建一个新窗口或新标签页。<br>第三个参数是一个逗号分隔的设置字符串，表示在新窗口中都显示哪些特性。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">设置</th>
-<th style="text-align:left">值</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">height</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口高度，不能小于100</td>
-</tr>
-<tr>
-<td style="text-align:left">left</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口左坐标，不能小于0</td>
-</tr>
-<tr>
-<td style="text-align:left">location</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">显示地址栏，不同浏览器默认值不同</td>
-</tr>
-<tr>
-<td style="text-align:left">menubar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">默认no，显示菜单栏</td>
-</tr>
-<tr>
-<td style="text-align:left">resizable</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">是否可以通过拖动浏览器窗口边框改变其大小</td>
-</tr>
-<tr>
-<td style="text-align:left">scrollbars</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">内容在视口显示不下，是否运训滚动，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">status</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">状态栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">toolbar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">工具栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">top</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">上坐标</td>
-</tr>
-<tr>
-<td style="text-align:left">width</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">新窗口宽度</td>
-</tr>
-</tbody>
-</table>
-<p><code>window.open(&quot;http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,resizable=yes&quot;);</code></p>
-<p>通过window.open()新创建的窗口可以使用resizeTo或moveTo等方法，并且其有一个属性opener保存着打开它的原始窗口对象<br>chrome会在独立进程中运行每个标签页，当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。<strong>在chrome中，把新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，即告诉浏览器新创建的标签页不需要与打开它的标签页通信，因此可以在独立进程中运行。</strong></p>
-<h4 id="弹出窗口屏蔽程序"><a href="#弹出窗口屏蔽程序" class="headerlink" title="弹出窗口屏蔽程序"></a>弹出窗口屏蔽程序</h4><p>大多数浏览器都内置弹出窗口屏蔽程序，如下所示可以检测是否被屏蔽</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blocked = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wroxWin = <span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"_blank"</span>);</span><br><span class="line">	<span class="keyword">if</span>(wroxWin == <span class="literal">null</span>) &#123;</span><br><span class="line">		blocked = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (ex）&#123;</span><br><span class="line">	blocked = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (blocked) &#123;</span><br><span class="line">	alert(<span class="string">"The popup was blocked!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="间歇调用和超时调用"><a href="#间歇调用和超时调用" class="headerlink" title="间歇调用和超时调用"></a>间歇调用和超时调用</h3><p>JS是单线程语言，但它允许通过设置超时值和间歇时间来调度代码在特定时刻执行。</p>
-<h4 id="超时调用"><a href="#超时调用" class="headerlink" title="超时调用"></a>超时调用</h4><p>超时调用需要使用window对象的setTimeout()方法，它接收两个参数，要运行的代码和毫秒表示的时间（执行代码之前需要等待的毫秒数），第一个参数可以是包含JS代码的字符串，也可以是一个函数（更推荐用函数）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>注意上述代码经过1000ms不一定会执行，因为JS是一个单线程的解释器。调用setTimeout后，该方法会返回一个数值ID，表示超时调用。可以通过这个ID取消超时调用，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> itmeoutId = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">clearTimeout(timeoutId);</span><br></pre></td></tr></table></figure>
-<h4 id="间歇调用"><a href="#间歇调用" class="headerlink" title="间歇调用"></a>间歇调用</h4><p>按照指定的时间间隔重复执行代码，调用的方法是setInterval()，调用方法与上面setTimeout差不多，只不过第二个参数为每次执行之前要等待的毫秒数，同样可以通过clearInterval()方法传入间歇调用ID取消间歇调用<br><strong>尽量不要使用间歇调用，因为后一个间歇调用可能在前一个间歇调用停止之前启动</strong><br>下面是一个用超时调用实现间歇调用的例子，不会出现上述问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> max = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incrementNumber</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; max) &#123;</span><br><span class="line">		setTimeout(incrementNumber, <span class="number">500</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		alert(<span class="string">"Done"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(incrementNumber, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><p>浏览器通过alert(),confirm()和prompt()方法可以调用系统对话框，<strong>注意系统对话框都是同步和拟态的，即显示这些对话框的时候代码回停止执行，直到关掉对话框</strong></p>
-<h4 id="alert"><a href="#alert" class="headerlink" title="alert()"></a>alert()</h4><p>alert()显示的对话框包括文本和一个OK按钮</p>
-<h4 id="confirm"><a href="#confirm" class="headerlink" title="confirm()"></a>confirm()</h4><p>confirm()除了文本和OK按钮，还有一个取消按钮，可以通过检查confirm()方法返回的布尔值来确定用户点了哪个按钮</p>
-<h4 id="prompt"><a href="#prompt" class="headerlink" title="prompt()"></a>prompt()</h4><p>prompt()方法除了显示OK和Cancel按钮，还会显示一个文本输入框，接收两个参数，要显示给用户的文本提示和和文本输入域的默认值（可以为空字符串）。如果点击OK，该方法返回输入域的值，点击Cancel或其他，该方法返回null</p>
-<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p>location提供了与当前窗口加载的文档有关的信息，它既是window对象的属性，也是document对象的属性，location对象有如下属性</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性名</th>
-<th style="text-align:left">例子</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">hash</td>
-<td style="text-align:left">“#contents”</td>
-<td style="text-align:left">返回URL中的hash（#号后跟0个或多个字符）</td>
-</tr>
-<tr>
-<td style="text-align:left">host</td>
-<td style="text-align:left">“<a href="http://www.wrox.com:80&quot;" target="_blank" rel="noopener">www.wrox.com:80&quot;</a></td>
-<td style="text-align:left">返回服务器名称和端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">hostname</td>
-<td style="text-align:left">“<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">返回不带端口号的服务器名称</td>
-</tr>
-<tr>
-<td style="text-align:left">href</td>
-<td style="text-align:left">“http:/<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">完整URL，与location.toString()方法返回值一样</td>
-</tr>
-<tr>
-<td style="text-align:left">pathname</td>
-<td style="text-align:left">“/WileyCDA/“</td>
-<td style="text-align:left">URL中目录和文件名</td>
-</tr>
-<tr>
-<td style="text-align:left">port</td>
-<td style="text-align:left">“8080”</td>
-<td style="text-align:left">端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">protocol</td>
-<td style="text-align:left">“http:”</td>
-<td style="text-align:left">页面协议</td>
-</tr>
-<tr>
-<td style="text-align:left">search</td>
-<td style="text-align:left">“?q=javascript”</td>
-<td style="text-align:left">URL的查询字符串，以问号开头</td>
-</tr>
-</tbody>
-</table>
-<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><p>一个查询字符串参数的例子，注意字符串参数是被编码过的，需要通过decodeURIComponent解码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span> ),</span><br><span class="line">		args = &#123;&#125;,</span><br><span class="line">		items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</span><br><span class="line">		item = <span class="literal">null</span>,</span><br><span class="line">		name = <span class="literal">null</span>,</span><br><span class="line">		value = <span class="literal">null</span>,</span><br><span class="line">		i = <span class="number">0</span>,</span><br><span class="line">		length = items.length;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">		item = items[i].split(<span class="string">"="</span>);</span><br><span class="line">		name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">		value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (name.length) &#123;</span><br><span class="line">			args[name] = value;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h3><p>可以通过修改上面的属性（直接赋值）来改变当前加载的页面，也可以通过<code>location.assign(&quot;http://www.wrox.com&quot;)</code>来改变，<strong>这样的改变会在浏览器的历史记录中生成一条新纪录，用户通过后退按钮都会导航到前一个页面，如果不想在历史记录中生成新纪录，则可以通过调用</strong><code>location.replace(&quot;http://www.wrox.com/&quot;)</code><br>reload()方法会重新加载当前页面，如果不传递参数，页面会以最有效的方式重新加载，有可能是从缓存中加载，如果强制从服务器加载，则传入参数true即可</p>
-<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h2><p>navigator对象主要用来检测客户端浏览器，其主要属性和方法可以参考<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp" target="_blank" rel="noopener">w3c的navigator对象</a></p>
-<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><p>对于非IE浏览器，可以使用plugins数组来达到检测插件的目的，该数组每一项都有下列属性</p>
-<ul>
-<li>name:插件的名字</li>
-<li>description:插件的描述</li>
-<li>filename:插件的文件名</li>
-<li>length:插件所处理的MIME类型数量</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	name = name.toLowerCase();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; navigator.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (navigator.plugins[i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"QucikTime"</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h2><p>history对象保存用户的上网记录，无法得知具体的URL，但是可以通过<code>go()</code>方法来实现用户历史记录的任意跳转，这个方法接收一个参数，表示向后或向前的页面书的一个整数，也可以传入字符串参数，浏览器会跳转到历史纪录中包含该字符串的第一个位置，可能前进也可能后退。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-1</span>); <span class="comment">// 后退一页</span></span><br><span class="line"></span><br><span class="line">history.go(<span class="number">1</span>); <span class="comment">// 前进一页</span></span><br><span class="line"></span><br><span class="line">history(<span class="string">"wrox.com"</span>);</span><br></pre></td></tr></table></figure>
-<p>另外还可以用<code>history.back()</code>和<code>history.forward()</code>方法前进或后退<br>此外还有一个length属性表示历史纪录数量。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2933,7 +2815,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2944,7 +2826,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2955,7 +2837,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
