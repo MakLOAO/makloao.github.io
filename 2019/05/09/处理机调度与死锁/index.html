@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="OS,调度,死锁," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="处理机调度与死锁处理机调度基本概念处理机调度分为三个层次  高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度 低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度 中级调度：内存调度">
+<meta name="keywords" content="OS,调度,死锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="处理机调度与死锁">
+<meta property="og:url" content="http://yoursite.com/2019/05/09/处理机调度与死锁/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="处理机调度与死锁处理机调度基本概念处理机调度分为三个层次  高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度 低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度 中级调度：内存调度">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/yC8IKjo.png">
+<meta property="og:image" content="https://i.imgur.com/NZoTVUp.png">
+<meta property="og:image" content="https://i.imgur.com/oHUPcXu.png">
+<meta property="og:image" content="https://i.imgur.com/5R2w6fF.png">
+<meta property="og:image" content="https://i.imgur.com/cmZuzFf.png">
+<meta property="og:image" content="https://i.imgur.com/vd5ekYs.png">
+<meta property="og:image" content="https://i.imgur.com/5XOTJlu.png">
+<meta property="og:image" content="https://i.imgur.com/itV3elJ.png">
+<meta property="og:updated_time" content="2019-05-09T08:57:01.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="处理机调度与死锁">
+<meta name="twitter:description" content="处理机调度与死锁处理机调度基本概念处理机调度分为三个层次  高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度 低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度 中级调度：内存调度">
+<meta name="twitter:image" content="https://i.imgur.com/yC8IKjo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/09/处理机调度与死锁/"/>
+
+
+
+
+
+  <title>处理机调度与死锁 | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">aha~~~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/处理机调度与死锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">处理机调度与死锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:56:18+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/处理机调度与死锁/" class="leancloud_visitors" data-flag-title="处理机调度与死锁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="处理机调度与死锁"><a href="#处理机调度与死锁" class="headerlink" title="处理机调度与死锁"></a>处理机调度与死锁</h1><h2 id="处理机调度"><a href="#处理机调度" class="headerlink" title="处理机调度"></a>处理机调度</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>处理机调度分为三个层次</p>
+<ul>
+<li>高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度</li>
+<li>低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度</li>
+<li>中级调度：内存调度，主要目的是提高内存利用率和系统吞吐量，把暂时不能运行的进程调至外存等待，此时进程状态称为就绪驻外存状态（或挂起状态），当进程具备运行条件且内存又有空闲时，由中级调度决定，把外存上已具备运行条件的就绪进程重新调入内存，并挂在就绪队列上等待，实际上中级调度是存储器管理的对换功能</li>
+</ul>
+<p>调度的运行频率是低&gt;中&gt;高</p>
+<h4 id="调度队列模型"><a href="#调度队列模型" class="headerlink" title="调度队列模型"></a>调度队列模型</h4><p>仅有进程调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/yC8IKjo.png" alt=""></p>
+<p>同时具有三级调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/NZoTVUp.png" alt=""></p>
+<h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><p>多道批处理系统中，用户提交的作业先存放到外存，排成一个后备队列，作业调度程序按一定算法从后备队列中选择若干作业调入内存，使他们共享CPU和系统资源，当程序A因I/O而暂停执行时，再调度另一道程序B运行，这样可以保持CPU处于忙碌状态</p>
+<p>周转时间常用于批处理系统，指从作业被提交给系统开始，到作业完成的时间，分为</p>
+<ul>
+<li>驻外等待调度时间</li>
+<li>驻内等待调度时间</li>
+<li>执行时间</li>
+<li>阻塞时间</li>
+</ul>
+<p>平均周转时间可以表示为</p>
+<p><img src="https://i.imgur.com/oHUPcXu.png" alt=""></p>
+<p>带权周转时间描述进程在其周转时间中，等待和执行时间的具体分配情况，W=T/Ts，T是周转时间，Ts是系统为它提供服务的时间<br>平均带权周转时间表示为</p>
+<p><img src="https://i.imgur.com/5R2w6fF.png" alt=""></p>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><h4 id="先来先服务-FCFS-和短作业优先-SJF-调度算法"><a href="#先来先服务-FCFS-和短作业优先-SJF-调度算法" class="headerlink" title="先来先服务(FCFS)和短作业优先(SJF)调度算法"></a>先来先服务(FCFS)和短作业优先(SJF)调度算法</h4><p>它们都可以用于作业调度和进程调度</p>
+<p>FCFS(first-come first-served)就不解释了，SJF（short job first)以作业长短计算优先级，作业越短优先级越高，作业长度以作业所要求的运行时间来衡量，SJF缺点是必须预知作业的运行时间，对长作业非常不利，人机无法交互，未考虑作业紧迫程度。</p>
+<h5 id="FCFS和SJF的比较"><a href="#FCFS和SJF的比较" class="headerlink" title="FCFS和SJF的比较"></a>FCFS和SJF的比较</h5><p><img src="https://i.imgur.com/cmZuzFf.png" alt=""></p>
+<p>在SJF中，当A完成后，此时时间为4，B,C,D,E均已到达，因为D的作业最短，所以处理机先为D服务，然后为B，E，C服务</p>
+<h4 id="高优先权优先调度算法"><a href="#高优先权优先调度算法" class="headerlink" title="高优先权优先调度算法"></a>高优先权优先调度算法</h4><p>可以作为作业调度和进程调度</p>
+<p>优先级调度算法（PSA，priority-scheduling algorithm）分为非抢占式优先权算法和抢占式优先权算法，抢占式实时性更好</p>
+<p>优先权的类型分为</p>
+<ul>
+<li>静态优先权：整个运行期不变</li>
+<li>动态优先权：优先权随执行时间而下降，随等待时间而上升，响应比Pp=(等待时间+服务时间)/服务时间作为优先权，优点是长短兼顾，缺点是需要计算Rp</li>
+</ul>
+<h5 id="高响应比优先算法-HRRN-Highest-Response-Ratio-Next"><a href="#高响应比优先算法-HRRN-Highest-Response-Ratio-Next" class="headerlink" title="高响应比优先算法(HRRN,Highest Response Ratio Next)"></a>高响应比优先算法(HRRN,Highest Response Ratio Next)</h5><p>响应比Rp=(tw+ts)/ts，tw为等待时间，ts为服务时间</p>
+<h4 id="基于时间片的轮转调度算法-RR"><a href="#基于时间片的轮转调度算法-RR" class="headerlink" title="基于时间片的轮转调度算法(RR)"></a>基于时间片的轮转调度算法(RR)</h4><p>进程调度算法，基于时间片的轮转(RR,round robin)让就绪队列上的每个进程每次仅运行一个时间片，每个进程每次大约都可获得1/n的处理机时间</p>
+<h5 id="进程切换时间"><a href="#进程切换时间" class="headerlink" title="进程切换时间"></a>进程切换时间</h5><ul>
+<li>若一个时间片尚未用完，正在运行的进程已经完成，则激活调度程序，将它从就绪队列中删除，再调度就绪队列中队首的进程运行，并启动一个新的时间片</li>
+<li>若时间片用完，计时器中断处理程序激活，调度程序把它送往就绪队列的队尾</li>
+</ul>
+<h5 id="时间片大小的确定"><a href="#时间片大小的确定" class="headerlink" title="时间片大小的确定"></a>时间片大小的确定</h5><p>若时间片太大，则退化为FCFS，若太小，则系统开销过大，时间片大小确定应考虑系统对响应时间的要求，就绪队列中进程的数目和系统的处理能力（应保证一个时间片处理完常用命令）</p>
+<h4 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h4><p>实时调度必须提供：</p>
+<ul>
+<li>就需时间：某任务成为就绪的起始时间</li>
+<li>开始/完成截止时间</li>
+<li>处理时间</li>
+<li>资源要求</li>
+<li>优先级</li>
+</ul>
+<p>非抢占式用时间片轮转，抢占式可以时钟中断或立即抢占（只要不在临界区就抢占）</p>
+<h4 id="常见的实时调度算法"><a href="#常见的实时调度算法" class="headerlink" title="常见的实时调度算法"></a>常见的实时调度算法</h4><h5 id="最早截止时间优先EDF"><a href="#最早截止时间优先EDF" class="headerlink" title="最早截止时间优先EDF"></a>最早截止时间优先EDF</h5><p>根据任务的开始截止时间来确定任务优先级</p>
+<h5 id="最低松弛度优先LLF"><a href="#最低松弛度优先LLF" class="headerlink" title="最低松弛度优先LLF"></a>最低松弛度优先LLF</h5><p>松弛（紧急）程度=完成截止时间-处理时间-当前时间</p>
+<p>主要用于可抢占的调度方式</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁定义：如果一组进程中的每一个进程都在等待仅由该组进程中的其它进程才能引发的事件，那么该组进程是死锁的。</p>
+<p>产生死锁的原因</p>
+<ul>
+<li>竞争资源引起死锁：竞争不可抢占的资源或可消耗资源引起死锁</li>
+<li>进程推进顺序不当</li>
+</ul>
+<p>产生死锁必要条件</p>
+<ul>
+<li>互斥条件：资源必须互斥</li>
+<li>请求和保持条件：进程已经保持至少一个资源但又提出新的资源请求</li>
+<li>不可抢占条件：资源不可抢占</li>
+<li>循环等待条件：发生死锁时，必然存在一个进程——资源的循环链，即P0等待P1占用的资源，P1等待P2占用的资源，Pn等待P0占用的资源</li>
+</ul>
+<p>解决死锁的方法</p>
+<ul>
+<li>预防死锁</li>
+<li>避免死锁</li>
+<li>检测死锁</li>
+<li>解除死锁</li>
+</ul>
+<h3 id="解决死锁的方法"><a href="#解决死锁的方法" class="headerlink" title="解决死锁的方法"></a>解决死锁的方法</h3><h4 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h4><p>预防死锁：破坏产生死锁的4个必要条件之一，互斥条件一般是不能破坏的，所以主要是破坏产生死锁的后三个条件，预防死锁有效，但资源利用率低</p>
+<p>摒弃请求和保持条件：资源一次性分配<br>摒弃不剥夺条件：新申请不能满足就释放已获得资源<br>摒弃环路条件：资源有序分配，为资源编号，申请时按编号进行</p>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><p>避免死锁是在资源动态分配过程中，防止系统进入不安全状态，以避免发生死锁，最经典的避免死锁的算法是银行家算法</p>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><ul>
+<li>可利用资源向量Available：含有m个元素的数组，每个元素代表一类可利用的资源数目，初始值是系统配置的该类全部可用资源的数目，Available[j]=K表示系统中现有Rj类资源的最大数目K个</li>
+<li>最大需求矩阵Max：是一个n*m的矩阵，定义了系统中n个进程中每一个进程对m类资源的最大需求，如果Max[i, j]=K，则表示进程i需要Rj类资源的最大数目为K</li>
+<li>分配矩阵Allocation：n*m矩阵，定义了系统中每一类资源当前已分配给每一进程的资源数，如果Allocation[i, j]=K，则表示进程i当前已分得Rj类资源的数目为K</li>
+<li>需求矩阵Need：n*m矩阵，用来表示每一个进程尚需的各类资源数，如果Need[i, j]=K，表示进程i还需要Rj类资源K个</li>
+</ul>
+<p>Need[i, j] = Max[i, j] - Allocation[i, j]</p>
+<h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><p>设Requesti是进程Pi的请求向量，如果Requesti[j]=K，则表示进程Pi需要K个Rj类的资源，当Pi发出资源请求后，系统按下述步骤进行检查</p>
+<ol>
+<li>如果Requesti[j] &lt;= Need[i, j]，则转向步骤2，否则认为出错，因为它申请的资源大于它宣布的最大值</li>
+<li>如果Requesti[j] &lt;= Available[j]，则转向步骤3，否则尚无足够资源，Pi需等待</li>
+<li>系统试探把资源分配给进程Pi，并修改下面数据结构的数值<br> Available[j] = Available[j] - Requesti[j];<br> Allocation[i, j] = Allocation[i, j] + Requesti[j];<br> Need[i, j] = Need[i, j] - Requesti[j];</li>
+<li>系统执行安全性算法，检查此次资源分配后系统是否处于安全状态，若安全，才正式分配资源给Pi，否则本次试探分配作废，恢复原来的资源分配状态，让进程Pi等待</li>
+</ol>
+<h5 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h5><p>如上面所述，<strong>安全性算法是试探性分配后（即修改了Available，Allocation，Need但未正式分配资源）进行的，若安全才正式分配，否则试探分配作废</strong>，算法如下</p>
+<ol>
+<li>设置两个向量：工作向量Work，表示系统可提供给进程继续运行所需的各类资源数目，含有m个元素，执行安全算法开始时，Work=Available；Finish，它表示系统是否有足够资源分配给进程，使之运行完成。开始时Finish[i]=false，当有足够资源分配给进程时，再令Finish[i]=true</li>
+<li>从进程集合中找到一个满足下述条件的进程：<br>Finish[i]=false;<br>Need[i, j] &lt;= Work[j];<br>若找到，则转向步骤3，否则转向步骤4</li>
+<li><strong>假如</strong>进程Pi获得资源，则进程Pi可顺利执行，直到完成，并释放分配给它的资源，故应执行<br>Work[j] = Work[j] + Allocation[i, j];<br>Finish[i] = true;<br>go to step 2;</li>
+<li>如果所有进程的Finish[i]=true都满足，则表示系统处于安全状态，否则，系统处于不安全状态</li>
+</ol>
+<h5 id="银行家算法安全性检查的例子"><a href="#银行家算法安全性检查的例子" class="headerlink" title="银行家算法安全性检查的例子"></a>银行家算法安全性检查的例子</h5><p><img src="https://i.imgur.com/vd5ekYs.png" alt=""></p>
+<p><img src="https://i.imgur.com/5XOTJlu.png" alt=""></p>
+<p>一开始检查，发现p0不满足第2步的条件，p1满足，就把p1的资源释放，加到Work，然后继续检查，p2不满足，p3满足，则释放掉p3的资源，然后释放，最后所有的进程都释放了</p>
+<p>P.S.解题的时候，画表，行是每个进程，列依次是Work,Need,Allocation,Work+Allocation,Finish</p>
+<h4 id="检测死锁"><a href="#检测死锁" class="headerlink" title="检测死锁"></a>检测死锁</h4><h5 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h5><p><img src="https://i.imgur.com/itV3elJ.png" alt=""></p>
+<p>资源分配图圆圈表示进程，方框表示资源，方框内点表示资源数，箭头由资源指向进程表示一个单位的资源分配给进程，进程指向资源表示进程请求一个单位的资源</p>
+<h5 id="死锁定理"><a href="#死锁定理" class="headerlink" title="死锁定理"></a>死锁定理</h5><p>S为死锁状态的充分条件是当且仅当S状态的资源分配图是不可完全简化</p>
+<h5 id="资源分配图的简化"><a href="#资源分配图的简化" class="headerlink" title="资源分配图的简化"></a>资源分配图的简化</h5><p>找出既不阻塞又非独立的进程结点Pi，去掉所有分配边和请求边，若能去掉所有结点的所有分配边和请求边，则不会发生死锁，否则发生死锁</p>
+<h4 id="解除死锁"><a href="#解除死锁" class="headerlink" title="解除死锁"></a>解除死锁</h4><p>主要方法</p>
+<ul>
+<li>抢占资源：从一个或多个进程抢占足够资源分配给死锁进程</li>
+<li>终止进程</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OS/" rel="tag"># OS</a>
+          
+            <a href="/tags/调度/" rel="tag"># 调度</a>
+          
+            <a href="/tags/死锁/" rel="tag"># 死锁</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/08/进程管理/" rel="next" title="进程管理">
+                <i class="fa fa-chevron-left"></i> 进程管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/09/存储器管理/" rel="prev" title="存储器管理">
+                存储器管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#处理机调度与死锁"><span class="nav-number">1.</span> <span class="nav-text">处理机调度与死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理机调度"><span class="nav-number">1.1.</span> <span class="nav-text">处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调度队列模型"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">调度队列模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#周转时间"><span class="nav-number">1.1.2.</span> <span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度算法"><span class="nav-number">1.1.3.</span> <span class="nav-text">调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#先来先服务-FCFS-和短作业优先-SJF-调度算法"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">先来先服务(FCFS)和短作业优先(SJF)调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#FCFS和SJF的比较"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">FCFS和SJF的比较</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高优先权优先调度算法"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">高优先权优先调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#高响应比优先算法-HRRN-Highest-Response-Ratio-Next"><span class="nav-number">1.1.3.2.1.</span> <span class="nav-text">高响应比优先算法(HRRN,Highest Response Ratio Next)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于时间片的轮转调度算法-RR"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">基于时间片的轮转调度算法(RR)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#进程切换时间"><span class="nav-number">1.1.3.3.1.</span> <span class="nav-text">进程切换时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间片大小的确定"><span class="nav-number">1.1.3.3.2.</span> <span class="nav-text">时间片大小的确定</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实时调度"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">实时调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的实时调度算法"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">常见的实时调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最早截止时间优先EDF"><span class="nav-number">1.1.3.5.1.</span> <span class="nav-text">最早截止时间优先EDF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最低松弛度优先LLF"><span class="nav-number">1.1.3.5.2.</span> <span class="nav-text">最低松弛度优先LLF</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">1.2.</span> <span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决死锁的方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">解决死锁的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预防死锁"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">预防死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免死锁"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">避免死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#银行家算法"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">银行家算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#算法流程"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">算法流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安全性算法"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">安全性算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#银行家算法安全性检查的例子"><span class="nav-number">1.2.1.3.4.</span> <span class="nav-text">银行家算法安全性检查的例子</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测死锁"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">检测死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#资源分配图"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">资源分配图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#死锁定理"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">死锁定理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源分配图的简化"><span class="nav-number">1.2.1.4.3.</span> <span class="nav-text">资源分配图的简化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解除死锁"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">解除死锁</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

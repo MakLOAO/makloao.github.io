@@ -369,7 +369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/进程管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/存储器管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -388,7 +388,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/07/进程管理/" itemprop="url">进程管理</a></h1>
+                <a class="post-title-link" href="/2019/05/09/存储器管理/" itemprop="url">存储器管理</a></h1>
         
 
         <div class="post-meta">
@@ -400,8 +400,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-07T10:41:18+08:00">
-                2019-05-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T23:05:18+08:00">
+                2019-05-09
               </time>
             
 
@@ -440,7 +440,551 @@
 
           
           
-             <span id="/2019/05/07/进程管理/" class="leancloud_visitors" data-flag-title="进程管理">
+             <span id="/2019/05/09/存储器管理/" class="leancloud_visitors" data-flag-title="存储器管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h1><h2 id="存储器管理概述"><a href="#存储器管理概述" class="headerlink" title="存储器管理概述"></a>存储器管理概述</h2><h3 id="存储器的多层结构"><a href="#存储器的多层结构" class="headerlink" title="存储器的多层结构"></a>存储器的多层结构</h3><p>由于CPU与存储器的速度不匹配，需要对存储器进行分层，经典是三层结构：CPU寄存器，主存和辅存，目前比较高级的分层是六层：寄存器，高速缓存，主存储器，磁盘缓存，固定磁盘和可移动存储介质，层次越高，速度越快，但价格越高，存储容量越小</p>
+<p>高速缓存常用SRAM，内存DRAM，SDRAM等，外存是软盘，硬盘，光盘等</p>
+<p><img src="https://i.imgur.com/j0Z0S0T.png" alt=""></p>
+<h4 id="各层次作用"><a href="#各层次作用" class="headerlink" title="各层次作用"></a>各层次作用</h4><p>主存又称内存，用于保存进程运行的程序和数据，处理机都是从主存储器取指令和数据的，并把指令放入指令寄存器，数据放入数据寄存器，或者反过来把寄存器中的数据存入主存储器。</p>
+<p>寄存器有与处理机相同的速度</p>
+<p>高速缓存是介于寄存器和存储器之间的存储器，主要用于备份主存常用的数据，减少处理机对主存的访问次数，可以大幅度提高程序执行速度</p>
+<p>磁盘缓存是为了缓和磁盘I/O速度和主存访问速度的不匹配，主要用于暂时存放频繁使用的一部分磁盘数据和信息，以减少访问磁盘的次数，它本身不是一种实际存在的存储器，而是利用主存中部分存储空间暂时存放从磁盘中读出或写入的信息</p>
+<h3 id="存储器管理功能"><a href="#存储器管理功能" class="headerlink" title="存储器管理功能"></a>存储器管理功能</h3><p>存储器管理主要有如下功能</p>
+<ul>
+<li>存储分配和回收：分配和和回收算法及相应的数据结构</li>
+<li>地址变换<ul>
+<li>可执行文件生成中的链接技术</li>
+<li>程序加载（装入）时的重定位技术</li>
+<li>进程运行时硬件和软件的地址变换技术和机构</li>
+</ul>
+</li>
+<li>存储共享和保护<ul>
+<li>代码和数据共享</li>
+<li>地址空间访问权限（读，写，执行）</li>
+</ul>
+</li>
+<li>存储器扩充</li>
+</ul>
+<h3 id="重定位概念"><a href="#重定位概念" class="headerlink" title="重定位概念"></a>重定位概念</h3><p>重定位是实现逻辑地址（相对地址）到物理地址（绝对地址）的映射<br>逻辑地址：应用程序的地址都是从0开始的<br>物理地址：主存中一系列存储信息的物理单元的地址</p>
+<h3 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h3><p>一个程序一般有5个过程，编辑，编译，链接，装入和运行</p>
+<p>程序装入分为绝对装入和可重定位装入和动态运行时装入<br>绝对装入指编译后，装入前已产生绝对地址，装入时不需要再作地址重定位，绝对地址由编译器或程序员编程完成<br>可重定位装入指静态重定位，静态重定位指地址转换在装入时一次完成，缺点是不允许程序在运行中在内存中移动位置<br>动态运行时装入在把装入模块装入内存后，并不立即把装入模块中的逻辑地址转换成物理地址，而是把这种地址转换推迟到程序真正要执行的时候才进行，因此，装入内存后的地址都是逻辑地址，需要一个重定位寄存器的支持</p>
+<h3 id="程序的链接"><a href="#程序的链接" class="headerlink" title="程序的链接"></a>程序的链接</h3><p>源程序编译后得到一组目标模块，链接程序的功能是将这组目标模块以及它们所需要的库函数装配成一个完整的装入模块</p>
+<p>静态链接：对相对地址进行修改，变换外部调用符号<br>动态链接：便于修改和更新，便于实现对目标模块的共享<br>运行时动态链接</p>
+<h2 id="连续分配管理方式"><a href="#连续分配管理方式" class="headerlink" title="连续分配管理方式"></a>连续分配管理方式</h2><p>为了能将用户程序装入内存，必须为它分配一定大小的内存空间，连续分配方式是最早出现的一种存储器分配方式</p>
+<h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><p>用于单用户单任务中，把内存分为系统区和用户区，应用程序装入到用户区，可使用用户区全部空间，优点是易于管理，缺点是对要求内存空间少的程序造成内存浪费，程序全部装入，很少使用的程序部分也会占用内存</p>
+<h3 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h3><p>特点：有n个分区，可同时装入n个作业/任务<br>固定分区可以把分区划分为相等的跟不相等的，不相等的利用率更高</p>
+<p>数据结构：分区使用表，将分区按大小排序，并将地址，分配标识符（是否已分配），大小作记录，由于每个分区的大小固定，必然会造成存储空间的浪费</p>
+<h3 id="可变式分区"><a href="#可变式分区" class="headerlink" title="可变式分区"></a>可变式分区</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ul>
+<li>空闲分区表：记录每个空闲分区的情况，每个空闲分区占一个表目，表目中包括分区号，分区大小和分区始址等。</li>
+<li>空闲分区链：实现对空闲分区表的分配和链接，在每个分区的起始部分设置一些用于控制分区分配的信息，以及用于链接各分区所用的前向指针，在分区尾部设置一后向指针，通过前后向链接指针，可将所有空闲分区链接成一个双向链，分区尾部重复设置状态位和分区大小表目，当分区被分配出去后，状态位由”0”改为”1”，此时前后指针无意义</li>
+</ul>
+<p><img src="https://i.imgur.com/JiCVrro.png" alt=""></p>
+<h4 id="分配算法"><a href="#分配算法" class="headerlink" title="分配算法"></a>分配算法</h4><p>为把一个新作业装入内存，须按照一定的分配算法，从空闲分区表或空闲分区链中选一分区分配给该作业</p>
+<h4 id="分区分配操作"><a href="#分区分配操作" class="headerlink" title="分区分配操作"></a>分区分配操作</h4><h5 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h5><p>利用某种分配算法，从空闲分区链（表）中找到所需大小的分区，设请求的分区大小是u.size，表中每个空闲分区的大小可表示为m.size，若m.size-u.size&lt;=size（size是事先规定的不再切割的剩余分区的大小）说明多余部分太小，可不再切割，将整个分区分配给请求者，并从分区链移除，否则从该分区中按请求的大小划分找出一块内存空间分配出去，余下的部分仍留在空闲分区链（表）中，然后将分配区的首地址返回给调用者</p>
+<p><img src="https://i.imgur.com/waRwwTm.png" alt=""></p>
+<h5 id="回收内存"><a href="#回收内存" class="headerlink" title="回收内存"></a>回收内存</h5><p>当进程运行完毕释放内存后，系统根据<strong>回收区的首地址</strong>，从空闲区链（表）中找到相应的插入点，此时可能出现下面四种情况</p>
+<ul>
+<li>回收区与插入点前一个空闲分区F1相邻接，此时应将回收区与插入点前一分区合并，不必为回收区分配新表项，而只需修改前一分区F1的大小</li>
+<li>回收区与插入点后一个空闲分区F2相邻接，此时将两分区合并，形成新的空闲分区，但用回收区的首地址作为新空闲区的首地址，大小为两者之和</li>
+<li>回收区同时与插入点的前，后两个分区邻接，此时将三个分区合并，使用F1的表项和F1的首地址，取消F2的表项，大小为三者之和</li>
+<li>回收区既不与F1邻接也不与F2邻接：新建表项，填入回收区首地址和大小，插入到空闲链适当位置</li>
+</ul>
+<p><img src="https://i.imgur.com/M2f7lE3.png" alt=""></p>
+<h3 id="分配算法-1"><a href="#分配算法-1" class="headerlink" title="分配算法"></a>分配算法</h3><h4 id="基于顺序搜索的动态分区分配算法"><a href="#基于顺序搜索的动态分区分配算法" class="headerlink" title="基于顺序搜索的动态分区分配算法"></a>基于顺序搜索的动态分区分配算法</h4><ul>
+<li>首次适应(first fit, FF)算法：空闲分区链以地址递增的次序链接，从链首开始顺序查找直到找到一个大小能满足要求的空闲分区为止，然后从该分区划出一块内存空间分配给请求者</li>
+<li>循环首次适应(next fit, NF)算法：不再是每次都从链首开始查找，而是从上次找到的空闲分区的下一个空闲分区开始查找</li>
+<li>最佳适应(best fit, BF)算法：每次为作业分配内存时，总是把能满足要求又是最小的空闲分区分配给作业，要求所有空闲分区按容量从大到小顺序形成一空闲分区链</li>
+<li>最坏适应(worst fit, WF)算法：总是挑选最大的空闲区从中分割一部分存储空间给作业使用，要求将所有空闲分区按容量从大到小形成一空闲分区链，查找时只需看抵押给分区是否满足作业要求</li>
+</ul>
+<h4 id="基于索引搜索的动态分区分配算法"><a href="#基于索引搜索的动态分区分配算法" class="headerlink" title="基于索引搜索的动态分区分配算法"></a>基于索引搜索的动态分区分配算法</h4><ul>
+<li>快速适应(quick fit)算法：将空闲分区根据容量大小分类，对于每一类具有相同容量的所有空闲分区，单独设立一个空闲分区链，内存设立一张管理索引表，索引表项对应空闲分区类型，并记录该类型空闲分区链表表头的指针，根据进程常用空间大小划分，比如2KB，4KB，8KB等，7KB可以放在8KB也可以放在特殊的空闲分区链表中</li>
+<li>伙伴系统：无论已分配分区或空闲分区，其大小均为2的k次幂，对于相同大小空闲分区单独设立一个空闲分区双向链表，不同大小的空闲分区形成了k个空闲分区链表，对于进程分配一个长度为n的存储空间时，计算i值，使2^(i-1) &lt; n &lt;= 2^i，先从2^i的空闲分区查找，若找到就分配，没有则从2^(i+1)的空闲分区查找，找到就分为相等的两个分区，称为一对伙伴，其中一个分区用于分配，另一个分区加入到2^i的空闲分区链表中</li>
+<li>哈希算法，构造空闲分区大小为关键字的哈希表，每一个表项记录一个对应的空闲分区链表表头指针</li>
+</ul>
+<h4 id="动态可重定位分区分配"><a href="#动态可重定位分区分配" class="headerlink" title="动态可重定位分区分配"></a>动态可重定位分区分配</h4><ul>
+<li>紧凑：连续分配方式的一个重要特点是：一个系统或用户程序必须被装入一片连续的内存空间中，当计算机运行一段时间后，它的内存空间会被划分为许多小的分区，而缺乏大的空闲空间，当有大作业要加入，因为小分区不邻接，无法分配内存给大作业，紧凑就是将内存中的所有<strong>作业</strong>进行移动，使它们全都相邻接，这样，原来分散的多个空闲小分区拼接成一个大分区，每次紧凑后，必须对移动了的程序或数据进行重定位</li>
+<li>动态重定位：动态运行时装入的方式，作业装入内存后所有地址仍然是相对地址，而将相对地址转换成绝对地址的工作被推迟到程序指令要真正执行的时候进行，设一个重定位寄存器，用它存放程序（数据）在内存中的起始地址，程序执行时真正访问的地址是相对地址与重定位寄存器的地址相加而形成的</li>
+</ul>
+<p><img src="https://i.imgur.com/UkxuVZ5.png" alt=""></p>
+<p><img src="https://i.imgur.com/ayDa85o.png" alt=""></p>
+<h2 id="对换"><a href="#对换" class="headerlink" title="对换"></a>对换</h2><p>对换的引入：将阻塞进程，暂时不用的程序，数据换出，将具备运行条件的进程换入<br>类型：</p>
+<ul>
+<li>整体对换：进程对换，解决内存紧张</li>
+<li>部分对换：页面对换/分段对换：提供虚存支持</li>
+</ul>
+<h3 id="对换空间的管理"><a href="#对换空间的管理" class="headerlink" title="对换空间的管理"></a>对换空间的管理</h3><p>具有对换功能的OS中，常把磁盘空间分为文件区和对换区，对换区比文件区侧重于对换速度，因此对换区一般采用连续分配，采用数据结构和分配回收类似于可变化分区分配</p>
+<h3 id="进程的换出与换入"><a href="#进程的换出与换入" class="headerlink" title="进程的换出与换入"></a>进程的换出与换入</h3><p>当内存不足时，便调用对换进程，实现进程的换出和换入</p>
+<h4 id="进程的换出"><a href="#进程的换出" class="headerlink" title="进程的换出"></a>进程的换出</h4><ol>
+<li>选择被换出的进程：选择因素：优先级，驻留时间，进程状态</li>
+<li>进程换出过程：共享段计数减一，如果是0就换出，修改PCB和MCB</li>
+</ol>
+<h4 id="进程的换入"><a href="#进程的换入" class="headerlink" title="进程的换入"></a>进程的换入</h4><ol>
+<li>选择换入进程：优先级，换出时间等</li>
+<li>申请内存</li>
+<li>换入</li>
+</ol>
+<h2 id="分页存储管理方式"><a href="#分页存储管理方式" class="headerlink" title="分页存储管理方式"></a>分页存储管理方式</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>分页主要是将用户程序的地址空间划分为若干个固定大小的区域，称为”页”或”页面”，典型的页面大小为1kb，相应地，也将内存空间分为若干个物理块或页框，页和块的大小相同，这样可以将用户程序的任一页放入任一物理块中，实现离散分配（页是相对用户程序的地址而言，页框或者块是相对内存空间而言）</p>
+<p>离散分配的引入：连续分配引起碎片，紧凑方式消耗系统开销</p>
+<h3 id="分页存储管理的基本方法"><a href="#分页存储管理的基本方法" class="headerlink" title="分页存储管理的基本方法"></a>分页存储管理的基本方法</h3><h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p><img src="https://i.imgur.com/UpDwi5n.png" alt=""></p>
+<p>A：逻辑地址空间的地址 L：页面的大小</p>
+<p>包含两部分内容：前一部分为页号P，后一部分为位（偏）移量W，即页内地址，图中的地址长度为32位，其中0——11位为页内地址，即每页大小4KB（页面大小），12——31位为页号，地址空间最多允许有1M页</p>
+<h4 id="页的计算例子"><a href="#页的计算例子" class="headerlink" title="页的计算例子"></a>页的计算例子</h4><p><img src="https://i.imgur.com/df5F6fB.png" alt=""></p>
+<h4 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h4><p>为了能在内存中找到每个页面对应的物理块，系统为每个进程建立一张页面映射表，为页表，在进程地址空间内的所有页(0——n)，依次在页表中有一页表项，其中记录了相应页在内存中对应的物理块号，实现从页号到物理块号的地址映射</p>
+<p><img src="https://i.imgur.com/ElwJb15.png" alt=""></p>
+<h3 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p>为了能将用户地址空间中的逻辑地址转换成内存空间中的物理地址，系统中设立了地址变换机构，地址变换机构任务实际只是将逻辑地址中的页号转换为内存中的物理块号（页内地址与物理块内的地址是一样的，所以不需要变换），地址变换任务就是<strong>借助页表实现的</strong></p>
+<h4 id="基本地址变换机构"><a href="#基本地址变换机构" class="headerlink" title="基本地址变换机构"></a>基本地址变换机构</h4><ul>
+<li>越界保护</li>
+<li>每个进程对应一页表，其信息（如长度，始址）放在PCB中，执行时将其首地址装入页表寄存器</li>
+</ul>
+<p>页表是驻留在内存中的，当调度程序调度某程序的时候，才将PCB中的页表始址和页表长度装入页表寄存器（一个进程对应一个页表，所以对不同页表，需要有页表始址来区分）</p>
+<p><img src="https://i.imgur.com/eL5lZKb.png" alt=""></p>
+<h5 id="地址变换过程"><a href="#地址变换过程" class="headerlink" title="地址变换过程"></a>地址变换过程</h5><p>当进程要访问某个逻辑地址的数据时，分页地址变换机构会自动地将有效地址（相对地址）分为页号和页内地址两部分，再以页号为索引区检索页表，查找操作由硬件执行。在检索之前，先将页号与页表长度比较，若大于或等于页表长度，则表示本次所访问的地址已超越进程的地址空间，产生一地址越界中断。若未出现越界错误，则将页表始址与页号和页表项长度的乘积相加，便得到该表项在页表中的位置，于是可从中得到该页的物理块号，将它装入物理地址寄存器，然后把页内地址送入物理地址寄存器的块内地址字段中，这样便完成了逻辑地址到物理地址的变换</p>
+<h5 id="我对将页表始址与页号和页表项长度的乘积相加地理解"><a href="#我对将页表始址与页号和页表项长度的乘积相加地理解" class="headerlink" title="我对将页表始址与页号和页表项长度的乘积相加地理解"></a>我对将页表始址与页号和页表项长度的乘积相加地理解</h5><p>页表项长度应该就是页表项（即物理块）的地址的长度<br>通过上述式子的计算，得到的是一个地址值（页表始址+页号*页表项长度（地址长度）），这个地址值应该是页表中该页表项的物理内存地址，访问这个物理内存地址，就得到这个物理块号了</p>
+<h5 id="需要考虑的问题"><a href="#需要考虑的问题" class="headerlink" title="需要考虑的问题"></a>需要考虑的问题</h5><p>直接映射的分页系统对系统效能不利，因为CPU需要访问两次主存才能得到所需要的数据，第一次访问是访问主存中的页表，从中找到指定页的物理块号再将块号与页内偏移量W拼接形成物理地址，第二次访问是从第一次所得地址中获得实际数据，为了解决这个问题，引入快表</p>
+<h4 id="具有快表的地址变换机构"><a href="#具有快表的地址变换机构" class="headerlink" title="具有快表的地址变换机构"></a>具有快表的地址变换机构</h4><p>为了提高地址变换速度，在地址变换机构中增设一个具有并行查寻能力的特殊高速缓冲寄存器，又称为”联想寄存器”，或称为”快表”，或者TLB，用以存放当前访问的那些页表项，此时地址变换过程是这样的：</p>
+<p>在CPU给出有效地址后，由地址变换机构自动地将页号P送入高速缓冲寄存器，并将此页号与高速缓存中地所有页号进行比较，若其中有与此相匹配的页号，便表示所要访问的页表项在快表中，于是，可直接从快表中读出该页所对应的物理块号，并送到物理地址寄存器，如在快表中没有找到对应的页表项，则还须再访问内存中的页表，找到后把从页表中读出的物理块号送往地址寄存器，同时，再将此页表项存入快表的一个寄存器单元中，如果快表满了，则OS找到一个老的且被认为不需要的页表项换出</p>
+<p><img src="https://i.imgur.com/IxGYPDQ.png" alt=""></p>
+<h3 id="访问内存的有效时间"><a href="#访问内存的有效时间" class="headerlink" title="访问内存的有效时间"></a>访问内存的有效时间</h3><p>从进程发出指定逻辑地址的访问请求，经过地址变换，到在内存中找到对应的实际物理地址单元并取出数据，所需要花费的总时间，称为内存的有效访问时间（Effective Access Time, EAT)，有效访问时间分为第一次访问内存时间（即查找页表对应的页表项所耗费的时间t）与第二次访问内存时间（即将页表项的物理块与页内地址拼接成实际物理地址所耗费的时间t）之和</p>
+<p>t：访问一次内存所需要的时间<br>EAT=t+t=2*t</p>
+<p>引入快表后，快表命中率a，查找快表需要的时间λ</p>
+<p>EAT=a<em>(t+λ)+(1-a)(2t+λ)=2</em>t+λ-t*a</p>
+<h3 id="两级和多级页表"><a href="#两级和多级页表" class="headerlink" title="两级和多级页表"></a>两级和多级页表</h3><p><img src="https://i.imgur.com/a87JQe4.jpg" alt=""></p>
+<p>两级页表的逻辑地址结构</p>
+<p><img src="https://i.imgur.com/vAODx2G.png" alt=""></p>
+<p><img src="https://i.imgur.com/dmvJmwv.png" alt=""></p>
+<p>以前面的32位逻辑地址空间为例，当页面大小为4KB的时候(12位)，采用两级页表结构时，再对页表进行分页，使每页包含2^10个页表项，或者说，外层页表中的外层页内地址P2为10位，外层页号P1也为10位</p>
+<p>（通过外部页号得到P2的始址，然后P2和d就可以通过上面说过的地址变换过程获得物理地址了）<br>外层页表的每个页表项中存放的是某页表分页的首地址，地址变换机构中同样要增加外层页表寄存器，用于存放外层页表的始址，并利用逻辑地址中的外层页号作为外层页表的索引，从中找到指定页表的始址（同上页表始址与页号和页表项长度乘积相加那个原理），再利用P2作为指定页表分页的索引，找到指定页表项，即含有该页在内存中的物理块号，用该块号P和页内地址d即可构成访问的内存物理地址</p>
+<h4 id="一个练习小例子"><a href="#一个练习小例子" class="headerlink" title="一个练习小例子"></a>一个练习小例子</h4><p><img src="https://i.imgur.com/NzHTbzz.png" alt=""></p>
+<p><img src="https://i.imgur.com/nzZDyXX.png" alt=""></p>
+<p><img src="https://i.imgur.com/Pypgxvw.png" alt=""></p>
+<h2 id="分段存储管理系统"><a href="#分段存储管理系统" class="headerlink" title="分段存储管理系统"></a>分段存储管理系统</h2><p>基本思想：按程序的逻辑结构，将程序的地址空间划分为若干段，各段大小可不相同，在进行存储分配时，以段为单位，这些段在内存中可以不相邻接<br>为什么引入：一方面程序可分为若干个段，主程序段，子程序段A，子程序段B，数据段，栈段等，另一方面实现和满足信息共享，信息保护，动态链接以及信息的动态增长等需要</p>
+<h3 id="分段系统基本原理"><a href="#分段系统基本原理" class="headerlink" title="分段系统基本原理"></a>分段系统基本原理</h3><h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>每个段定义了一组逻辑信息，分段地址的地址具有如下结构</p>
+<p><img src="https://i.imgur.com/lIzzMcm.png" alt=""></p>
+<h4 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h4><p><img src="https://i.imgur.com/0jaI7D8.png" alt=""></p>
+<h4 id="地址变换过程-1"><a href="#地址变换过程-1" class="headerlink" title="地址变换过程"></a>地址变换过程</h4><p><img src="https://i.imgur.com/NI7gUs6.png" alt=""></p>
+<p>设置了段表寄存器，用于存放段表始址和段表长度TL，在进行地址变换时，系统将逻辑地址中的段号和段表长度TL进行比较，若S&gt;TL，表示段号太大，访问越界，若未越界，则根据段表始址和段号，计算出该段对应段表项的位置（物理地址），从中读出该段在内存的起始地址，然后检查段内地址d是否超过该段段长SL，若超过，即d&gt;SL，同样发出越界中断，若未越界，则该段基址d与段内地址相加，即可得到要访问的内存物理地址</p>
+<p>分段同样需要访问两次内存，同样由联想存储器用于保存最近常用的段表项</p>
+<h2 id="分页和分段主要区别"><a href="#分页和分段主要区别" class="headerlink" title="分页和分段主要区别"></a>分页和分段主要区别</h2><ul>
+<li>页是信息的物理单位，段是逻辑单位</li>
+<li>页长度固定由系统决定，段长度不固定</li>
+<li>分页用户程序地址空间是一维的，分段是二维的，既要给出段名又要给出段内地址</li>
+</ul>
+<h2 id="段页式存储管理方式"><a href="#段页式存储管理方式" class="headerlink" title="段页式存储管理方式"></a>段页式存储管理方式</h2><p><img src="https://i.imgur.com/Epa98nQ.png" alt=""></p>
+<p><img src="https://i.imgur.com/VyaIZ0X.png" alt=""></p>
+<p><img src="https://i.imgur.com/kQnRsbQ.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/处理机调度与死锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/处理机调度与死锁/" itemprop="url">处理机调度与死锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:56:18+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/处理机调度与死锁/" class="leancloud_visitors" data-flag-title="处理机调度与死锁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="处理机调度与死锁"><a href="#处理机调度与死锁" class="headerlink" title="处理机调度与死锁"></a>处理机调度与死锁</h1><h2 id="处理机调度"><a href="#处理机调度" class="headerlink" title="处理机调度"></a>处理机调度</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>处理机调度分为三个层次</p>
+<ul>
+<li>高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度</li>
+<li>低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度</li>
+<li>中级调度：内存调度，主要目的是提高内存利用率和系统吞吐量，把暂时不能运行的进程调至外存等待，此时进程状态称为就绪驻外存状态（或挂起状态），当进程具备运行条件且内存又有空闲时，由中级调度决定，把外存上已具备运行条件的就绪进程重新调入内存，并挂在就绪队列上等待，实际上中级调度是存储器管理的对换功能</li>
+</ul>
+<p>调度的运行频率是低&gt;中&gt;高</p>
+<h4 id="调度队列模型"><a href="#调度队列模型" class="headerlink" title="调度队列模型"></a>调度队列模型</h4><p>仅有进程调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/yC8IKjo.png" alt=""></p>
+<p>同时具有三级调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/NZoTVUp.png" alt=""></p>
+<h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><p>多道批处理系统中，用户提交的作业先存放到外存，排成一个后备队列，作业调度程序按一定算法从后备队列中选择若干作业调入内存，使他们共享CPU和系统资源，当程序A因I/O而暂停执行时，再调度另一道程序B运行，这样可以保持CPU处于忙碌状态</p>
+<p>周转时间常用于批处理系统，指从作业被提交给系统开始，到作业完成的时间，分为</p>
+<ul>
+<li>驻外等待调度时间</li>
+<li>驻内等待调度时间</li>
+<li>执行时间</li>
+<li>阻塞时间</li>
+</ul>
+<p>平均周转时间可以表示为</p>
+<p><img src="https://i.imgur.com/oHUPcXu.png" alt=""></p>
+<p>带权周转时间描述进程在其周转时间中，等待和执行时间的具体分配情况，W=T/Ts，T是周转时间，Ts是系统为它提供服务的时间<br>平均带权周转时间表示为</p>
+<p><img src="https://i.imgur.com/5R2w6fF.png" alt=""></p>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><h4 id="先来先服务-FCFS-和短作业优先-SJF-调度算法"><a href="#先来先服务-FCFS-和短作业优先-SJF-调度算法" class="headerlink" title="先来先服务(FCFS)和短作业优先(SJF)调度算法"></a>先来先服务(FCFS)和短作业优先(SJF)调度算法</h4><p>它们都可以用于作业调度和进程调度</p>
+<p>FCFS(first-come first-served)就不解释了，SJF（short job first)以作业长短计算优先级，作业越短优先级越高，作业长度以作业所要求的运行时间来衡量，SJF缺点是必须预知作业的运行时间，对长作业非常不利，人机无法交互，未考虑作业紧迫程度。</p>
+<h5 id="FCFS和SJF的比较"><a href="#FCFS和SJF的比较" class="headerlink" title="FCFS和SJF的比较"></a>FCFS和SJF的比较</h5><p><img src="https://i.imgur.com/cmZuzFf.png" alt=""></p>
+<p>在SJF中，当A完成后，此时时间为4，B,C,D,E均已到达，因为D的作业最短，所以处理机先为D服务，然后为B，E，C服务</p>
+<h4 id="高优先权优先调度算法"><a href="#高优先权优先调度算法" class="headerlink" title="高优先权优先调度算法"></a>高优先权优先调度算法</h4><p>可以作为作业调度和进程调度</p>
+<p>优先级调度算法（PSA，priority-scheduling algorithm）分为非抢占式优先权算法和抢占式优先权算法，抢占式实时性更好</p>
+<p>优先权的类型分为</p>
+<ul>
+<li>静态优先权：整个运行期不变</li>
+<li>动态优先权：优先权随执行时间而下降，随等待时间而上升，响应比Pp=(等待时间+服务时间)/服务时间作为优先权，优点是长短兼顾，缺点是需要计算Rp</li>
+</ul>
+<h5 id="高响应比优先算法-HRRN-Highest-Response-Ratio-Next"><a href="#高响应比优先算法-HRRN-Highest-Response-Ratio-Next" class="headerlink" title="高响应比优先算法(HRRN,Highest Response Ratio Next)"></a>高响应比优先算法(HRRN,Highest Response Ratio Next)</h5><p>响应比Rp=(tw+ts)/ts，tw为等待时间，ts为服务时间</p>
+<h4 id="基于时间片的轮转调度算法-RR"><a href="#基于时间片的轮转调度算法-RR" class="headerlink" title="基于时间片的轮转调度算法(RR)"></a>基于时间片的轮转调度算法(RR)</h4><p>进程调度算法，基于时间片的轮转(RR,round robin)让就绪队列上的每个进程每次仅运行一个时间片，每个进程每次大约都可获得1/n的处理机时间</p>
+<h5 id="进程切换时间"><a href="#进程切换时间" class="headerlink" title="进程切换时间"></a>进程切换时间</h5><ul>
+<li>若一个时间片尚未用完，正在运行的进程已经完成，则激活调度程序，将它从就绪队列中删除，再调度就绪队列中队首的进程运行，并启动一个新的时间片</li>
+<li>若时间片用完，计时器中断处理程序激活，调度程序把它送往就绪队列的队尾</li>
+</ul>
+<h5 id="时间片大小的确定"><a href="#时间片大小的确定" class="headerlink" title="时间片大小的确定"></a>时间片大小的确定</h5><p>若时间片太大，则退化为FCFS，若太小，则系统开销过大，时间片大小确定应考虑系统对响应时间的要求，就绪队列中进程的数目和系统的处理能力（应保证一个时间片处理完常用命令）</p>
+<h4 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h4><p>实时调度必须提供：</p>
+<ul>
+<li>就需时间：某任务成为就绪的起始时间</li>
+<li>开始/完成截止时间</li>
+<li>处理时间</li>
+<li>资源要求</li>
+<li>优先级</li>
+</ul>
+<p>非抢占式用时间片轮转，抢占式可以时钟中断或立即抢占（只要不在临界区就抢占）</p>
+<h4 id="常见的实时调度算法"><a href="#常见的实时调度算法" class="headerlink" title="常见的实时调度算法"></a>常见的实时调度算法</h4><h5 id="最早截止时间优先EDF"><a href="#最早截止时间优先EDF" class="headerlink" title="最早截止时间优先EDF"></a>最早截止时间优先EDF</h5><p>根据任务的开始截止时间来确定任务优先级</p>
+<h5 id="最低松弛度优先LLF"><a href="#最低松弛度优先LLF" class="headerlink" title="最低松弛度优先LLF"></a>最低松弛度优先LLF</h5><p>松弛（紧急）程度=完成截止时间-处理时间-当前时间</p>
+<p>主要用于可抢占的调度方式</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁定义：如果一组进程中的每一个进程都在等待仅由该组进程中的其它进程才能引发的事件，那么该组进程是死锁的。</p>
+<p>产生死锁的原因</p>
+<ul>
+<li>竞争资源引起死锁：竞争不可抢占的资源或可消耗资源引起死锁</li>
+<li>进程推进顺序不当</li>
+</ul>
+<p>产生死锁必要条件</p>
+<ul>
+<li>互斥条件：资源必须互斥</li>
+<li>请求和保持条件：进程已经保持至少一个资源但又提出新的资源请求</li>
+<li>不可抢占条件：资源不可抢占</li>
+<li>循环等待条件：发生死锁时，必然存在一个进程——资源的循环链，即P0等待P1占用的资源，P1等待P2占用的资源，Pn等待P0占用的资源</li>
+</ul>
+<p>解决死锁的方法</p>
+<ul>
+<li>预防死锁</li>
+<li>避免死锁</li>
+<li>检测死锁</li>
+<li>解除死锁</li>
+</ul>
+<h3 id="解决死锁的方法"><a href="#解决死锁的方法" class="headerlink" title="解决死锁的方法"></a>解决死锁的方法</h3><h4 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h4><p>预防死锁：破坏产生死锁的4个必要条件之一，互斥条件一般是不能破坏的，所以主要是破坏产生死锁的后三个条件，预防死锁有效，但资源利用率低</p>
+<p>摒弃请求和保持条件：资源一次性分配<br>摒弃不剥夺条件：新申请不能满足就释放已获得资源<br>摒弃环路条件：资源有序分配，为资源编号，申请时按编号进行</p>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><p>避免死锁是在资源动态分配过程中，防止系统进入不安全状态，以避免发生死锁，最经典的避免死锁的算法是银行家算法</p>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><ul>
+<li>可利用资源向量Available：含有m个元素的数组，每个元素代表一类可利用的资源数目，初始值是系统配置的该类全部可用资源的数目，Available[j]=K表示系统中现有Rj类资源的最大数目K个</li>
+<li>最大需求矩阵Max：是一个n*m的矩阵，定义了系统中n个进程中每一个进程对m类资源的最大需求，如果Max[i, j]=K，则表示进程i需要Rj类资源的最大数目为K</li>
+<li>分配矩阵Allocation：n*m矩阵，定义了系统中每一类资源当前已分配给每一进程的资源数，如果Allocation[i, j]=K，则表示进程i当前已分得Rj类资源的数目为K</li>
+<li>需求矩阵Need：n*m矩阵，用来表示每一个进程尚需的各类资源数，如果Need[i, j]=K，表示进程i还需要Rj类资源K个</li>
+</ul>
+<p>Need[i, j] = Max[i, j] - Allocation[i, j]</p>
+<h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><p>设Requesti是进程Pi的请求向量，如果Requesti[j]=K，则表示进程Pi需要K个Rj类的资源，当Pi发出资源请求后，系统按下述步骤进行检查</p>
+<ol>
+<li>如果Requesti[j] &lt;= Need[i, j]，则转向步骤2，否则认为出错，因为它申请的资源大于它宣布的最大值</li>
+<li>如果Requesti[j] &lt;= Available[j]，则转向步骤3，否则尚无足够资源，Pi需等待</li>
+<li>系统试探把资源分配给进程Pi，并修改下面数据结构的数值<br> Available[j] = Available[j] - Requesti[j];<br> Allocation[i, j] = Allocation[i, j] + Requesti[j];<br> Need[i, j] = Need[i, j] - Requesti[j];</li>
+<li>系统执行安全性算法，检查此次资源分配后系统是否处于安全状态，若安全，才正式分配资源给Pi，否则本次试探分配作废，恢复原来的资源分配状态，让进程Pi等待</li>
+</ol>
+<h5 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h5><p>如上面所述，<strong>安全性算法是试探性分配后（即修改了Available，Allocation，Need但未正式分配资源）进行的，若安全才正式分配，否则试探分配作废</strong>，算法如下</p>
+<ol>
+<li>设置两个向量：工作向量Work，表示系统可提供给进程继续运行所需的各类资源数目，含有m个元素，执行安全算法开始时，Work=Available；Finish，它表示系统是否有足够资源分配给进程，使之运行完成。开始时Finish[i]=false，当有足够资源分配给进程时，再令Finish[i]=true</li>
+<li>从进程集合中找到一个满足下述条件的进程：<br>Finish[i]=false;<br>Need[i, j] &lt;= Work[j];<br>若找到，则转向步骤3，否则转向步骤4</li>
+<li><strong>假如</strong>进程Pi获得资源，则进程Pi可顺利执行，直到完成，并释放分配给它的资源，故应执行<br>Work[j] = Work[j] + Allocation[i, j];<br>Finish[i] = true;<br>go to step 2;</li>
+<li>如果所有进程的Finish[i]=true都满足，则表示系统处于安全状态，否则，系统处于不安全状态</li>
+</ol>
+<h5 id="银行家算法安全性检查的例子"><a href="#银行家算法安全性检查的例子" class="headerlink" title="银行家算法安全性检查的例子"></a>银行家算法安全性检查的例子</h5><p><img src="https://i.imgur.com/vd5ekYs.png" alt=""></p>
+<p><img src="https://i.imgur.com/5XOTJlu.png" alt=""></p>
+<p>一开始检查，发现p0不满足第2步的条件，p1满足，就把p1的资源释放，加到Work，然后继续检查，p2不满足，p3满足，则释放掉p3的资源，然后释放，最后所有的进程都释放了</p>
+<p>P.S.解题的时候，画表，行是每个进程，列依次是Work,Need,Allocation,Work+Allocation,Finish</p>
+<h4 id="检测死锁"><a href="#检测死锁" class="headerlink" title="检测死锁"></a>检测死锁</h4><h5 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h5><p><img src="https://i.imgur.com/itV3elJ.png" alt=""></p>
+<p>资源分配图圆圈表示进程，方框表示资源，方框内点表示资源数，箭头由资源指向进程表示一个单位的资源分配给进程，进程指向资源表示进程请求一个单位的资源</p>
+<h5 id="死锁定理"><a href="#死锁定理" class="headerlink" title="死锁定理"></a>死锁定理</h5><p>S为死锁状态的充分条件是当且仅当S状态的资源分配图是不可完全简化</p>
+<h5 id="资源分配图的简化"><a href="#资源分配图的简化" class="headerlink" title="资源分配图的简化"></a>资源分配图的简化</h5><p>找出既不阻塞又非独立的进程结点Pi，去掉所有分配边和请求边，若能去掉所有结点的所有分配边和请求边，则不会发生死锁，否则发生死锁</p>
+<h4 id="解除死锁"><a href="#解除死锁" class="headerlink" title="解除死锁"></a>解除死锁</h4><p>主要方法</p>
+<ul>
+<li>抢占资源：从一个或多个进程抢占足够资源分配给死锁进程</li>
+<li>终止进程</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/进程管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/08/进程管理/" itemprop="url">进程管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T22:06:18+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/08/进程管理/" class="leancloud_visitors" data-flag-title="进程管理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,8 +1054,8 @@
 <p><img src="https://i.imgur.com/NKJai9R.png" alt=""></p>
 <p>引入挂起状态（被换出内存的状态）后，进程的转换如下</p>
 <p><img src="https://i.imgur.com/I6mlock.png" alt=""></p>
-<h3 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h3><p>挂起状态是把进程从内存移出外存，不释放CPU，是主动行为</p>
-<p>而阻塞状态是释放CPU，但不释放内存，是被动行为</p>
+<h3 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h3><p>挂起状态是把进程从内存移出外存，不释放CPU</p>
+<p>而阻塞状态是释放CPU，但不释放内存</p>
 <p>引入挂起状态的原因是</p>
 <ul>
 <li>终端用户请求</li>
@@ -519,224 +1063,100 @@
 <li>负荷调节需要</li>
 <li>操作系统需要</li>
 </ul>
-<h2 id="进程控制块PCB"><a href="#进程控制块PCB" class="headerlink" title="进程控制块PCB"></a>进程控制块PCB</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
-                2019-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
+<h2 id="进程控制块PCB"><a href="#进程控制块PCB" class="headerlink" title="进程控制块PCB"></a>进程控制块PCB</h2><h3 id="PCB的作用"><a href="#PCB的作用" class="headerlink" title="PCB的作用"></a>PCB的作用</h3><p>PCB是进程的唯一标识，它常驻内存</p>
 <ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+<li>它作为独立运行基本单位的标志</li>
+<li>能实现间断性运行方式</li>
+<li>提供进程管理所需要的信息</li>
+<li>提供进程调度所需要的信息</li>
+<li>实现与其他进程的同步和通信</li>
 </ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<h3 id="PCB的信息"><a href="#PCB的信息" class="headerlink" title="PCB的信息"></a>PCB的信息</h3><p>PCB主要包括以下四个方面的信息</p>
 <ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
+<li>进程标识符：外部标识符（针对用户即进程），内部标识符（针对系统）</li>
+<li>处理机状态：通用寄存器，指令计数器，用户栈指针，程序状态字等</li>
+<li>进程调度信息：进程状态，进程优先级，进程调度其他信息（已等待CPU时间等），事件（阻塞原因）</li>
+<li>进程控制信息：程序和数据地址，进程同步和通信机制，资源清单，链接指针（所在队列下一个进程PCB的首地址）</li>
 </ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
-<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<h2 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h2><p>任务：对系统中所有进程从产生，存在到消亡的全过程实施有效的管理和控制</p>
+<p>进程控制由内核中原语实现。</p>
+<p>原语（Primitive）：由若干条指令组成，用于完成一定功能的一个过程，它们是原子操作，即所有动作要么全不做，要么全做，是不可分割的，不允许被中断的。原语由内核系统态执行，常驻内存。</p>
+<p>常见的进程控制原语如下</p>
 <ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+<li>创建</li>
+<li>撤销</li>
+<li>阻塞：执行-&gt;阻塞</li>
+<li>唤醒：阻塞-&gt;就绪</li>
+<li>挂起：活动-&gt;静止</li>
+<li>激活：静止-&gt;活动</li>
 </ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p>进程创建的过程如下</p>
 <ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+<li>申请空白PCB</li>
+<li>为新进程分配资源</li>
+<li>初始化PCB</li>
+<li>新进程插入到就绪队列</li>
 </ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
+<h2 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h2><h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>同步指并发进程在执行次序上的协调，以达到有效资源共享和相互合作，是程序执行有可再现性。</p>
+<p>进程有两种形式的制约关系，分别是</p>
+<ul>
+<li>资源共享关系：进程间接制约，需互斥地访问临界资源</li>
+<li>相互合作关系：进程直接制约</li>
+</ul>
+<p>临界资源：一次仅允许一个进程访问的资源</p>
+<p>临界区：进程访问临界资源的那段代码</p>
+<p>同步机制应遵循：</p>
+<ul>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待：不能进入临界区的进程应放弃CPU执行权</li>
+</ul>
+<h3 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h3><p>实现进程同步有许多方法，其中比较经典的是信号量机制</p>
+<h4 id="整型信号量"><a href="#整型信号量" class="headerlink" title="整型信号量"></a>整型信号量</h4><p>整型信号量定义为用于表示资源数目的整型量S，它除初始化外，仅能通过两个原子操作wait(S)和signal(S)来访问，这两个操作一直被称为P，V操作，wait，signal操作描述如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wait(S) &#123;</span><br><span class="line">	<span class="keyword">while</span> (S &lt;= <span class="number">0</span>);</span><br><span class="line">	S--;</span><br><span class="line">&#125;</span><br><span class="line">signal(S) &#123;</span><br><span class="line">	S++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两个操作是原子操作，它们在执行的时候是不可中断的</p>
+<h4 id="记录型信号量"><a href="#记录型信号量" class="headerlink" title="记录型信号量"></a>记录型信号量</h4><p>整型信号量并没有实现让权等待，而是让进程处于忙等状态，这个时候就需要引入记录型信号量来实现</p>
+<p>记录型信号量有一个整型变量value表示资源数目，还有一个进程链表指针list，用于链接上述所有等待进程，定义和PV操作描述如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">process_control_block</span> *<span class="title">list</span>;</span></span><br><span class="line">&#125; semaphore;</span><br><span class="line"></span><br><span class="line">wait(semaphore *S) &#123;</span><br><span class="line">	S-&gt;value--;</span><br><span class="line">	<span class="keyword">if</span> (S-&gt;value &lt; <span class="number">0</span>) block(S-&gt;<span class="built_in">list</span>); <span class="comment">// block是阻塞原语，它的意思是把当前进程自我阻塞并插入到S-&gt;list中</span></span><br><span class="line">&#125;</span><br><span class="line">signal(semaphore *S) &#123;</span><br><span class="line">	S-&gt;value++;</span><br><span class="line">	<span class="keyword">if</span> (S-&gt;value &lt;= <span class="number">0</span>) wakeup(S-&gt;<span class="built_in">list</span>); <span class="comment">// wakeup是唤醒原语</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>S-&gt;value是系统中某类资源数目，对它每次wait，意味进程请求一个单位的该类资源，当S-&gt;value &lt; 0，表示该资源已分配完成，进程应调用block原语自我阻塞，并插入到信号量链表S-&gt;list中。当S-&gt;value &lt; 0，它的绝对值是链表中已阻塞进程的数目。对信号量每次signal操作表示执行进程释放一个单位资源，S-&gt;value++，若+1后S-&gt;value仍然&lt;=0，表示该信号量链表中仍有等待该资源的进程被阻塞，调用wakeup原语唤醒该进程.如果S-&gt;value初值为1，则只允许一个进程访问临界资源，此时信号量为互斥信号量。</p>
+<h4 id="AND型信号量"><a href="#AND型信号量" class="headerlink" title="AND型信号量"></a>AND型信号量</h4><p>AND同步机制基本思想是：将进程整个运行过程中需要的所有资源，一次性全部分配给进程，使用后一次性释放，原语为Swait(Simultaneous wait)和Swakeup</p>
+<h3 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h3><p>引入原因：为了避免凡要使用临界资源的进程都自备同步操作wait(s)和signal(s)，将同步操作的机制和临界资源结合到一起，形成管程</p>
+<p>定义：一个数据结构和能为并发进程所执行的一组操作，包括局部于管程的共享变量，对该数据结构进程操作的一组过程，对局部管程数据设置初值</p>
+<p>管程语法描述如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Monitor monitor_name &#123; 		 <span class="comment">// 管程名</span></span><br><span class="line">	share variable declarations; <span class="comment">// 共享变量</span></span><br><span class="line">	cond declarations; 			 <span class="comment">// 条件变量</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P1</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	</span>&#123;...&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P2</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	</span>&#123;...&#125;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">void</span>(....)</span><br><span class="line">	&#123;...&#125;</span><br><span class="line">	&#123;							 <span class="comment">// 管程主体</span></span><br><span class="line">		initialization code;	 <span class="comment">// 初始化代码</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h4><p>用于进程的阻塞和挂起，形式为condition x, y，对条件变量的操作仅仅是wait和signal，每个条件变量保存一个链表，用于记录因该条件变量而阻塞的所有进程，同时提供两个操作x.wait和x.signal</p>
+<p>x.wait：正在调用管程的进程因x条件需要被阻塞或挂起，调用x.wait将自己插入到x条件的等待队列上，并释放管程<br>x.signal：正在调用管程的进程发现x条件发生了变化，则调用它，重新启动一个因x条件而阻塞或挂起的进程</p>
+<h2 id="进程同步的经典问题"><a href="#进程同步的经典问题" class="headerlink" title="进程同步的经典问题"></a>进程同步的经典问题</h2><h3 id="生产者-消费者问题"><a href="#生产者-消费者问题" class="headerlink" title="生产者-消费者问题"></a>生产者-消费者问题</h3><p>问题描述：一组生产者向一组消费者提供消息，它们共享一个包含n个缓冲区的有界缓冲池，生产者向其中投放消息，消费者从中取得消息</p>
+<p>问题求解：<strong>互斥信号量mutex实现诸进程对缓冲池的互斥使用，信号量empty和full分别表示缓冲池中空缓冲区和满缓冲区的数量</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> in = <span class="number">0</span>, out = <span class="number">0</span>;</span><br><span class="line">item buffer[n];</span><br><span class="line">semaphore mutex = <span class="number">1</span>, empty = n, full = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		produce an item nextp;</span><br><span class="line">		...</span><br><span class="line">		wait(empty); <span class="comment">// 当空缓冲池数量为0，即缓冲池已满</span></span><br><span class="line">		wait(mutex);</span><br><span class="line">		buffer[in] = nextp;</span><br><span class="line">		in = (in + <span class="number">1</span>) % n;</span><br><span class="line">		signal(mutex);</span><br><span class="line">		signal(full);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(full); <span class="comment">// 当满缓冲池为0，即缓冲池已空</span></span><br><span class="line">		wait(mutex);</span><br><span class="line">		nextc = buffer[out];</span><br><span class="line">		out = (out + <span class="number">1</span>) % n;</span><br><span class="line">		signal(mutex);</span><br><span class="line">		signal(empty);</span><br><span class="line">	consume the item in nextc;</span><br><span class="line">	...</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		producer(); consumer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>P操作很重要，假如颠倒了生产者的P操作，先拥有了缓冲池的使用权，但此时无空缓冲池，则会进入死锁</strong>，V操作顺序则无关紧要，<strong>当缓冲区只有一个时，mutex可以省略</strong></p>
+<h3 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h3><p><img src="https://i.imgur.com/PST5Kvw.png" alt=""></p>
+<p>哲学家进餐应定义5个信号量表示5只筷子，且初值均为1，而不能定义1个信号量，因为5个筷子位置不同，哲学家并不是随意拿5个筷子的，他们只能拿他们左右最靠近他们的筷子，描述如下<br><code>semaphore chopstick[5] = {1, 1, 1, 1, 1};</code></p>
+<p>第i个哲学家的活动可描述为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	wait(chopstick[i]);</span><br><span class="line">	wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// eat</span></span><br><span class="line">	...</span><br><span class="line">	signal(chopstick[i]);</span><br><span class="line">	signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// think</span></span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">while</span>(TRUE)</span><br></pre></td></tr></table></figure>
+<p>哲学家问题出现死锁的可能是：五个哲学家同时饥饿而各自拿起左边的筷子，就会使5个信号量chopstick均为0，当他们再试图去拿右边的筷子时，会因没有筷子可拿而无限等待</p>
+<p>解决方法有如下几个：</p>
+<p>1.至多允许有4位哲学家同时拿左边筷子，方法：设置信号量sm初值为4</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(sm);</span><br><span class="line">		wait(chopstick[i]);</span><br><span class="line">		wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		eat;</span><br><span class="line">		signal(sm);</span><br><span class="line">		signal(chopstick[i]);</span><br><span class="line">		signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		signal(sm);</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.规定奇数号哲学家先拿他左手边的筷子，再拿右手边的筷子，偶数号哲学家相反</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">			wait(chopstick[i]);</span><br><span class="line">			wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			eat;</span><br><span class="line">			signal(chopstick[i]);</span><br><span class="line">			signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			wait(chopstick[i]);</span><br><span class="line">			eat;</span><br><span class="line">			signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			signal(chopstick[i]);</span><br><span class="line">		&#125;	</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.仅当左右手两只筷子均可用的时候，才拿起筷子进餐，利用AND信号量解决</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		Sswait(chopstick[i], chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>])</span><br><span class="line">		eat;</span><br><span class="line">		Ssignal(chopstick[i], chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="读者-写者问题"><a href="#读者-写者问题" class="headerlink" title="读者-写者问题"></a>读者-写者问题</h3><p>问题描述：读进程可共享同一对象，写进程不可共享同一对象</p>
+<p>分析：整型变量readcount表示读者数，信号量rmutex互斥访问readcount，wmutex读写互斥，只要有一个进程在读，就不允许写进程去写</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">semaphore rmutex = <span class="number">1</span>, wmutex = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> readcount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(rmutex); <span class="comment">// readcount的互斥访问</span></span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) wait(wmutex); <span class="comment">// 读写互斥，当该进程为第一个读进程，判断是否有写进程在写，有则阻塞，无则加锁</span></span><br><span class="line">		readcount++;</span><br><span class="line">		signal(rmutex);</span><br><span class="line">		...</span><br><span class="line">		perform read operation;</span><br><span class="line">		...</span><br><span class="line">		wait(rmutex);</span><br><span class="line">		readcount--;</span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) signal(wmutex);</span><br><span class="line">		signal(rmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(wmutex);</span><br><span class="line">		perform write operation;</span><br><span class="line">		signal(wmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		reader(); writer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="读-写问题的扩散——写者优先"><a href="#读-写问题的扩散——写者优先" class="headerlink" title="读-写问题的扩散——写者优先"></a>读-写问题的扩散——写者优先</h4><p>即当写进程到达后，后续的读进程必须等待</p>
+<p>方法：增加信号量S（初值1），当写进程运行时上锁，封锁后续读者。增加信号量s后，当读进程读，先wait(s)，若后续读进程运行，都会进入s的阻塞队列，而不会在其他进程读的期间（上锁了s，没有上锁rmutex）进入wmutex的阻塞队列，当有写进程运行并进入s的阻塞队列，后续再有读进程进入s的阻塞队列，都排在写进程之后，当前面读进程释放s后，写进程就可以对s上锁，阻止后续读进程了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">semaphore rmutex = <span class="number">1</span>, wmutex = <span class="number">1</span>, s = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> readcount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(s);</span><br><span class="line">		wait(rmutex); <span class="comment">// readcount的互斥访问</span></span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) wait(wmutex); <span class="comment">// 读写互斥，当该进程为第一个读进程，判断是否有写进程在写，有则阻塞，无则加锁</span></span><br><span class="line">		readcount++;</span><br><span class="line">		signal(rmutex);</span><br><span class="line">		signal(s);</span><br><span class="line">		...</span><br><span class="line">		perform read operation;</span><br><span class="line">		...</span><br><span class="line">		wait(rmutex);</span><br><span class="line">		readcount--;</span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) signal(wmutex);</span><br><span class="line">		signal(rmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(s);</span><br><span class="line">		wait(wmutex);</span><br><span class="line">		perform write operation;</span><br><span class="line">		signal(wmutex);</span><br><span class="line">		signal(s);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		reader(); writer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h2><p>进程通信实质是进程间的信息交换，有如下几种通信方式</p>
+<ul>
+<li>信号量机制：低级，效率低，对用户不透明</li>
+<li>共享存贮器：共享存储区等</li>
+<li>消息传递系统：交换报文，由一组通信原语实现</li>
+<li>管道通信：管道是连接一个读进程和一个写进程之间通信的共享文件</li>
+<li>客户机-服务器系统：套接字等</li>
+</ul>
 
           
         
@@ -1048,6 +1468,224 @@ alert(isSupported);</code></p>
 <p><code>var isSupported = document.implementation.hasFeature(&quot;MutationEvents&quot;, &quot;2.0&quot;);</code>检查是否支持变动事件。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events" target="_blank" rel="noopener">MDN的mutation事件</a></p>
 <h3 id="设备事件与触摸手势事件"><a href="#设备事件与触摸手势事件" class="headerlink" title="设备事件与触摸手势事件"></a>设备事件与触摸手势事件</h3><p>主要用于智能手机和平板电脑</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
+<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
 
           
         
@@ -2210,555 +2848,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/数据结构01-前言/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/数据结构01-前言/" itemprop="url">数据结构01-前言</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T11:08:34+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/06/数据结构01-前言/" class="leancloud_visitors" data-flag-title="数据结构01-前言">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="数据结构01-前言"><a href="#数据结构01-前言" class="headerlink" title="数据结构01-前言"></a>数据结构01-前言</h1><h2 id="一些预定义"><a href="#一些预定义" class="headerlink" title="一些预定义"></a>一些预定义</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TRUE 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FALSE 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ERROR 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> OVERFLOW -1</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Status; <span class="comment">// 用作函数值类型，表示函数结果状态</span></span><br></pre></td></tr></table></figure>
-<p>ElemType代表数值的类型。一般是int，可以作下面定义<br><code>typedef int ElemType;</code></p>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>T(n) = O(f(n))</p>
-<p>常见时间复杂度</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类</th>
-<th style="text-align:left">符号</th>
-<th style="text-align:left">举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">常数</td>
-<td style="text-align:left">O(1)</td>
-<td style="text-align:left">返回数组第一个元素</td>
-</tr>
-<tr>
-<td style="text-align:left">对数</td>
-<td style="text-align:left">O(logn)</td>
-<td style="text-align:left">对有序数组折半查找</td>
-</tr>
-<tr>
-<td style="text-align:left">线性</td>
-<td style="text-align:left">O(n)</td>
-<td style="text-align:left">对数组顺序查找</td>
-</tr>
-<tr>
-<td style="text-align:left">nlogn</td>
-<td style="text-align:left">O(nlogn)</td>
-<td style="text-align:left">归并排序</td>
-</tr>
-<tr>
-<td style="text-align:left">平方</td>
-<td style="text-align:left">O(n²)</td>
-<td style="text-align:left">选择排序</td>
-</tr>
-<tr>
-<td style="text-align:left">立方</td>
-<td style="text-align:left">O(n^3)</td>
-<td style="text-align:left">传统矩阵相乘</td>
-</tr>
-<tr>
-<td style="text-align:left">指数</td>
-<td style="text-align:left">O(2n)</td>
-<td style="text-align:left">汉诺塔</td>
-</tr>
-</tbody>
-</table>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>S(n) = O(f(n))</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/JavaScript07-DOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/JavaScript07-DOM/" itemprop="url">JavaSCript07-DOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T11:08:34+08:00">
-                2018-11-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/01/JavaScript07-DOM/" class="leancloud_visitors" data-flag-title="JavaSCript07-DOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript07-DOM"><a href="#JavaScript07-DOM" class="headerlink" title="JavaScript07-DOM"></a>JavaScript07-DOM</h1><h2 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h2><p>DOM将任何HTML文档描绘成一个多层节点构成的结构。根节点为文档节点，文档节点下一般有一个子节点&lt;html&gt;元素，称为<strong>文档元素</strong>。</p>
-<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><p>DOM定义了一个Node接口，由DOM中所有节点类型实现。每个节点都有一个nodeType属性，用于表明节点的类型，该属性有如下12个数值常量</p>
-<ul>
-<li>Node.ELEMENT_NODE(1);</li>
-<li>Node.ATTRIBUTE_NODE(2);</li>
-<li>Node.TEXT_NODE(3);</li>
-<li>Node.CDATA_SECTION_NODE(4);</li>
-<li>Node.ENTITY_REFERENCE_NODE(5);</li>
-<li>Node.ENTITY_NODE(6);</li>
-<li>Node.PROCESSING_INSTRUCTION_NODE(7);</li>
-<li>Node.COMMENT_NODE(8);</li>
-<li>Node.DOCUMENT_NODE(9);</li>
-<li>Node.DOCUMENT_TYPE_NODE(10);</li>
-<li>Node.DOCUMENT_FRAGMENT_NODE(11);</li>
-<li>Node.NOTATION_NODE(12);</li>
-</ul>
-<h4 id="nodeName和nodeValue属性"><a href="#nodeName和nodeValue属性" class="headerlink" title="nodeName和nodeValue属性"></a>nodeName和nodeValue属性</h4><p>要了解节点具体信息，可以使用这两个属性。</p>
-<p><code>if (someNode.nodeType==1){ value = someNode.nodeName; }</code></p>
-<p>对于元素节点，nodeName始终保存元素标签名，nodeValue始终为null</p>
-<h4 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h4><p>每个节点都有一个childNodes属性，其中保存着一个NodeList对象，它是一个类数组对象，用于保存一组有序的节点，也有length属性，但<strong>它是基于DOM结构动态执行查询的结果，因此DOM结构的变化能够自动反映在NodeList对象中。</strong></p>
-<p>可以通过下面方法访问保存在NodeList中的节点</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstChild = someNode.childNodes[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> secondChild = someNode.childNodes.item(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> count = somNode.childNodes.length;</span><br></pre></td></tr></table></figure>
-<p>每个节点都有一个parentNode属性，该属性指向文档树中的父节点。包含在childNodes列表中的所有节点都具有相同的父节点。<br>此外，包含在childNodes列表中的每个节点相互之间都是同胞节点。使用列表中每个节点的previousSibling和nextSibling属性，可以访问同一列表的其他节点。<br>父节点与其第一个和最后一个子节点之间也有关系，使用父节点的firstChild和lastChild属性分别指向childNodes列表的抵押给和最后一个节点。</p>
-<p><img src="https://i.imgur.com/fYBkyX4.png" alt=""></p>
-<p>所有节点都有最后一个属性是ownerDocument，该属性指向表示整个文档的文档节点。</p>
-<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4><h5 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild()"></a>appendChild()</h5><p>可以通过appendChild()方法向childNodes列表末尾添加一个节点，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> returndNode = someNode.appendChild(newNode);</span><br></pre></td></tr></table></figure>
-<p>如果传入到appendChild()的节点已经是文档的一部分，那结果是将该节点从原来位置转移到新位置。DOM树可以看成是一系列指针连接起来的，但任何DOM节点不能同时出现在文档中的多个位置上。</p>
-<h5 id="insertBefore"><a href="#insertBefore" class="headerlink" title="insertBefore()"></a>insertBefore()</h5><p>可以使用insertBefore()方法把节点放在childNodes的某个特定位置上，接收两个参数，要插入的节点和作为参考的节点。插入节点后，被插入的节点会变成参考节点的前一个同胞节点，然后被该方法返回。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">returnedNode = someNode.insertBefore(newNode, <span class="literal">null</span>); <span class="comment">// 插入到最后</span></span><br></pre></td></tr></table></figure>
-<h5 id="replaceChild"><a href="#replaceChild" class="headerlink" title="replaceChild()"></a>replaceChild()</h5><p>它接收两个参数：要插入的节点和要替换的节点，然后把插入的节点返回。</p>
-<h5 id="removeChild"><a href="#removeChild" class="headerlink" title="removeChild()"></a>removeChild()</h5><p>接收一个参数：要移除的节点。然后该节点被该方法返回。</p>
-<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><p>#####cloneNode()</p>
-<p>cloneNode()接收一个布尔值参数，表示是否执行深复制。如果为true，则复制节点及其整个子节点树，如果为false，只复制节点本身。</p>
-<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><p>Document类型表示文档，在浏览器中，document对象是HTMLDocument的一个实例，表示整个HTML页面。而且document类型是window对象的一个属性，有下列特征：</p>
-<ul>
-<li>nodeType为9；</li>
-<li>nodeName为”#document”；</li>
-<li>nodeValue为null；</li>
-<li>parentNode为null；</li>
-<li>ownerDucument为null;</li>
-</ul>
-<h4 id="文档的子节点"><a href="#文档的子节点" class="headerlink" title="文档的子节点"></a>文档的子节点</h4><p>有一个documentElement属性，始终指向HTML页面的&lt;html&gt;元素，另外还有一个childNodes列表访问文档元素。</p>
-<p>document还提供了body，doctype属性访问对于的标签<br><code>var body = document.body;</code></p>
-<h4 id="文档信息"><a href="#文档信息" class="headerlink" title="文档信息"></a>文档信息</h4><h5 id="title"><a href="#title" class="headerlink" title="title"></a>title</h5><p>document对象作为HTMLDocument的一个实例，还有一些其他属性表现网页的一些信息，其中一个是title属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个修改title的例子</span></span><br><span class="line"><span class="keyword">var</span> originalTitle = <span class="built_in">document</span>.title;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.title = <span class="string">"New page title"</span>;</span><br></pre></td></tr></table></figure>
-<h5 id="URL-domain和referrer"><a href="#URL-domain和referrer" class="headerlink" title="URL,domain和referrer"></a>URL,domain和referrer</h5><p>URL属性包含页面完整的URL，domain属性只包含域名，而referrer属性中则保存链接到当前页面的那个页面的URL，这些属性都保存在HTTP头部，JS提供了这些属性访问它们。</p>
-<p>这三个属性中只有domain可以设置，但只能设置成URL包含的域，否则报错，这个属性可以用于跨页面通信，比如一个页面加载自<a href="http://www.wrox.com，包含一个内嵌框架加载自p2p.wrox.com。只需要把它们的document.domain都设置成wrox.com，就可以实现两者的通信。" target="_blank" rel="noopener">www.wrox.com，包含一个内嵌框架加载自p2p.wrox.com。只需要把它们的document.domain都设置成wrox.com，就可以实现两者的通信。</a><br>注意一旦设置为wrox.com后，就不能设置回p2p.wrox.com了</p>
-<h4 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h4><p>Document类型提供了两个方法查找元素，分别为getElementById()和getElementByTagName()。</p>
-<h5 id="getElementById"><a href="#getElementById" class="headerlink" title="getElementById()"></a>getElementById()</h5><p>getElementById()接收一个参数：要取得的元素的ID，区分大小写,返回该元素。</p>
-<p><code>&lt;div id=&quot;myDiv&quot;&gt;&lt;/div&gt;</code><br><code>var div = document.getElementById(&quot;myDiv&quot;);</code></p>
-<h5 id="getElementsByTagName"><a href="#getElementsByTagName" class="headerlink" title="getElementsByTagName()"></a>getElementsByTagName()</h5><p>getElementByTagName()接收一个参数：要取得的元素的标签名，返回的是包含零个或多个元素的NodeList。在HTML文档中，这个方法返回一个HTMLCollection对象，作为一个动态集合。</p>
-<p><code>var images = document.getElementsByTagName(&quot;img&quot;);</code></p>
-<p>可以通过<code>images.item(i).src</code>取得第i个images对象的src属性</p>
-<p>HTMLCollection对象还有一个方法nameItem()，可以通过元素的name特性取得集合中的项。</p>
-<p><code>&lt;img src=&quot;xxx.gif&quot; name=&quot;myImage&quot;&gt;</code><br><code>var myImage = images.namedItem(&quot;myImage&quot;);</code><br>这与直接用方括号语法等效<br><code>var myImage = images[&quot;myImage&quot;];</code></p>
-<p>要取得文档所有元素，可以传入参数”*”</p>
-<p><code>var allElements = document.getElementsByTagName(&quot;*&quot;);</code></p>
-<h5 id="getElementsByName"><a href="#getElementsByName" class="headerlink" title="getElementsByName()"></a>getElementsByName()</h5><p>这是只有HTMLDocument类型才有的方法，它返回带有给定name特性的所有元素。通常用于取得单选按钮，如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Which color do you prefer?<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"red"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorRed"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorRed"</span>&gt;</span>Red<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"green"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorGreen"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorGreen"</span>&gt;</span>Green<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"blue"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorBlue"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorBlue"</span>&gt;</span>Blue<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这里，所有单选按钮的name属性都是”color”，但他们的ID可以不同，ID的作用是把&lt;label&gt;元素应用到每个单选按钮，而name特性则用以确保三个值中只有一个被发送到浏览器，这样就可以用下面代码取得所有单选按钮</p>
-<p><code>var radios = document.getElementByName(&quot;color&quot;);</code></p>
-<h4 id="特殊集合"><a href="#特殊集合" class="headerlink" title="特殊集合"></a>特殊集合</h4><p>document对象还有一些特殊的集合。这些集合都是HTMLCollection对象。</p>
-<ul>
-<li>document.anchors,包含文档中所有带name特性的&lt;a&gt;元素</li>
-<li>document.forms,包含所有&lt;form&gt;元素</li>
-<li>documents.images,包含所有&lt;img&gt;元素</li>
-<li>document.links,包含所有带href的&lt;a&gt;元素</li>
-</ul>
-<h4 id="文档写入"><a href="#文档写入" class="headerlink" title="文档写入"></a>文档写入</h4><p>document有四个方法可以写入:write(),writeln(),open()和close()</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        <span class="built_in">document</span>.write((<span class="keyword">new</span> <span class="built_in">Date</span>()).toString());</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h3><p>Element类型提供了对元素标签名，子节点以及特性的访问。有如下特征：</p>
-<ul>
-<li>nodeType值为1</li>
-<li>nodeName值为元素的标签名</li>
-<li>nodeValue值为null</li>
-<li>parentNode可能是Document或Element</li>
-<li>其子结点可能是Element,Text,Comment等等</li>
-</ul>
-<p>要访问元素的标签名，可以使用nodeName属性也可以使用tagName属性。</p>
-<h4 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h4><p>所有HTML元素都由HTMLElement类型及其子类型表示，HTMLElement类型直接继承Element并添加了一些属性</p>
-<ul>
-<li>id:元素在文档中的唯一标识符</li>
-<li>className:元素的class特性对应，即为元素指定的CSS类</li>
-</ul>
-<p>这些属性都是可修改的，直接复制即可</p>
-<h4 id="取得特性"><a href="#取得特性" class="headerlink" title="取得特性"></a>取得特性</h4><p>操作特性有三个方法，分别为getAttribute(),setAttribute()和removeAttribute()。这三个方法可以针对任何特性使用。</p>
-<p>getAttribute()也可以取得自定义特性（HTML5中，自定义特性应该加上data-前缀）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var div = document.getElementById(&quot;myDiv&quot;);</span><br><span class="line">alert(div.getAttribute(&quot;class&quot;));</span><br><span class="line">alert(div.getAttribute(&quot;data-yourData&quot;);</span><br></pre></td></tr></table></figure>
-<p>通常更建议直接使用对象的属性，只有在取得自定义特性的情况下才使用getAttribute()方法</p>
-<h4 id="设置特性"><a href="#设置特性" class="headerlink" title="设置特性"></a>设置特性</h4><p>setAttribute()接收两个参数：要设置的特性名和值，如果特性已经存在，他就会替换现有的值，若不存在，就创建该属性并设置值。</p>
-<h4 id="attributes属性"><a href="#attributes属性" class="headerlink" title="attributes属性"></a>attributes属性</h4><p>Element类型是使用attributes属性的唯一一个DOM节点类型。attributes属性中包含一个NamedNodeMap，与NodeList类似，也是一个动态集合。元素的每一个特性都由一个Attr节点表示，每个节点都保存在NamedNodeMap对象中。它有下列方法：</p>
-<ul>
-<li>getNamedItem(name):返回nodeName属性等于name的节点</li>
-<li>removeNamedItem(name):从列表中移除nodeName属性等于name的节点</li>
-<li>setNamedItem(node):向列表中添加节点，以节点的nodeName属性为索引</li>
-<li>item(pos):返回数字pos位置的节点</li>
-</ul>
-<p>attributes包含一系列节点，每个节点的nodeName是特性名，nodeValue为特性值</p>
-<p><code>var id = element.attributes.getNamedItem(&quot;id&quot;).nodeValue; // 取得element节点特性id的值</code></p>
-<p>等效于</p>
-<p><code>var id = element.attributes[&quot;id&quot;].nodeValue;</code></p>
-<h4 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h4><p>使用document.createElement()方法可以创建新元素</p>
-<p><code>var div = document.createElement(&quot;div&quot;);</code></p>
-<p>创建的同时也指定了其ownerDocument属性。</p>
-<p>新创建的元素还没加入文档树</p>
-<p><code>document.body.appendChild(div);</code></p>
-<p>可以把它加入到body元素中</p>
-<h4 id="元素的子节点"><a href="#元素的子节点" class="headerlink" title="元素的子节点"></a>元素的子节点</h4><p>childNodes属性包含了它的所有子节点，这些子节点可能是元素，文本节点，注释或处理指令，可以通过<code>element.childNodes[i].nodeType == 1</code>来作检测</p>
-<h3 id="Text类型"><a href="#Text类型" class="headerlink" title="Text类型"></a>Text类型</h3><p>文本节点可以是字面解释的纯文本内容，也可以是包含转义后的HTML字符，但不能包含HTML代码。</p>
-<ul>
-<li>nodeType=3</li>
-<li>nodeName=”#text”</li>
-<li>nodeValue为节点所包含的文本</li>
-<li>parentNode是一个Element</li>
-<li>不支持子节点</li>
-</ul>
-<p>可以通过nodeValue属性或data属性访问节点中包含的文本。<br>使用下列方法可以操作节点中的文本</p>
-<ul>
-<li>appendData(text)：把text添加到节点末尾</li>
-<li>deleteData(offset, count)：从offset指定的位置开始删除count个字符</li>
-<li>insertData(offset, text)：在offset指定位置插入text</li>
-<li>replaceData(offset, count, text)：用text替换从offset指定的位置开始到offset+count位置的文本</li>
-<li>splitText(offset)：从offset指定的位置将当前文本分开两个文本节点</li>
-<li>substringData(offset, count)：提取从offset指定的位置开始到offset+count为止处的字符串</li>
-</ul>
-<p><code>&lt;div&gt;Hello World!&lt;/div&gt;</code></p>
-<p>上述文本子节点可以通过<code>var textNode = div.firstChild</code>访问</p>
-<h4 id="创建文本节点"><a href="#创建文本节点" class="headerlink" title="创建文本节点"></a>创建文本节点</h4><p>可以使用document.createTextNode()创建新文本节点，接收一个参数：要插入节点的文本。</p>
-<p>一个创建新节点并插入创建文本的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">element.className = <span class="string">"message"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> textNode = <span class="built_in">document</span>.createTextNode(<span class="string">"Hello World!"</span>);</span><br><span class="line">element.appendChild(textNode);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(element);</span><br></pre></td></tr></table></figure>
-<p>一般情况下每个元素只有一个文本子节点，但也可以同时有多个文本子节点，当他们是相邻的同胞节点，那么这两个节点就会连起来显示，中间不会有空格。</p>
-<h4 id="规范化文本节点"><a href="#规范化文本节点" class="headerlink" title="规范化文本节点"></a>规范化文本节点</h4><p>DOM文档中存在相邻的同胞文本节点很容易导致混乱，因为分不清哪个文本节点表示哪个字符串。DOM文档中出现相邻文本节点的情况也不在少数，于是催生了一个能够将相邻文本节点合并的方法，为normalize()，它把所有文本节点合并成一个子节点，结果节点的nodeValue为合并前每个文本节点nodeValue拼接起来的值。</p>
-<h4 id="分割文本节点"><a href="#分割文本节点" class="headerlink" title="分割文本节点"></a>分割文本节点</h4><p>splitText()可以用于分割文本节点。</p>
-<h3 id="Comment类型"><a href="#Comment类型" class="headerlink" title="Comment类型"></a>Comment类型</h3><p>注释在DOM中是通过Comment类型来表示的，有如下特征：</p>
-<ul>
-<li>nodeType值为8</li>
-<li>nodeName值为”#comment”</li>
-<li>nodeValue值为注释的内容</li>
-<li>parentNode可能是Document或Element</li>
-<li>不支持子节点</li>
-</ul>
-<p>Comment类型与Text类型继承自相同的基类，因此它拥有除splitText()之外的所有字符串操作方法，也可以通过nodeValue或data属性来取得注释的内容。</p>
-<p>注释节点可以通过其父节点来访问</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myDiv"</span>&gt;</span><span class="comment">&lt;!-- <span class="doctag">TODO:</span> do what? --&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> comment = div.firstChild;</span></span><br><span class="line"><span class="undefined">        alert(comment.data);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>另外，使用createComment()方法也可以创建注释节点</p>
-<h3 id="CDATASection类型"><a href="#CDATASection类型" class="headerlink" title="CDATASection类型"></a>CDATASection类型</h3><p>只针对基于XML的文档，表示的CDATA区域</p>
-<h3 id="DocumentType类型"><a href="#DocumentType类型" class="headerlink" title="DocumentType类型"></a>DocumentType类型</h3><h3 id="DocumentFragment类型"><a href="#DocumentFragment类型" class="headerlink" title="DocumentFragment类型"></a>DocumentFragment类型</h3><h3 id="Attr类型"><a href="#Attr类型" class="headerlink" title="Attr类型"></a>Attr类型</h3><p>元素的特性在DOM中以Attr类型来表示，在所有浏览器中都可以访问Attr类型的构造函数和原型，有下列特征</p>
-<ul>
-<li>nodeType=2</li>
-<li>nodeName是特性的名称</li>
-<li>nodeValue是特性的值</li>
-<li>parentNode是null</li>
-<li>HTML中不支持子节点</li>
-</ul>
-<p>要取得特性，通常用getAttribute(),setAttribute()和removeAttribute()方法，很少直接引用特性节点</p>
-<p>Attr有三个属性，name，value和specified，其中specified是一个布尔值，用于区分特性是在代码中指定还是默认的。</p>
-<p>可以使用document.createAttribute()方法并传入特性的名称来创建新的特性节点。</p>
-<h2 id="DOM操作技术"><a href="#DOM操作技术" class="headerlink" title="DOM操作技术"></a>DOM操作技术</h2><h3 id="动态脚本"><a href="#动态脚本" class="headerlink" title="动态脚本"></a>动态脚本</h3><p>页面加载时不存在，但将来某一时刻通过修改DOM动态添加的脚本。</p>
-<h4 id="动态加载外部JS文件"><a href="#动态加载外部JS文件" class="headerlink" title="动态加载外部JS文件"></a>动态加载外部JS文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">	script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">	script.src = url;</span><br><span class="line">	<span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="动态添加行内JS代码"><a href="#动态添加行内JS代码" class="headerlink" title="动态添加行内JS代码"></a>动态添加行内JS代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScriptString</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        script.appendChild(<span class="built_in">document</span>.createTextNode(code));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">        script.text = code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loadScriptString(<span class="string">"function sayHi()&#123; alert('hi'); &#125;"</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="动态样式"><a href="#动态样式" class="headerlink" title="动态样式"></a>动态样式</h3><p>加载外部CSS</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStyles</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> link = <span class="built_in">document</span>.createElement(<span class="string">"link"</span>);</span><br><span class="line">    link.rel = <span class="string">"stylesheet"</span>;</span><br><span class="line">    link.type = <span class="string">"text/css"</span>;</span><br><span class="line">    link.href = url;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>];</span><br><span class="line">    head.appendChild(link);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="操作表格"><a href="#操作表格" class="headerlink" title="操作表格"></a>操作表格</h3><p>对于一个表格</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">width</span>=<span class="string">"100%"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 1,1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 2,1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 1,2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 2,2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>要创建的节点太多了，所以DOM为&lt;table&gt;,&lt;tbody&gt;和&lt;tr&gt;元素添加了一些属性和方法</p>
-<p>&lt;table&gt;的属性和方法如下：</p>
-<ul>
-<li>caption：保存对&lt;caption&gt;元素的指针</li>
-<li>tBodies：是一个&lt;tbody&gt;元素的HTMLCollection</li>
-<li>tFoot：保存对&lt;tfoot&gt;元素的指针</li>
-<li>tHead：保存对&lt;thead&gt;元素的指针</li>
-<li>rows：一个表格中所有行的HTMLCollection</li>
-<li>createTHead()：创建&lt;thead&gt;元素，将其放到表格中，返回引用</li>
-<li>createTFoot()：创建&lt;tfoot&gt;元素，同上</li>
-<li>createCaption()：创建&lt;caption&gt;元素，同上</li>
-<li>deleteCaption()</li>
-<li>deleteTHead()</li>
-<li>deleteCaption()</li>
-<li>deleteRow(pos)：删除指定位置的行</li>
-<li>insertRow(pos)：向rows集合中指定位置插入一行</li>
-</ul>
-<p>&lt;tbody&gt;元素的属性和方法如下：</p>
-<ul>
-<li>rows：保存&lt;tbody&gt;元素中行的HTMLCollection</li>
-<li>deleteRow(pos)：删除指定位置的行</li>
-<li>insertRow(pos)：向rows集合中的指定位置插入一行，返回对新插入行的引用</li>
-</ul>
-<p>&lt;tr&gt;元素添加的属性和方法如下：</p>
-<ul>
-<li>cells：保存&lt;tr&gt;元素中单元格的HTMLCollection</li>
-<li>deleteCell(pos)：删除指定位置的单元格</li>
-<li>insertCell(pos)：向cells集合中指定位置插入一个单元格，返回对新插入单元格的引用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> table = <span class="built_in">document</span>.createElement(<span class="string">"table"</span>);</span><br><span class="line">table.border = <span class="number">1</span>;</span><br><span class="line">table.width = <span class="string">"100%"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> tbody = <span class="built_in">document</span>.createElement(<span class="string">"tbody"</span>);</span><br><span class="line">table.appendChild(tbody);</span><br><span class="line"></span><br><span class="line">tbody.insertRow(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 1,1"</span>));</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">1</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 2,1"</span>));</span><br><span class="line"></span><br><span class="line">tbody.insertRow(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 1,2"</span>));</span><br><span class="line">tbody.rows[<span class="number">1</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].cells[<span class="number">1</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 2,2"</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(table);</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2815,7 +2904,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2837,7 +2926,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
