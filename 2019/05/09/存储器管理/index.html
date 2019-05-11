@@ -112,7 +112,7 @@
 
 
 
-  <meta name="keywords" content="OS,存储器管理," />
+  <meta name="keywords" content="OS,存储器管理,分页,分段," />
 
 
 
@@ -124,7 +124,7 @@
 
 
 <meta name="description" content="存储器管理存储器管理概述存储器的多层结构由于CPU与存储器的速度不匹配，需要对存储器进行分层，经典是三层结构：CPU寄存器，主存和辅存，目前比较高级的分层是六层：寄存器，高速缓存，主存储器，磁盘缓存，固定磁盘和可移动存储介质，层次越高，速度越快，但价格越高，存储容量越小 高速缓存常用SRAM，内存DRAM，SDRAM等，外存是软盘，硬盘，光盘等  各层次作用主存又称内存，用于保存进程运行的程序和数">
-<meta name="keywords" content="OS,存储器管理">
+<meta name="keywords" content="OS,存储器管理,分页,分段">
 <meta property="og:type" content="article">
 <meta property="og:title" content="存储器管理">
 <meta property="og:url" content="http://yoursite.com/2019/05/09/存储器管理/index.html">
@@ -154,7 +154,7 @@
 <meta property="og:image" content="https://i.imgur.com/Epa98nQ.png">
 <meta property="og:image" content="https://i.imgur.com/VyaIZ0X.png">
 <meta property="og:image" content="https://i.imgur.com/kQnRsbQ.png">
-<meta property="og:updated_time" content="2019-05-09T15:05:29.751Z">
+<meta property="og:updated_time" content="2019-05-10T14:32:11.968Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="存储器管理">
 <meta name="twitter:description" content="存储器管理存储器管理概述存储器的多层结构由于CPU与存储器的速度不匹配，需要对存储器进行分层，经典是三层结构：CPU寄存器，主存和辅存，目前比较高级的分层是六层：寄存器，高速缓存，主存储器，磁盘缓存，固定磁盘和可移动存储介质，层次越高，速度越快，但价格越高，存储容量越小 高速缓存常用SRAM，内存DRAM，SDRAM等，外存是软盘，硬盘，光盘等  各层次作用主存又称内存，用于保存进程运行的程序和数">
@@ -546,7 +546,7 @@
 <li>首次适应(first fit, FF)算法：空闲分区链以地址递增的次序链接，从链首开始顺序查找直到找到一个大小能满足要求的空闲分区为止，然后从该分区划出一块内存空间分配给请求者</li>
 <li>循环首次适应(next fit, NF)算法：不再是每次都从链首开始查找，而是从上次找到的空闲分区的下一个空闲分区开始查找</li>
 <li>最佳适应(best fit, BF)算法：每次为作业分配内存时，总是把能满足要求又是最小的空闲分区分配给作业，要求所有空闲分区按容量从大到小顺序形成一空闲分区链</li>
-<li>最坏适应(worst fit, WF)算法：总是挑选最大的空闲区从中分割一部分存储空间给作业使用，要求将所有空闲分区按容量从大到小形成一空闲分区链，查找时只需看抵押给分区是否满足作业要求</li>
+<li>最坏适应(worst fit, WF)算法：总是挑选最大的空闲区从中分割一部分存储空间给作业使用，要求将所有空闲分区按容量从大到小形成一空闲分区链，查找时只需看第一个分区是否满足作业要求</li>
 </ul>
 <h4 id="基于索引搜索的动态分区分配算法"><a href="#基于索引搜索的动态分区分配算法" class="headerlink" title="基于索引搜索的动态分区分配算法"></a>基于索引搜索的动态分区分配算法</h4><ul>
 <li>快速适应(quick fit)算法：将空闲分区根据容量大小分类，对于每一类具有相同容量的所有空闲分区，单独设立一个空闲分区链，内存设立一张管理索引表，索引表项对应空闲分区类型，并记录该类型空闲分区链表表头的指针，根据进程常用空间大小划分，比如2KB，4KB，8KB等，7KB可以放在8KB也可以放在特殊的空闲分区链表中</li>
@@ -607,7 +607,9 @@
 <p>以前面的32位逻辑地址空间为例，当页面大小为4KB的时候(12位)，采用两级页表结构时，再对页表进行分页，使每页包含2^10个页表项，或者说，外层页表中的外层页内地址P2为10位，外层页号P1也为10位</p>
 <p>（通过外部页号得到P2的始址，然后P2和d就可以通过上面说过的地址变换过程获得物理地址了）<br>外层页表的每个页表项中存放的是某页表分页的首地址，地址变换机构中同样要增加外层页表寄存器，用于存放外层页表的始址，并利用逻辑地址中的外层页号作为外层页表的索引，从中找到指定页表的始址（同上页表始址与页号和页表项长度乘积相加那个原理），再利用P2作为指定页表分页的索引，找到指定页表项，即含有该页在内存中的物理块号，用该块号P和页内地址d即可构成访问的内存物理地址</p>
 <h4 id="一个练习小例子"><a href="#一个练习小例子" class="headerlink" title="一个练习小例子"></a>一个练习小例子</h4><p><img src="https://i.imgur.com/NzHTbzz.png" alt=""></p>
+<p>对题目的理解：页号是用户程序而言的，该用户程序有32页，每页2K，而物理块是针对内存空间而言的，内存有1M，第1题第2问中，因为物理空间有1M，每页2K，即每个物理块2K，所以内存中有512个物理块，这32页必须可以对应到这512个物理块中的每一块，物理块号为0#——511#，页表项是物理块的块号，所以页表项位数应该是511的二进制位数，即9位</p>
 <p><img src="https://i.imgur.com/nzZDyXX.png" alt=""></p>
+<p>对第二题，由逻辑地址算出页号和页内地址，通过页号找到物理块号，物理地址=物理块号*页面大小+业内地址</p>
 <p><img src="https://i.imgur.com/Pypgxvw.png" alt=""></p>
 <h2 id="分段存储管理系统"><a href="#分段存储管理系统" class="headerlink" title="分段存储管理系统"></a>分段存储管理系统</h2><p>基本思想：按程序的逻辑结构，将程序的地址空间划分为若干段，各段大小可不相同，在进行存储分配时，以段为单位，这些段在内存中可以不相邻接<br>为什么引入：一方面程序可分为若干个段，主程序段，子程序段A，子程序段B，数据段，栈段等，另一方面实现和满足信息共享，信息保护，动态链接以及信息的动态增长等需要</p>
 <h3 id="分段系统基本原理"><a href="#分段系统基本原理" class="headerlink" title="分段系统基本原理"></a>分段系统基本原理</h3><h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>每个段定义了一组逻辑信息，分段地址的地址具有如下结构</p>
@@ -645,6 +647,10 @@
           
             <a href="/tags/存储器管理/" rel="tag"># 存储器管理</a>
           
+            <a href="/tags/分页/" rel="tag"># 分页</a>
+          
+            <a href="/tags/分段/" rel="tag"># 分段</a>
+          
         </div>
       
 
@@ -680,6 +686,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/10/虚拟存储器/" rel="prev" title="存储器管理">
+                存储器管理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -768,7 +778,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -790,7 +800,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
