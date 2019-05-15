@@ -369,6 +369,367 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/Java内存区域与内存溢出异常/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/15/Java内存区域与内存溢出异常/" itemprop="url">Java内存区域</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T10:24:34+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/15/Java内存区域与内存溢出异常/" class="leancloud_visitors" data-flag-title="Java内存区域">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java内存区域"><a href="#Java内存区域" class="headerlink" title="Java内存区域"></a>Java内存区域</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="https://i.imgur.com/uLRBzDt.png" alt=""></p>
+<h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>程序计数器可以看作当前线程所执行的字节码的行号指示器，在虚拟机概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令</p>
+<p>由于Java虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，任一时刻一个处理器只会执行一条线程的指令，因此每个线程都有一个独立的程序计数器，它是线程私有的内存</p>
+<p>如果线程执行的是java方法，计数器记录的是正在执行的虚拟机字节码指令的地址，如果执行的是Native方法，技术值为空，此内存区域没有规定任何OutOfMemoryError</p>
+<h3 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h3><p>Java虚拟机栈也是线程私有的，它生命周期和线程相同。虚拟机栈描述的是java方法执行的内存模型，每个方法在执行的时候会创建一个栈帧，<strong>用于存储局部变量表，操作数栈，动态链接，方法出口等信息</strong>，每个方法从调用到执行完成的过程，对应一个栈帧在虚拟机栈中入栈到出栈的过程</p>
+<p>局部变量表存放编译期可知的各种基本数据类型，对象引用和returnAddress类型，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的，方法运行期间不会改变局部变量表的大小</p>
+<p>虚拟机栈有两种异常状况：线程请求的栈深度大于虚拟机允许的深度时，抛出StackOverflowError，虚拟机栈动态扩展时无法申请到足够内存，抛出OutOfMemoryError</p>
+<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>它也是线程私有的，它与虚拟机栈的区别是，虚拟机栈为虚拟机执行Java方法（也就是字节码）服务，本地方法栈为虚拟机使用到的Native方法服务</p>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建，它的唯一目的是<strong>存放对象实例</strong>，几乎所有的对象实例都在这里分配内存</p>
+<p>它是垃圾收集器管理的主要区域，它可以是物理上不连续的内存空间，只要逻辑上连续即可，会抛出OutOfMemoryError</p>
+<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区也是线程共享的内存区域，<strong>用于存储已被虚拟机加载的类信息，常量，静态变量，即时编译器编译后的代码等数据</strong></p>
+<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>它是方法区的一部分，<strong>用于存放编译期生成的各种字面量和符号引用</strong>，这部分内容在类加载后进入方法区的运行时常量池存放</p>
+<p>字面量就是值，符号引用就是一个java类引用了另一个java类比如org.simple.People类引用了org.simple.Language类，编译时People并不知道Language的实际内存地址，只能用符号org.simple.Language表示Language的地址</p>
+<h2 id="HopSpot虚拟机对象"><a href="#HopSpot虚拟机对象" class="headerlink" title="HopSpot虚拟机对象"></a>HopSpot虚拟机对象</h2><p>以常用的虚拟机HotSpot和常用的内存区域Java堆为例，探讨HotSpot虚拟机在Java堆中对象分配布局和访问的过程</p>
+<h3 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a>对象的创建</h3><p>虚拟机遇到一条new指令时，首先去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载，解析和初始化过，如果没有就必须先执行类加载过程<br>类加载检查通过后，虚拟机为新生对象分配内存，分配内存即把一块确定大小的内存从Java堆中划分开，如果内存规整，用过的内存在一边，空闲内存在另一边，中间存放指针作为分界点指示器，分配内存只需要把指针挪动即可，称为指针碰撞，如果内存不规整，用空闲列表法分配<br>除了内存分配，还要考虑线程安全的问题，如为对象A分配内存，指针还没修改时候对象B又同时使用原来的指针分配内存，解决方法一种是对分配内存空间同步处理，另一种是内存分配动作把内存分配动作按线程划分在不同的空间中进行，即每个线程在Java堆中预先分配一小块内存，称为本地线程分配缓冲（TLAB），哪个线程需要分配内存，就在哪个线程的TLAB上分配，只有TLAB用完并分配新的TLAB时，才需要同步锁定<br>内存分配完成后，虚拟机将分配到的内存空间都初始化为零值（TLAB的话可以提前到TLAB分配时进行），这一步保证了对象实例字段的默认值<br>然后虚拟机堆对象进行必要的设置，比如这个对象是哪个类的实例，如何才能找到类的元数据信息，对象哈希码，GC分代年龄等信息，这些信息存放在对象的对象头中<br>上面工作完成后，从虚拟机视角看，一个新的对象产生了，但从Java视角看，还需要执行&lt;init&gt;方法</p>
+<p>总结：一个对象创建步骤如下</p>
+<ol>
+<li>检查常量池是否有该类的符号引用，没有则类加载</li>
+<li>分配内存，策略有空闲表法和指针碰撞</li>
+<li>线程安全问题，分配内存动作同步或内存按线程划分（TLAB）</li>
+<li>分配的内存空间初始化为0</li>
+<li>设置对象头，存放类，元数据，哈希码，GC分代年龄等</li>
+<li>Java执行init方法</li>
+</ol>
+<h3 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h3><p>HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域：对象头，实例数据和对齐填充</p>
+<ul>
+<li>对象头：包括存储对象自身运行时的数据如哈希码，GC分代年龄，锁状态标志，线程持有的锁等，以及类型指针，即对象指向它的类元数据的指针，虚拟机通过这个指针确定这个对象是哪个类的实例，如果对象为Java数组，还需要在对象头有一块记录数组长度的数据，对象头在32位/64位机的长度是32位和64位</li>
+<li>实例数据部分是对象真正存储的有效信息，也就是代码中定义的各种类型的字段内容，无论是父类继承的还是子类定义的，都会记录下来，它们的存储顺序受虚拟机分配策略参数和字段的影响</li>
+<li>对齐填充：不是必然存在的，也没什么含义，只起占位符作用，由于HotSpot VM的自动内存管理系统要求对象起始地址必须是8字节的整数倍，对象头又正好是8字节的倍数，因此当对象实例数据部分没有对齐时，需要对齐填充补全</li>
+</ul>
+<h3 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h3><p>Java程序需要通过栈上的reference数据来操作堆上的具体对象，由于reference类型在Java虚拟机规范中只规定了一个指向对象的引用，而没有定义这个引用通过何种方式定位访问堆中对象的具体位置，所以对象访问方式取决于虚拟机实现，目前主流的是句柄和直接指针两种</p>
+<h4 id="句柄访问"><a href="#句柄访问" class="headerlink" title="句柄访问"></a>句柄访问</h4><p>Java堆划分一块内存作为句柄池，reference中存储的是对象的句柄地址，句柄中包含对象实例数据和类型数据各自的具体地址信息</p>
+<p><img src="https://i.imgur.com/kcsapoB.png" alt=""></p>
+<p>句柄访问的优点是reference存储的是稳定的句柄地址，对象被移动时（垃圾收集移动对象很普遍）只会改变句柄的实例数据指针，reference本身不需要修改</p>
+<h4 id="直接指针访问"><a href="#直接指针访问" class="headerlink" title="直接指针访问"></a>直接指针访问</h4><p>reference存储的直接就是对象地址，由Java堆对象考虑如放置访问类型数据的相关信息</p>
+<p><img src="https://i.imgur.com/K0uskT9.png" alt=""></p>
+<p>直接指针访问好处是速度快，它节省了一次指针定位的时间开销，HotSpot使用的是直接指针访问</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/多态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/14/多态/" itemprop="url">Java多态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T15:19:18+08:00">
+                2019-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/14/多态/" class="leancloud_visitors" data-flag-title="Java多态">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>wiki上对多态的定义是这样的：</p>
+<blockquote>
+<p>在编程语言和类型论中，多型（英语：polymorphism）指为不同数据类型的实体提供统一的接口。 [1]多态类型（英语：polymorphic type）可以将自身所支持的操作套用到其它类型的值上。[2]</p>
+<p>计算机程序執行時，相同的訊息可能會送給多個不同的類別之物件，而系統可依據物件所屬類別，引發對應類別的方法，而有不同的行為。簡單來說，所謂多型意指相同的訊息給予不同的物件會引發不同的動作。</p>
+<p>多态也可定义为“一种将不同的特殊行为和单个泛化记号相关联的能力”。</p>
+<p>多态可分为变量多态与函数多态。变量多态是指：基类型的变量（对于C++是引用或指针）可以被赋值基类型对象，也可以被赋值派生类型的对象。函数多态是指，相同的函数调用界面（函数名与实参表），传送给一个对象变量，可以有不同的行为，这视该对象变量所指向的对象类型而定。因此，变量多态是函数多态的基础。</p>
+</blockquote>
+<h2 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h2><p>多态通过分离”做什么”和”怎么做”，从另一角度把接口和实现分离，改善代码的组织结构和可读性，创建可扩展的程序</p>
+<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>前提：</p>
+<ul>
+<li>继承关系</li>
+<li>子类重写父类方法</li>
+<li>父类引用指向子类（向上转型）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物吃饭"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物在睡觉"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物在奔跑"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">80</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> age = <span class="number">90</span>;</span><br><span class="line">    String name = <span class="string">"tomCat"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫吃饭"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫在睡觉"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">catchMouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫在抓老鼠"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo_Test1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;	</span><br><span class="line">	Animal am = <span class="keyword">new</span> Cat(); <span class="comment">// 基类型指向子类对象</span></span><br><span class="line">	am.eat(); 		 <span class="comment">// 猫吃饭</span></span><br><span class="line">	am.sleep(); 	 <span class="comment">// 动物在睡觉</span></span><br><span class="line">	am.run(); 		 <span class="comment">// 动物在奔跑</span></span><br><span class="line">	am.catchMouse(); <span class="comment">// 报错</span></span><br><span class="line">    System.out.println(am.name); <span class="comment">// 报错</span></span><br><span class="line">	System.out.println(am.num);  <span class="comment">// 10</span></span><br><span class="line">	System.out.println(am.age);  <span class="comment">// 20</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>成员变量：编译看父类，运行看父类<br>成员方法：编译看父类，运行看子类（动态绑定）<br>静态方法：编译看父类，运行看父类</p>
+<p>弊端：多态不能使用子类特有的方法和属性</p>
+<p>可以通过强制类型转换<code>Cat cat = (Cat)am</code>，这样，cat指向的是最开始在堆内存中创建的那个Cat类型的对象，这是多态的向下转型</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/文件管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2248,317 +2609,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/JavaScript09-事件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/10/JavaScript09-事件/" itemprop="url">JavaScript09-事件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
-                2019-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/10/JavaScript09-事件/" class="leancloud_visitors" data-flag-title="JavaScript09-事件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript09-事件"><a href="#JavaScript09-事件" class="headerlink" title="JavaScript09-事件"></a>JavaScript09-事件</h1><h2 id="事件流"><a href="#事件流" class="headerlink" title="事件流"></a>事件流</h2><p>事件流描述的是从页面中接收事件的顺序。如果单击某个按钮，那么单击事件不仅仅发生在按钮上，同样发生在按钮的容器元素，甚至整个页面上。<strong>事件冒泡就是最具体的元素最先接收这个事件，然后逐级向上，事件捕获则相反。</strong></p>
-<h3 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h3><p>事件冒泡是IE提出的，即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>aha<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myDiv"</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>点击&lt;div&gt;元素，那么这个click事件就按照如下顺序传播：</p>
-<ol>
-<li>&lt;div&gt;</li>
-<li>&lt;body&gt;</li>
-<li>&lt;html&gt;</li>
-<li>document</li>
-</ol>
-<h3 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h3><p>Netscape Communicator团队提出的另一种事件流。事件捕获的思想是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。仍以上面html代码为例，单击&lt;div&gt;元素就会以下列顺序触发click事件</p>
-<ol>
-<li>document</li>
-<li>&lt;html&gt;</li>
-<li>&lt;body&gt;</li>
-<li>&lt;div&gt;</li>
-</ol>
-<p>一般考虑到老版本，使用事件冒泡更多。</p>
-<h3 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h3><p>DOM2级事件规定的事件流包括三个阶段：事件捕获阶段，处于目标阶段和事件冒泡阶段。</p>
-<h2 id="事件处理程序"><a href="#事件处理程序" class="headerlink" title="事件处理程序"></a>事件处理程序</h2><p>事件处理程序名字以”on”开头，因此click事件的事件处理程序就是onclick，load事件的事件处理程序就是onload。</p>
-<h3 id="HTML事件处理程序"><a href="#HTML事件处理程序" class="headerlink" title="HTML事件处理程序"></a>HTML事件处理程序</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    function showMessage() &#123;</span></span><br><span class="line"><span class="undefined">        alert("Hello World!");</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Click Me"</span> <span class="attr">onclick</span>=<span class="string">"showMessage()"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这样指定事件处理程序会创建一个封装着元素属性值的函数，这个函数中有一个局部变量event，也就是事件对象</p>
-<p><code>&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(event.type)&quot; /&gt; // &quot;click&quot;</code></p>
-<p>通过event对象，可以直接访问事件对象，在这个函数内部，this值等于事件的目标元素</p>
-<p><code>&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(this.value)&quot; /&gt; // 返回元素的value属性，这里为&quot;Click Me&quot;</code></p>
-<p>关于这个动态创建的函数，可以像访问局部变量一样访问document及该元素本身的成员，使用with像下面这样扩展：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">with</span>(<span class="built_in">document</span>)  &#123;</span><br><span class="line">		<span class="keyword">with</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">			<span class="comment">// 元素属性值</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果当前元素是一个表单输入元素，则作用域还会包含访问表单元素的入口，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">with</span>(<span class="built_in">document</span>)  &#123;</span><br><span class="line">		<span class="keyword">with</span>(<span class="keyword">this</span>.form) &#123;</span><br><span class="line">			<span class="keyword">with</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">				<span class="comment">// 元素属性值</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>扩展这个作用域的方式，主要是想让事件处理程序无需引用表单元素就能访问其他表单字段，例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Echo Username"</span> <span class="attr">onclick</span>=<span class="string">"alert(username.value)"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="DOM0级事件处理程序"><a href="#DOM0级事件处理程序" class="headerlink" title="DOM0级事件处理程序"></a>DOM0级事件处理程序</h3><p>通过JavaScript指定事件处理程序的传统方式，就是将一个函数赋值给一个事件处理程序属性。如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var btn = document.getElementById(&quot;myBtn&quot;);</span><br><span class="line">btn.onclick = function() &#123;</span><br><span class="line">    alert(&quot;Clicked&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用DOM0级方法执行的事件处理程序被认为是元素的方法，程序中的this引用的是当前元素。<br>只需把属性值设置为null就可以删除事件处理程序</p>
-<h3 id="DOM2级事件处理程序"><a href="#DOM2级事件处理程序" class="headerlink" title="DOM2级事件处理程序"></a>DOM2级事件处理程序</h3><p>DOM2级事件定义了两个方法，用于处理指定和删除事件处理程序的操作：addEventListener()和removeEventListener()。所有DOM节点都包含这两个方法，它们接收3个参数：要处理的事件名，作为事件处理程序的函数和一个布尔值。这个布尔值若为true，表示捕获阶段调用事件处理程序；如果是false，表示冒泡阶段调用事件处理程序。</p>
-<p>DOM2级方法主要好处是可以添加多个事件处理程序，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</span><br><span class="line"></span><br><span class="line">btn.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">btn.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.id);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-<p>通过addEventListener()添加的事件处理程序只能使用removeEventListener()来移除；移除时传入的参数要与添加处理程序时使用的参数相同，即添加的匿名参数无法移除。</p>
-<p>大多数情况下，都是把事件处理程序添加到事件流的冒泡阶段，这样可以最大限度地兼容各种浏览器。最好只在需要在事件到达目标之前截获它的时候将事件处理程序添加到捕获阶段。如果不是特别需要，不建议在事件捕获阶段注册事件处理程序。</p>
-<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>在触发DOM上某个事件时，会产生一个事件对象event，这个对象中包含所有与事件有关的信息，包括导致事件的元素，事件的类型以及其他与特定事件相关的信息。例如鼠标操作导致的鼠标位置的信息等。</p>
-<h3 id="DOM中的事件对象"><a href="#DOM中的事件对象" class="headerlink" title="DOM中的事件对象"></a>DOM中的事件对象</h3><p>兼容DOM的浏览器会将一个event对象传入到事件处理程序中。</p>
-<p>关于event的更多（比如其成员),可以看<a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank" rel="noopener">MDN的DOM Event接口</a></p>
-<p>如果事件处理程序指定给目标元素，则this，currentTarget和target是相同的，事件处理程序内部，对象this始终等于currentTarget的值，如果事件处理程序存在于父节点中，则这些值是不同的，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</span><br><span class="line"><span class="built_in">document</span>.body.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    alert(event.currentTarget == <span class="built_in">document</span>.body);</span><br><span class="line">    alert(<span class="built_in">document</span>.body == <span class="keyword">this</span>);</span><br><span class="line">    alert(event.target == btn);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要处理一个函数处理多个事件的时候，可以使用type属性，如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">"myBtn"</span>);</span><br><span class="line"><span class="keyword">var</span> handler = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(event.type) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"click"</span> :</span><br><span class="line">            alert(<span class="string">"clicked"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"mouseover"</span> :</span><br><span class="line">            event.target.style.backgroundColor = <span class="string">"red"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"mouseout"</span> :</span><br><span class="line">            event.target.style.backgroundColor = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">btn.onclick = handler;</span><br><span class="line">btn.onmouseover = handler;</span><br><span class="line">btn.onmouseout = handler;</span><br></pre></td></tr></table></figure>
-<p>要阻止特定事件的默认行为，可以使用preventDefault()方法。例如，链接的默认行为就是在被单击的时候会导航到其href特性指定的URL。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> link = <span class="built_in">document</span>.getElementById(<span class="string">"myLink"</span>);</span><br><span class="line">link.onclick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>只有cancelable属性设置为true的事件，才可以使用preventDefault()方法来取消默认行为。</p>
-<p>stopPropagation()方法用于立即停止事件在DOM层次中的传播，即取消进一步事件捕获或冒泡。例如，直接添加到一个按钮的事件处理程序可以调用stopPropagation()，从而避免触发注册在document.body上面的事件处理程序。</p>
-<p>eventPhase属性可以用来确定事件当前位于事件流的哪个阶段。如果是在捕获阶段调用事件处理程序，那么eventPhase的值为1，如果事件处理程序在目标对象上，则eventPhase值为2，如果是在冒泡阶段调用的事件处理程序，eventPhase等于3。</p>
-<h3 id="跨浏览器的事件对象"><a href="#跨浏览器的事件对象" class="headerlink" title="跨浏览器的事件对象"></a>跨浏览器的事件对象</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil = &#123;</span><br><span class="line"></span><br><span class="line">    addHandler: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">            element.addEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">            <span class="comment">// IE事件处理程序</span></span><br><span class="line">            element.attachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">"on"</span> + type] = handler;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    getEvent: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> event ? event : <span class="built_in">window</span>.event;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    getTarget: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> event.target || event.srcElement;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    preventDefault: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.preventDefault) &#123;</span><br><span class="line">            event.preventDefault();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.returnValue = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    removeHandler: <span class="function"><span class="keyword">function</span>(<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.removeEventListener) &#123;</span><br><span class="line">            element.removeEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.detachEvent) &#123;</span><br><span class="line">            element.detachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            element[<span class="string">"on"</span> + type] = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    stopPropagation: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.stopPropagation) &#123;</span><br><span class="line">            event.stopPropagation();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            event.cancelBubble = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 与mouseout，mouseover事件相关的属性，见下面</span></span><br><span class="line">    getRelatedTarget: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.relatedTarget) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.relatedTarget;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.toElement) &#123;</span><br><span class="line">            <span class="comment">// 兼容IE8</span></span><br><span class="line">            <span class="keyword">return</span> event.toElement;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (event.fromElement) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.fromElement;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 与mousedown，mouseout事件相关的鼠标属性</span></span><br><span class="line">	getButton: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">document</span>.implementation.hasFeature(<span class="string">"MouseEvents"</span>, <span class="string">"2.0"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.button;    </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span>(event.button) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="事件类型"><a href="#事件类型" class="headerlink" title="事件类型"></a>事件类型</h2><p>DOM3级事件规定了以下几类事件</p>
-<ul>
-<li>UI事件：当用户与页面上的元素交互时触发；</li>
-<li>焦点事件：当元素获得或失去焦点时触发；</li>
-<li>鼠标事件：当用户通过鼠标在页面上执行操作时触发；</li>
-<li>滚轮事件：当使用鼠标滚轮时触发；</li>
-<li>文本事件：当在文档中输入文本时触发；</li>
-<li>键盘事件：当用户通过键盘在页面上执行操作时触发；</li>
-<li>合成事件：当为IME（输入法编辑器）输入字符时触发；</li>
-<li>变动事件：当底层DOM结构发生变化时触发。</li>
-</ul>
-<h3 id="UI事件"><a href="#UI事件" class="headerlink" title="UI事件"></a>UI事件</h3><p>UI事件指的是那些不一定与用户操作有关的事件，有如下UI事件。</p>
-<ul>
-<li>load：当页面完全加载后在window上触发，当所有框架都加载完毕时在框架集上触发，当图像加载完毕在&lt;img&gt;元素上触发，或者当嵌入的内容加载完毕时在&lt;object&gt;元素上触发。</li>
-<li>unload：当页面完全卸载后在window上触发，当所有框架都卸载后在框架集上触发，或当嵌入的内容卸载后在&lt;object&gt;元素上触发。</li>
-<li>abort：在用户停止下载过程时，如果浅入的内容没有加载完，则在&lt;object&gt;元素上触发。</li>
-<li>error：当发生在JavaScript错误时在window上触发，当无法加载图像时在&lt;img&gt;上触发，当无法加载嵌入内容时在&lt;object&gt;上触发，或者当有一或多个框架无法加载时在框架集上触发。</li>
-<li>select：当用户选择文本框（&lt;input&gt;或&lt;texterea&gt;）中的一或多个字符时触发。</li>
-<li>resize：当窗口或框架大小变化时在window或框架上触发。</li>
-<li>scroll：当用户滚动带滚动条的元素中的内容时，在该元素上触发。&lt;body&gt;元素中包含所加载页面的滚动条。</li>
-</ul>
-<p>确定浏览器是否支持DOM2级事件规定的HTML事件，可以用如下代码</p>
-<p><code>var isSupported = document.implementation.hasFeature(&quot;HTMLEvents&quot;, &quot;2.0&quot;);</code></p>
-<p>确定浏览器是否支持DOM3级事件定义的事件，可以用如下代码</p>
-<p><code>var isSupported = document.implementation.hasFeature(&quot;UIEvent&quot;, &quot;3.0&quot;);</code></p>
-<h4 id="load事件"><a href="#load事件" class="headerlink" title="load事件"></a>load事件</h4><p>当页面完全加载后（包括所有图像，JS文件，CSS等外部资源），就会触发window上的load事件。</p>
-<p>有两种添加onload事件处理程序的方式，一个是使用上面的EventUtil，另一个就是给&lt;body&gt;元素添加onload特性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(<span class="built_in">window</span>, <span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">"loaded!"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p><code>&lt;body onload=&quot;alert(&#39;Loaded!&#39;)&quot;&gt;&lt;/body&gt;</code></p>
-<p>一般来说，在window上面发生的任何事件都可以在&lt;body&gt;元素中通过相应的特性来指定。</p>
-<p>对于&lt;img&gt;元素，可以为其指定一个事件处理程序，以便图像加载完毕后给出提示。此时，<strong>最重要的是要在指定的属性之前先加载指定事件。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(<span class="built_in">window</span>, <span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> image = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    EventUtil.addHandler(image, <span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        alert(EventUtil.getTarget(event).src);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(image);</span><br><span class="line">    image.src = <span class="string">"./a.jpg"</span>;    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>还有一些元素也以非标准方式支持load事件，&lt;script&gt;元素也会触发load事件，以便开发人员确定动态加载的JS文件是否加载完毕。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(<span class="built_in">window</span>, <span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    EventUtil.addHandler(script, <span class="string">"load"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        alert(<span class="string">"Loaded!"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    script.src = <span class="string">"example.js"</span>;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);    </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="unload事件"><a href="#unload事件" class="headerlink" title="unload事件"></a>unload事件</h4><p>在文档被完全卸载后触发。只要用户从一个页面切换到另一个页面，就会发生unload事件。利用这个事件最多的情况就是清除引用，以避免内存泄漏。unload事件的对象同样是window。</p>
-<h4 id="resize事件"><a href="#resize事件" class="headerlink" title="resize事件"></a>resize事件</h4><p>当浏览器窗口被调整到一个新的高度或宽度的时候，就会触发resize事件。这个事件在window上触发。不同浏览器resize事件处理不同，有可能是变化了1像素就触发，然后随着变化不断重复触发，也有可能用户停止调整窗口大小的时候才触发。</p>
-<h4 id="scroll事件"><a href="#scroll事件" class="headerlink" title="scroll事件"></a>scroll事件</h4><p>scroll事件同样是在window上发生的，尽管它实际表示的是页面中相应元素的变化。scroll事件在滚动期间重复被触发。</p>
-<h3 id="焦点事件"><a href="#焦点事件" class="headerlink" title="焦点事件"></a>焦点事件</h3><p>焦点事件会在页面元素获得或失去焦点时触发。利用这些元素并与document.hasFocus()方法及document.activeElement属性配合，可以知晓用户在页面上的行踪。有以下6个焦点事件。</p>
-<ul>
-<li>blur：在元素失去焦点时触发。这个事件不会冒泡。</li>
-<li>focus：元素获得焦点的时候触发。不会冒泡。</li>
-<li>focusin：元素获得焦点时触发，与HTML事件focus等价。</li>
-<li>focusout：元素失去焦点时触发。</li>
-</ul>
-<p>当焦点从页面中一个元素移动到另一个元素，会依次触发下列事件：</p>
-<ol>
-<li>focusout在失去焦点元素上触发。</li>
-<li>focusin在获得焦点元素上触发。</li>
-<li>blur</li>
-<li>focus</li>
-</ol>
-<p>确定浏览器是否支持这些事件：</p>
-<p><code>var isSupported = document.implementation.hasFeature(&quot;FocusEvent&quot;, &quot;3.0&quot;);</code></p>
-<h3 id="鼠标与滚轮事件"><a href="#鼠标与滚轮事件" class="headerlink" title="鼠标与滚轮事件"></a>鼠标与滚轮事件</h3><ul>
-<li>click：用户单击主鼠标按钮或按下回车触发。</li>
-<li>dblclick：用户双击主鼠标按钮触发。</li>
-<li>mousedown：用户按下任意鼠标按钮触发。</li>
-<li>mouseenter：鼠标光标从元素外部首次移动到元素范围之内时触发。这个事件不冒泡，在光标移动到后代元素上不会触发。</li>
-<li>mouseleave：在位于元素上方的鼠标光标移动到元素范围之外时触发。这个事件不冒泡，光标移到后代元素上不会触发。</li>
-<li>mousemove：鼠标指针在元素内部移动时重复触发。</li>
-<li>mouseout：鼠标指针位于一个元素上方，然后用户将其移入到另一个元素时触发。另一个元素可以是该元素的外部元素或子元素。</li>
-<li>mouseover：鼠标指针位于一个元素外部，首次移入另一个元素边界之内触发。</li>
-<li>mouseup：用户释放鼠标按钮时触发。</li>
-</ul>
-<p>检查是否支持上面事件可以使用如下代码</p>
-<p><code>var isSupported = document.implementation.hasFeature(&quot;MouseEvent&quot;, &quot;3.0&quot;);
-alert(isSupported);</code></p>
-<h4 id="客户区坐标位置"><a href="#客户区坐标位置" class="headerlink" title="客户区坐标位置"></a>客户区坐标位置</h4><p>鼠标事件都是在浏览器视口中的特定位置上发生的，这个位置信息保存在事件对象的clientX和clientY属性中。<br><a href="https://blog.csdn.net/zshsats/article/details/79942126" target="_blank" rel="noopener">视口坐标，页面坐标，屏幕坐标的区别可以看这个</a></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">EventUtil.addHandler(div, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    alert(<span class="string">"Client coordinates: "</span> + event.clientX + <span class="string">","</span> + event.clientY);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="页面坐标位置"><a href="#页面坐标位置" class="headerlink" title="页面坐标位置"></a>页面坐标位置</h4><p>通过客户区坐标位置能够知道鼠标是在视口中什么位置发生的，而页面坐标通过事件对象的pageX和pageY属性，告诉你事件是在页面中什么位置发生的。这两个属性表示鼠标光标在页面中的位置。坐标是从页面本身而非视口左边和顶边计算。</p>
-<p><strong>当页面没有滚动的的时候，页面坐标等于视口坐标，如果有滚动，页面坐标为滚动高度加上视口坐标。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">EventUtil.addHandler(div, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    alert(<span class="string">"Page coordinates: "</span> + event.pageX + <span class="string">","</span> + event.pageY);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="屏幕坐标位置"><a href="#屏幕坐标位置" class="headerlink" title="屏幕坐标位置"></a>屏幕坐标位置</h4><p>屏幕坐标位置是相对于整个电脑屏幕的位置。属性为screenX和screenY。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">EventUtil.addHandler(div, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    alert(<span class="string">"Screen coordinates: "</span> + event.screenX + <span class="string">","</span> + event.screenY);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="修改键"><a href="#修改键" class="headerlink" title="修改键"></a>修改键</h4><p>按下鼠标时键盘上的某些键的状态也可以影响到所要采取的操作。这些修改键是Shift，Ctrl，Alt和Meta（Windows的win键）。<strong>DOM为此规定了4个属性，表示这4个修改键的状态：shiftKey，ctrlKey，altKey和metaKey。这些属性中包含的都是布尔值</strong>，如果相应键按下，值为true，否则为false。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">EventUtil.addHandler(div, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> keys = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.shiftKey) &#123;</span><br><span class="line">        keys.push(<span class="string">"shift"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.ctrlKey) &#123;</span><br><span class="line">        keys.push(<span class="string">"ctrl"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.altKey) &#123;</span><br><span class="line">        keys.push(<span class="string">"alt"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.metaKey) &#123;</span><br><span class="line">        keys.push(<span class="string">"meta"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    alert(<span class="string">"Keys: "</span> + keys.join(<span class="string">","</span>));</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h4 id="相关元素"><a href="#相关元素" class="headerlink" title="相关元素"></a>相关元素</h4><p>发生mouseover和mouseout事件时，还会涉及更多的元素。这两个事件都会涉及把鼠标指针从一个元素的边界之内移动到另一个元素的边界之内。<strong>对mouseover事件而言，事件的主目标是获得光标的元素，而相关元素是那个失去光标的元素。</strong>类似地，对mouseout事件而言，事件的主目标是失去光标的元素，而相关元素则是获得光标的元素。</p>
-<p>DOM通过event对象的relatedTarget属性提供了相关元素的信息。这个属性只对mouseover和mouseout事件才包含值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">EventUtil.addHandler(div, <span class="string">"mouseout"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">    <span class="keyword">var</span> relatedTarget = EventUtil.getRelatedTarget(event);</span><br><span class="line">    alert(<span class="string">"Mouse out of "</span> + target.tagName + <span class="string">" to "</span> + relatedTarget.tagName);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="鼠标按钮"><a href="#鼠标按钮" class="headerlink" title="鼠标按钮"></a>鼠标按钮</h4><p>只有在主鼠标按钮被单击（或键盘回车被按下）的时候才会触发click事件，因此检测按钮的信息并不是必要的。但<strong>对于mousedown和mouseup事件来说，在其event对象内存在一个button属性，表示按下或释放的按钮。DOM的button属性可能有如下3个值：0表示主鼠标按钮，1表示中间鼠标按钮（滚轮按钮），2表示次鼠标按钮。</strong>IE8之前的button属性与DOM有很大差异，不做表述。具体的兼容鼠标检测见上面EventUtil</p>
-<h4 id="更多的事件信息"><a href="#更多的事件信息" class="headerlink" title="更多的事件信息"></a>更多的事件信息</h4><p>DOM2级事件规范在event事件中还提供了detail属性，用于给出有关事件的更多信息。对于鼠标事件来说，detail中包含一个数值，表示在给定位置上发生了多少次单击。同一元素上相继发生一次mousedown和一次mouseup事件算一次单击。detail属性从1开始计数，每次单击后递增。如果鼠标在mouseup和mousedown之间移动了位置，detail会被重置为0.</p>
-<h4 id="鼠标滚轮事件"><a href="#鼠标滚轮事件" class="headerlink" title="鼠标滚轮事件"></a>鼠标滚轮事件</h4><p>mousewheel事件，当用户通过鼠标滚轮与页面发生交互，在垂直方向上滚动页面时（无论向上向下），就会触发mousewheel事件。这个事件可以在任何元素上触发，最终冒泡到window对象。mousewheel事件包含一个特殊的wheelDelta属性。当用户向前滚动鼠标滚轮，wheelDelta是120的倍数，当用户向后滚动滚轮，wheelDelta是-120的倍数。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousewheel"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    alert(event.wheelDelta);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p><strong>跨浏览器的解决方案</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getWheelDelta: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event.wheelDelta) &#123;</span><br><span class="line">        <span class="keyword">return</span> (client.engine.opera &amp;&amp; client.engine.opera &lt; <span class="number">9.5</span> ? -event.wheelDelta : event.wheelDelta);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> -event.detail * <span class="number">40</span>; <span class="comment">//兼容Firefox</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="键盘与文本事件"><a href="#键盘与文本事件" class="headerlink" title="键盘与文本事件"></a>键盘与文本事件</h3><p>有三个键盘事件，如下：</p>
-<ul>
-<li>keydown：当用户按下键盘上的任意键时触发，如果按住不放，则重复触发。</li>
-<li>keypress：当用户按下键盘上的字符键时触发，如果按住不放会重复触发。</li>
-<li>keyup：当用户释放键盘上的键时触发。</li>
-</ul>
-<p>用户按下一个字符键时，首先触发keydown，其次是keypress，最后是keyup。键盘事件同样也有shiftKey，ctrlKey，altKey和metaKey。</p>
-<h4 id="键码"><a href="#键码" class="headerlink" title="键码"></a>键码</h4><p>在发生keydown和keyup事件时，event对象的keyCode属性会包含一个代码。对数字字母字符键，keyCode属性的值与ASCII中对应小写字母或数字的编码相同。<a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode" target="_blank" rel="noopener">其他keyCode值在这里！</a></p>
-<h4 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h4><p>charCode属性<strong>只有在发生keypress事件时</strong>才包含值，而且<strong>这个值是按下的那个键所代表的字符的ASCII编码</strong>。此时keyCode通常等于0或者也可能等于所按键的键码。对于IE8及其之前版本和Opera，则用keyCode来保存字符的ASCII编码，跨浏览器获取字符编码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getCharCode: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> event.charCode == <span class="string">"number"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> event.charCode;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> event.keyCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在DOM3级事件中，不再有charCode属性，而是key和char属性。<br>key属性是一个字符串，当按下字符键，他的值是字符键的值（如”A”，”k”），当按下非字符键，他的值是相应键的名（如”Shift”，”Down”）。<br>char属性按下字符键时显示字符键的值，按下非字符键，显示null。<br>（存在跨浏览器的问题，所以不推荐使用上面两个值，以及Chorme和Safari 5的KeyIdentifier）</p>
-<h4 id="textInput事件"><a href="#textInput事件" class="headerlink" title="textInput事件"></a>textInput事件</h4><p>DOM3级事件规范引入的一个新事件，当用户在可编辑区域输入字符时，就会触发这个事件。任何可以获得焦点的元素都可以触发keypress事件，但只有可编辑区域才会触发textInput事件。textInput只会在用户按下能够输入实际字符的键时才会被触发，而keypress事件则在按下那些能够影响文本显示的键时也会触发（比如退格）。</p>
-<p>textInput事件有一个data属性，表示用户输入的字符。</p>
-<h3 id="变动事件"><a href="#变动事件" class="headerlink" title="变动事件"></a>变动事件</h3><p>DOM2级的变动事件能在DOM中某一部分发生变化时给出提示。为XML或HTML DOM设计。DOM2级定义了如下变动事件。</p>
-<ul>
-<li>DOMSubtreeModified：在DOM结构中发生任何变化时触发。这个事件在其他任何事件触发后都会触发。</li>
-<li>DOMNodeInserted：在一个结点作为子节点被插入到另一个节点中触发。</li>
-<li>DOMNodeRemoved：在结点从其父节点中被移除时触发。</li>
-</ul>
-<p><code>var isSupported = document.implementation.hasFeature(&quot;MutationEvents&quot;, &quot;2.0&quot;);</code>检查是否支持变动事件。</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events" target="_blank" rel="noopener">MDN的mutation事件</a></p>
-<h3 id="设备事件与触摸手势事件"><a href="#设备事件与触摸手势事件" class="headerlink" title="设备事件与触摸手势事件"></a>设备事件与触摸手势事件</h3><p>主要用于智能手机和平板电脑</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2764,192 +2814,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/" itemprop="url">源码剖析-对String,StringBuilder,StringBuffer的区分</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T10:41:18+08:00">
-                2019-03-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/" class="leancloud_visitors" data-flag-title="源码剖析-对String,StringBuilder,StringBuffer的区分">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="源码剖析-对String-StringBuilder-StringBuffer的区分"><a href="#源码剖析-对String-StringBuilder-StringBuffer的区分" class="headerlink" title="源码剖析-对String,StringBuilder,StringBuffer的区分"></a>源码剖析-对String,StringBuilder,StringBuffer的区分</h1><p>首先观察他们继承的类和接口</p>
-<p>String：<code>public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence {}</code><br>StringBuilder：<code>public final class StringBuilder extends AbstractStringBuilder implements java.io.Serializable, CharSequence {}</code><br>StringBuffer：<code>public final class StringBuffer extends AbstractStringBuilder implements java.io.Serializable, CharSequence {}</code></p>
-<p>可以观察到，String对象继承了Serializable，Comparable，CharSequence接口<br>StringBuilder与StringBuffer均继承自AbstractStringBuilder父类，Serializable，CharSequence接口</p>
-<p>Serializable是序列化接口，它的作用是：</p>
-<blockquote>
-<p>Serializability of a class is enabled by the class implementing the java.io.Serializable interface.</p>
-</blockquote>
-<h2 id="String-源码剖析"><a href="#String-源码剖析" class="headerlink" title="String 源码剖析"></a>String 源码剖析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Stable</span><br><span class="line">private final byte[] value;</span><br><span class="line"></span><br><span class="line">private final byte coder;</span><br><span class="line"></span><br><span class="line">public String() &#123;</span><br><span class="line">    this.value = &quot;&quot;.value;</span><br><span class="line">    this.coder = &quot;&quot;.coder;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>String由value和coder组成，coder应该是它的编码格式，value就是它的值了，注意value是final类型的，即String对象是不可变的</p>
-<h3 id="Comparable接口"><a href="#Comparable接口" class="headerlink" title="Comparable接口"></a>Comparable接口</h3><p>String实现了Comparable接口，即String对象可以通过调用<code>compareTo()</code>方法进行比较，这是String与StringBuilder和StringBuffer的第一个区别</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">byte</span> v1[] = value;</span><br><span class="line">    <span class="keyword">byte</span> v2[] = anotherString.value;</span><br><span class="line">    <span class="keyword">if</span> (coder() == anotherString.coder()) &#123;</span><br><span class="line">        <span class="keyword">return</span> isLatin1() ? StringLatin1.compareTo(v1, v2)</span><br><span class="line">                          : StringUTF16.compareTo(v1, v2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isLatin1() ? StringLatin1.compareToUTF16(v1, v2)</span><br><span class="line">                      : StringUTF16.compareToLatin1(v1, v2);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>他主要实现了在当前字符编码上对字符串的比较，判断字符串是否相等</p>
-<h2 id="StringBuilder与StringBuffer"><a href="#StringBuilder与StringBuffer" class="headerlink" title="StringBuilder与StringBuffer"></a>StringBuilder与StringBuffer</h2><h3 id="AbstractStringBuilder"><a href="#AbstractStringBuilder" class="headerlink" title="AbstractStringBuilder"></a>AbstractStringBuilder</h3><p>注意到在这个抽象类中定义了</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] value;</span><br><span class="line"><span class="keyword">byte</span> coder;</span><br><span class="line"><span class="keyword">int</span> count;</span><br></pre></td></tr></table></figure>
-<p>但注意到value不是final类型，即他是可变的，这个是与String的第二个区别</p>
-<p>他主要有扩容方法和添加方法，添加方法的参数类型有很多，比如String类型的，AbstactStringBuilder的，StringBuffer的，CharSequence的等等，下面是其中一个例子</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AbstractStringBuilder <span class="title">append</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> appendNull();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = str.length();</span><br><span class="line">    ensureCapacityInternal(count + len);</span><br><span class="line">    putStringAt(count, str);</span><br><span class="line">    count += len;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>扩容方法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minimumCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = value.length &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">if</span> (minimumCapacity - oldCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        value = Arrays.copyOf(value,</span><br><span class="line">				newCapacity(minimumCapacity) &lt;&lt; coder);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">newCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = value.length &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = (oldCapacity &lt;&lt; <span class="number">1</span>) + <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> SAFE_BOUND = MAX_ARRAY_SIZE &gt;&gt; coder;</span><br><span class="line">    <span class="keyword">return</span> (newCapacity &lt;= <span class="number">0</span> || SAFE_BOUND - newCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        ? hugeCapacity(minCapacity)</span><br><span class="line">        : newCapacity;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码大概是若为utf16编码，则容量*2再+2，若为latin1编码，则容量+2，且设置了安全上限保护</p>
-<h3 id="CharSequence"><a href="#CharSequence" class="headerlink" title="CharSequence"></a>CharSequence</h3><p><img src="https://i.imgur.com/PMITMBm.png" alt=""><br><!-- TODO: 这个是CharSequence.png --></p>
-<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><p>StringBuilder继承自AbstractStringBuilder，大部分代码都已经由其实现，StringBuilder只需要在构造器中调用super()方法即可，包括append()方法，delete()方法，replace()方法，insert()方法，indexOf()方法，lastIndexOf()方法，reverse()方法也都是调用super()方法即可。</p>
-<h3 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h3><p>而StringBuffer则是在AbstractStringBuilder的方法上添加了synchronized的关键字，即它是线程安全的</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>String是可以比较的，通过compareTo()方法，而StringBuilder和StringBuffer只能通过toString()方法后再调用compareTo()方法来比较。</li>
-<li>String对象是不可变的，其值是final类型，而StringBuilder和StringBuffer对象可变，并没有final修饰。</li>
-<li>String 中的对象是不可变的，也就可以理解为常量，线程安全。AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。 </li>
-</ol>
-<p>对他们的使用，应该遵循下面原则：</p>
-<ul>
-<li>操作少量的数据 = String</li>
-<li>单线程操作字符串缓冲区下操作大量数据 = StringBuilder</li>
-<li>多线程操作字符串缓冲区下操作大量数据 = StringBuffer</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3006,7 +2870,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3017,7 +2881,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3028,7 +2892,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
