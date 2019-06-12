@@ -369,6 +369,264 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/18/垃圾收集器与内存分配策略/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/18/垃圾收集器与内存分配策略/" itemprop="url">垃圾收集器与内存分配策略</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-18T10:56:34+08:00">
+                2019-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/18/垃圾收集器与内存分配策略/" class="leancloud_visitors" data-flag-title="垃圾收集器与内存分配策略">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="垃圾收集器与内存分配策略"><a href="#垃圾收集器与内存分配策略" class="headerlink" title="垃圾收集器与内存分配策略"></a>垃圾收集器与内存分配策略</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>GC（Garbage Collection）考虑三个问题：哪些内存需要回收？什么时候回收？如何回收？</p>
+<p>程序计数器，虚拟机栈，本地方法栈随线程而生，随线程而灭，其中栈帧需要的内存是随着方法的进入和退出而有条不紊地执行者出栈和入栈操作，每一个栈帧分配多少内存是在类结构确定下来的时候就已知的，因此这几个区域的内存分配和回收都具备确定性，不需要过多考虑回收的问题。而方法区和堆的内存不一样，一个接口多个实现类需要的内存可能不一样，一个方法中多个分支需要的内存也可能不一样，只有在程序运行期间才知道会创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器关注的是这部分的内存</p>
+<h2 id="GC分代"><a href="#GC分代" class="headerlink" title="GC分代"></a>GC分代</h2><p>分代的垃圾回收策略，是基于这样一个事实：不同的对象的生命周期是不一样的。因此，不同生命周期的对象可以采取不同的收集方式，以便提高回收效率。在Java程序运行过程中，会产生大量的对象，其中有些对象是与业务信息有关的，比如Http请求的Session对象，Socket连接，它们的生命周期比较长，但是有些对象，主要是程序运行过程生成的，比如String对象，不进行对象存活时间区分的情况下，每次垃圾回收都是对整个堆空间，花费时间相对会比较长，但实际上，对长周期对象而言，这种遍历是没有效果的，因为可能进行了很多次遍历后他们依旧存在，因此分代垃圾回收采用分治的思想，把不同生命周期的对象放在不同代上，不同代采用适合它们的垃圾回收方式进行回收</p>
+<p><img src="https://i.imgur.com/wpsR7Er.png" alt=""></p>
+<p>GC分代分为年轻代，年老代和持久代，持久代一般在方法区，保存Java类的类信息，所有新生成的对象都是放在年轻代的，年轻代分为1个Eden区，2个Survivor区，年轻代经历N此垃圾回收后仍然存活的对象，会放到年老代</p>
+<h2 id="对象已死吗"><a href="#对象已死吗" class="headerlink" title="对象已死吗"></a>对象已死吗</h2><h3 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h3><p>给对象添加一个引用计数器，每当一个地方引用它时，计数器就加1，当引用失效时，计数器就减1，任何时刻计数器为0的对象就是不可能再被使用的</p>
+<p>它实现简单，判定效率也很高，但是很难解决对象之间相互循环引用的问题</p>
+<p>如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class ReferenceCountingGC &#123;</span><br><span class="line"></span><br><span class="line">    public Object instance = null;</span><br><span class="line"></span><br><span class="line">    private static final int _1MB = 1024 * 1024;</span><br><span class="line"></span><br><span class="line">	// 占点内存，以便GC日志看清是否被回收</span><br><span class="line">    private byte[] bigSize = new byte[2 * _1MB];</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ReferenceCountingGC objA = new ReferenceCountingGC();</span><br><span class="line">        ReferenceCountingGC objB = new ReferenceCountingGC();</span><br><span class="line">        objA.instance = objB; // objA.instance引用了objB这片内存</span><br><span class="line">        objB.instance = objA; // objB.instance引用了objA这片内存</span><br><span class="line"></span><br><span class="line">        objA = null;  // 令objA引用null</span><br><span class="line">        objB = null;  // 令objB引用null</span><br><span class="line">		</span><br><span class="line">		// 此时，新创建的2个ReferenceCountingGC实例因为互相引用，其引用计数值仍为1，但没有其他引用引用它们，即它们是不可达的</span><br><span class="line"></span><br><span class="line">        System.gc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对象objA和objB都有字段instance，赋值令objA.instance = objB及objB.instance = objA;，除此之外这两个对象再无任何引用，实际上这两个对象已经不可能再被访问，但因为它们之间互相引用对方，导致它们的引用计数都不为0，引用计数法无法通知GC收集器回收它们</p>
+<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><p>Java的主流实现就是可达性分析算法，这个算法基本思想是通过一系列称为”GC Roots”的对象作为起始点，从这些节点开始往下搜索。搜索所走过的路径称为引用链（Reference Chain），当一个对象到GC Roots没有任何引用链相连（图论知识来说，就是从GC Roots到这个对象不可达），证明此对象是不可用的</p>
+<p><img src="https://i.imgur.com/BvmXrkL.jpg" alt=""></p>
+<p>Java中，GC Roots对象包括下面几种</p>
+<ul>
+<li>虚拟机栈（栈帧的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈JNI（Native方法）引用的对象</li>
+</ul>
+<h3 id="再谈引用"><a href="#再谈引用" class="headerlink" title="再谈引用"></a>再谈引用</h3><p>在JDK 1.2之前，Java引用的定义很传统：如果reference类型的数据中存储的数值代表另外一块内存的起始地址，就称这块内存代表一个引用，在1.2之后，Java对引用的概念进行了扩充，将引用分为强引用，软引用，弱引用，虚引用4种</p>
+<ul>
+<li>强引用：程序代码之中普遍存在的，类似<code>Object obj = new Object()</code>的引用，只要强引用还存在，垃圾收集器就永远不会回收被引用的对象</li>
+<li>软引用：描述一些还有用但并非必需的对象，对于软引用关联的对象，在系统将要发生内存溢出溢出之前，将会把这些对象列进回收范围之中进行第二次回收，如果这次回收完还没有足够的内存，才会抛出内存溢出异常。JDK 1.2后提供了SoftReference类实现软引用</li>
+<li>弱引用：也是描述非必需对象的，强度比软引用更弱，只能生存到下次垃圾回收发生之前，WeakReference类实现弱引用</li>
+<li>虚引用：最弱的引用关系，一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通知虚引用来取得一个对象实例，为一个对象设置虚引用的唯一目的是能在这个对象被收集器回收时收到一个系统通知，PhantomReference类实现虚引用</li>
+</ul>
+<h3 id="生存还是死亡"><a href="#生存还是死亡" class="headerlink" title="生存还是死亡"></a>生存还是死亡</h3><p>可达性分析算法中不可达的对象，并不一定真的会死亡，要真正宣告一个对象死亡，至少经历两次标记过程，如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法，当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用，虚拟机将这两种情况视为”没有必要执行”</p>
+<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象就会被放置在一个叫F-Queue的队列中，并在稍后由一个虚拟机自动建立的，低优先级的Finalizer线程去执行它，”执行”指虚拟机会触发这个方法，但不承诺会等待它运行结束，原因是：如果一个对象在finalize()方法执行缓慢，或者发生死循环，很可能导致F-Queue队列的其他对象永久处于等待，甚至整个内存回收系统崩溃。稍后GC对F-Queue中的对象进行第二次小规模的标记，对象如果在finalize()方法中重新与引用链上的任何一个对象关联（this赋值给某个类变量或者对象的成员变量），那么第二次标记时它将被移除出”即将回收”的集合，finalize()方法只会被调用一次，它是C/C++的一种妥协，尽量不要使用它，用try-finally或者其他方法会更好</p>
+<h3 id="回收方法区"><a href="#回收方法区" class="headerlink" title="回收方法区"></a>回收方法区</h3><p>堆中，尤其是新生代中，常规应用一次垃圾收集一般可以回收70%——95%的空间，而永久代（方法区）的垃圾收集效率远低于此</p>
+<p>永久代的垃圾收集主要回收两部分：废弃常量和无用的类，回收废弃常量和回收Java堆中的对象非常类似，常量池中字面量回收为例，假如字符串”abc”已经进入常量池，但是没有任何String对象引用常量池的”abc”，也没有其他地方引用这个字面量，如果这时发生内存回收，且必要的话，”abc”就会被系统清理出常量池，常量池其他类，接口，方法，字段的符号引用也与此类似</p>
+<p>判断类是否为无用的类，要满足下面三个条件</p>
+<ul>
+<li>该类所有实例已经被回收，Java堆中不存在该类任何实例</li>
+<li>加载该类的ClassLoader已经被回收</li>
+<li>该类对应的java.lang.Class对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法</li>
+</ul>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><p>首先标记出所有需要回收的对象，标记完成后统一回收所有被标记的对象，标记过程前面有说。主要两个不足：<strong>标记和清除的效率都不高，标记清除后会产生大量不连续内存碎片，导致分配较大对象时无法得到足够的内存而触发另一次垃圾收集动作</strong></p>
+<p><img src="https://i.imgur.com/XgwMhoQ.jpg" alt=""></p>
+<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>为了解决效率问题，它将可用内存按容量划分为大小相等的两块，每次只使用其中一块，当一块内存用完，就将还存活的对象复制到另外一块上，然后把已使用的内存空间一次清理掉，这样使得每次都是对整个半区进行内存回收，内存分配时也不用考虑内存碎片等复杂情况，只要移动堆顶指针，按顺序分配内存即可，但代价是内存缩小为原来一半</p>
+<p><img src="https://i.imgur.com/bj18uIw.jpg" alt=""></p>
+<p>现在商业虚拟机都采用这种收集算法回收<strong>新生代</strong>，实际应用并不需要1：1比例划分空间<strong>，而是将内存分为一块较大的Eden空间和两块较小的Survivor空间</strong>，每次使用Eden和其中一块Survivor，新建的对象都被分配到Eden区，经过第一次Minor GC后仍存活就放到Survivor区，当回收时，将Eden和Survivor中还存活的对象一次性复制到另外一块Survivor空间上，最后清理掉Eden和刚才使用的过Survivor空间，HotSpot虚拟机默认Eden和Survivor大小比例是8：1，也就是每次新生代中可用的内存空间为整个新生代容量的90%(80%+10%)，没办法保证每次回收都只有不多于10%的对象存活，当Survivor空间不够时，需要依赖其他内存呢（老年代）进行分配担保</p>
+<h3 id="标记-整理算法"><a href="#标记-整理算法" class="headerlink" title="标记-整理算法"></a>标记-整理算法</h3><p>复制收集算法在对象存活率比较高时要进行较多的复制操作，效率会变低，在老年代中，对象存活率会很高，不适合复制收集算法<br>根据老年代的特点，可以使用标记-整理算法，标记过程与标记-清除算法的标记过程一样，但后续步骤不是直接对可回收对象进行清理，<strong>而是让所有存活对象都向一端移动，然后直接清理掉端边界以外的内存</strong></p>
+<p><img src="https://i.imgur.com/bUyCAGP.jpg" alt=""></p>
+<h3 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h3><p>根据对象存活周期不同将内存划分为几块，一般是把Java堆分为新生代和老年代，新生代采用复制算法，老年代采用标记-清理或标记-整理算法</p>
+<h2 id="HotSpot的算法实现"><a href="#HotSpot的算法实现" class="headerlink" title="HotSpot的算法实现"></a>HotSpot的算法实现</h2><h3 id="枚举根节点"><a href="#枚举根节点" class="headerlink" title="枚举根节点"></a>枚举根节点</h3><p>可达性分析中从GC Roots节点找引用链这个操作为例，可作为GC Roots的节点主要在全局性的引用（常量或类静态属性）与执行上下文（栈帧的本地变量表）中，现在很多应用仅仅方法区都有数百兆，如果逐个检查这里面的引用，那么必然消耗很多时间</p>
+<p>另外，可达性分析对执行时间的敏感还体现在GC停顿上，因为这项工作必须在一个能确保一致性的快照中进行，一致性指整个分析期间整个执行系统看起来像被冻结在某个时间点上，不可能出现分析过程对象引用还在不断变化的情况</p>
+<p>目前主流Java虚拟机使用的都是准确式GC，当执行系统停顿下来，并不需要一个不漏地检查完所有执行上下文和全局引用位置，<strong>而是有办法得知哪些地方存放对象引用，HotSpot中，使用一组OopMap数据结构达到这个目的</strong>，在类加载完成时，HotSpot就把对象内什么偏移量上是什么类型的数据计算出来，JIT编译过程中，也会特定位置记录下栈和寄存器哪些位置是引用，这样GC扫描时就可以得知这些信息了</p>
+<h3 id="安全点"><a href="#安全点" class="headerlink" title="安全点"></a>安全点</h3><p>OopMap协助下，HotSpot可以快速且准确地完成GC Roots枚举，但一个很现实的问题是，可能导致引用关系变化，或者说OopMap内容变化的指令非常多，如果为每一条指令都生成对应的OopMap，就会需要大量额外的空间，GC的空间成本就会很高</p>
+<p><strong>实际上HotSpot只会在特定的位置记录这些信息，这些位置称为安全点，程序执行并非在所有地方都能停顿下来开始GC，只会在安全点才暂停</strong>，安全点的选择是以程序”是否具有让程序长时间执行的特征”为标准，例如方法调用，循环跳转，异常跳转等，具有这些功能的指令才会产生Safepoint</p>
+<p>Safepoint需要考虑的另一个问题是GC发生时所有线程都”跑”到最近安全点再停顿，主流的是主动式中断，思想是：当GC需要中断线程的时候，不直接对线程操作，仅仅简单设置一个标志，各个线程执行时主动轮询这个标志，发现中断标志为真时就自己中断挂起，轮询标志的地方和安全点是重合的</p>
+<h3 id="安全区域"><a href="#安全区域" class="headerlink" title="安全区域"></a>安全区域</h3><p>Safepoint机制保证程序执行时，在不太长时间内就会遇到可进入GC的Safepoint，但是程序不执行时，即没有分配CPU时间时（Sleep或Blocked）状态，这时线程无法响应JVM中断请求，”走”到安全的地方去中断挂起，就需要安全区域(Safe Region)来解决</p>
+<p><strong>安全区域指在一段代码片段里，引用关系不会发生变化。</strong>在这个区域任意地方开始的GC都是安全的，线程执行到Safe Region的代码时，首先标识自己已经进入Safe Region，这样当这段时间JVM要发起GC时，就不用管标识自己为Safe Region状态的线程了，在线程离开Safe Region，它要检查系统是否已经完成了根节点枚举（或者是整个GC过程），如果完成，那程序就继续执行，否则它必须等待直到收到可以安全离开Safe Region的信号为止</p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><img src="https://i.imgur.com/dEJKIyM.png" alt=""></p>
+<p>上图展示了7种用于不同分代的垃圾收集器，如果两个收集器之间存在连线，表示它们可以搭配使用，虚拟机所处的区域表示它是新生代收集器还是老年代收集器</p>
+<h3 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h3><p><img src="https://i.imgur.com/2JWq5V2.jpg" alt=""></p>
+<p>单线程，垃圾收集时必须暂停其他所有工作线程直到收集结束，它是虚拟机运行在Client模式下的默认新生代收集器</p>
+<h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p>Serial的多线程版本，多条线程进行垃圾收集</p>
+<p><img src="https://i.imgur.com/F7z6vVG.png" alt=""></p>
+<p>左边是ParNew新生代收集器，右边是Serial Old老年代收集器</p>
+<h3 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h3><p><img src="https://i.imgur.com/DOlo9pR.png" alt=""></p>
+<p>它也是新生代收集器，也是使用复制算法的收集器，也是多线程收集器，与ParNew的主要区别是它的关注点不是缩短垃圾收集时用户线程的停顿时间，而是达到一个可控制的吞吐量，即CPU用于运行用户代码的时间与CPU总消耗时间的比值，吞吐量=运行用户代码时间/(运行用户代码时间+垃圾收集时间)</p>
+<p>停顿时间越短越适合与用户交互的程序，良好的响应速度能提升用户体验，而提高吞吐量可以高效地利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务</p>
+<h3 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h3><p>Serial收集器的老年代版本，使用标记-整理算法</p>
+<p><img src="https://i.imgur.com/VE81erT.png" alt=""></p>
+<h3 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h3><p>Parallel Scavenge收集器的老年代版本</p>
+<p><img src="https://i.imgur.com/CQSoHso.png" alt=""></p>
+<h3 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h3><p>CMS收集器是一种以获取最短回收停顿时间为目标的收集器，尤其重视响应速度，希望停顿时间最短，基于”标记-清除”算法实现，分为4个步骤</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>重新标记</li>
+<li>并发清除</li>
+</ul>
+<p>初始标记和重新标记需要”Stop The World”，初始标记仅仅只是标记一下GC Roots能直接关联到的对象，速度很快，并发标记就是进行GC Roots Tracing的过程，重新标记是为了修正并发标记期间因用户程序继续运作而导致的标记产生变动的那一部分对象的标记记录，时间上会比初始标记稍长，但比并发标记短很多</p>
+<p><img src="https://i.imgur.com/TeagkzV.png" alt=""></p>
+<p>三个缺点</p>
+<ul>
+<li>CMS收集器对CPU资源很敏感，因为它是并发标记的，会占用一部分CPU资源而导致程序变慢，总吞吐量降低</li>
+<li>无法处理浮动垃圾，可能出现”Concurent Mode Failure”失败而导致另一次Full GC的产生</li>
+<li>基于”标记-清除”算法，产生大量空间碎片</li>
+</ul>
+<h3 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h3><p><img src="https://i.imgur.com/Ebhe0SD.png" alt=""></p>
+<p>JDK 1.7中HotSpot虚拟机的一个重要进化特征</p>
+<p>具备如下特点</p>
+<ul>
+<li>并行与并发：充分利用多CPU，多核环境，减短Stop-The-World停顿的时间</li>
+<li>分代收集：不需要其他收集器就可以独立管理整个GC堆</li>
+<li>空间整合：与CMS的”标记-清理”不同，G1从整体来看是基于”标记-整理”算法实现的，局部来看（两个Region之间）是基于”复制”算法实现</li>
+<li>可预测的停顿：G1除了追求低停顿，还能建立可预测的停顿时间模型，让使用者明确指定长度M毫秒的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒</li>
+</ul>
+<p>G1收集器把JAVA堆内存划分为多个大小相等的独立区域（Region），虽然保留新生代和老年代概念，但新生代和老年代不再是物理隔离了，它们都是一部分Region的集合</p>
+<p>G1跟踪各个Region里面的垃圾堆积的价值大小（回收所获得空间大小以及回收所需时间的经验值），在后台维护一个优先队列，每次根据允许的收集时间优先回收价值最大的Region（这也是Garbage-First名称的来由）</p>
+<p>G1收集器中，Region之间的对象引用以及其他收集器中的新生代与老年代的对象引用，虚拟机都是使用Remembered Set来避免全堆扫描的。G1中每个Region都有一个与之对应的Remembered Set，虚拟机发现程序在对Reference类型的数据进行写操作时，会产生一个Write Barrier暂时中断写操作，检查Reference引用的对象是否处于不同的Region之中（分代例子就是检查老年代引用的对象引用了新生代的对象），如果是，便通过CardTable把相关引用信息记录到被引用对象所属的Region的Remembered Set之中，当进行内存回收时，在GC根节点的枚举范围加入Remembered Set即可保证不对全堆扫描也不会有遗漏</p>
+<p>不计算维护Remembered Set的操作，G1收集器的运作大致划分为以下步骤</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记</li>
+<li>筛选回收</li>
+</ul>
+<h2 id="内存分配和回收策略"><a href="#内存分配和回收策略" class="headerlink" title="内存分配和回收策略"></a>内存分配和回收策略</h2><p>使用Serial/Serial Old收集器的内存分配和回收策略</p>
+<h3 id="对象优先在Eden分配"><a href="#对象优先在Eden分配" class="headerlink" title="对象优先在Eden分配"></a>对象优先在Eden分配</h3><p>对象优先在Eden分配，当Eden没有足够空间时，虚拟机将发起一次Minor GC</p>
+<h3 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h3><p>大对象指需要大量连续内存空间的Java对象，最典型的是字符串和数组</p>
+<h3 id="长期存活的对象将进入老年代"><a href="#长期存活的对象将进入老年代" class="headerlink" title="长期存活的对象将进入老年代"></a>长期存活的对象将进入老年代</h3><p>虚拟机给每个对象定义了一个对象年龄计数器，如果对象在Eden出生并经过第一次Minor GC后仍然存活，并且能被Survivor容纳，将被移动到Survivor空间，并且对象年龄设为1，对象在Survivor每经过一次Minor GC，年龄就加1岁，当年龄增加到一定程度（默认15岁），就晋升到老年代</p>
+<h3 id="动态对象年龄判定"><a href="#动态对象年龄判定" class="headerlink" title="动态对象年龄判定"></a>动态对象年龄判定</h3><p>虚拟机并不是永远要求对象的年龄必须到达指定才晋升老年代，如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象直接进入老年代</p>
+<h3 id="空间分配担保"><a href="#空间分配担保" class="headerlink" title="空间分配担保"></a>空间分配担保</h3><p>在发生Minor GC之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果成立，那么Minor GC可以确保是安全的，如果不成立，虚拟机会查看HandlePromotionFailure设置值是否允许担保失败，如果允许，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代对象的平均大小，如果大于就进行一次Minor GC，尽管这次GC是有风险的，如果小于，进行一次Full GC</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/17/MySQL索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2464,290 +2722,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/存储器管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/09/存储器管理/" itemprop="url">存储器管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T23:05:18+08:00">
-                2019-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/09/存储器管理/" class="leancloud_visitors" data-flag-title="存储器管理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h1><h2 id="存储器管理概述"><a href="#存储器管理概述" class="headerlink" title="存储器管理概述"></a>存储器管理概述</h2><h3 id="存储器的多层结构"><a href="#存储器的多层结构" class="headerlink" title="存储器的多层结构"></a>存储器的多层结构</h3><p>由于CPU与存储器的速度不匹配，需要对存储器进行分层，经典是三层结构：CPU寄存器，主存和辅存，目前比较高级的分层是六层：寄存器，高速缓存，主存储器，磁盘缓存，固定磁盘和可移动存储介质，层次越高，速度越快，但价格越高，存储容量越小</p>
-<p>高速缓存常用SRAM，内存DRAM，SDRAM等，外存是软盘，硬盘，光盘等</p>
-<p><img src="https://i.imgur.com/j0Z0S0T.png" alt=""></p>
-<h4 id="各层次作用"><a href="#各层次作用" class="headerlink" title="各层次作用"></a>各层次作用</h4><p>主存又称内存，用于保存进程运行的程序和数据，处理机都是从主存储器取指令和数据的，并把指令放入指令寄存器，数据放入数据寄存器，或者反过来把寄存器中的数据存入主存储器。</p>
-<p>寄存器有与处理机相同的速度</p>
-<p>高速缓存是介于寄存器和存储器之间的存储器，主要用于备份主存常用的数据，减少处理机对主存的访问次数，可以大幅度提高程序执行速度</p>
-<p>磁盘缓存是为了缓和磁盘I/O速度和主存访问速度的不匹配，主要用于暂时存放频繁使用的一部分磁盘数据和信息，以减少访问磁盘的次数，它本身不是一种实际存在的存储器，而是利用主存中部分存储空间暂时存放从磁盘中读出或写入的信息</p>
-<h3 id="存储器管理功能"><a href="#存储器管理功能" class="headerlink" title="存储器管理功能"></a>存储器管理功能</h3><p>存储器管理主要有如下功能</p>
-<ul>
-<li>存储分配和回收：分配和和回收算法及相应的数据结构</li>
-<li>地址变换<ul>
-<li>可执行文件生成中的链接技术</li>
-<li>程序加载（装入）时的重定位技术</li>
-<li>进程运行时硬件和软件的地址变换技术和机构</li>
-</ul>
-</li>
-<li>存储共享和保护<ul>
-<li>代码和数据共享</li>
-<li>地址空间访问权限（读，写，执行）</li>
-</ul>
-</li>
-<li>存储器扩充</li>
-</ul>
-<h3 id="重定位概念"><a href="#重定位概念" class="headerlink" title="重定位概念"></a>重定位概念</h3><p>重定位是实现逻辑地址（相对地址）到物理地址（绝对地址）的映射<br>逻辑地址：应用程序的地址都是从0开始的<br>物理地址：主存中一系列存储信息的物理单元的地址</p>
-<h3 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h3><p>一个程序一般有5个过程，编辑，编译，链接，装入和运行</p>
-<p>程序装入分为绝对装入和可重定位装入和动态运行时装入<br>绝对装入指编译后，装入前已产生绝对地址，装入时不需要再作地址重定位，绝对地址由编译器或程序员编程完成<br>可重定位装入指静态重定位，静态重定位指地址转换在装入时一次完成，缺点是不允许程序在运行中在内存中移动位置<br>动态运行时装入在把装入模块装入内存后，并不立即把装入模块中的逻辑地址转换成物理地址，而是把这种地址转换推迟到程序真正要执行的时候才进行，因此，装入内存后的地址都是逻辑地址，需要一个重定位寄存器的支持</p>
-<h3 id="程序的链接"><a href="#程序的链接" class="headerlink" title="程序的链接"></a>程序的链接</h3><p>源程序编译后得到一组目标模块，链接程序的功能是将这组目标模块以及它们所需要的库函数装配成一个完整的装入模块</p>
-<p>静态链接：对相对地址进行修改，变换外部调用符号<br>动态链接：便于修改和更新，便于实现对目标模块的共享<br>运行时动态链接</p>
-<h2 id="连续分配管理方式"><a href="#连续分配管理方式" class="headerlink" title="连续分配管理方式"></a>连续分配管理方式</h2><p>为了能将用户程序装入内存，必须为它分配一定大小的内存空间，连续分配方式是最早出现的一种存储器分配方式</p>
-<h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><p>用于单用户单任务中，把内存分为系统区和用户区，应用程序装入到用户区，可使用用户区全部空间，优点是易于管理，缺点是对要求内存空间少的程序造成内存浪费，程序全部装入，很少使用的程序部分也会占用内存</p>
-<h3 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h3><p>特点：有n个分区，可同时装入n个作业/任务<br>固定分区可以把分区划分为相等的跟不相等的，不相等的利用率更高</p>
-<p>数据结构：分区使用表，将分区按大小排序，并将地址，分配标识符（是否已分配），大小作记录，由于每个分区的大小固定，必然会造成存储空间的浪费</p>
-<h3 id="可变式分区"><a href="#可变式分区" class="headerlink" title="可变式分区"></a>可变式分区</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ul>
-<li>空闲分区表：记录每个空闲分区的情况，每个空闲分区占一个表目，表目中包括分区号，分区大小和分区始址等。</li>
-<li>空闲分区链：实现对空闲分区表的分配和链接，在每个分区的起始部分设置一些用于控制分区分配的信息，以及用于链接各分区所用的前向指针，在分区尾部设置一后向指针，通过前后向链接指针，可将所有空闲分区链接成一个双向链，分区尾部重复设置状态位和分区大小表目，当分区被分配出去后，状态位由”0”改为”1”，此时前后指针无意义</li>
-</ul>
-<p><img src="https://i.imgur.com/JiCVrro.png" alt=""></p>
-<h4 id="分配算法"><a href="#分配算法" class="headerlink" title="分配算法"></a>分配算法</h4><p>为把一个新作业装入内存，须按照一定的分配算法，从空闲分区表或空闲分区链中选一分区分配给该作业</p>
-<h4 id="分区分配操作"><a href="#分区分配操作" class="headerlink" title="分区分配操作"></a>分区分配操作</h4><h5 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h5><p>利用某种分配算法，从空闲分区链（表）中找到所需大小的分区，设请求的分区大小是u.size，表中每个空闲分区的大小可表示为m.size，若m.size-u.size&lt;=size（size是事先规定的不再切割的剩余分区的大小）说明多余部分太小，可不再切割，将整个分区分配给请求者，并从分区链移除，否则从该分区中按请求的大小划分找出一块内存空间分配出去，余下的部分仍留在空闲分区链（表）中，然后将分配区的首地址返回给调用者</p>
-<p><img src="https://i.imgur.com/waRwwTm.png" alt=""></p>
-<h5 id="回收内存"><a href="#回收内存" class="headerlink" title="回收内存"></a>回收内存</h5><p>当进程运行完毕释放内存后，系统根据<strong>回收区的首地址</strong>，从空闲区链（表）中找到相应的插入点，此时可能出现下面四种情况</p>
-<ul>
-<li>回收区与插入点前一个空闲分区F1相邻接，此时应将回收区与插入点前一分区合并，不必为回收区分配新表项，而只需修改前一分区F1的大小</li>
-<li>回收区与插入点后一个空闲分区F2相邻接，此时将两分区合并，形成新的空闲分区，但用回收区的首地址作为新空闲区的首地址，大小为两者之和</li>
-<li>回收区同时与插入点的前，后两个分区邻接，此时将三个分区合并，使用F1的表项和F1的首地址，取消F2的表项，大小为三者之和</li>
-<li>回收区既不与F1邻接也不与F2邻接：新建表项，填入回收区首地址和大小，插入到空闲链适当位置</li>
-</ul>
-<p><img src="https://i.imgur.com/M2f7lE3.png" alt=""></p>
-<h3 id="分配算法-1"><a href="#分配算法-1" class="headerlink" title="分配算法"></a>分配算法</h3><h4 id="基于顺序搜索的动态分区分配算法"><a href="#基于顺序搜索的动态分区分配算法" class="headerlink" title="基于顺序搜索的动态分区分配算法"></a>基于顺序搜索的动态分区分配算法</h4><ul>
-<li>首次适应(first fit, FF)算法：空闲分区链以地址递增的次序链接，从链首开始顺序查找直到找到一个大小能满足要求的空闲分区为止，然后从该分区划出一块内存空间分配给请求者</li>
-<li>循环首次适应(next fit, NF)算法：不再是每次都从链首开始查找，而是从上次找到的空闲分区的下一个空闲分区开始查找</li>
-<li>最佳适应(best fit, BF)算法：每次为作业分配内存时，总是把能满足要求又是最小的空闲分区分配给作业，要求所有空闲分区按容量从大到小顺序形成一空闲分区链</li>
-<li>最坏适应(worst fit, WF)算法：总是挑选最大的空闲区从中分割一部分存储空间给作业使用，要求将所有空闲分区按容量从大到小形成一空闲分区链，查找时只需看第一个分区是否满足作业要求</li>
-</ul>
-<h4 id="基于索引搜索的动态分区分配算法"><a href="#基于索引搜索的动态分区分配算法" class="headerlink" title="基于索引搜索的动态分区分配算法"></a>基于索引搜索的动态分区分配算法</h4><ul>
-<li>快速适应(quick fit)算法：将空闲分区根据容量大小分类，对于每一类具有相同容量的所有空闲分区，单独设立一个空闲分区链，内存设立一张管理索引表，索引表项对应空闲分区类型，并记录该类型空闲分区链表表头的指针，根据进程常用空间大小划分，比如2KB，4KB，8KB等，7KB可以放在8KB也可以放在特殊的空闲分区链表中</li>
-<li>伙伴系统：无论已分配分区或空闲分区，其大小均为2的k次幂，对于相同大小空闲分区单独设立一个空闲分区双向链表，不同大小的空闲分区形成了k个空闲分区链表，对于进程分配一个长度为n的存储空间时，计算i值，使2^(i-1) &lt; n &lt;= 2^i，先从2^i的空闲分区查找，若找到就分配，没有则从2^(i+1)的空闲分区查找，找到就分为相等的两个分区，称为一对伙伴，其中一个分区用于分配，另一个分区加入到2^i的空闲分区链表中</li>
-<li>哈希算法，构造空闲分区大小为关键字的哈希表，每一个表项记录一个对应的空闲分区链表表头指针</li>
-</ul>
-<h4 id="动态可重定位分区分配"><a href="#动态可重定位分区分配" class="headerlink" title="动态可重定位分区分配"></a>动态可重定位分区分配</h4><ul>
-<li>紧凑：连续分配方式的一个重要特点是：一个系统或用户程序必须被装入一片连续的内存空间中，当计算机运行一段时间后，它的内存空间会被划分为许多小的分区，而缺乏大的空闲空间，当有大作业要加入，因为小分区不邻接，无法分配内存给大作业，紧凑就是将内存中的所有<strong>作业</strong>进行移动，使它们全都相邻接，这样，原来分散的多个空闲小分区拼接成一个大分区，每次紧凑后，必须对移动了的程序或数据进行重定位</li>
-<li>动态重定位：动态运行时装入的方式，作业装入内存后所有地址仍然是相对地址，而将相对地址转换成绝对地址的工作被推迟到程序指令要真正执行的时候进行，设一个重定位寄存器，用它存放程序（数据）在内存中的起始地址，程序执行时真正访问的地址是相对地址与重定位寄存器的地址相加而形成的</li>
-</ul>
-<p><img src="https://i.imgur.com/UkxuVZ5.png" alt=""></p>
-<p><img src="https://i.imgur.com/ayDa85o.png" alt=""></p>
-<h2 id="对换"><a href="#对换" class="headerlink" title="对换"></a>对换</h2><p>对换的引入：将阻塞进程，暂时不用的程序，数据换出，将具备运行条件的进程换入<br>类型：</p>
-<ul>
-<li>整体对换：进程对换，解决内存紧张</li>
-<li>部分对换：页面对换/分段对换：提供虚存支持</li>
-</ul>
-<h3 id="对换空间的管理"><a href="#对换空间的管理" class="headerlink" title="对换空间的管理"></a>对换空间的管理</h3><p>具有对换功能的OS中，常把磁盘空间分为文件区和对换区，对换区比文件区侧重于对换速度，因此对换区一般采用连续分配，采用数据结构和分配回收类似于可变化分区分配</p>
-<h3 id="进程的换出与换入"><a href="#进程的换出与换入" class="headerlink" title="进程的换出与换入"></a>进程的换出与换入</h3><p>当内存不足时，便调用对换进程，实现进程的换出和换入</p>
-<h4 id="进程的换出"><a href="#进程的换出" class="headerlink" title="进程的换出"></a>进程的换出</h4><ol>
-<li>选择被换出的进程：选择因素：优先级，驻留时间，进程状态</li>
-<li>进程换出过程：共享段计数减一，如果是0就换出，修改PCB和MCB</li>
-</ol>
-<h4 id="进程的换入"><a href="#进程的换入" class="headerlink" title="进程的换入"></a>进程的换入</h4><ol>
-<li>选择换入进程：优先级，换出时间等</li>
-<li>申请内存</li>
-<li>换入</li>
-</ol>
-<h2 id="分页存储管理方式"><a href="#分页存储管理方式" class="headerlink" title="分页存储管理方式"></a>分页存储管理方式</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>分页主要是将用户程序的地址空间划分为若干个固定大小的区域，称为”页”或”页面”，典型的页面大小为1kb，相应地，也将内存空间分为若干个物理块或页框，页和块的大小相同，这样可以将用户程序的任一页放入任一物理块中，实现离散分配（页是相对用户程序的地址而言，页框或者块是相对内存空间而言）</p>
-<p>离散分配的引入：连续分配引起碎片，紧凑方式消耗系统开销</p>
-<h3 id="分页存储管理的基本方法"><a href="#分页存储管理的基本方法" class="headerlink" title="分页存储管理的基本方法"></a>分页存储管理的基本方法</h3><h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p><img src="https://i.imgur.com/UpDwi5n.png" alt=""></p>
-<p>A：逻辑地址空间的地址 L：页面的大小</p>
-<p>包含两部分内容：前一部分为页号P，后一部分为位（偏）移量W，即页内地址，图中的地址长度为32位，其中0——11位为页内地址，即每页大小4KB（页面大小），12——31位为页号，地址空间最多允许有1M页</p>
-<h4 id="页的计算例子"><a href="#页的计算例子" class="headerlink" title="页的计算例子"></a>页的计算例子</h4><p><img src="https://i.imgur.com/df5F6fB.png" alt=""></p>
-<h4 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h4><p>为了能在内存中找到每个页面对应的物理块，系统为每个进程建立一张页面映射表，为页表，在进程地址空间内的所有页(0——n)，依次在页表中有一页表项，其中记录了相应页在内存中对应的物理块号，实现从页号到物理块号的地址映射</p>
-<p><img src="https://i.imgur.com/ElwJb15.png" alt=""></p>
-<h3 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p>为了能将用户地址空间中的逻辑地址转换成内存空间中的物理地址，系统中设立了地址变换机构，地址变换机构任务实际只是将逻辑地址中的页号转换为内存中的物理块号（页内地址与物理块内的地址是一样的，所以不需要变换），地址变换任务就是<strong>借助页表实现的</strong></p>
-<h4 id="基本地址变换机构"><a href="#基本地址变换机构" class="headerlink" title="基本地址变换机构"></a>基本地址变换机构</h4><ul>
-<li>越界保护</li>
-<li>每个进程对应一页表，其信息（如长度，始址）放在PCB中，执行时将其首地址装入页表寄存器</li>
-</ul>
-<p>页表是驻留在内存中的，当调度程序调度某程序的时候，才将PCB中的页表始址和页表长度装入页表寄存器（一个进程对应一个页表，所以对不同页表，需要有页表始址来区分）</p>
-<p><img src="https://i.imgur.com/eL5lZKb.png" alt=""></p>
-<h5 id="地址变换过程"><a href="#地址变换过程" class="headerlink" title="地址变换过程"></a>地址变换过程</h5><p>当进程要访问某个逻辑地址的数据时，分页地址变换机构会自动地将有效地址（相对地址）分为页号和页内地址两部分，再以页号为索引区检索页表，查找操作由硬件执行。在检索之前，先将页号与页表长度比较，若大于或等于页表长度，则表示本次所访问的地址已超越进程的地址空间，产生一地址越界中断。若未出现越界错误，则将页表始址与页号和页表项长度的乘积相加，便得到该表项在页表中的位置，于是可从中得到该页的物理块号，将它装入物理地址寄存器，然后把页内地址送入物理地址寄存器的块内地址字段中，这样便完成了逻辑地址到物理地址的变换</p>
-<h5 id="我对将页表始址与页号和页表项长度的乘积相加地理解"><a href="#我对将页表始址与页号和页表项长度的乘积相加地理解" class="headerlink" title="我对将页表始址与页号和页表项长度的乘积相加地理解"></a>我对将页表始址与页号和页表项长度的乘积相加地理解</h5><p>页表项长度应该就是页表项（即物理块）的地址的长度<br>通过上述式子的计算，得到的是一个地址值（页表始址+页号*页表项长度（地址长度）），这个地址值应该是页表中该页表项的物理内存地址，访问这个物理内存地址，就得到这个物理块号了</p>
-<h5 id="需要考虑的问题"><a href="#需要考虑的问题" class="headerlink" title="需要考虑的问题"></a>需要考虑的问题</h5><p>直接映射的分页系统对系统效能不利，因为CPU需要访问两次主存才能得到所需要的数据，第一次访问是访问主存中的页表，从中找到指定页的物理块号再将块号与页内偏移量W拼接形成物理地址，第二次访问是从第一次所得地址中获得实际数据，为了解决这个问题，引入快表</p>
-<h4 id="具有快表的地址变换机构"><a href="#具有快表的地址变换机构" class="headerlink" title="具有快表的地址变换机构"></a>具有快表的地址变换机构</h4><p>为了提高地址变换速度，在地址变换机构中增设一个具有并行查寻能力的特殊高速缓冲寄存器，又称为”联想寄存器”，或称为”快表”，或者TLB，用以存放当前访问的那些页表项，此时地址变换过程是这样的：</p>
-<p>在CPU给出有效地址后，由地址变换机构自动地将页号P送入高速缓冲寄存器，并将此页号与高速缓存中地所有页号进行比较，若其中有与此相匹配的页号，便表示所要访问的页表项在快表中，于是，可直接从快表中读出该页所对应的物理块号，并送到物理地址寄存器，如在快表中没有找到对应的页表项，则还须再访问内存中的页表，找到后把从页表中读出的物理块号送往地址寄存器，同时，再将此页表项存入快表的一个寄存器单元中，如果快表满了，则OS找到一个老的且被认为不需要的页表项换出</p>
-<p><img src="https://i.imgur.com/IxGYPDQ.png" alt=""></p>
-<h3 id="访问内存的有效时间"><a href="#访问内存的有效时间" class="headerlink" title="访问内存的有效时间"></a>访问内存的有效时间</h3><p>从进程发出指定逻辑地址的访问请求，经过地址变换，到在内存中找到对应的实际物理地址单元并取出数据，所需要花费的总时间，称为内存的有效访问时间（Effective Access Time, EAT)，有效访问时间分为第一次访问内存时间（即查找页表对应的页表项所耗费的时间t）与第二次访问内存时间（即将页表项的物理块与页内地址拼接成实际物理地址所耗费的时间t）之和</p>
-<p>t：访问一次内存所需要的时间<br>EAT=t+t=2*t</p>
-<p>引入快表后，快表命中率a，查找快表需要的时间λ</p>
-<p>EAT=a<em>(t+λ)+(1-a)(2t+λ)=2</em>t+λ-t*a</p>
-<h3 id="两级和多级页表"><a href="#两级和多级页表" class="headerlink" title="两级和多级页表"></a>两级和多级页表</h3><p><img src="https://i.imgur.com/a87JQe4.jpg" alt=""></p>
-<p>两级页表的逻辑地址结构</p>
-<p><img src="https://i.imgur.com/vAODx2G.png" alt=""></p>
-<p><img src="https://i.imgur.com/dmvJmwv.png" alt=""></p>
-<p>以前面的32位逻辑地址空间为例，当页面大小为4KB的时候(12位)，采用两级页表结构时，再对页表进行分页，使每页包含2^10个页表项，或者说，外层页表中的外层页内地址P2为10位，外层页号P1也为10位</p>
-<p>（通过外部页号得到P2的始址，然后P2和d就可以通过上面说过的地址变换过程获得物理地址了）<br>外层页表的每个页表项中存放的是某页表分页的首地址，地址变换机构中同样要增加外层页表寄存器，用于存放外层页表的始址，并利用逻辑地址中的外层页号作为外层页表的索引，从中找到指定页表的始址（同上页表始址与页号和页表项长度乘积相加那个原理），再利用P2作为指定页表分页的索引，找到指定页表项，即含有该页在内存中的物理块号，用该块号P和页内地址d即可构成访问的内存物理地址</p>
-<h4 id="一个练习小例子"><a href="#一个练习小例子" class="headerlink" title="一个练习小例子"></a>一个练习小例子</h4><p><img src="https://i.imgur.com/NzHTbzz.png" alt=""></p>
-<p>对题目的理解：页号是用户程序而言的，该用户程序有32页，每页2K，而物理块是针对内存空间而言的，内存有1M，第1题第2问中，因为物理空间有1M，每页2K，即每个物理块2K，所以内存中有512个物理块，这32页必须可以对应到这512个物理块中的每一块，物理块号为0#——511#，页表项是物理块的块号，所以页表项位数应该是511的二进制位数，即9位</p>
-<p><img src="https://i.imgur.com/nzZDyXX.png" alt=""></p>
-<p>对第二题，由逻辑地址算出页号和页内地址，通过页号找到物理块号，物理地址=物理块号*页面大小+业内地址</p>
-<p><img src="https://i.imgur.com/Pypgxvw.png" alt=""></p>
-<h2 id="分段存储管理系统"><a href="#分段存储管理系统" class="headerlink" title="分段存储管理系统"></a>分段存储管理系统</h2><p>基本思想：按程序的逻辑结构，将程序的地址空间划分为若干段，各段大小可不相同，在进行存储分配时，以段为单位，这些段在内存中可以不相邻接<br>为什么引入：一方面程序可分为若干个段，主程序段，子程序段A，子程序段B，数据段，栈段等，另一方面实现和满足信息共享，信息保护，动态链接以及信息的动态增长等需要</p>
-<h3 id="分段系统基本原理"><a href="#分段系统基本原理" class="headerlink" title="分段系统基本原理"></a>分段系统基本原理</h3><h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>每个段定义了一组逻辑信息，分段地址的地址具有如下结构</p>
-<p><img src="https://i.imgur.com/lIzzMcm.png" alt=""></p>
-<h4 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h4><p><img src="https://i.imgur.com/0jaI7D8.png" alt=""></p>
-<h4 id="地址变换过程-1"><a href="#地址变换过程-1" class="headerlink" title="地址变换过程"></a>地址变换过程</h4><p><img src="https://i.imgur.com/NI7gUs6.png" alt=""></p>
-<p>设置了段表寄存器，用于存放段表始址和段表长度TL，在进行地址变换时，系统将逻辑地址中的段号和段表长度TL进行比较，若S&gt;TL，表示段号太大，访问越界，若未越界，则根据段表始址和段号，计算出该段对应段表项的位置（物理地址），从中读出该段在内存的起始地址，然后检查段内地址d是否超过该段段长SL，若超过，即d&gt;SL，同样发出越界中断，若未越界，则该段基址d与段内地址相加，即可得到要访问的内存物理地址</p>
-<p>分段同样需要访问两次内存，同样由联想存储器用于保存最近常用的段表项</p>
-<h2 id="分页和分段主要区别"><a href="#分页和分段主要区别" class="headerlink" title="分页和分段主要区别"></a>分页和分段主要区别</h2><ul>
-<li>页是信息的物理单位，段是逻辑单位</li>
-<li>页长度固定由系统决定，段长度不固定</li>
-<li>分页用户程序地址空间是一维的，分段是二维的，既要给出段名又要给出段内地址</li>
-</ul>
-<h2 id="段页式存储管理方式"><a href="#段页式存储管理方式" class="headerlink" title="段页式存储管理方式"></a>段页式存储管理方式</h2><p><img src="https://i.imgur.com/Epa98nQ.png" alt=""></p>
-<p><img src="https://i.imgur.com/VyaIZ0X.png" alt=""></p>
-<p><img src="https://i.imgur.com/kQnRsbQ.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2804,7 +2778,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2826,7 +2800,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">109</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
