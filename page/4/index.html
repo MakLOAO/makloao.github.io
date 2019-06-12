@@ -369,6 +369,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/JavaScript08-DOM扩展/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/JavaScript08-DOM扩展/" itemprop="url">JavaScript08-DOM扩展</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-09T11:08:34+08:00">
+                2018-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/09/JavaScript08-DOM扩展/" class="leancloud_visitors" data-flag-title="JavaScript08-DOM扩展">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript08-DOM扩展"><a href="#JavaScript08-DOM扩展" class="headerlink" title="JavaScript08-DOM扩展"></a>JavaScript08-DOM扩展</h1><p>对JavaScript的两个主要扩展主要是Selectors API和HTML5</p>
+<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><p>根据CSS选择符选择与某个模式匹配的DOM元素。jQuery的核心就是通过CSS选择符查询DOM文档取得元素的引用，从而抛开了getElementById()和getElementsByTagName()，它有两个核心方法：querySelector()和querySelectorAll()，可以通过Document及Element类型的实例调用它们。</p>
+<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><p>它接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有就返回null。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得ID为myDiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"selected"的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"button"的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.body.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><p>querySelectorAll()方法接收的参数和上面一样，都是一个CSS选择符，但返回的是所有匹配的元素，是一个NodeList实例。</p>
+<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><p><strong>Chrome Version 70.0.3538.77不支持</strong></p>
+<p>Element Travelsal API为DOM元素添加以下5个属性，用于预防元素间空格造成的childNodes和firstChild等属性不一致的差异。</p>
+<ul>
+<li>childElementCount：返回子元素（不包括文本节点和注释）的个数</li>
+<li>firstElementChild：指向第一个元素</li>
+<li>lastElementChild：指向最后一个元素</li>
+<li>previousElementSibling：指向前一个同辈元素</li>
+<li>nextElementSibling：指向后一个同辈元素</li>
+</ul>
+<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName-方法"><a href="#getElementsByClassName-方法" class="headerlink" title="getElementsByClassName()方法"></a>getElementsByClassName()方法</h4><p>可以通过document对象以及所有HTML元素调用该方法，它接收一个参数，即一个包含一个或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
+<p>取得所有类中包含”username”和”current”的元素，类先后无所谓<br><code>var allCurrentUsernames = document.getElementByClassName(&quot;username current&quot;);</code></p>
+<p>取得ID为myDiv的元素中带有类名”selected”的所有元素<br><code>var selected = document.getElementById(&quot;myDiv&quot;).getElementsByClassName(&quot;selected&quot;);</code></p>
+<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><p>操作类名的时候，可以使用classList属性，classList属性是DOMTokenList的实例，他有一个表示自己包含多少元素的length属性，要取得每个元素，可以使用item()方法，也可以使用方括号。如下：</p>
+<p><code>&lt;div class=&quot;bd user disabled&quot;&gt;&lt;/div&gt;</code></p>
+<p>classList属性有三个值分别是bd user和disabled。</p>
+<p>这个属性还定义了下面方法</p>
+<ul>
+<li>add(value)：将给定的字符串值添加到列表中。</li>
+<li>contains(value)：表示列表中是否存在给定的值，存在返回true。</li>
+<li>remove(value)：删除value</li>
+<li>toggle(value)：如果列表中存在给定值，就删除它，如果不存在，就添加它。</li>
+</ul>
+<p>这样，就可以通过上述方法操控className了，如下</p>
+<p><code>div.classList.remove(&quot;user&quot;); // 删除user类</code></p>
+<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><p>HTML5添加了辅助管理DOM焦点的功能。document.activeElement属性始终会引用DOM中当前获得焦点的元素。<br>元素获得焦点方式有页面加载，用户输入和在代码中调用focus()方法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"myButton"</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"focusMethod()"</span>&gt;</span>Click me to focus on the button!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./aha.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">focusMethod = <span class="function"><span class="keyword">function</span> <span class="title">getFocus</span>(<span class="params"></span>) </span>&#123;          </span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>).focus();</span><br><span class="line">    alert(<span class="built_in">document</span>.activeElement == <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>文档刚刚加载完，<code>document.activeElement</code>中保存的是<code>document.body</code>元素的引用。</p>
+<p><code>document.hasFocus()</code>用于确定文档是否获得了焦点。</p>
+<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><p>HTML5扩展了HTMLDocument，增加了新功能。</p>
+<h4 id="readyState属性"><a href="#readyState属性" class="headerlink" title="readyState属性"></a>readyState属性</h4><p>Document的readyState属性可能有两个值</p>
+<ul>
+<li>loading：正在加载文档</li>
+<li>complete：已经加载完文档</li>
+</ul>
+<p>基本用法如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">"complete"</span>) &#123;</span><br><span class="line">	<span class="comment">// 执行操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="head属性"><a href="#head属性" class="headerlink" title="head属性"></a>head属性</h4><p>作为对document.body引用文档&lt;body&gt;元素的补充，HTML5新增了document.head属性，引用文档的&lt;head&gt;元素。</p>
+<p><code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></p>
+<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><p>charset属性表示文档中实际使用的字符集，也可以用来指定新字符集，可以通过&lt;meta&gt;元素，响应头部或直接设置charset属性修改这个值。</p>
+<p><code>document.charset = &quot;UTF-8&quot;;</code></p>
+<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><p>HTML5可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或提供语义信息。<br>可以通过元素dataset属性访问这些自定义属性的值。dataset是一个DOMStringMap的实例，键为非标准属性名减去data-前缀（比如自定义属性是data-myname，映射对应属性就是myname）</p>
+<p><code>&lt;div id=&quot;myDiv&quot; data-appid=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appid;</span><br><span class="line"><span class="keyword">var</span> myName = div.dataset.myname;</span><br><span class="line"></span><br><span class="line">alert(appId);</span><br></pre></td></tr></table></figure>
+<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><p>在读模式下，innerHTML属性返回与调用元素的所有子节点（包括元素，注释和文本节点）对应的HTML标记。写模式下，innerHTML会根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</p>
+<p>写模式下，innerHTML的值会被解析为DOM子树，替换调用元素原来的所有子节点。因为它的值被认为是HTML，所以其中的所有标签都会按照浏览器处理HTML的标准方式转换为元素。<br>设置了innerHTML之后，可以像访问文档中其他节点一样访问新创建的节点。</p>
+<p>对下面代码的div块调用innerHTML，会返回其内部子元素（字符串形式）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a <span class="tag">&lt;<span class="name">strong</span>&gt;</span>paragraph<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> with a list following it.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面元素不支持innerHTML属性：&lt;col&gt;,&lt;colgroup&gt;,&lt;frameset&gt;,&lt;head&gt;,&lt;html&gt;,&lt;style&gt;,&lt;table&gt;,&lt;tbody&gt;,&lt;thead&gt;,&lt;tfoot&gt;和&lt;tr&gt;</p>
+<h4 id="outerHTML属性"><a href="#outerHTML属性" class="headerlink" title="outerHTML属性"></a>outerHTML属性</h4><p>在读模式下，outerHTML返回调用它的元素及所有子节点的HTML标签。写模式下，outerHTML会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</p>
+<p>对上面代码div块调用outerHTML，会返回上面相同的代码，包括div本身。</p>
+<p><code>div.outerHTML = &quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;&quot;;</code></p>
+<p>对上面代码的调用，等价于下面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">p.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"This is a paragraph."</span>));</span><br><span class="line">div.parentNode.replaceChild(p, div);</span><br></pre></td></tr></table></figure>
+<h4 id="insertAdjacentHTML-方法"><a href="#insertAdjacentHTML-方法" class="headerlink" title="insertAdjacentHTML()方法"></a>insertAdjacentHTML()方法</h4><p>它接收两个参数，插入位置和要插入的HTML文本。第一个参数必须是下列值之一：</p>
+<ul>
+<li>beforebegin：当前元素之前插入一个紧邻的同辈元素</li>
+<li>afterbegin：当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素</li>
+<li>beforeend：当前元素之下插入一个新的子元素或再最后一个子元素之后再插入一个新的子元素</li>
+<li>afterend：当前元素之后插入一个紧邻的同辈元素</li>
+</ul>
+<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><p>使用上面2个属性1个方法之前，最好先手工删除要被替换的元素的所有时间处理程序和JavaScript对象属性。</p>
+<p>对上面2个属性，最佳做法是单独构建一个字符串，然后一次性把结果字符串赋值给innerHTML（或outerHTML），这样可以减少访问属性的开支。</p>
+<h3 id="scrollIntoView-方法"><a href="#scrollIntoView-方法" class="headerlink" title="scrollIntoView()方法"></a>scrollIntoView()方法</h3><p>可以在所有HTML元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中，传入true作为参数，或者不传入参数，则窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。传入false，调用元素会尽可能出现在视口中（可能的话，调用元素底部会与视口底部平齐）</p>
+<p>Chrome不支持。。。</p>
+<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><p>这个属性是HTMLCollection的实例，只包含元素中同样还是元素的子节点。children属性与childNodes没什么区别</p>
+<h3 id="contains-方法"><a href="#contains-方法" class="headerlink" title="contains()方法"></a>contains()方法</h3><p>调用contains()方法的应该是祖先节点，这个方法接收一个参数，就是要检测的后代节点。如果被检测的节点是后代节点，就返回true。</p>
+<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><h4 id="innerText属性"><a href="#innerText属性" class="headerlink" title="innerText属性"></a>innerText属性</h4><p>通过这个属性可以操作元素中包含的所有文本内容，包括子文档树中的文本。在通过innerText读取值时，它会按照由浅入深顺序将子文档中所有文本拼接起来。在通过innerText写值时，结果会删除元素的所有子节点。插入包含相应文本值的文本节点。</p>
+<h4 id="outerText属性"><a href="#outerText属性" class="headerlink" title="outerText属性"></a>outerText属性</h4><p>作用范围扩大到了包含调用它的节点，写操作下会替换整个元素（包括子节点）。</p>
+<h3 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h3><ul>
+<li>scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，最终让它可见。如果参数为true，尽量让元素显示在视口中部。</li>
+<li>scrollByLines(lineCount)：元素内容滚动指定的行高，可以正或负值。</li>
+<li>scrollByPages(pageCount)：元素内容滚动指定的页面高度。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/数据结构01-前言/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2624,191 +2855,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet04-JSP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/Servlet04-JSP/" itemprop="url">Servlet04-JSP</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index">
-                    <span itemprop="name">Servlet</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/01/Servlet04-JSP/" class="leancloud_visitors" data-flag-title="Servlet04-JSP">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Servlet04-JSP"><a href="#Servlet04-JSP" class="headerlink" title="Servlet04-JSP"></a>Servlet04-JSP</h1><h2 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h2><h3 id="page"><a href="#page" class="headerlink" title="page"></a>page</h3><p>使用page指令导入包<br><code>&lt;%@ page import=&quot;foo.*&quot; %&gt;</code><br><code>&lt;%@ page import=&quot;foo.*,java.util.*&quot; %&gt;</code></p>
-<h4 id="page指令的属性"><a href="#page指令的属性" class="headerlink" title="page指令的属性"></a>page指令的属性</h4><!-- TODO: page指令的属性.png -->
-<p><img src="https://i.imgur.com/fwXppdr.png" alt=""></p>
-<h3 id="taglib"><a href="#taglib" class="headerlink" title="taglib"></a>taglib</h3><p>taglib定义JSP可用的标记库<br><code>&lt;%@ taglib tagdir=&quot;/WEB-INF/tags/cool&quot; prefix=&quot;cool&quot; %&gt;</code></p>
-<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>include定义在转换时增加到当前页面的文本和代码<br><code>&lt;%@ include file=&quot;xxx.html&quot; %&gt;</code><br>使用此指令允许你建立可重用的块（如标准页面标题或导航栏），这些可重用的块能增加到各个页面上，而不用每个JSP都重复写这些代码</p>
-<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>对于<code>&lt;% out.println(Counter.getCount()); %&gt;</code><br>可以用<code>&lt;%= Counter.getCount() %&gt;</code>代替，不需要分号，表达式内的内容为out.print的参数</p>
-<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p><code>&lt;%! int count = 0; %&gt;</code><br>声明该JSP所生成的servlet类的成员</p>
-<h2 id="初始化JSP"><a href="#初始化JSP" class="headerlink" title="初始化JSP"></a>初始化JSP</h2><p>在配置文件中如下配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-file</span>&gt;</span>/directory/xxx.jsp<span class="tag">&lt;/<span class="name">jsp-file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/xxx<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="覆盖jspInit"><a href="#覆盖jspInit" class="headerlink" title="覆盖jspInit()"></a>覆盖jspInit()</h2><p>只要在.jsp文件中实现了jspInit()方法，在JSP页面成为servlet的最开始容器就会调用这个方法，这个方法由servlet的init()方法调用，所以在运行jspInit()方法时，已经有一个ServletConfig和ServletContext可供servlet使用，可以在jspInit()中调用getServletConfig()和getServletContext()</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%!</span></span></span><br><span class="line"><span class="tag">    <span class="attr">public</span> <span class="attr">void</span> <span class="attr">jspInit</span>() &#123;</span></span><br><span class="line"><span class="tag">        <span class="attr">ServletConfig</span> <span class="attr">sConfig</span> = <span class="string">getServletConfig();</span></span></span><br><span class="line"><span class="tag">        // <span class="attr">do</span> <span class="attr">something</span></span></span><br><span class="line"><span class="tag">    &#125;</span></span><br><span class="line"><span class="tag">%&gt;</span></span><br></pre></td></tr></table></figure>
-<p>同理jspDestroy()也可以覆盖</p>
-<h2 id="JSP的属性"><a href="#JSP的属性" class="headerlink" title="JSP的属性"></a>JSP的属性</h2><p>除了Servlet拥有的请求，会话和上下文这三个属性，JSP还拥有页面作用域pageContext（隐式对象），常用于开发定制标记</p>
-<!-- TODO:插入JSP属性.png -->
-<p><img src="https://i.imgur.com/ZLk83Pb.png" alt=""></p>
-<h3 id="使用PageContext得到属性"><a href="#使用PageContext得到属性" class="headerlink" title="使用PageContext得到属性"></a>使用PageContext得到属性</h3><p>可以在PageContext引用得到任意作用域的属性</p>
-<!-- TODO:PageContext得到属性.png -->
-<p><img src="https://i.imgur.com/LBZaptb.png" alt=""></p>
-<p>同理使用<br><code>&lt;% pageContext.setAttribute(&quot;foo&quot;, &quot;attr&quot;, PageContext.SESSION_SCOPE); %&gt;</code><br>等同于<br><code>&lt;% session.setAttribute(&quot;foo&quot;, &quot;attr&quot;); %&gt;</code></p>
-<p>使用<br><code>&lt;%= pageContext.findAttribute(&quot;foo&quot;) %&gt;</code><br>可以在不知道作用域的情况下查找一个属性</p>
-<h1 id="EL预热"><a href="#EL预热" class="headerlink" title="EL预热"></a>EL预热</h1><p>EL(Expression Language)是无脚本JSP，可以允许开发人员在JSP中不适用Java也能达到同样的效果</p>
-<p><strong>为什么使用EL？</strong></p>
-<ol>
-<li>不应该要求WEB页面设计人员必须懂Java</li>
-<li>JSP中的Java代码很难修改和维护</li>
-</ol>
-<h2 id="开启无脚本JSP"><a href="#开启无脚本JSP" class="headerlink" title="开启无脚本JSP"></a>开启无脚本JSP</h2><p>在配置文件web.xml中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="选择忽略EL"><a href="#选择忽略EL" class="headerlink" title="选择忽略EL"></a>选择忽略EL</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2860,7 +2911,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2882,7 +2933,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

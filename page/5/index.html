@@ -369,6 +369,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet04-JSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/Servlet04-JSP/" itemprop="url">Servlet04-JSP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index">
+                    <span itemprop="name">Servlet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/01/Servlet04-JSP/" class="leancloud_visitors" data-flag-title="Servlet04-JSP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Servlet04-JSP"><a href="#Servlet04-JSP" class="headerlink" title="Servlet04-JSP"></a>Servlet04-JSP</h1><h2 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h2><h3 id="page"><a href="#page" class="headerlink" title="page"></a>page</h3><p>使用page指令导入包<br><code>&lt;%@ page import=&quot;foo.*&quot; %&gt;</code><br><code>&lt;%@ page import=&quot;foo.*,java.util.*&quot; %&gt;</code></p>
+<h4 id="page指令的属性"><a href="#page指令的属性" class="headerlink" title="page指令的属性"></a>page指令的属性</h4><!-- TODO: page指令的属性.png -->
+<p><img src="https://i.imgur.com/fwXppdr.png" alt=""></p>
+<h3 id="taglib"><a href="#taglib" class="headerlink" title="taglib"></a>taglib</h3><p>taglib定义JSP可用的标记库<br><code>&lt;%@ taglib tagdir=&quot;/WEB-INF/tags/cool&quot; prefix=&quot;cool&quot; %&gt;</code></p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>include定义在转换时增加到当前页面的文本和代码<br><code>&lt;%@ include file=&quot;xxx.html&quot; %&gt;</code><br>使用此指令允许你建立可重用的块（如标准页面标题或导航栏），这些可重用的块能增加到各个页面上，而不用每个JSP都重复写这些代码</p>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>对于<code>&lt;% out.println(Counter.getCount()); %&gt;</code><br>可以用<code>&lt;%= Counter.getCount() %&gt;</code>代替，不需要分号，表达式内的内容为out.print的参数</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p><code>&lt;%! int count = 0; %&gt;</code><br>声明该JSP所生成的servlet类的成员</p>
+<h2 id="初始化JSP"><a href="#初始化JSP" class="headerlink" title="初始化JSP"></a>初始化JSP</h2><p>在配置文件中如下配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-file</span>&gt;</span>/directory/xxx.jsp<span class="tag">&lt;/<span class="name">jsp-file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/xxx<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="覆盖jspInit"><a href="#覆盖jspInit" class="headerlink" title="覆盖jspInit()"></a>覆盖jspInit()</h2><p>只要在.jsp文件中实现了jspInit()方法，在JSP页面成为servlet的最开始容器就会调用这个方法，这个方法由servlet的init()方法调用，所以在运行jspInit()方法时，已经有一个ServletConfig和ServletContext可供servlet使用，可以在jspInit()中调用getServletConfig()和getServletContext()</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%!</span></span></span><br><span class="line"><span class="tag">    <span class="attr">public</span> <span class="attr">void</span> <span class="attr">jspInit</span>() &#123;</span></span><br><span class="line"><span class="tag">        <span class="attr">ServletConfig</span> <span class="attr">sConfig</span> = <span class="string">getServletConfig();</span></span></span><br><span class="line"><span class="tag">        // <span class="attr">do</span> <span class="attr">something</span></span></span><br><span class="line"><span class="tag">    &#125;</span></span><br><span class="line"><span class="tag">%&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同理jspDestroy()也可以覆盖</p>
+<h2 id="JSP的属性"><a href="#JSP的属性" class="headerlink" title="JSP的属性"></a>JSP的属性</h2><p>除了Servlet拥有的请求，会话和上下文这三个属性，JSP还拥有页面作用域pageContext（隐式对象），常用于开发定制标记</p>
+<!-- TODO:插入JSP属性.png -->
+<p><img src="https://i.imgur.com/ZLk83Pb.png" alt=""></p>
+<h3 id="使用PageContext得到属性"><a href="#使用PageContext得到属性" class="headerlink" title="使用PageContext得到属性"></a>使用PageContext得到属性</h3><p>可以在PageContext引用得到任意作用域的属性</p>
+<!-- TODO:PageContext得到属性.png -->
+<p><img src="https://i.imgur.com/LBZaptb.png" alt=""></p>
+<p>同理使用<br><code>&lt;% pageContext.setAttribute(&quot;foo&quot;, &quot;attr&quot;, PageContext.SESSION_SCOPE); %&gt;</code><br>等同于<br><code>&lt;% session.setAttribute(&quot;foo&quot;, &quot;attr&quot;); %&gt;</code></p>
+<p>使用<br><code>&lt;%= pageContext.findAttribute(&quot;foo&quot;) %&gt;</code><br>可以在不知道作用域的情况下查找一个属性</p>
+<h1 id="EL预热"><a href="#EL预热" class="headerlink" title="EL预热"></a>EL预热</h1><p>EL(Expression Language)是无脚本JSP，可以允许开发人员在JSP中不适用Java也能达到同样的效果</p>
+<p><strong>为什么使用EL？</strong></p>
+<ol>
+<li>不应该要求WEB页面设计人员必须懂Java</li>
+<li>JSP中的Java代码很难修改和维护</li>
+</ol>
+<h2 id="开启无脚本JSP"><a href="#开启无脚本JSP" class="headerlink" title="开启无脚本JSP"></a>开启无脚本JSP</h2><p>在配置文件web.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="选择忽略EL"><a href="#选择忽略EL" class="headerlink" title="选择忽略EL"></a>选择忽略EL</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet03-会话状态/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2272,175 +2452,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/JavaDoc与Jar/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/01/JavaDoc与Jar/" itemprop="url">JavaDoc与Jar</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T10:29:09+08:00">
-                2018-06-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/06/01/JavaDoc与Jar/" class="leancloud_visitors" data-flag-title="JavaDoc与Jar">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用JavaDoc生成文档"><a href="#使用JavaDoc生成文档" class="headerlink" title="使用JavaDoc生成文档"></a>使用JavaDoc生成文档</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javadoc -d 目录名 -encoding UTF-8 -charset UTF-8 xxx.java</span><br></pre></td></tr></table></figure>
-<p> java内格式：  /<em>**   文档内容   </em>/</p>
-<p><strong> @author : 对类的说明，表明开发该类模块的作者 </strong><br><strong> @version : 对类的说明，表明该模块版本 </strong><br><strong> @see : 对类，属性，方法的说明，参考转向，也就是相关主题 </strong><br><strong> @param : 对方法的说明，对方法中某参数的说明 </strong><br><strong> @return : 对方法的说明，对方法返回值的说明</strong><br><strong> @exception : 对方法的说明，对方法可能抛出的异常进行说明</strong></p>
-<p>下为《算法》中StdRandom.java源码的注释与文档效果<br><img src="https://i.imgur.com/uIqbUXJ.png" alt=""></p>
-<p><img src="https://i.imgur.com/8iQjkva.png" alt=""></p>
-<p><img src="https://i.imgur.com/LmOpOT7.png" alt=""></p>
-<p><img src="https://i.imgur.com/O6G6pu0.png" alt=""></p>
-<p><img src="https://i.imgur.com/qvY2iH7.png" alt=""></p>
-<p><img src="https://i.imgur.com/PcMiqHD.png" alt=""></p>
-<p><img src="https://i.imgur.com/fZXvVHd.png" alt=""></p>
-<h1 id="使用jar打包"><a href="#使用jar打包" class="headerlink" title="使用jar打包"></a>使用jar打包</h1><p><strong>（1）编译 javac A.java </strong><br><strong>（2）打包 jar cvfm A.jar A.man A.class </strong><br>——c表示创建(create)，v表示显示详情(verbose)，f表示指定文件名，m表示清单文件<br><strong>（3）运行 java -jar A.jar</strong></p>
-<p>其中A.man是清单文件（manifest），内容如下：<br>·Manifest-Version：1.0<br>Class-Path：.<br>Main-Class：A</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2492,7 +2508,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2514,7 +2530,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">109</span>
+                  <span class="site-state-item-count">111</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
