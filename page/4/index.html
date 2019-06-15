@@ -369,6 +369,493 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/17/git快速入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/17/git快速入门/" itemprop="url">Git快速入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-17T11:08:34+08:00">
+                2019-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/17/git快速入门/" class="leancloud_visitors" data-flag-title="Git快速入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h1><h2 id="本地仓库"><a href="#本地仓库" class="headerlink" title="本地仓库"></a>本地仓库</h2><h3 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h3><p>通过<code>git init</code>把当前目录变为Git可以管理的仓库</p>
+<h4 id="把文件放到Git仓库-add指令"><a href="#把文件放到Git仓库-add指令" class="headerlink" title="把文件放到Git仓库-add指令"></a>把文件放到Git仓库-add指令</h4><p>第一步,编写一个文件,放到该仓库目录下<br>第二步,用命令<code>git add yourFileName</code>告诉git把文件添加到仓库</p>
+<p>可以添加多个文件<br><code>git add file1.txt file2.txt</code></p>
+<h4 id="提交到仓库-commit指令"><a href="#提交到仓库-commit指令" class="headerlink" title="提交到仓库-commit指令"></a>提交到仓库-commit指令</h4><p><code>git add -m &quot;提本次提交的说明&quot;</code>,用参数<code>-m</code>输入本次提交的说明</p>
+<h4 id="查看暂存区状态-status指令"><a href="#查看暂存区状态-status指令" class="headerlink" title="查看暂存区状态-status指令"></a>查看暂存区状态-status指令</h4><p>可以使用<code>git status</code>查看当前git状态</p>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><h4 id="查看历史记录-log指令"><a href="#查看历史记录-log指令" class="headerlink" title="查看历史记录-log指令"></a>查看历史记录-log指令</h4><p><code>git log</code>可以查看历史提交记录<br>如果输出信息太多,可以加上<code>--pretty=oneline</code>参数</p>
+<h4 id="版本回退-reset指令"><a href="#版本回退-reset指令" class="headerlink" title="版本回退-reset指令"></a>版本回退-reset指令</h4><p>git的当前版本用<code>HEAD</code>表示,上一个版本是<code>HEAD^</code>,上上个版本是<code>HEAD^^</code>,如果是上100个版本,可以表示为<code>HEAD~100</code></p>
+<p><code>git reset --hard HEAD^</code>表示回退到上一个版本</p>
+<p>如果后悔了,可以找到上面的命令行窗口,找到未来版本的<code>commit id</code>,比如当前版本最新ID为<code>1094adb...</code>,可以通过<code>git reset --hard 1094a</code>回到未来(可以不指定完整的id,git会自动寻找)</p>
+<h4 id="记录命令-reflog指令"><a href="#记录命令-reflog指令" class="headerlink" title="记录命令-reflog指令"></a>记录命令-reflog指令</h4><p>可以通过<code>git reflog</code>查询执行过的命令,并依此找到版本号,这样就可以通过<code>git reset --hard 版本号</code>回到任何版本</p>
+<h3 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h3><p>工作区就是电脑可以看到的目录<br>工作区有一个目录.git，是Git的版本库，里面存了很多东西，其中有称为stage(或者叫index)的暂存区，还有Git自动创建的第一个分支master，以及指向master的一个指针叫HEAD。<br><code>git add</code>实际是把文件修改添加到暂存区</p>
+<p><img src="https://i.imgur.com/5AIU1bs.png" alt=""></p>
+<p><code>git commit</code>实际是把暂存区的所有内容提交到当前分支</p>
+<p><img src="https://i.imgur.com/xSVk704.png" alt=""></p>
+<h4 id="查看工作区和版本库区别-diff指令"><a href="#查看工作区和版本库区别-diff指令" class="headerlink" title="查看工作区和版本库区别-diff指令"></a>查看工作区和版本库区别-diff指令</h4><p><code>git diff HEAD -- youFile.txt</code>：可以查看工作区和版本库最新版本的区别</p>
+<h3 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h3><h4 id="丢弃工作区的修改-checkout"><a href="#丢弃工作区的修改-checkout" class="headerlink" title="丢弃工作区的修改-checkout"></a>丢弃工作区的修改-checkout</h4><p>可以使用<code>git checkout -- &lt;file&gt;</code>把工作区中file的修改全部撤销</p>
+<h4 id="把暂存区的修改放回到工作区-reset"><a href="#把暂存区的修改放回到工作区-reset" class="headerlink" title="把暂存区的修改放回到工作区-reset"></a>把暂存区的修改放回到工作区-reset</h4><p><code>git reset HEAD &lt;file&gt;</code>把暂存区的修改撤销掉,重新放回工作区，然后使用<code>git checkout -- &lt;file&gt;</code>即可撤销修改</p>
+<h3 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h3><p>在Git中,删除文件也是一个修改操作</p>
+<h4 id="删除暂存区文件-rm"><a href="#删除暂存区文件-rm" class="headerlink" title="删除暂存区文件-rm"></a>删除暂存区文件-rm</h4><p>在Linux中,对于已经通过<code>add</code>添加到暂存区的文件，如果使用<code>rm</code>删除了文件,删错的情况下,可以<code>git checkout -- &lt;file&gt;</code>恢复文件<br>如果确定删除，<code>git rm &lt;file&gt;</code>删掉，然后<code>git commit</code>提交<br>对于在工作区的文件，使用<code>rm</code>删除无法恢复。</p>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><p>1.在GitHub上create a new repo新建一个仓库，填写仓库名后其他默认（不要生成readme，生成后不是空远程库了，手动在本地库添加上传即可）<br>2.本地仓库与之关联，关联后远程库的名字是origin<br>3.把本地库内容推送到远程（实际是把master分支推送到远程）</p>
+<h4 id="远程库关联本地库-remote-add"><a href="#远程库关联本地库-remote-add" class="headerlink" title="远程库关联本地库-remote add"></a>远程库关联本地库-remote add</h4><p>根据GitHub上的提示，在本地git bash上<br><code>git remote add origin https://github.com/youGithubName/youRepo.git</code></p>
+<p>即可关联，若取消关联<br><code>git remote remove origin</code></p>
+<h4 id="本地库推送到远程-push"><a href="#本地库推送到远程-push" class="headerlink" title="本地库推送到远程-push"></a>本地库推送到远程-push</h4><p>第一次推送的时候<br><code>git push -u origin master</code><br>-u不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
+<p>后续推送只需要<br><code>git push origin master</code></p>
+<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><h4 id="克隆远程库到本地-clone"><a href="#克隆远程库到本地-clone" class="headerlink" title="克隆远程库到本地-clone"></a>克隆远程库到本地-clone</h4><p><code>git clone git@github.com:otherName/otherRepo.git</code> 使用ssh克隆<br><code>git clone https://github.com/otherName/otherRepo.git</code> 使用https克隆</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h3><p>每次提交时，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即<code>master</code>分支。<code>HEAD</code>严格来说不是指向提交，而是指向<code>master</code>，<code>master</code>才是指向提交的，所以，<code>HEAD</code>指向的就是当前分支。</p>
+<p>一开始的时候，<code>master</code>分支是一条线，Git用<code>master</code>指向最新的提交，再用<code>HEAD</code>指向<code>master</code>，就能确定当前分支，以及当前分支的提交点：</p>
+<p><img src="https://i.imgur.com/XgRLXHI.png" alt=""></p>
+<p>每次提交时，master分支都会向前移动一步。</p>
+<p>当我们创建分支的时候，例如<code>dev</code>时，Git会新建一个指针叫<code>dev</code>，指向<code>master</code>相同的提交，再把<code>HEAD</code>指向<code>dev</code>，就表示当前分支在<code>dev</code>上：</p>
+<p><img src="https://i.imgur.com/8P0fYIU.png" alt=""></p>
+<p>从现在开始，对工作区任何修改和提交都是针对<code>dev</code>分支了，新提交一次后，<code>dev</code>和<code>HEAD</code>往前一步，<code>master</code>不变：</p>
+<p><img src="https://i.imgur.com/vQVkEtc.png" alt=""></p>
+<p>假如我们在<code>dev</code>上的工作完成了，就可以把<code>dev</code>合并到<code>master</code>上，把<code>master</code>指向<code>dev</code>当前的提交即可：</p>
+<p><img src="https://i.imgur.com/Tc19E7I.png" alt=""></p>
+<p>合并完分支后，甚至可以删除<code>dev</code>分支：</p>
+<p><img src="https://i.imgur.com/UX9AEPB.png" alt=""></p>
+<h4 id="创建分支-branch"><a href="#创建分支-branch" class="headerlink" title="创建分支-branch"></a>创建分支-branch</h4><p><code>git branch dev</code>创建<code>dev</code>分支</p>
+<h4 id="切换分支-checkout"><a href="#切换分支-checkout" class="headerlink" title="切换分支-checkout"></a>切换分支-checkout</h4><p><code>git checkout dev</code>切换到<code>dev</code>分支</p>
+<h4 id="创建并切换分支-checkout-b"><a href="#创建并切换分支-checkout-b" class="headerlink" title="创建并切换分支-checkout -b"></a>创建并切换分支-checkout -b</h4><p><code>git checkout -b dev</code>可以新建<code>dev</code>分支并切换到<code>dev</code>分支<br>它相当于下面两条指令<br><code>git branch dev</code>创建<code>dev</code>分支<br><code>git checkout dev</code>切换到<code>dev</code>分支</p>
+<p>现在，对git进行<code>add</code>和<code>commit</code>操作都是针对<code>dev</code>分支而言</p>
+<p>修改完后<br><code>git checkout master</code>可以切换回<code>master</code>分支，此时，所有针对<code>dev</code>分支进行的改变都是不可见的</p>
+<p><strong>注意！暂存区对所有分支来说都是可见的！</strong></p>
+<h4 id="查看所有分支-branch"><a href="#查看所有分支-branch" class="headerlink" title="查看所有分支-branch"></a>查看所有分支-branch</h4><p><code>git branch</code>可以查看所有分支，当前分支前会有 <code>*</code> 指示出来</p>
+<h4 id="合并分支-merge"><a href="#合并分支-merge" class="headerlink" title="合并分支-merge"></a>合并分支-merge</h4><p><code>git merge dev</code>把<code>dev</code>分支合并到当前分支上</p>
+<h4 id="删除分支-branch-d"><a href="#删除分支-branch-d" class="headerlink" title="删除分支-branch -d"></a>删除分支-branch -d</h4><p><code>git branch -d dev</code>可以删除分支<code>dev</code>，删除前提是当前分支不是<code>dev</code>（即<code>HEAD</code>指针不是指向<code>dev</code>）</p>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3><p>当两个分支修改的地方有冲突的时候，执行<code>merge</code>就会报错合并冲突，可以使用<code>git stauts</code>查看。<br>冲突发生时分支如下：</p>
+<p><img src="https://i.imgur.com/E0DqQrA.png" alt=""></p>
+<p>打开冲突的文件，可以看到大概类似下面的东西</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">xxxxxx</span><br><span class="line">=============</span><br><span class="line">XXXXXX</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1</span><br></pre></td></tr></table></figure>
+<p>这里xxxxxx是<code>HEAD</code>分支修改的内容，XXXXXX是<code>dev</code>分支修改的内容</p>
+<p>只要把这一部分修改成想要的内容，再<br><code>git add xxx.txt</code><br><code>git commit -m &quot;conflict fixed</code><br>即可</p>
+<p>此时分支如下：（使用下一小节的命令可以查看图形化的分支）</p>
+<p><img src="https://i.imgur.com/GQ2Y6xf.png" alt=""><br>(P.S:对这样的分支树进行版本回退，他会退回到master的上一个版本而不是feature1）</p>
+<p>然后删除<code>feature1</code>分支即可</p>
+<p>也可以选择<code>git merge --abort</code>放弃合并</p>
+<h4 id="查看分支合并情况-log-–graph"><a href="#查看分支合并情况-log-–graph" class="headerlink" title="查看分支合并情况-log –graph"></a>查看分支合并情况-log –graph</h4><p><code>git log --graph --pretty=oneline --abbrev-commit</code>可以以图形的信息查看分支情况</p>
+<h3 id="分支策略管理"><a href="#分支策略管理" class="headerlink" title="分支策略管理"></a>分支策略管理</h3><p>通常，合并分支的时候，Git会用<code>Fast forward</code>模式，在这种模式下，删除分支后，会丢掉分支信息。</p>
+<p>如果强制禁用<code>Fast forward</code>，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。</p>
+<h4 id="禁用fast-forward-merge-–no-ff"><a href="#禁用fast-forward-merge-–no-ff" class="headerlink" title="禁用fast forward-merge –no-ff"></a>禁用fast forward-merge –no-ff</h4><p>e.g.<br>1.创建一个分支<code>git checkout -b dev</code><br>2.修改<code>readme.txt</code>并提交一个commit<code>git add readme.txt</code>，<code>git commit -m &quot;add merge&quot;</code><br>3.切换到<code>master</code>，<code>git checkout master</code><br>4.合并<code>dev</code>分支，<code>git merge --no-ff -m &quot;merge with no-ff&quot; dev</code></p>
+<p>然后用<code>git log</code>可以看到merge的信息，使用</p>
+<p>在<code>fast forward</code>模式下，log里是看不到merge的信息的，即</p>
+<h4 id="禁用fast-forward的图示"><a href="#禁用fast-forward的图示" class="headerlink" title="禁用fast forward的图示"></a>禁用fast forward的图示</h4><p>执行<code>git merge --no-ff -m &quot;merge with no-ff&quot; dev</code>合并后，禁用fast forward时，在合并分支后，<code>git log</code>的图示如下</p>
+<p><img src="https://i.imgur.com/05SBn91.png" alt=""></p>
+<p>可以看到是有一条<code>merge</code>的<code>log</code>的。</p>
+<p>删除<code>dev</code>分支之前的<code>git log --graph --pretty=oneline --abbrev-commit</code></p>
+<p><img src="https://i.imgur.com/gnyFJ9d.png" alt=""></p>
+<p><strong>此时虽然执行了<code>merge</code>操作，但<code>dev</code>和<code>master</code>并不指向同一目标，此时master指向的是在master分支下执行<code>merge</code>操作的log，而不是在<code>dev</code>分支下执行<code>commit</code>操作的log</strong></p>
+<p>对比下面是执行<code>git merge dev</code>的图示</p>
+<p><code>git log</code>如下：</p>
+<p><img src="https://i.imgur.com/VZaOyd5.png" alt=""></p>
+<p><code>git log --graph --pretty=oneline --abbrev-commit</code>如下：</p>
+<p><img src="https://i.imgur.com/vl2ZO2m.png" alt=""></p>
+<p>可以看到并没有<code>merge</code>操作的log，而只有<code>commit</code>操作的log，非<code>fast forward</code>下的合并，仅仅是把<code>master</code>指针指向<code>dev</code></p>
+<h4 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h4><p>实际开发应该遵循下面的基本原则进行分支管理：<br><strong>首先，<code>master</code>分支是非常稳定的，仅仅用来发布新版本，平时不能在上面干活；<br>干活都在<code>dev</code>分支上，<code>dev</code>分支是不稳定的，到某个时候，比如发布1.0版本时，再把<code>dev</code>分支合并到<code>master</code>分支上，在<code>master</code>分支上发布1.0版本<br>多人开发时，每个人都有自己的分支，时不时往<code>dev</code>分支上合并就可以，如下图所示</strong></p>
+<p><img src="https://i.imgur.com/NSqtpQr.png" alt=""></p>
+<h3 id="Bug分支"><a href="#Bug分支" class="headerlink" title="Bug分支"></a>Bug分支</h3><p>每次出现Bug的时候，都可以新建一个临时分支来修复，修复后合并分支，然后删除临时分支，但如果出现BUG的时候当前手头工作未完成时，Git可以把当前工作现场保存，然后去修改BUG，再恢复现场继续工作</p>
+<h4 id="保存工作现场-stash"><a href="#保存工作现场-stash" class="headerlink" title="保存工作现场-stash"></a>保存工作现场-stash</h4><p><code>git stash</code>可以保存当前工作现场，它大概就是，在工作区修改的文件，还没上传到暂存区，则保存工作区修改过的文件，或者已经上传到暂存区的文件，但还没有<code>commit</code>，则保存该文件，然后把工作区置干净(<code>git status</code>查看是干净的)，此时就可以放心创建分支来修复bug。<br>如果没有stash，切换到<code>master</code>分支上修改bug的时候，会发现在<code>dev</code>分支修改的东西还存在，但因为还没写完，所以修改完bug之后<code>commit</code>的话，没写完的东西也会<code>commit</code>上去，这明显是错误的，stash就是为此而生，它把工作区暂存区的东西保存下来，然后让工作区干净，这样在<code>dev</code>上正在工作的，未完成的东西就不会出现了，也不会因为修改bug而提交到<code>master</code>了，然后创建分支修改完bug之后再切换回<code>dev</code>分支恢复现场即可。</p>
+<p><strong>注意！！，如果要在<code>master</code>分支上修复bug，则必须先切换到<code>master</code>分支，再新建一个分支！</strong><br>修改完分支后，切换回<code>master</code>分支并合并，然后删除bug分支即可</p>
+<p>此时修复完bug，切换回工作分支，然后恢复刚刚<code>stash</code>的内容</p>
+<h4 id="查看stash内容-stash-list"><a href="#查看stash内容-stash-list" class="headerlink" title="查看stash内容-stash list"></a>查看stash内容-stash list</h4><p><code>git stash list</code>可以查看stash内容</p>
+<h4 id="恢复工作现场-stash-apply"><a href="#恢复工作现场-stash-apply" class="headerlink" title="恢复工作现场-stash apply"></a>恢复工作现场-stash apply</h4><p><code>git stash apply</code>恢复工作现场，然后<code>git stash drop</code>删除stash内容</p>
+<p>多次<code>stash</code>的时候，先用<code>git stash list</code>查看，然后恢复指定的stash<br><code>git stash apply stash@{0}</code></p>
+<h4 id="恢复工作现场-stash-pop"><a href="#恢复工作现场-stash-pop" class="headerlink" title="恢复工作现场-stash pop"></a>恢复工作现场-stash pop</h4><p><code>git stash pop</code>恢复工作现场同时把stash内容删除</p>
+<h3 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h3><p>软件开发中，当要添加新功能时，可以新建一个feature分支来实现。</p>
+<h4 id="强制删除分支—branch-D"><a href="#强制删除分支—branch-D" class="headerlink" title="强制删除分支—branch -D"></a>强制删除分支—branch -D</h4><p>如果新功能要舍弃，分支还没合并就要删除，可以通过<br><code>git branch -D &lt;name&gt;</code>来删除<br>参数-D是强制删除</p>
+<h3 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h3><p>当从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin</p>
+<h4 id="查看远程库的信息-remote"><a href="#查看远程库的信息-remote" class="headerlink" title="查看远程库的信息-remote"></a>查看远程库的信息-remote</h4><p><code>git remote</code>可以查看远程库的信息<br><code>git remote -v</code>可以显示更详细的信息，显示了可以抓取和推送的<code>origin</code>地址，如果没有推送权限，则看不到push地址</p>
+<p><img src="https://i.imgur.com/e7Fp85S.png" alt=""></p>
+<h4 id="推送分支"><a href="#推送分支" class="headerlink" title="推送分支"></a>推送分支</h4><p><code>git push origin master</code></p>
+<p>如果要推送其他分支，比如<code>dev</code>，就改成<br><code>git push origin dev</code></p>
+<p>下面是分支的简介</p>
+<ul>
+<li><code>master</code>分支是主分支，时刻与远程同步</li>
+<li><code>dev</code>分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步</li>
+<li><code>bug</code>分支只用于本地修复bug，一般不需要推送到远程</li>
+<li><code>feature</code>分支是否推送到远程，取决于是否合作开发</li>
+</ul>
+<h4 id="抓取分支"><a href="#抓取分支" class="headerlink" title="抓取分支"></a>抓取分支</h4><p>当另外一个人从远程库克隆的时候，默认情况下，他只能看到本地的<code>master</code>分支，如果要在<code>dev</code>分支上开发，就必须创建远程<code>origin</code>的<code>dev</code>分支到本地。</p>
+<h5 id="创建远程分支到本地"><a href="#创建远程分支到本地" class="headerlink" title="创建远程分支到本地"></a>创建远程分支到本地</h5><p><code>git checkout -b dev origin/dev</code></p>
+<h4 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h4><p><code>git pull</code>命令用于从另一个存储库或本地分支获取并集成，它的作用是：取回远程主机某个分支的更新，再与本地指定分支合并。</p>
+<p>常见格式是<br><code>git pull &lt;远程主机名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</code><br>若与当前分支合并，则冒号和之后的内容不需要</p>
+<h4 id="多人协作的工作模式"><a href="#多人协作的工作模式" class="headerlink" title="多人协作的工作模式"></a>多人协作的工作模式</h4><ol>
+<li><p>首先，可以试图用<code>git push origin &lt;branch-name&gt;</code>推送自己的修改；</p>
+</li>
+<li><p>如果推送失败，则因为远程分支比你的本地更新，需要先用<code>git pull</code>试图合并；</p>
+</li>
+<li><p>如果合并有冲突，则解决冲突，并在本地提交；</p>
+</li>
+<li><p>没有冲突或者解决掉冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功！</p>
+</li>
+</ol>
+<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>。</p>
+<h3 id="Rebase"><a href="#Rebase" class="headerlink" title="Rebase"></a>Rebase</h3><p><code>git rebase</code>：把分叉的提交历史“整理”成一条直线，看上去更直观。缺点是本地的分叉提交已经被修改过了</p>
+<h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><p>它是版本的一个快照，发布一个版本时，先在版本库中打一个标签，然后将来某个时候，取某个标签的版本，就是把那个打标签的时刻的历史版本取出来。</p>
+<p>实质上标签就是指向某个commit的指针（和分支很像，但它不能移动）</p>
+<h3 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h3><h4 id="创建标签-tag"><a href="#创建标签-tag" class="headerlink" title="创建标签-tag"></a>创建标签-tag</h4><p>首先切换到需要打标签的分支上<br>然后输入<br><code>git tag v1.0</code>即可打上v1.0的标签</p>
+<p>可以用命令<br><code>git tag</code>查看所有标签</p>
+<p>默认标签是打在最新提交的commit上的，如果要打历史版本的标签，只需要找到历史提交的commit id，然后打上即可<br><code>git tag v0.9 &lt;commit ID&gt;</code></p>
+<p>还可以指定带有说明的标签，参数-a表示标签名，-m表示说明文字<br><code>git tag -a v0.1 -m &quot;version 0.1 released&quot; &lt;commit ID&gt;</code></p>
+<p><code>git show &lt;tagname&gt;</code>可以看到说明文字</p>
+<h3 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h3><h4 id="删除标签-tag-d"><a href="#删除标签-tag-d" class="headerlink" title="删除标签-tag -d"></a>删除标签-tag -d</h4><p><code>git tag -d v0.1</code>可以删除这个标签</p>
+<h4 id="推送标签到远程"><a href="#推送标签到远程" class="headerlink" title="推送标签到远程"></a>推送标签到远程</h4><p><code>git push origin &lt;tagname&gt;</code></p>
+<h4 id="一次性推送全部标签"><a href="#一次性推送全部标签" class="headerlink" title="一次性推送全部标签"></a>一次性推送全部标签</h4><p><code>git push origin --tags</code></p>
+<h4 id="删除远程标签"><a href="#删除远程标签" class="headerlink" title="删除远程标签"></a>删除远程标签</h4><ol>
+<li><code>git tag -d &lt;tagname&gt;</code>删除本地标签</li>
+<li><code>git push origin :refs/tags/&lt;tagname&gt;</code>删除远程标签</li>
+</ol>
+<h2 id="使用GitHub"><a href="#使用GitHub" class="headerlink" title="使用GitHub"></a>使用GitHub</h2><ol>
+<li>点击<code>Fork</code>可以在自己账号下的远程仓库克隆一个别人的远程仓库</li>
+<li>从自己账号下clone：<code>git clone git@github.com:makloao/xxx.git</code>，一定要克隆自己远程仓库到本地仓库，否则不能推送修改</li>
+<li>如果想把自己的修改推送到官方，可以在GitHub上发起一个<code>pull request</code></li>
+</ol>
+<h2 id="自定义Git"><a href="#自定义Git" class="headerlink" title="自定义Git"></a>自定义Git</h2><p><code>git config --global.user.name &quot;Your name&quot;</code><br><code>git config --global user.email &quot;email@example.com&quot;</code><br>指定用户名和Email</p>
+<p><code>git config --global color.ui true</code>让Git显示颜色</p>
+<h3 id="忽略特殊文件"><a href="#忽略特殊文件" class="headerlink" title="忽略特殊文件"></a>忽略特殊文件</h3><p>有些时候要把某些文件放到Git工作目录但又不能提交它们，比如保存了数据密码的配置文件等等<br>只需要在Git工作区的目录下创建一个特殊的<code>.gitignore</code>文件，然后把要忽略的文件名填进去即可，如何写可以看<a href="https://github.com/github/gitignore" target="_blank" rel="noopener">GitHub的.gitignore文件写法</a></p>
+<p>忽略文件的原则</p>
+<ol>
+<li>忽略操作系统自动生成的文件，比如缩略图等；</li>
+<li>忽略编译生成的中间文件、可执行文件等，也就是如果一个文件是通过另一个文件自动生成的，那自动生成的文件就没必要放进版本库，比如Java编译产生的.class文件；</li>
+<li>忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。</li>
+</ol>
+<p>如果想强行添加被<code>.gitignore</code>忽略的文件<br><code>git add -f xxx.class</code>即可</p>
+<p><code>.gitignore</code>本身要放到版本库中，并且可以对其做版本管理</p>
+<h3 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h3><p>可以给命令配置别名<br><code>git config --global alias.st status</code>：把<code>git status</code>配置别名成<code>git st</code>，同理可以配置其他</p>
+<h4 id="一些比较推荐的别名"><a href="#一些比较推荐的别名" class="headerlink" title="一些比较推荐的别名"></a>一些比较推荐的别名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git config --global alias.st status</span><br><span class="line">git config --global alias.co checkout</span><br><span class="line">git config --global alias.ci commit</span><br><span class="line">git config --global alias.br branch</span><br><span class="line">git config --global alias.unstage &apos;reset HEAD&apos;</span><br><span class="line">git config --global alias.last &apos;log -1&apos; 显示最后一次提交</span><br><span class="line">git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot; 设置log的显示颜色</span><br></pre></td></tr></table></figure>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>配置文件都放在<code>.git/config</code>文件中</p>
+<p>而当前用户的Git配置文件放在用户主目录的<code>.gitconfig</code>中</p>
+<h2 id="搭建Git服务器"><a href="#搭建Git服务器" class="headerlink" title="搭建Git服务器"></a>搭建Git服务器</h2><p>如果不想公开代码，又不想给GitHub交保护费</p>
+<p><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000" target="_blank" rel="noopener">教程在这</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/29/数据结构03-排序基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/29/数据结构03-排序基础/" itemprop="url">数据结构03-排序基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-29T11:08:34+08:00">
+                2018-11-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/29/数据结构03-排序基础/" class="leancloud_visitors" data-flag-title="数据结构03-排序基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="数据结构03-排序基础"><a href="#数据结构03-排序基础" class="headerlink" title="数据结构03-排序基础"></a>数据结构03-排序基础</h1><p>本章主要讲了几种基本的排序方法，分别为直接插入排序，希尔排序和基数排序，快排和归并排序由于用到了递归的思想，所以放在了后面递归章节来说。</p>
+<h2 id="排序的概念与分类"><a href="#排序的概念与分类" class="headerlink" title="排序的概念与分类"></a>排序的概念与分类</h2><p>含有多个数据项的数据元素称为记录。用作记录唯一标识的数据项称为关键字域，其值为关键字。若关键字唯一标识一个记录，则称为主关键字，否则为次关键字，记录类型定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> KeyType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    KeyType key;</span><br><span class="line">    ...</span><br><span class="line">&#125; RecordType, RcdType;</span><br></pre></td></tr></table></figure>
+<p>排序就是将无序的记录按关键字调整为有序记录序列的一种操作。一般排序都是对存储记录的顺序表排序。<strong>顺序表的0号单元留作它用</strong>。记录顺序表类型定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    RcdType *rcd;</span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">    <span class="keyword">int</span> size;</span><br><span class="line">&#125; RcdSqList;</span><br></pre></td></tr></table></figure>
+<h2 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h2><p>直接插入排序的思想是：<strong>每次将无序区的第一个记录按关键字插入到有序区的合适位置，并将有序区长度加1。</strong></p>
+<p>具体代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(RcdSqList &amp;L)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (L.rcd[i+<span class="number">1</span>].key &lt; L.rcd[i].key) &#123; <span class="comment">// 需将L.rcd[i+1]插入到有序序列</span></span><br><span class="line">            L.rcd[<span class="number">0</span>] = L.rcd[i+<span class="number">1</span>]; <span class="comment">// 把记录L.rcd[i+1]保存在空闲的0号单元</span></span><br><span class="line">            j = i+<span class="number">1</span>; <span class="comment">// j为要后移的记录后移之前的位置</span></span><br><span class="line">            <span class="keyword">do</span> &#123; j--; L.rcd[j+<span class="number">1</span>] = L.rcd[j] <span class="comment">// 记录后移</span></span><br><span class="line">            &#125; <span class="keyword">while</span> (L.rcd[<span class="number">0</span>].key &lt; L.rcd[j<span class="number">-1</span>].key) <span class="comment">// 判断是否需要继续移动</span></span><br><span class="line">            L.rcd[j] = L.rcd[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h3><p>这里的插排的做法是：<strong>无序区的第一个记录是i+1号记录，把它放到0号位置（即哨兵），然后依次比较0号记录与有序区记录的大小，对有序区中比0号位置记录要大的元素依次后移（第i个位置的记录为有序区的最大记录，若比无序区第一个记录i+1对应的值要大，就把它的值直接放到i+1的位置，然后依次后移），并用 j 记录要后移的记录后移之前的位置，最后把0号位置的记录放到j号位置即可。</strong></p>
+<p>插入排序最好情况下比较次数n-1次，移动记录次数为0。最坏情况下，需要比较(n+2)(n-1)/2次，移动记录(n+4)(n-1)/2次，事件复杂度为O(n^2)，空间复杂度为O(1)。</p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序的思想是：<strong>把整个待排记录序列(R1,R2,R3,…,Rn)按增量d划分为d个子序列，其中第i(1&lt;=i&lt;=d)个子序列为(Ri,R(i+d),R(i+2d),…,R(i+kd)，并分别对各子序列进行直接插入排序，不断减小增量d，直到d减小到1，对整个序列进行一次直接插入排序。</strong></p>
+<p>插入排序每次只对相邻记录进行比较，记录最多只移动一个位置，希尔排序每次对相隔较远距离的记录进行比较，使得记录移动时能跨过多个记录，实现宏观上的调整。</p>
+<p>具体实现如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellInsert</span><span class="params">(RcdSqList &amp;L, <span class="keyword">int</span> dk)</span> </span>&#123; <span class="comment">// 对顺序表L进行一次希尔排序，增量为dk</span></span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt;= L.length-dk; ++i) </span><br><span class="line">        <span class="keyword">if</span> (L.rcd[i+dk].key &lt; L.rcd[i].dk) &#123; <span class="comment">// 需将L.rcd[i+dk]插入有序序列</span></span><br><span class="line">            L.rcd[<span class="number">0</span>] = L.rcd[i+dk];</span><br><span class="line">            j = i + dk;</span><br><span class="line">            <span class="keyword">do</span> &#123;j -= dkl L.rcd[j+dk] = L.rcd[j]; </span><br><span class="line">            &#125; <span class="keyword">while</span> (j - dk &gt; <span class="number">0</span> &amp;&amp; L.rcd[<span class="number">0</span>].key &lt; L.rcd[j-dk].key);</span><br><span class="line">            L.rcd[j] = L.rcd[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(RcdSqList &amp;L, <span class="keyword">int</span> d[], <span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 按增量序列d[0..t-1]对顺序表L作希尔排序</span></span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; t; k++) ShellInsert(L, d[k]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码分析-1"><a href="#代码分析-1" class="headerlink" title="代码分析"></a>代码分析</h3><h4 id="代码解释"><a href="#代码解释" class="headerlink" title="代码解释"></a>代码解释</h4><p>这里希尔排序的做法是：<strong>给定一个增量序列（该序列应该是递减的，并且最后的一个值是1），依次取值作为增量dk，把记录按增量dk划分为dk个序列，依次对每个序列进行插入排序</strong></p>
+<h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>希尔排序的时间复杂度是所取增量序列的函数。当增量序列为d[k]=2^(t-k+1)-1时（t为排序趟数，1&lt;=k&lt;=t&lt;=log2(n+1)），事件复杂度为O(n^1.5)。</p>
+<h4 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h4><p>若待排序列存在两个或以上关键字相等的记录，则排序结果不唯一。假设ki = kj（1&lt;=i&lt;=n,1&lt;=j&lt;=n,i≠j），且在排序前序列ki领先于kj，若在排序后序列ki仍领先于kj，则该排序方法稳定，反之不稳定。<strong>希尔排序是不稳定的排序方法</strong>。</p>
+<h2 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h2><p>前面2种排序都是基于关键字比较，而基数排序不需要比较关键字，它借鉴了多关键字排序的思想，把单一关键字看成是多个关键字复合而成。</p>
+<p>一般情况下，多关键字排序的定义为，<strong>假设含有n个记录的序列为(r1,r2,…,rn)。每个记录ri中含有m个关键字(ki(0),ki(1),…,ki(m-1))，如果对序列中任意两个记录ri和rj(1&lt;=i&lt;=j&lt;=n)都满足下列有序关系:<br>(ki(0),ki(1),…,ki(m-1))&lt;(kj(0),kj(1),…,kj(m-1))<br>则称记录对这m个关键字有序。其中k0被称为最主位关键字，k(m-1)被称为最次位关键字。</strong></p>
+<p>实现多关键字排序有两种策略，MSD(高位优先排序)和LSD(低位优先排序)。</p>
+<p>MSD的思路为<strong>先按最主位关键字k0进行排序，得到若干子序列，其中每个子序列中的记录都含有相同个k0值，之后分别对每个子序列按关键字k1进行排序，使得k1值相同的记录构成长度更短的子序列，依次重复直到对每个子序列按k(m-1)从小到大排序，最后所得序列就是排序结果</strong></p>
+<p>LSD的思路为<strong>先按最低位关键字进行排序，接着按依次低位关键字实施排序，最后按最主位关键字进行排序</strong>，与MSD不同，其排序过程不产生子序列，每次都是对整个序列排序。</p>
+<p>基数排序基本思路：<strong>先将所有关键字统一为相同的位数，位数少的前面补0，然后从最低位开始依次进行排序，直到按最高位排序完成。</strong></p>
+<p>下面说的是<strong>以顺序存储的基数排序的LSD实现</strong></p>
+<h3 id="基数排序定义的数据类型"><a href="#基数排序定义的数据类型" class="headerlink" title="基数排序定义的数据类型"></a>基数排序定义的数据类型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    KeysType *keys; <span class="comment">// 关键字</span></span><br><span class="line">    ...             <span class="comment">// 其他数据项</span></span><br><span class="line">&#125; KeysRcdType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    KeysRcdType *rcd; <span class="comment">// 0号位置作为哨兵</span></span><br><span class="line">    <span class="keyword">int</span> length;       <span class="comment">// 顺序表长度</span></span><br><span class="line">    <span class="keyword">int</span> size;         <span class="comment">// 顺序表容量</span></span><br><span class="line">    <span class="keyword">int</span> digitNum;     <span class="comment">// 关键字位数，即rcd.keys每个值的长度</span></span><br><span class="line">    <span class="keyword">int</span> radix;        <span class="comment">// 关键字基数，即关键字取值范围的长度，十进制为10，字母为26</span></span><br><span class="line">&#125; KeysSqList;</span><br></pre></td></tr></table></figure>
+<p>实现基数排序，需要引入3个数组，其中，数组count用于统计关键字的r种取值，pos数组用于确定各子序列的起始位置，rcd1数组与rcd一样，各趟收集中，第一趟从数组rcd收集到数组rcd1，第二趟从rcd1收集到rcd，如此交替进行，若总趟数为奇数，最后要排序结果从rcd1复制回rcd。</p>
+<h3 id="基数排序的过程与关键步骤"><a href="#基数排序的过程与关键步骤" class="headerlink" title="基数排序的过程与关键步骤"></a>基数排序的过程与关键步骤</h3><p>基数排序有3个关键步骤，分别为计数，计算位置和收集。如下</p>
+<h4 id="计数"><a href="#计数" class="headerlink" title="计数"></a>计数</h4><p>计数是统计第i个关键字中取值范围内每个数的个数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; L.radix; ++j) count[j] = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= n; k++) count[rcd[k].keys[i]]++;</span><br></pre></td></tr></table></figure>
+<h4 id="计算位置"><a href="#计算位置" class="headerlink" title="计算位置"></a>计算位置</h4><p>计算位置是计算第i个关键字中取值范围内每个值应该存放(收集)的位置。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pos[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(j = <span class="number">1</span>; j &lt; radix; j++) pos[j] = count[j<span class="number">-1</span>] + pos[j<span class="number">-1</span>];</span><br></pre></td></tr></table></figure>
+<h4 id="收集"><a href="#收集" class="headerlink" title="收集"></a>收集</h4><p>收集是把依次把k(k=1直到n)个记录存放到正确的位置。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= n; k++) &#123;</span><br><span class="line">    j = rcd[k].keys[i];</span><br><span class="line">    rcd1[pos[j]++] = rcd[k];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="完整的基数排序代码"><a href="#完整的基数排序代码" class="headerlink" title="完整的基数排序代码"></a>完整的基数排序代码</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">RadixSort</span><span class="params">(KeysSqList &amp;L)</span> </span>&#123;</span><br><span class="line">    KeysRcdType *rcd1;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j;</span><br><span class="line">    <span class="keyword">int</span> *count, *pos;</span><br><span class="line">    count = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*L.radix);</span><br><span class="line">    pos = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*L.radix);</span><br><span class="line">    rcd1 = (KeysRcdType*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(KeysRcdType)*(L.length+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span>(<span class="literal">NULL</span> == count || <span class="literal">NULL</span> == pos || <span class="literal">NULL</span> == rcd1) <span class="keyword">return</span> OVERFLOW;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; L.digitNum) &#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; L.radix; ++j) count[j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="number">0</span> == i%<span class="number">2</span>)</span><br><span class="line">            RadixPass(L.rcd, rcd1, L.length, i++, count, pos, L.radix);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            RadixPass(rcd1, L.rcd, L.length, i++, count, pos, L.radix);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span> == L.digitNum%<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">1</span>; j &lt;= L.length; ++j) L.rcd[j] = rcd1[j];</span><br><span class="line">    <span class="built_in">free</span>(count); <span class="built_in">free</span>(pos); <span class="built_in">free</span>(rcd1);</span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">RadixPass</span><span class="params">(KeysRcdType rcd[], KeysRcdType rcd1[], <span class="keyword">int</span> n, <span class="keyword">int</span> i, <span class="keyword">int</span> count[], <span class="keyword">int</span> pos[], <span class="keyword">int</span> radix)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k, j;</span><br><span class="line">    <span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= n; k++) count[rcd[k].keys[i]]++; <span class="comment">// count键为关键字基数，值为该基数的个数</span></span><br><span class="line">    pos[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 第j个关键字的起始位置为第j-1个关键字的起始位置加上j-1个关键字的个数</span></span><br><span class="line">    <span class="keyword">for</span>(j = <span class="number">1</span>; j &lt; radix; j++) pos[j] = count[j<span class="number">-1</span>] + pos[j<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">for</span>(k = <span class="number">1</span>; k &lt;= n; k++) &#123; <span class="comment">// 收集过程</span></span><br><span class="line">        <span class="comment">// k为第k个记录，j为第k个记录的第i个关键字的值</span></span><br><span class="line">        j = rcd[k].keys[i];</span><br><span class="line">        <span class="comment">// pos[j]的定义是：关键字j的起始位置，这里把位置k的记录放到位置pos[j]处</span></span><br><span class="line">        <span class="comment">// 并令pos[j]++，使下一个关键字收集到正确的位置</span></span><br><span class="line">        rcd1[pos[j]++] = rcd[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/数据结构02-线性数据结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1372,186 +1859,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript05-函数表达式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/JavaScript05-函数表达式/" itemprop="url">JavaSCript05-函数表达式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/26/JavaScript05-函数表达式/" class="leancloud_visitors" data-flag-title="JavaSCript05-函数表达式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript函数表达式"><a href="#JavaScript函数表达式" class="headerlink" title="JavaScript函数表达式"></a>JavaScript函数表达式</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归更好的建议是使用<code>arguments.callee</code>，这是一个指向正在执行的函数的指针</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过<code>arguments.callee</code>代替函数名，可以确保无论怎么样调用函数都不会出问题。</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包常见方法，就是在一个函数内部创建另一个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComparisonFunction</span>(<span class="params">propertyName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">object1, object2</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value1 = object1[propertyName];</span><br><span class="line">        <span class="keyword">var</span> value2 = object2[propertyName];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (value1 &lt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value1 &gt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意到在内部函数访问了外部函数中的变量propertyName，即使这个内部函数被返回了，而且在其他地方被调用了，它仍然可以访问变量propertyName。</p>
-<p><strong>在另一个函数内部定义的函数会将包含函数的活动对象添加到它的作用域链中，这样，匿名函数就可以访问其包含函数中定义的所有变量。即使包含函数被执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。换句话说，包含函数返回后，其执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中，直到匿名函数被销毁。</strong></p>
-<!-- TODO: 闭包的作用域链.png -->
-<h3 id="闭包与变量"><a href="#闭包与变量" class="headerlink" title="闭包与变量"></a>闭包与变量</h3><p>上述作用域链的机制引出了一个副作用，就是<strong>闭包只能取得包含函数中任何变量的最后一个值，闭包所保存的是整个变量对象，而不是某个特殊的变量。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的结果是每个函数都返回10，因为每个匿名函数都引用了外部变量i，而i最后的值为10.</p>
-<p>可以作如下调整</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="关于this对象"><a href="#关于this对象" class="headerlink" title="关于this对象"></a>关于this对象</h3><p>闭包中使用this，需要注意<strong>匿名函数的执行环境具有全局性，因此其this对象通常指向window。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "The Window"</span></span><br></pre></td></tr></table></figure>
-<p>可以作如下修改</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> that.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "My Object"</span></span><br></pre></td></tr></table></figure>
-<h2 id="模仿块级作用域"><a href="#模仿块级作用域" class="headerlink" title="模仿块级作用域"></a>模仿块级作用域</h2><p>在JavaScript中没有块级作用域的概念。这意味着在块语句中定义的变量，实际上是在包含语句中而非语句中创建的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outputNumbers</span>(<span class="params">count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        alert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    alert(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这里，JS仍然可以访问i，而不同于Java，C++。</p>
-<p>可以用匿名函数来模仿块级作用域，语法如下<br><code>(function(){ //code here })();</code><br>以上代码定义并立即调用了一个匿名函数</p>
-<h2 id="私有变量"><a href="#私有变量" class="headerlink" title="私有变量"></a>私有变量</h2><p>JavaScript中没有私有成员的概念，所有对象属性都是公有的。不过有一个私有变量的概念，任何在函数中定义的变量，都可以认为是私有变量。<strong>如果在函数内部创建一个闭包，那么闭包通过自己的作用域链可以访问这些变量，利用这一点就可以创建用于访问私有变量的公有方法，这种方法成为特权方法。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line">alert(person.getName());</span><br><span class="line">person.setName(<span class="string">"Greg"</span>);</span><br><span class="line">alert(person.getName());</span><br></pre></td></tr></table></figure>
-<h3 id="静态私有变量"><a href="#静态私有变量" class="headerlink" title="静态私有变量"></a>静态私有变量</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有变量和私有函数</span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    Person = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    Person.prototype.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line"><span class="comment">// 测试代码</span></span><br></pre></td></tr></table></figure>
-<p>注意name是静态变量，是所有实例共享的。</p>
-<h3 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h3><p>模块模式用于只有一个实例的对象，JS用对象字面量方式创建单例对象，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> components.length;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">                components.push(component);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="增强的模块模式"><a href="#增强的模块模式" class="headerlink" title="增强的模块模式"></a>增强的模块模式</h3><p>增强模块模式适合单例必须是某种类型的实例，同时还必须添加某些属性和方法对其加以增强的情况</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建application的一个局部副本</span></span><br><span class="line">    <span class="keyword">var</span> app = <span class="keyword">new</span> BaseComponent();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    app.getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> components.length;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    app.registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">            components.push(component);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript06-BOM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1821,6 +2128,186 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-1</span>); <span class="comment">// 后退一页</span></span><br><span class="line"></span><br><span class="line">history.go(<span class="number">1</span>); <span class="comment">// 前进一页</span></span><br><span class="line"></span><br><span class="line">history(<span class="string">"wrox.com"</span>);</span><br></pre></td></tr></table></figure>
 <p>另外还可以用<code>history.back()</code>和<code>history.forward()</code>方法前进或后退<br>此外还有一个length属性表示历史纪录数量。</p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript05-函数表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/JavaScript05-函数表达式/" itemprop="url">JavaSCript05-函数表达式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/26/JavaScript05-函数表达式/" class="leancloud_visitors" data-flag-title="JavaSCript05-函数表达式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript函数表达式"><a href="#JavaScript函数表达式" class="headerlink" title="JavaScript函数表达式"></a>JavaScript函数表达式</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归更好的建议是使用<code>arguments.callee</code>，这是一个指向正在执行的函数的指针</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>arguments.callee</code>代替函数名，可以确保无论怎么样调用函数都不会出问题。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包常见方法，就是在一个函数内部创建另一个函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComparisonFunction</span>(<span class="params">propertyName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">object1, object2</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value1 = object1[propertyName];</span><br><span class="line">        <span class="keyword">var</span> value2 = object2[propertyName];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (value1 &lt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value1 &gt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意到在内部函数访问了外部函数中的变量propertyName，即使这个内部函数被返回了，而且在其他地方被调用了，它仍然可以访问变量propertyName。</p>
+<p><strong>在另一个函数内部定义的函数会将包含函数的活动对象添加到它的作用域链中，这样，匿名函数就可以访问其包含函数中定义的所有变量。即使包含函数被执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。换句话说，包含函数返回后，其执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中，直到匿名函数被销毁。</strong></p>
+<!-- TODO: 闭包的作用域链.png -->
+<h3 id="闭包与变量"><a href="#闭包与变量" class="headerlink" title="闭包与变量"></a>闭包与变量</h3><p>上述作用域链的机制引出了一个副作用，就是<strong>闭包只能取得包含函数中任何变量的最后一个值，闭包所保存的是整个变量对象，而不是某个特殊的变量。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的结果是每个函数都返回10，因为每个匿名函数都引用了外部变量i，而i最后的值为10.</p>
+<p>可以作如下调整</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关于this对象"><a href="#关于this对象" class="headerlink" title="关于this对象"></a>关于this对象</h3><p>闭包中使用this，需要注意<strong>匿名函数的执行环境具有全局性，因此其this对象通常指向window。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "The Window"</span></span><br></pre></td></tr></table></figure>
+<p>可以作如下修改</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> that.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "My Object"</span></span><br></pre></td></tr></table></figure>
+<h2 id="模仿块级作用域"><a href="#模仿块级作用域" class="headerlink" title="模仿块级作用域"></a>模仿块级作用域</h2><p>在JavaScript中没有块级作用域的概念。这意味着在块语句中定义的变量，实际上是在包含语句中而非语句中创建的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outputNumbers</span>(<span class="params">count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        alert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    alert(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，JS仍然可以访问i，而不同于Java，C++。</p>
+<p>可以用匿名函数来模仿块级作用域，语法如下<br><code>(function(){ //code here })();</code><br>以上代码定义并立即调用了一个匿名函数</p>
+<h2 id="私有变量"><a href="#私有变量" class="headerlink" title="私有变量"></a>私有变量</h2><p>JavaScript中没有私有成员的概念，所有对象属性都是公有的。不过有一个私有变量的概念，任何在函数中定义的变量，都可以认为是私有变量。<strong>如果在函数内部创建一个闭包，那么闭包通过自己的作用域链可以访问这些变量，利用这一点就可以创建用于访问私有变量的公有方法，这种方法成为特权方法。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line">alert(person.getName());</span><br><span class="line">person.setName(<span class="string">"Greg"</span>);</span><br><span class="line">alert(person.getName());</span><br></pre></td></tr></table></figure>
+<h3 id="静态私有变量"><a href="#静态私有变量" class="headerlink" title="静态私有变量"></a>静态私有变量</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有变量和私有函数</span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    Person = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    Person.prototype.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line"><span class="comment">// 测试代码</span></span><br></pre></td></tr></table></figure>
+<p>注意name是静态变量，是所有实例共享的。</p>
+<h3 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h3><p>模块模式用于只有一个实例的对象，JS用对象字面量方式创建单例对象，如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> components.length;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">                components.push(component);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="增强的模块模式"><a href="#增强的模块模式" class="headerlink" title="增强的模块模式"></a>增强的模块模式</h3><p>增强模块模式适合单例必须是某种类型的实例，同时还必须添加某些属性和方法对其加以增强的情况</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建application的一个局部副本</span></span><br><span class="line">    <span class="keyword">var</span> app = <span class="keyword">new</span> BaseComponent();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    app.getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> components.length;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    app.registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">            components.push(component);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -2493,355 +2980,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/JavaScript02-变量-作用域和内存问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/02/JavaScript02-变量-作用域和内存问题/" itemprop="url">JavaScript02-变量，作用域和内存问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T11:08:34+08:00">
-                2018-09-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/02/JavaScript02-变量-作用域和内存问题/" class="leancloud_visitors" data-flag-title="JavaScript02-变量，作用域和内存问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript02-变量，作用域和内存问题"><a href="#JavaScript02-变量，作用域和内存问题" class="headerlink" title="JavaScript02-变量，作用域和内存问题"></a>JavaScript02-变量，作用域和内存问题</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>JavaScript变量只是在特定时间用于保存特定值的一个名字，不存在定义某个变量就必须保存何种数据类型值的规则，变量的值及其数据类型可以在脚本的生命周期内改变。</p>
-<h3 id="基本类型和引用类型的值"><a href="#基本类型和引用类型的值" class="headerlink" title="基本类型和引用类型的值"></a>基本类型和引用类型的值</h3><p>ECMAScript规定基本类型值指的是简单的数据段，而引用数据值指那些可能由多个值构成的对象，在JavaScript中，Undefined,Null,Boolean,Number,String都是基本数据类型，都是按值访问的。而引用类型的值是保存在内存中的对象，只有Object类型是引用数据类型。</p>
-<h3 id="动态的属性"><a href="#动态的属性" class="headerlink" title="动态的属性"></a>动态的属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">person.name = <span class="string">"PersonName"</span>;</span><br><span class="line">alert(person.name); <span class="comment">// "PersonName"</span></span><br></pre></td></tr></table></figure>
-<p>以上代码我们创建了一个对象并将其值保存在person中，然后为该对象添加了一个名为name的属性，而对基本数据类型，虽然为其添加属性不会报错，但访问该属性的时候并不能成功访问。</p>
-<h3 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h3><p>对于基本数据类型，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> num2 = num1;</span><br></pre></td></tr></table></figure></p>
-<p>两个变量之间不会相互影响。</p>
-<p>而对于引用数据类型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line">obj1.name = <span class="string">"objName"</span>;</span><br><span class="line">alert(obj2.name); <span class="comment">// "objName"</span></span><br></pre></td></tr></table></figure></p>
-<p>obj1和obj2引用的都是同一个对象</p>
-<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><p>基本类型值的传递就如同基本类型变量的复制一样，而引用类型值的传递，也如同引用类型变量的复制一样。</p>
-<h2 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h2><p>执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为，每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中，解析器在处理数据时会在后台使用它。<br>全局执行环境是最外围的一个执行环境。根据ECMAScript实现所在宿主环境不同，表示环境的对象也不同，在WEB浏览器中，全局执行环境被认为是window对象。<br>每个函数都有自己的执行环境，当执行流进入一个函数的时候，函数的环境会进入环境栈，函数执行完毕后栈将其环境弹出，把控制权交还给之前的执行环境。<br>当代码在一个环境中执行，会创建变量对象的一个作用域链。作用域链的作用是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前段始终是当前执行代码所在环境的变量对象，如果这个环境是函数，则将其活动对象作为变量对象，该活动最开始时只有一个变量arguments对象。作用域链的下一对象来自包含的环境，再下一个变量对象来自下一个包含环境，一直到全局执行环境。<br>标识符解析是沿着作用域链一级一级地搜索标识符的过程。搜索过程始终从作用域链的前端开始，逐级往后回溯，直至找到标识符为止。<br>其实跟Java的作用域在表现上差不多。</p>
-<h3 id="延长作用域链"><a href="#延长作用域链" class="headerlink" title="延长作用域链"></a>延长作用域链</h3><p>以下两个语句都会在作用域链的前端添加一个变量对象。</p>
-<ol>
-<li>try-catch语句的catch块</li>
-<li>with语句</li>
-</ol>
-<h3 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> color = <span class="string">"blue"</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(color); <span class="comment">// "blue"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    doSomeThing(i);</span><br><span class="line">&#125;</span><br><span class="line">alert(i); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-<p>在JavaScript中，if和for中创建的变量依旧存在于外部的执行环境中。</p>
-<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>JavaScript具有自动垃圾收集机制，执行环境会负责管理代码执行过程中使用的内存。</p>
-<h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记，然后它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而再次之后再被加上标记的变量将被视为准备删除的变量。</p>
-<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><p>跟踪记录每个值被引用的次数，当引用次数变为0的时候，就回收其占用的内存空间，循环引用问题无法解决，很少使用。</p>
-<h3 id="管理内存"><a href="#管理内存" class="headerlink" title="管理内存"></a>管理内存</h3><p>对于全局变量，当确定不再使用的时候，可以为其赋值null，让值脱离执行环境，以便垃圾收集器下次运行时将其回收。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/JavaScript01-语法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/JavaScript01-语法/" itemprop="url">JavaScript01-语法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/01/JavaScript01-语法/" class="leancloud_visitors" data-flag-title="JavaScript01-语法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript01-语法"><a href="#JavaScript01-语法" class="headerlink" title="JavaScript01-语法"></a>JavaScript01-语法</h1><h2 id="在HTML中嵌入JavaScript"><a href="#在HTML中嵌入JavaScript" class="headerlink" title="在HTML中嵌入JavaScript"></a>在HTML中嵌入JavaScript</h2><p>有两种方法，第一种是内嵌在&lt;head&gt;标签的&lt;script&gt;标签之间<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    JavaScript goes here...</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>另一种更好的方法是存在.js文件中，利用&lt;script&gt;标签的src属性指向该文件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"file.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="Script标签元素详解"><a href="#Script标签元素详解" class="headerlink" title="Script标签元素详解"></a>Script标签元素详解</h3><p>有如下6个属性</p>
-<ul>
-<li>async: 可选，表示立即下载脚本，但不应妨碍页面其他操作，只对外部脚本有效。</li>
-<li>charset: 可选，基本不用。</li>
-<li>defer: 可选，表示脚本可以延迟到文档完全被解析和显示后再执行。只对外部脚本有效。</li>
-<li>src: 可选，表示包含要执行代码的外部文件。</li>
-<li>type: 可选，使用脚的脚本语言的内容类型，目前用的比较多的还是 text/javascript</li>
-</ul>
-<h3 id="Script标签的位置"><a href="#Script标签的位置" class="headerlink" title="Script标签的位置"></a>Script标签的位置</h3><p>最好的做法就是把&lt;script&gt;标签放在HTML文档的最后，&lt;body&gt;标签的前面<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"file.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h2><p>JS有6种数据类型，可以通过关键词typeof检测。</p>
-<dl><br> <dt>Undefined类型</dt><br> <dd>只有一个值undefined。</dd><br> <dt>Null类型</dt><br> <dd>只有一个值null，undefined派生于null，typeof null检测null会返回boject。</dd><br> <dt>Boolean类型</dt><br> <dd>只有true与false。</dd><br> <dt>Number类型</dt><br> <dd>NaN(Not a number)是一个特殊的数值，表示一个本来要返回数值的操作数未返回数值的情况。</dd><br> <dt>String类型</dt><br> <dd>与Python类似，用双引号或者单引号都OK。</dd><br> <dt>Object类型</dt><br> <dd>ECMAScript的对象其实就是一组数据和功能的集合，可以通过new操作符创建，后续会讲到。</dd><br></dl>
-
-<h2 id="JavaScript语句"><a href="#JavaScript语句" class="headerlink" title="JavaScript语句"></a>JavaScript语句</h2><p>JS很多语句都和Java类似，这里就只列举JS独有的语句</p>
-<h3 id="for-in语句"><a href="#for-in语句" class="headerlink" title="for-in语句"></a>for-in语句</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> propName <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">  <span class="built_in">document</span>.write(propName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 枚举BOM中window对象的所有属性，顺序不可预测</span></span><br></pre></td></tr></table></figure>
-<p>for-in语句是一种精准的迭代语句，可以用来枚举对象的属性。</p>
-<h3 id="label语句"><a href="#label语句" class="headerlink" title="label语句"></a>label语句</h3><p>与Java类似，在代码中添加标签以便将来使用，<strong>多用于for语句等循环语句</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start: <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; count; i++)&#123;</span><br><span class="line">  alert(i);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// start标签可以在将来由break或continue语句引用</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>将代码的作用于设置到一个特定的对象中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = location.search.substring(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> hostName = location.hostname;</span><br><span class="line"><span class="keyword">var</span> url = location.href;</span><br></pre></td></tr></table></figure></p>
-<p>等价于下面代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span>(location) &#123;</span><br><span class="line">  <span class="keyword">var</span> qs = search.substring(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> hostName = hostname;</span><br><span class="line">  <span class="keyword">var</span> url = href;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="JavaScript函数"><a href="#JavaScript函数" class="headerlink" title="JavaScript函数"></a>JavaScript函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">arg0, arg1, arg2, ... ,argN</span>) </span>&#123;</span><br><span class="line">    statements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="理解参数"><a href="#理解参数" class="headerlink" title="理解参数"></a>理解参数</h3><p>ECMAScript函数的参数与大多数其他语言函数的参数不同，ECMAScript函数不介意传递进来多少个参数，也不在乎传进来参数是什么类型的。即使你定义的函数只接受两个参数，在调用这个函数的时候传递多少个也没问题，<strong>原因是ECMAScript中参数在内部是用一个数组来表示的</strong>，函数接受到的始终都是这个数组，<strong>实际上可以在函数体内通过arguments对象来访问这个数组</strong>，从而获取传递给函数的每一个参数。</p>
-<p><em>ECMAScript所有参数传递都是值传递，不可能通过引用传递参数，对于引用数据类型，其值就是其引用</em></p>
-<h3 id="没有重载"><a href="#没有重载" class="headerlink" title="没有重载"></a>没有重载</h3><p>对于同一名字的多个函数，该名字只属于最后定义的</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2898,7 +3036,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2909,7 +3047,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2920,7 +3058,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">112</span>
+                  <span class="site-state-item-count">117</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
