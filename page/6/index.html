@@ -369,6 +369,806 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet05-无脚本JSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/Servlet05-无脚本JSP/" itemprop="url">Servlet05-无脚本JSP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index">
+                    <span itemprop="name">Servlet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/01/Servlet05-无脚本JSP/" class="leancloud_visitors" data-flag-title="Servlet05-无脚本JSP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Servlet05-无脚本JSP"><a href="#Servlet05-无脚本JSP" class="headerlink" title="Servlet05-无脚本JSP"></a>Servlet05-无脚本JSP</h1><h2 id="bean法则-使用bean的规范"><a href="#bean法则-使用bean的规范" class="headerlink" title="bean法则-使用bean的规范"></a>bean法则-使用bean的规范</h2><ol>
+<li>必须有一个无参数的公共构造函数</li>
+<li>必须按命名规范来命名公共的getter和setter</li>
+<li>setter的参数类型和getter的返回类型必须一致</li>
+<li>性质名和类型是由setter和getter得出，而不得来自于类中的一个成员</li>
+<li>结合JSP使用时，性质类型必须是String或其他基本类型</li>
+</ol>
+<h2 id="使用EL"><a href="#使用EL" class="headerlink" title="使用EL"></a>使用EL</h2><p>对于model Person，它是一个JavaBean，所以我们要使用与bean相关的标准动作</p>
+<p>使用脚本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">foo.Person</span> <span class="attr">p</span> = <span class="string">(foo.Person)</span> <span class="attr">request.getAttribute</span>("<span class="attr">person</span>"); %&gt;</span></span><br><span class="line">Person is : <span class="tag">&lt;<span class="name">%=</span> <span class="attr">p.getName</span>() %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用标准动作：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"request"</span> /&gt;</span></span><br><span class="line">Person created by servlet: <span class="tag">&lt;<span class="name">jsp:getProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt"><a href="#分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt" class="headerlink" title="分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;"></a>分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;</h3><h4 id="lt-jsp-useBean-gt"><a href="#lt-jsp-useBean-gt" class="headerlink" title="&lt;jsp:useBean&gt;"></a>&lt;jsp:useBean&gt;</h4><p>用 <code>&lt;jsp:useBean&gt;</code> 声明和初始化一个bean属性，id为声明bean对象的标识符，对应于servlet的<code>request.setAttribute(&quot;person&quot;, p)</code>，class为声明的对象的类类型，scope标识这个bean对象的属性作用域</p>
+<p>&lt;jsp:useBean&gt;还可以创建一个bean，如果它找不到一个名为”person”的属性对象，它就会建一个</p>
+<h4 id="lt-jsp-getProperty-gt"><a href="#lt-jsp-getProperty-gt" class="headerlink" title="&lt;jsp:getProperty&gt;"></a>&lt;jsp:getProperty&gt;</h4><p>用 <code>&lt;jsp:getProperty&gt;</code>得到bean属性的性质值，name标识具体的bean对象，与&lt;jsp:useBean&gt;的id属性相匹配，property标识属性中的性质名(也就是与bean类中getter和setter对应的性质)</p>
+<h4 id="lt-jsp-setProperty-gt"><a href="#lt-jsp-setProperty-gt" class="headerlink" title="&lt;jsp:setProperty&gt;"></a>&lt;jsp:setProperty&gt;</h4><p>&lt;jsp:setProperty&gt;是第三个（也是最后一个）bean标准动作，具体使用如下</p>
+<p><code>&lt;jsp:setProperty name=&quot;person&quot; property=&quot;name&quot; value=&quot;yourNameVal&quot; /&gt;</code></p>
+<h4 id="lt-jsp-useBean-gt-可以有体"><a href="#lt-jsp-useBean-gt-可以有体" class="headerlink" title="&lt;jsp:useBean&gt;可以有体"></a>&lt;jsp:useBean&gt;可以有体</h4><p>如果把设置方法代码<code>&lt;jsp:setProperty&gt;</code>放在<code>&lt;jsp:useBean&gt;</code>的体中，就可以有条件地设置性质，只有创建新bean时才设置性质值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"page"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"yourNameVal"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="多态bean引用-lt-jsp-useBean-gt-的type属性"><a href="#多态bean引用-lt-jsp-useBean-gt-的type属性" class="headerlink" title="多态bean引用  &lt;jsp:useBean&gt;的type属性"></a>多态bean引用  &lt;jsp:useBean&gt;的type属性</h4><p>可以用&lt;jsp:useBean&gt;的type属性实现引用类型不同于具体的对象类型，假设新对象的类型为Employee，引用类型是Person</p>
+<p><code>&lt;jsp:useBean id=&quot;person&quot; type=&quot;foo.Person&quot; class=&quot;foo.Employee&quot; scope=&quot;page&quot;&gt;</code></p>
+<p>可以实现效果，生成的servlet代码大概如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo.Person person = <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">// 得到person属性的代码</span></span><br><span class="line"><span class="keyword">if</span> (person == <span class="keyword">null</span>) &#123;</span><br><span class="line">  person = <span class="keyword">new</span> foo.Employee();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>type可以是class类型，抽象类型或者是一个接口，class必须是type的一个子类或具体实现，<strong>type是声明的类型，而class是要实例化的类</strong></p>
+<h3 id="直接从表单请求到JSP-param属性"><a href="#直接从表单请求到JSP-param属性" class="headerlink" title="直接从表单请求到JSP - param属性"></a>直接从表单请求到JSP - param属性</h3><p>可以通过设置name一致达到直接从请求到JSP的效果，不需要途中经过servlet</p>
+<p>假设表单是这样的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userName"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">param</span>=<span class="string">"userName"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>利用param属性，可以把bean的性质值设置为一个请求参数的值，只需指定请求参数</p>
+<h4 id="甚至不需要param属性"><a href="#甚至不需要param属性" class="headerlink" title="甚至不需要param属性"></a>甚至不需要param属性</h4><p>只要把表单内的内容设置与bean的性质一致，甚至可以不需要param属性，如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果设置表单中所有请求参数名都与bean性质名匹配，那么甚至连property都可以省略</p>
+<p>如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在TestBean.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="性质是引用类型的情况"><a href="#性质是引用类型的情况" class="headerlink" title="性质是引用类型的情况"></a>性质是引用类型的情况</h3><p>假如Person有一个Dog “dog”性质，Dog有一个String “name”性质，如果想打印Person的dog的name，可以用到EL，如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">Dog's name is : $&#123;person.dog.name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="对-person-dog-name-的解释"><a href="#对-person-dog-name-的解释" class="headerlink" title="对${person.dog.name}的解释"></a>对${person.dog.name}的解释</h4><p><code>${person.dog.name}</code> 等同于 <code>&lt;%= ((foo.Person) request.getAttribute(&quot;person&quot;)).getDog().getName() %&gt;</code></p>
+<p>使用点号(.)可以访问性质和映射值</p>
+<h4 id="使用中括号-，更好的点号"><a href="#使用中括号-，更好的点号" class="headerlink" title="使用中括号[]，更好的点号"></a>使用中括号[]，更好的点号</h4><p>点号右边是一个bean性质或映射键的时候，点号操作符才能正常工作，但[]操作符就强大很多，<strong>它既可以完成点号操作符能完成的工作，也可以当左边变量是一个数组或者List或者右边不遵循正常的Java命名规范的时候仍然可以正常工作</strong></p>
+<h3 id="EL中的隐式对象param与paramValues"><a href="#EL中的隐式对象param与paramValues" class="headerlink" title="EL中的隐式对象param与paramValues"></a>EL中的隐式对象param与paramValues</h3><p>HTML表单中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">  name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">  ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  First food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  Second food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于单个值，可以在JSP中<code>${param.name}</code>获取表单的name<br>对于多个值，可以在JSP中<code>${paramValues.food[0]}</code>获取多个值中的一个</p>
+<h3 id="EL的其他隐式对象"><a href="#EL的其他隐式对象" class="headerlink" title="EL的其他隐式对象"></a>EL的其他隐式对象</h3><h4 id="得到”host”首部"><a href="#得到”host”首部" class="headerlink" title="得到”host”首部"></a>得到”host”首部</h4><p><code>${header[&quot;host&quot;]}</code>或<code>${header.host}</code></p>
+<h4 id="得到Cookie"><a href="#得到Cookie" class="headerlink" title="得到Cookie"></a>得到Cookie</h4><p>打印”userName” Cookie的值</p>
+<p>使用脚本：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">Cookie</span>[] <span class="attr">cookies</span> = <span class="string">request.getCookies();</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line">for (int i = 0; i &lt; cookies.length; i++) &#123;</span><br><span class="line">  if ((cookies[i].getName()).equals("userName")) &#123;</span><br><span class="line">    out.println(cookies[i].getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>使用EL：</p>
+<p><code>${cookie.uesrName.value}</code></p>
+<h4 id="上下文参数"><a href="#上下文参数" class="headerlink" title="上下文参数"></a>上下文参数</h4><p>在web.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>mainEmail<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>12345@outlook.com<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用脚本：<br><code>&lt;%= application.getInitParameter(&quot;mainEmail&quot;) %&gt;</code></p>
+<p>使用EL：<br><code>${initParam.mainEmail}</code></p>
+<h3 id="EL函数"><a href="#EL函数" class="headerlink" title="EL函数"></a>EL函数</h3><p>使用EL函数有如下四步骤</p>
+<ol>
+<li>编写一个有<strong>公共静态</strong>方法的Java类</li>
+<li>编写一个标记库描述文件(.tld)</li>
+<li>在JSP中放一个taglib指令</li>
+<li>使用EL调用函数</li>
+</ol>
+<h4 id="编写一个有公共静态方法的Java类"><a href="#编写一个有公共静态方法的Java类" class="headerlink" title="编写一个有公共静态方法的Java类"></a>编写一个有公共静态方法的Java类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xhj.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiceRoller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">rollDice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) ((Math.random() * <span class="number">6</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编写一个标记库描述文件"><a href="#编写一个标记库描述文件" class="headerlink" title="编写一个标记库描述文件"></a>编写一个标记库描述文件</h4><p>IDEA中在web目录右键new -&gt; xml configuration file -&gt; JSP tag library descriptor 重命名为*.tld</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">taglib</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">version</span>=<span class="string">"2.1"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">tlib-version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">tlib-version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uri</span>&gt;</span>DiceFunctions<span class="tag">&lt;/<span class="name">uri</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">function</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>rollIt<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-class</span>&gt;</span>com.xhj.web.DiceRoller<span class="tag">&lt;/<span class="name">function-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-signature</span>&gt;</span>int rollDice()<span class="tag">&lt;/<span class="name">function-signature</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">function</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Invoke 'Generate' action to add tags or functions --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">taglib</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="在JSP中放一个taglib指令"><a href="#在JSP中放一个taglib指令" class="headerlink" title="在JSP中放一个taglib指令"></a>在JSP中放一个taglib指令</h4><p><code>&lt;%@ taglib prefix=&quot;mine&quot; uri=&quot;DiceFunctions&quot; %&gt;</code></p>
+<h4 id="使用EL调用函数"><a href="#使用EL调用函数" class="headerlink" title="使用EL调用函数"></a>使用EL调用函数</h4><p>正文添加<br><code>${mine:rollIt()}</code></p>
+<h4 id="对TLD文件的解释"><a href="#对TLD文件的解释" class="headerlink" title="对TLD文件的解释"></a>对TLD文件的解释</h4><ul>
+<li>TLD中的uri对应JSP中taglib指令的uri属性</li>
+<li>TLD中function里的name标签的值对应EL表达式中冒号右边使用的函数</li>
+<li>TLD中function-class标签对应.class</li>
+<li>TLD中function-signature标签的值对应.class里的公共静态方法及其返回值</li>
+<li>taglib指令中的prefix属性的值对应EL表达式冒号左边的值</li>
+</ul>
+<p>*.tld文件可以放在WEB-INF目录或者其某个子目录中</p>
+<h3 id="EL处理null"><a href="#EL处理null" class="headerlink" title="EL处理null"></a>EL处理null</h3><p>对于找不到表达式中指定的属性/性质/键，也会显示页面，<strong>在算术表达式中，EL把null值看做是0，在逻辑表达式中，EL把null看做是false</strong></p>
+<h3 id="可复用的模板部件"><a href="#可复用的模板部件" class="headerlink" title="可复用的模板部件"></a>可复用的模板部件</h3><p>对于网站上每个页面的页眉和页脚都一样的情况下，每个JSP反复编写同样的页眉页脚，会显得效率低下，这个时候可以使用include指令把相同的页面放在不同网页对应的位置上</p>
+<h4 id="lt-include-gt-指令"><a href="#lt-include-gt-指令" class="headerlink" title="&lt;include&gt;指令"></a>&lt;include&gt;指令</h4><p>用法：<br><code>&lt;%@ include file=&quot;*.jsp&quot; %&gt;</code></p>
+<h4 id="lt-jsp-include-gt-标准动作"><a href="#lt-jsp-include-gt-标准动作" class="headerlink" title="&lt;jsp:include&gt;标准动作"></a>&lt;jsp:include&gt;标准动作</h4><p>用法<br><code>&lt;jsp:include page=&quot;*.jsp&quot; /&gt;</code></p>
+<h4 id="lt-include-gt-与-lt-jsp-include-gt-的区别"><a href="#lt-include-gt-与-lt-jsp-include-gt-的区别" class="headerlink" title="&lt;include&gt;与&lt;jsp:include&gt;的区别"></a>&lt;include&gt;与&lt;jsp:include&gt;的区别</h4><p>include指令在转换时发生，&lt;jsp:include&gt;标准动作在运行时发生<br>include指令相当于复制代码粘贴，标准动作则根据页面属性创建一个RequestDispatcher，并应用include()方法。</p>
+<p><strong>注意！不需要把&lt;html&gt;和&lt;body&gt;标签放到可复用部件中</strong></p>
+<h3 id="lt-jsp-param-gt-定制包含的内容"><a href="#lt-jsp-param-gt-定制包含的内容" class="headerlink" title="&lt;jsp:param&gt;定制包含的内容"></a>&lt;jsp:param&gt;定制包含的内容</h3><p>假设我们已经有了一个页眉，但是如果我们想要定制页眉的某一部分，比如我希望在页眉上有一个与上下文相关的子标题，它要依页面而定，如下</p>
+<p>在对应的jsp文件中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"Header.jsp"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"subTitle"</span> <span class="attr">value</span>=<span class="string">"aha!this is a sub title."</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:include</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在Header.jsp中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"directory/images/xxx.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>$&#123;param.subTitle&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="lt-jsp-forward-gt-转发"><a href="#lt-jsp-forward-gt-转发" class="headerlink" title="&lt;jsp:forward&gt;转发"></a>&lt;jsp:forward&gt;转发</h3><p>可以从一个JSP转发到另一个JSP，或者从一个JSP转发到一个servlet，还可以从一个JSP转发到WEB应用中任何其他资源。比如客户访问页面，如果没有登录，就转向另一个页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">request.getParameter</span>("<span class="attr">userName</span>") == <span class="string">null)</span> &#123; &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">"xx.jsp"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/19/Java基础之初窥反射/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/19/Java基础之初窥反射/" itemprop="url">Java基础之初窥反射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-19T16:46:50+08:00">
+                2018-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/19/Java基础之初窥反射/" class="leancloud_visitors" data-flag-title="Java基础之初窥反射">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><em>前言:之前写安卓的时候有遇到过反射,但是当时怎么都不理解,现在正好借此机会初步了解一下反射</em></p>
+<h1 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h1><blockquote>
+<p>Reflection enables Java code to discover information about the fields, methods and constructors of loaded classes, and to use reflected fields, methods, and constructors to operate on their underlying counterparts, within security restrictions.<br>The API accommodates applications that need access to either the public members of a target object (based on its runtime class) or the members declared by a given class. It also allows programs to suppress default reflective access control.</p>
+</blockquote>
+<p>简单来说,反射能够分析类能力,他可以做以下几件事:</p>
+<ul>
+<li>在运行时分析类的能力</li>
+<li>在运行时查看对象,例如,写一个toString方法供所有类使用</li>
+<li>实现通用的数组操作代码</li>
+<li>利用Method对象(类比C中的函数指针)</li>
+</ul>
+<h1 id="获得对象的Class类"><a href="#获得对象的Class类" class="headerlink" title="获得对象的Class类"></a>获得对象的Class类</h1><p><strong>反射比较重要的一点是获得对象的类,对象的类是一个Class对象(但不是所有Class对象都是一种类,例如int也是Class对象)</strong></p>
+<p>以下是三种获得Class类的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种:通过对象.getClass()获得</span></span><br><span class="line">Employee e;</span><br><span class="line">...</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第二种:通过Class类的静态方法forName()获得</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">    Class cl = Class.forName(className);</span><br><span class="line">&#125; <span class="keyword">catch</span> (Execption e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第三种:通过T.class获得(T是任意Java类型)</span></span><br><span class="line">Class cl1 = Random.class;</span><br><span class="line">Class cl2 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl3 = Double[].class;</span><br></pre></td></tr></table></figure>
+<h1 id="Class类的一些常用方法"><a href="#Class类的一些常用方法" class="headerlink" title="Class类的一些常用方法"></a>Class类的一些常用方法</h1><h2 id="getName"><a href="#getName" class="headerlink" title="getName()"></a>getName()</h2><blockquote>
+<p>Returns the name of the entity (class, interface, array class, primitive type, or void) represented by this Class object, as a String.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">...</span><br><span class="line">System.out.println(e.getClass().getName());</span><br></pre></td></tr></table></figure>
+<h2 id="newInstance"><a href="#newInstance" class="headerlink" title="newInstance()"></a>newInstance()</h2><blockquote>
+<p>Creates a new instance of the class represented by this Class object.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">e.getClass().newInstance();</span><br><span class="line"><span class="comment">// 调用默认的构造函数,如果要传参,请使用Constructor类的newInstance(Objcet[] args)方法</span></span><br></pre></td></tr></table></figure>
+<h2 id="getMethod"><a href="#getMethod" class="headerlink" title="getMethod()"></a>getMethod()</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Modifier and Type</th>
+<th style="text-align:left">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Method</td>
+<td style="text-align:left">getMethod(String name, Class&lt;?&gt;… parameterTypes) </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns a Method object that reflects the specified public member method of the class or interface represented by this Class object.</td>
+</tr>
+</tbody>
+</table>
+<p>e.g. 获得Employee的raiseSalary方法</p>
+<pre><code>Method m1 = Employee.class.getMethod(&quot;raiseSalary&quot;, double.class);
+</code></pre><h2 id="getDeclaredFields"><a href="#getDeclaredFields" class="headerlink" title="getDeclaredFields()"></a>getDeclaredFields()</h2><blockquote>
+<p>Returns an array of Field objects reflecting all the fields declared by the class or interface represented by this Class object.</p>
+</blockquote>
+<h2 id="getDeclaredMethods"><a href="#getDeclaredMethods" class="headerlink" title="getDeclaredMethods()"></a>getDeclaredMethods()</h2><blockquote>
+<p>Returns an array containing Method objects reflecting all the declared methods of the class or interface represented by this Class object, including public, protected, default (package) access, and private methods, but excluding inherited methods.</p>
+</blockquote>
+<h2 id="getDeclaredConsstructors"><a href="#getDeclaredConsstructors" class="headerlink" title="getDeclaredConsstructors()"></a>getDeclaredConsstructors()</h2><blockquote>
+<p>Returns an array of Constructor objects reflecting all the constructors declared by the class represented by this Class object.</p>
+</blockquote>
+<h2 id="getDeclaredFields-与getFields-的区别"><a href="#getDeclaredFields-与getFields-的区别" class="headerlink" title="getDeclaredFields()与getFields()的区别"></a>getDeclaredFields()与getFields()的区别</h2><p>getFields()返回一个包含Field对象的数组,这些对象记录了这个类或其超类的公有域,<br>而getDeclaredFields()的对象记录了这个类的全部域<br>类比Methods与Constructors</p>
+<h1 id="反射包中重要类的简单描述"><a href="#反射包中重要类的简单描述" class="headerlink" title="反射包中重要类的简单描述"></a>反射包中重要类的简单描述</h1><p>在java.lang.reflect包中有三个类Field,Method,和Constructor分别用于描述类的域,方法和构造器</p>
+<h2 id="Field"><a href="#Field" class="headerlink" title="Field"></a>Field</h2><p>Field用于描述类的域,常见的方法有</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Modifier and Type</th>
+<th style="text-align:left">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">get(Object obj)</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the value of the field represented by this Field, on the specified object.</td>
+</tr>
+<tr>
+<td style="text-align:left">void</td>
+<td style="text-align:left">set(Object obj, Object value)</td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Sets the field represented by this Field object on the specified object argument to the specified new value.</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">getModifiers() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the Java language modifiers for the field represented by this Field object, as an integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">Class&lt;?&gt;</td>
+<td style="text-align:left">getType() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns a Class object that identifies the declared type for the field represented by this Field object.</td>
+</tr>
+<tr>
+<td style="text-align:left">String</td>
+<td style="text-align:left">getName() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the name of the field represented by this Field object.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Modifier and Type</th>
+<th style="text-align:left">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">String</td>
+<td style="text-align:left">getName() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the name of the method represented by this Method object, as a String.</td>
+</tr>
+<tr>
+<td style="text-align:left">Class&lt;?&gt;</td>
+<td style="text-align:left">getReturnType() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns a Class object that represents the formal return type of the method represented by this Method object.</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">getModifiers() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the Java language modifiers for the field represented by this Field object, as an integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">Class&lt;?&gt;[]</td>
+<td style="text-align:left">getParameterTypes() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns an array of Class objects that represent the formal parameter types, in declaration order, of the executable represented by this object.</td>
+</tr>
+<tr>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">invoke(Object obj, Object… args) </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Invokes the underlying method represented by this Method object, on the specified object with the specified parameters.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Modifier and Type</th>
+<th style="text-align:left">Method and Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">String</td>
+<td style="text-align:left">getName() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the name of this constructor, as a string.</td>
+</tr>
+<tr>
+<td style="text-align:left">Class&lt;?&gt;[]</td>
+<td style="text-align:left">getParameterTypes() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns an array of Class objects that represent the formal parameter types, in declaration order, of the executable represented by this object.</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">getModifiers() </td>
+</tr>
+<tr>
+<td style="text-align:left">&nbsp;</td>
+<td style="text-align:left">Returns the Java language modifiers for the field represented by this Field object, as an integer.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="利用反射分析类的能力"><a href="#利用反射分析类的能力" class="headerlink" title="利用反射分析类的能力"></a>利用反射分析类的能力</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        String name;</span><br><span class="line">        <span class="keyword">if</span> (args.length &gt; <span class="number">0</span>) name = args[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Scanner in = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">            System.out.println(<span class="string">"Enter class name (e.g. java.util.Date):"</span>);</span><br><span class="line">            name = in.next();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class cl = Class.forName(name);</span><br><span class="line">            Class supercl = cl.getSuperclass();</span><br><span class="line">            String modifiers = Modifier.toString(cl.getModifiers());</span><br><span class="line">            <span class="keyword">if</span> (modifiers.length() &gt; <span class="number">0</span>) System.out.print(modifiers + <span class="string">" "</span>);</span><br><span class="line">            System.out.print(<span class="string">"class "</span> + name);</span><br><span class="line">            <span class="keyword">if</span> (supercl != <span class="keyword">null</span> &amp;&amp; supercl != Object.class) System.out.print(<span class="string">" extends "</span> + supercl.getName());</span><br><span class="line">            System.out.print(<span class="string">"\n&#123;\n"</span>);</span><br><span class="line">            printConstructors(cl);</span><br><span class="line">            System.out.println();</span><br><span class="line">            printMethods(cl);</span><br><span class="line">            System.out.println();</span><br><span class="line">            printFields(cl);</span><br><span class="line">            System.out.println(<span class="string">"&#125;"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printConstructors</span><span class="params">(Class cl)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Constructor[] constructors = cl.getDeclaredConstructors();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Constructor c : constructors) &#123;</span><br><span class="line">            String name = c.getName();</span><br><span class="line">            System.out.print(<span class="string">"    "</span>);</span><br><span class="line">            String modifiers = Modifier.toString(c.getModifiers());</span><br><span class="line">            <span class="keyword">if</span> (modifiers.length() &gt; <span class="number">0</span>) System.out.print(modifiers + <span class="string">" "</span>);</span><br><span class="line">            System.out.print(name + <span class="string">"("</span>);</span><br><span class="line"></span><br><span class="line">            Class[] paramTypes = c.getParameterTypes(); <span class="comment">// 构造器的参数是Class类型</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; paramTypes.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j &gt; <span class="number">0</span>) System.out.print(<span class="string">", "</span>);</span><br><span class="line">                System.out.print(paramTypes[j].getName());</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">");"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printMethods</span><span class="params">(Class cl)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Method[] methods = cl.getDeclaredMethods();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            Class retType = m.getReturnType(); <span class="comment">// 方法的返回值是Class类型,注意:int等基本数据类型也是Class类型</span></span><br><span class="line">            String name = m.getName();</span><br><span class="line"></span><br><span class="line">            System.out.print(<span class="string">"    "</span>);</span><br><span class="line">            String modifiers = Modifier.toString(m.getModifiers());</span><br><span class="line">            <span class="keyword">if</span> (modifiers.length() &gt; <span class="number">0</span>) System.out.print(modifiers + <span class="string">" "</span>);</span><br><span class="line">            System.out.print(retType.getName() + <span class="string">" "</span> + name + <span class="string">"("</span>); <span class="comment">// 这里返回了int, boolean等</span></span><br><span class="line">            Class[] paramTypes = m.getParameterTypes();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; paramTypes.length; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j &gt; <span class="number">0</span>) System.out.print(<span class="string">", "</span>);</span><br><span class="line">                System.out.print(paramTypes[j].getName());</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">");"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printFields</span><span class="params">(Class cl)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Field[] fields = cl.getDeclaredFields();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Field f : fields) &#123;</span><br><span class="line">            Class type = f.getType(); <span class="comment">// Returns a Class object that identifies the declared type for the field represented by this Field object.</span></span><br><span class="line">            String name = f.getName();</span><br><span class="line">            System.out.print(<span class="string">"    "</span>);</span><br><span class="line">            String modifiers = Modifier.toString(f.getModifiers());</span><br><span class="line">            <span class="keyword">if</span> (modifiers.length() &gt; <span class="number">0</span>) System.out.print(modifiers + <span class="string">" "</span>);</span><br><span class="line">            System.out.println(type.getName() + <span class="string">" "</span> + name + <span class="string">";"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在运行时使用反射分析对象"><a href="#在运行时使用反射分析对象" class="headerlink" title="在运行时使用反射分析对象"></a>在运行时使用反射分析对象</h1><p>上面讲的是如何查看任意对象的数据域名称和类型,这次进一步查看数据域的实际内容<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Employee harry = <span class="keyword">new</span> Employee(<span class="string">"Harry Hacker"</span>, <span class="number">35000</span>, <span class="number">10</span>, <span class="number">1</span> <span class="number">1989</span>);</span><br><span class="line">Class cl = harry.getClass();</span><br><span class="line">Field f = cl.getDeclaredField(<span class="string">"name"</span>);</span><br><span class="line">f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">Object v = f.get(harry) <span class="comment">// the value of v is "Harry Hacker"</span></span><br></pre></td></tr></table></figure></p>
+<p>上面是一个获得对象域的例子,注意反射机制默认受限于Java的访问控制,可以通过以下方法覆盖访问控制</p>
+<ol>
+<li><code>f.setAccessible(true)</code> Field继承自AccessibleObject,可通过其父类方法setAccessible()设置权限</li>
+<li><code>AccessibleObject.setAccessible(fields, true)</code> 调用静态方法对fields设置权限(见下面代码)</li>
+</ol>
+<p>下面是一个通用的toString方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectAnalyzerTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; squares = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        String[] ss = &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">            squares.add(i * i);</span><br><span class="line">        &#125;</span><br><span class="line">        ObjectAnalyzer objectAnalyzer = <span class="keyword">new</span> ObjectAnalyzer();</span><br><span class="line"><span class="comment">//        System.out.println(objectAnalyzer.toString(ss));</span></span><br><span class="line">        System.out.println(objectAnalyzer.toString(squares));</span><br><span class="line"><span class="comment">//        System.out.println(new ObjectAnalyzer().toString(12345));</span></span><br><span class="line"><span class="comment">//        System.out.println(new ObjectAnalyzer().toString("test"));</span></span><br><span class="line"><span class="comment">//        System.out.println(new ObjectAnalyzer().toString(null));</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectAnalyzer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Object&gt; visited = <span class="keyword">new</span> ArrayList&lt;&gt;(); <span class="comment">// 循环引用可能导致无限递归</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (obj == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="string">"null"</span>;</span><br><span class="line">        <span class="keyword">if</span> (visited.contains(obj)) <span class="keyword">return</span> <span class="string">"..."</span>;</span><br><span class="line">        visited.add(obj);</span><br><span class="line">        Class cl = obj.getClass();</span><br><span class="line">        <span class="keyword">if</span> (cl == String.class) <span class="keyword">return</span> (String)obj;</span><br><span class="line">        <span class="keyword">if</span> (cl.isArray()) &#123;</span><br><span class="line">            String r = cl.getComponentType() + <span class="string">"[]&#123;"</span>; <span class="comment">// getComponentType() Returns the Class representing the component type of an array.</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; Array.getLength(obj); i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i &gt; <span class="number">0</span>) r += <span class="string">","</span>;</span><br><span class="line">                Object val = Array.get(obj, i);</span><br><span class="line">                <span class="keyword">if</span> (cl.getComponentType().isPrimitive()) r += val;</span><br><span class="line">                <span class="keyword">else</span> r += toString(val);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> r + <span class="string">"&#125;"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String r = cl.getName();</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            r += <span class="string">"["</span>;</span><br><span class="line">            Field[] fields = cl.getDeclaredFields();</span><br><span class="line">            AccessibleObject.setAccessible(fields, <span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">for</span> (Field f : fields) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!Modifier.isStatic((f.getModifiers()))) &#123; <span class="comment">// 静态域舍弃</span></span><br><span class="line">                    <span class="keyword">if</span> (!r.endsWith(<span class="string">"["</span>)) r += <span class="string">","</span>;</span><br><span class="line">                    r += f.getName() + <span class="string">"="</span>;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Class t = f.getType();</span><br><span class="line">                        Object val = f.get(obj);</span><br><span class="line">                        <span class="keyword">if</span> (t.isPrimitive()) r += val; <span class="comment">// 如果为原始数据类型则直接添加</span></span><br><span class="line">                        <span class="keyword">else</span> r += toString(val); <span class="comment">// 否则递归调用</span></span><br><span class="line">                    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            r += <span class="string">"]"</span>;</span><br><span class="line">            cl = cl.getSuperclass();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (cl != <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用反射编写泛型数组代码"><a href="#使用反射编写泛型数组代码" class="headerlink" title="使用反射编写泛型数组代码"></a>使用反射编写泛型数组代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CopyOfTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] a = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;;</span><br><span class="line">        a = (<span class="keyword">int</span>[]) goodCopyOf(a, <span class="number">10</span>);</span><br><span class="line">        System.out.println(Arrays.toString(a));</span><br><span class="line"></span><br><span class="line">        String[] b = &#123; <span class="string">"Tom"</span>, <span class="string">"Dick"</span>, <span class="string">"Harry"</span> &#125;;</span><br><span class="line">        b = (String[]) goodCopyOf(b, <span class="number">10</span>);</span><br><span class="line">        System.out.println(Arrays.toString(b));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// int[]无法转换为Object[]</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Object[] badCopyOf(Object[] a, <span class="keyword">int</span> newLength) &#123;</span><br><span class="line">        Object[] newArray = <span class="keyword">new</span> Object[newLength];</span><br><span class="line">        System.arraycopy(a, <span class="number">0</span>, newArray, <span class="number">0</span>, Math.min(a.length, newLength));</span><br><span class="line">        <span class="keyword">return</span> newArray;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">goodCopyOf</span><span class="params">(Object a, <span class="keyword">int</span> newLength)</span> </span>&#123;</span><br><span class="line">        Class cl = a.getClass();</span><br><span class="line">        <span class="keyword">if</span> (!cl.isArray()) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Class componentType = cl.getComponentType();</span><br><span class="line">        <span class="comment">// Returns the Class representing the component type of an array.</span></span><br><span class="line">        <span class="keyword">int</span> length = Array.getLength(a);</span><br><span class="line">        Object newArray = Array.newInstance(componentType, newLength);</span><br><span class="line">        System.arraycopy(a, <span class="number">0</span>, newArray, <span class="number">0</span>, Math.min(length, newLength));</span><br><span class="line">        <span class="keyword">return</span> newArray;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意getComponentType()是Class的方法而不是Array的方法<br>Array.newInstance()返回Object对象</strong></p>
+<h1 id="调用任意方法"><a href="#调用任意方法" class="headerlink" title="调用任意方法"></a>调用任意方法</h1><p>类似C语言的函数指针,通过Java的反射机制可以调用任意方法<br>   <code>Object invoke(Object obj, Object... args)</code><br>第一个参数是隐式参数,其余的对象提供了显示参数,对于静态方法,第一个参数可以被忽略,即设置为null,<br>e.g. ml是一个Method,代表Employee的getName方法,harry是一个Employee对象<br><code>String n = (String) ml.invoke(harry) // 调用harry的getName()方法</code><br><code>method.invoke(a, s); // 调用a的method方法,参数为s</code><br><code>method.invoke(null, s); // 调用静态method方法,参数为s</code><br>注意invoke返回的是Object</p>
+<p>而获得方法可以通过<br><code>Class cl = harry.getClass()</code><br><code>cl.getMethod(String name, Class&lt;?&gt;... parameterTypes)</code></p>
+<p>一个使用invoke的例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodTableTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Method square = MethodTableTest.class.getMethod(<span class="string">"square"</span>, <span class="keyword">double</span>.class);</span><br><span class="line">            Method sqrt = Math.class.getMethod(<span class="string">"sqrt"</span>, <span class="keyword">double</span>.class);</span><br><span class="line">            printTable(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>, square);</span><br><span class="line">            printTable(<span class="number">1</span>, <span class="number">10</span>, <span class="number">10</span>, sqrt);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">square</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printTable</span><span class="params">(<span class="keyword">double</span> from, <span class="keyword">double</span> to, <span class="keyword">int</span> n, Method f)</span> </span>&#123;</span><br><span class="line">        System.out.println(f);</span><br><span class="line">        <span class="keyword">double</span> dx = (to - from) / (n - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> x = from; x &lt;= to; x += dx) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">double</span> y = (Double) f.invoke(<span class="keyword">null</span>, x);</span><br><span class="line">                System.out.printf(<span class="string">"%10.4f | %10.4f%n"</span>, x, y);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>后言:这次仅仅是跟着课本尝试了一下反射,以后有了相应的基础后会深入理解反射的机制</em></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/03/Object-所有类的超类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/03/Object-所有类的超类/" itemprop="url">Object,所有类的超类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-03T15:33:34+08:00">
+                2018-06-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/03/Object-所有类的超类/" class="leancloud_visitors" data-flag-title="Object,所有类的超类">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Object类是Java中所有类的超类,在Java中每个类都由它扩展而来<br>Object类的方法如下<br><img src="https://i.imgur.com/5vDiU1Q.png" alt=""></p>
+<p><strong>其中最为关键的3个方法为equals(),hashCode()和toString()</strong></p>
+<h1 id="equals方法"><a href="#equals方法" class="headerlink" title="equals方法"></a>equals方法</h1><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><img src="https://i.imgur.com/xhaY46s.png" alt=""></p>
+<p>在文档中说到,<strong>equals用于检测一个对象是否等于另一个对象</strong>,该方法必须有以下5个特性:</p>
+<ul>
+<li>自反性:对任意非空引用x,&nbsp;&nbsp;&nbsp;<code>x.equals(x)</code>&nbsp;&nbsp;必须返回true</li>
+<li>对称性:对任意非空引用x,y,&nbsp;&nbsp;<code>x.equals(y)</code>&nbsp;&nbsp;返回true当且仅当&nbsp;&nbsp;<code>y.equals(x)</code>&nbsp;&nbsp;返回true</li>
+<li>传递性:对任意非空引用x,y,z,如果&nbsp;&nbsp;<code>x.equals(y)</code>&nbsp;&nbsp;返回true并且&nbsp;&nbsp;<code>y.equals(x)</code>&nbsp;&nbsp;返回true,则&nbsp;&nbsp;<code>x.equals(z)</code>&nbsp;&nbsp;返回true</li>
+<li>一致性:如果x和y引用的对象没有发生变化,反复调用&nbsp;&nbsp;<code>x.equals(y)</code>&nbsp;&nbsp;应该返回同样的结果</li>
+<li>对于任意非空引用x,&nbsp;&nbsp;<code>x.equals(y)</code>&nbsp;&nbsp;应该返回false</li>
+</ul>
+<h2 id="Object类的equals方法"><a href="#Object类的equals方法" class="headerlink" title="Object类的equals方法"></a>Object类的equals方法</h2><p><strong>而Object类中的默认的equals方法如下</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="自定义类的equals方法"><a href="#自定义类的equals方法" class="headerlink" title="自定义类的equals方法"></a>自定义类的equals方法</h2><p>如果两个对象具有相同的引用,则返回true,否则返回false,这是最经济的符合以上5个特性的equals方法了,但是很多时候这种判断并没有什么意义,更多时候我们要判断对象是否相等,需要检测他们状态的相等性,如果两个对象的状态相等,则认为他们是相等的,比如有一个雇员Employee类,如果两个雇员对象的姓名,薪水和雇佣日期都相等,则认为他们是相等的,那么雇员类的equals方法可以如下(完整的Employee类请见最后)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>; <span class="comment">// 先判断这两个对象是否具有相同的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">// 然后判断otherObject是否为null</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">// 使用getClass()判断是否为同一类</span></span><br><span class="line"></span><br><span class="line">        Employee other = (Employee) otherObject; <span class="comment">// 把Object类转换成Employee类</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Objects.equals(name, other.name) <span class="comment">// 详细比较他们的域</span></span><br><span class="line">                &amp;&amp; salary == other.salary</span><br><span class="line">                &amp;&amp; Objects.equals(hireDay, other.hireDay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Employee类的equals方法代码解释"><a href="#Employee类的equals方法代码解释" class="headerlink" title="Employee类的equals方法代码解释"></a>Employee类的equals方法代码解释</h2><p>代码中使用&nbsp;<code>Objects.equals(name, other.name)</code>&nbsp;是为了防备name和hireDay可能为null的情况,下面是Objects类的equals方法,当对象a和b都是null,则返回true,如果其中一个是null则返回false,否则调用a.equals(b)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在是否为同一类的比较中,,除了<br>&nbsp;&nbsp;<code>if (getClass() != otherObject.getClass()) return false;</code>&nbsp;&nbsp;<br>这个判断外,还可以使用<br>&nbsp;&nbsp;<code>if (!(otherObject instanceof Employee)) return false;</code>&nbsp;&nbsp;<br>来判断,但是使用instanceof判断没有解决otherObject是子类的情况(&nbsp;<code>子类引用 instanceof 父类</code>&nbsp;返回true,但反过来则返回false,不符合对称性)<br>所以,使用getClass()与instanceof可以根据下面情况判断:</p>
+<ul>
+<li>如果子类能够拥有自己的相等概念,则对称性需求将强制性采用getClass进行检测</li>
+<li>如果由超类决定相等的概念(比如Employee与其子类Manager中使用Employee类的成员ID来判断是否相等),那么就可以使用instanceof进行检测</li>
+</ul>
+<h2 id="完美的equals方法"><a href="#完美的equals方法" class="headerlink" title="完美的equals方法"></a>完美的equals方法</h2><ol>
+<li>显示参数命名为otherObject,稍后强制类型转换为变量other</li>
+<li>检测this与ohetObject是否引用同一对象</li>
+<li>检测ohterObject是否为null,如果为null返回false</li>
+<li>比较this与otherObject是否属于同一类,根据相等概念由父类还是子类决定用getClass()还是instanceof检测</li>
+<li>将ohterObject转换为相应的类类型变量</li>
+<li>开始对需要比较的域进行比较,对于对象的比较,用<code>Objects.equals(field, other.field)</code></li>
+</ol>
+<h2 id="子类中的equals方法"><a href="#子类中的equals方法" class="headerlink" title="子类中的equals方法"></a>子类中的equals方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">super</span>.equals(otherObject)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Manager other = (Manager) otherObject;</span><br><span class="line">        <span class="keyword">return</span> bonus == other.bonus;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>先调用super.equals(otherObject)检测父类元素是否相等,然后再比较子类的域</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>对于数组类型的域,使用静态方法Arrays.equals方法判断</p>
+<h1 id="hashCode方法"><a href="#hashCode方法" class="headerlink" title="hashCode方法"></a>hashCode方法</h1><p>散列码hashCode是由对象导出的一个整型值,不同的对象散列码一般不会相同</p>
+<h2 id="官方文档-1"><a href="#官方文档-1" class="headerlink" title="官方文档"></a>官方文档</h2><p><img src="https://i.imgur.com/d1v0fub.png" alt=""><br>根据说明我们可以得知:</p>
+<ul>
+<li>只要在Java应用程序执行过程中多次调用同一对象时，hashCode方法就必须始终返回相同的整数，前提是未修改对象的等同比较中使用的信息。 该整数不需要从应用程序的一次执行到同一应用程序的另一次执行保持一致。</li>
+<li>如果两个对象由equals方法得到的结果为true，则对这两个对象中的每个对象调用hashCode方法必须产生相同的整数结果。</li>
+<li>根据equals方法，如果两个对象不相等，则不要求对两个对象中的每一个调用hashCode方法都必须生成不同的整数结果。 但是，程序员应该意识到，为不相等的对象生成不同的整数结果可能会提高散列表的性能。</li>
+</ul>
+<h2 id="Object类中的hashCode方法"><a href="#Object类中的hashCode方法" class="headerlink" title="Object类中的hashCode方法"></a>Object类中的hashCode方法</h2><p>在源码中,hashCode()不是由Java代码生成的,它返回的值为对象的存储地址,这里就不赘述了</p>
+<h2 id="自定义类的hashCode方法"><a href="#自定义类的hashCode方法" class="headerlink" title="自定义类的hashCode方法"></a>自定义类的hashCode方法</h2><p><strong>如果要重新定义equals方法,则必须重新定义hashCode方法</strong><br><strong>equals方法与什么成员有关,hashCode也必须与该成员有关</strong><br>e.g:如果equals方法与Employee类的salary,hireDay,name相关,则Employee的hashCode方法可以定义如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">7</span> * Objects.hashCode(name)</span><br><span class="line">            + <span class="number">11</span> * Double.hashCode(salary)</span><br><span class="line">            + <span class="number">13</span> * Objects.hashCode(hireDay);</span><br><span class="line"><span class="comment">// 如果成员为数组,则使用Arrays.hashCode()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者使用Objects.hash(Object… values)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Objects.hash(name, salary, hireDay);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Objects.hashCode(Object o)是null安全的,当参数为null则返回0,否则返回对参数调用Object.hashCode()的结果</strong><br><strong>注意:只有一个参数的时候不要使用Objects.hash(),而是Objects.hashCode(Object o)或者Doubles.hashCode(Double d)</strong></p>
+<h2 id="Objects-hash-Object…-values-源码"><a href="#Objects-hash-Object…-values-源码" class="headerlink" title="Objects.hash(Object… values)源码"></a>Objects.hash(Object… values)源码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object... values)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Arrays.hashCode(values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Arrays-hashCode-Object-a-源码"><a href="#Arrays-hashCode-Object-a-源码" class="headerlink" title="Arrays.hashCode(Object a[])源码"></a>Arrays.hashCode(Object a[])源码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">(Object a[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> result = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (Object element : a)</span><br><span class="line">            result = <span class="number">31</span> * result + (element == <span class="keyword">null</span> ? <span class="number">0</span> : element.hashCode());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="toString方法"><a href="#toString方法" class="headerlink" title="toString方法"></a>toString方法</h1><p>toString()方法返回表示对象值的字符串</p>
+<h2 id="官方文档-2"><a href="#官方文档-2" class="headerlink" title="官方文档"></a>官方文档</h2><p><img src="https://i.imgur.com/mkyXYSy.png" alt=""></p>
+<h2 id="Object类的toString方法"><a href="#Object类的toString方法" class="headerlink" title="Object类的toString方法"></a>Object类的toString方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>他返回 <code>getClass().getName() + &#39;@&#39; + Integer.toHexString(hashCode())</code></p>
+<h2 id="toString-为什么随处可见"><a href="#toString-为什么随处可见" class="headerlink" title="toString()为什么随处可见"></a>toString()为什么随处可见</h2><p>只要对象与一个字符串通过操作符”+”连接起来,Java编译就会自动调用toString方法</p>
+<h2 id="数组的toString方法"><a href="#数组的toString方法" class="headerlink" title="数组的toString方法"></a>数组的toString方法</h2><p>数组继承了Object类的toString,仍会像Object类那样输出字符串,大概输出如下<br><em>[I@1a46e30]</em><br>这不符合我们的预期,修正方法如下:<br>   <code>Arrays.toString()</code><br>调用静态方法Arrays.toString(),返回对象大概为<br><strong>[2,3,5,7,11,13]</strong><br>如果想要打印多维数组,调用<br>    <code>Arrays.deepToString()</code></p>
+<h1 id="测试类Employee与Manager的源代码"><a href="#测试类Employee与Manager的源代码" class="headerlink" title="测试类Employee与Manager的源代码"></a>测试类Employee与Manager的源代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.time.LocalDate;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> salary;</span><br><span class="line">    <span class="keyword">private</span> LocalDate hireDay;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day)</span> </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">        hireDay = LocalDate.of(year, month, day);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> name; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> salary; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDate <span class="title">getHireDay</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> hireDay; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">raiseSalary</span><span class="params">(<span class="keyword">double</span> byPercent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> raise = salary * byPercent / <span class="number">100</span>;</span><br><span class="line">        salary += raise;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        Employee other = (Employee) otherObject;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Objects.equals(name, other.name)</span><br><span class="line">                &amp;&amp; salary == other.salary</span><br><span class="line">                &amp;&amp; Objects.equals(hireDay, other.hireDay);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">7</span> * Objects.hashCode(name)</span><br><span class="line">                + <span class="number">11</span> * Double.hashCode(salary)</span><br><span class="line">                + <span class="number">13</span> * Objects.hashCode(hireDay);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* public int hashCode() &#123;</span></span><br><span class="line"><span class="comment">    *      return Objects.hash(name, salary, hireDay);</span></span><br><span class="line"><span class="comment">    *  &#125;</span></span><br><span class="line"><span class="comment">    * */</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getClass().getName() + <span class="string">"[name = "</span> + name + <span class="string">",salary = "</span> + salary + <span class="string">",hireDay = "</span> + hireDay + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> bonus;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">double</span> s, <span class="keyword">int</span> year, <span class="keyword">int</span> month, <span class="keyword">int</span> day)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(n, s, year, month, day);</span><br><span class="line">        bonus = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">        <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBonus</span><span class="params">(<span class="keyword">double</span> b)</span> </span>&#123;</span><br><span class="line">        bonus = b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">super</span>.equals(otherObject)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        Manager other = (Manager) otherObject;</span><br><span class="line">        <span class="keyword">return</span> bonus == other.bonus;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.hashCode() + <span class="number">17</span> * Double.hashCode(bonus);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.toString() + <span class="string">"[bonus = "</span> + bonus + <span class="string">"]"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/Java继承之子类访问父类的私有域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1060,6 +1860,188 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/1999/06/29/用markdown软件打开我/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/1999/06/29/用markdown软件打开我/" itemprop="url">大西瓜VPS</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="1999-06-29T00:01:34+08:00">
+                1999-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/1999/06/29/用markdown软件打开我/" class="leancloud_visitors" data-flag-title="大西瓜VPS">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="大西瓜VPS"><a href="#大西瓜VPS" class="headerlink" title="大西瓜VPS"></a>大西瓜VPS</h1><p>因为各种原因，网址和配置总会不断变化，如果网址无效用搜索引擎(google)重新搜索即可</p>
+<h2 id="使用篇"><a href="#使用篇" class="headerlink" title="使用篇"></a>使用篇</h2><h3 id="电脑端"><a href="#电脑端" class="headerlink" title="电脑端"></a>电脑端</h3><p>以谷歌浏览器为例:</p>
+<ol>
+<li>浏览器扩展SwitchyOmega插件<br><a href="https://proxy-switchyomega.com/" target="_blank" rel="noopener">SwitchyOmega官网</a><br>先在谷歌浏览器打开扩展，如下图，然后把下载下来的<code>SwitchyOmega_Chromium.crx</code>拖到扩展里面(我已经下载了，可以直接拖，如果拖不进来，百度查一下怎么解决)</li>
+</ol>
+<p><img src="https://i.imgur.com/mKDdORw.png" alt=""></p>
+<ol start="2">
+<li>拖进来之后如果成功，会直接跳到SwitchyOmega的配置栏，然后根据下图操作</li>
+</ol>
+<p><img src="https://i.imgur.com/jmUSuRL.png" alt=""></p>
+<ol start="3">
+<li>打开v2ray.exe，界面如下</li>
+</ol>
+<p><img src="https://i.imgur.com/6ZFtp8U.png" alt=""></p>
+<ol start="4">
+<li>谷歌浏览器设置自动切换</li>
+</ol>
+<p><img src="https://i.imgur.com/B3Fd9XY.png" alt=""></p>
+<ol start="5">
+<li>愉快的科学上网吧</li>
+</ol>
+<h3 id="手机端"><a href="#手机端" class="headerlink" title="手机端"></a>手机端</h3><ol>
+<li>下载并安装v2rayNG.apk，打开</li>
+</ol>
+<p><img src="https://i.imgur.com/fKvMl61.png" alt=""></p>
+<ol start="2">
+<li>电脑端右键daxigua，分享服务器配置</li>
+</ol>
+<p><img src="https://i.imgur.com/kDN0G9a.png" alt=""></p>
+<p><img src="https://i.imgur.com/h6xpWsZ.png" alt=""></p>
+<ol start="3">
+<li>点击APP右上角的加号</li>
+</ol>
+<p><img src="https://i.imgur.com/upwMxR6.png" alt=""></p>
+<ol start="4">
+<li><p>扫描或者复制二维码下面的vmess点击APP的从剪切板导入</p>
+</li>
+<li><p>成功后，点击那个V启动服务</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/PJyz5cG.jpg" alt=""></p>
+<ol start="6">
+<li><p>启动服务后点击”已连接,点击测试连接”，如果显示连接成功即可</p>
+</li>
+<li><p>点击设置</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/Gjes9qs.jpg" alt=""></p>
+<ol start="8">
+<li>分应用代理，然后把需要科学上网的应用打勾就行了，不需要科学上网的应用不要打勾，然后手机就可以科学上网了</li>
+</ol>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p><strong>每个月只有550G</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1116,7 +2098,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1127,7 +2109,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1138,7 +2120,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">131</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
