@@ -369,6 +369,205 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/23/排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/23/排序/" itemprop="url">排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T21:59:34+08:00">
+                2019-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/23/排序/" class="leancloud_visitors" data-flag-title="排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>要求：<strong>熟记各个排序的排序过程，能写出代码</strong></p>
+<p><img src="https://i.imgur.com/LCoXgvI.png" alt=""></p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p><strong>插入排序的基本思想是每次将一个待排序的记录按其关键字大小插入到前面已排好序的子序列中，直到全部记录插入完成</strong></p>
+<p><strong>关键字：记录后移，相对有序</strong></p>
+<h3 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h3><p><strong>假定L[1]是一个已经排好序的子序列，将L[2]…L[n]依次插入到已排好序的子序列即可。需要进行的操作就是在已排序子序列有k-1个元素的时候(k初始为2)，判断L[k-1]&lt;L[k]，如果是，令L[0]=L[k]，从L[k-1]开始进行记录后移(L[k-1]移到L[k]，依次类推)，直到L[t]&gt;L[0]，就把L[0]插入到L[t+1]即可</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="comment">// i: 待排元素</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">if</span> (A[i].key &lt; A[i - <span class="number">1</span>].key) &#123;</span><br><span class="line">            A[<span class="number">0</span>] = A[i]; <span class="comment">// 0号哨兵</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; A[<span class="number">0</span>].key &lt; A[j].key; --j)</span><br><span class="line">                A[j + <span class="number">1</span>] = A[j]; <span class="comment">// 记录后移</span></span><br><span class="line">            A[j + <span class="number">1</span>] = A[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h4><p>平均时间复杂度O(n^2)，最差时间复杂度也是O(n^2)，最好是O(n)，稳定，适用于顺序存储和链式存储的线性表</p>
+<h3 id="折半插入排序"><a href="#折半插入排序" class="headerlink" title="折半插入排序"></a>折半插入排序</h3><p>对数据量比较少的排序表往往有更好的性能<br>它把比较和移动分离，先折半查找出元素待插入位置，然后统一地移动待插入位置之后的所有元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, low, high, mid;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        A[<span class="number">0</span>] = A[i]; <span class="comment">// 哨兵</span></span><br><span class="line">        low = <span class="number">1</span>; high = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">            mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (A[mid].key &lt; A[<span class="number">0</span>].key)</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// high此时为有序序列中A[i].key的直接前驱</span></span><br><span class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= high + <span class="number">1</span>; j--) &#123;</span><br><span class="line">            A[j + <span class="number">1</span>] = A[j];</span><br><span class="line">        &#125;</span><br><span class="line">        A[high + <span class="number">1</span>] = A[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h4><p>时间复杂度仍为O(n^2)，稳定</p>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>基本思想：将待排序列表分割为若干形如L[i, i+d, i+2d, …, i+kd]的特殊子表，然后分别进行直接插入排序，当整个表中元素已”基本有序”的时候，再对全体记录进行一次直接插入排序</p>
+<p>实际上，希尔排序就是把<strong>每个间隔dk的序列进行插入排序</strong>，排完之后dk=dk/2，然后继续排序，依次循环直至dk=1时整个序列都是有序的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> dk = n / <span class="number">2</span>; dk &gt;= <span class="number">1</span>; dk = dk / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = dk + <span class="number">1</span>; i &lt;= n; ++i) </span><br><span class="line">            <span class="keyword">if</span> (A[i].key &lt; A[i - dk].key) &#123; <span class="comment">// 判断是否需要把A[i]插入到有序增量子表</span></span><br><span class="line">                A[<span class="number">0</span>] = A[i]; <span class="comment">// 0号元素作暂存</span></span><br><span class="line">                <span class="keyword">for</span> (j = i - dk; j &gt; <span class="number">0</span> &amp;&amp; A[<span class="number">0</span>].key &lt; A[j].key; j -= dk)</span><br><span class="line">                    A[j + dk] = A[j];</span><br><span class="line">                A[j + dk] = A[<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-2"><a href="#评价-2" class="headerlink" title="评价"></a>评价</h4><p>算法平均时间复杂度O(n^1.3)，最坏情况是O(n^2)，是<strong>不稳定</strong>的排序算法</p>
+<h2 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h2><p><strong>交换是指根据序列中两个元素关键字的比较结果来对换这两个记录在序列中的位置</strong></p>
+<p><strong>关键字：最终位置</strong></p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>基本思想：假设待排序表长为n，从后往前（或从前往后）两两比较相邻元素的值，若为逆序（A[i-1]&gt;A[i]），则交换它们，直到序列比较完毕，称为一趟冒泡，结果是将最小的元素交换到待排序列的第一个位置（关键字最小的元素如气泡一样逐渐往上漂浮直到水面）。下一趟冒泡，最小元素就不再参与比较</p>
+<p>注意冒泡排序是与插入排序不同的，<strong>插入排序是把待排序的记录插入到前面的有序区，此时整个序列分为三部分：有序区，待插入记录，无序区，插排的操作是比较，记录后移，插入到对应位置</strong>，i为待插入记录，i之前为有序区，i之后为无序区<br>而<strong>冒泡排序则是把最小的元素往前冒泡（与前面的元素交换），直到冒泡到第0个位置，然后次小元素，以此类推</strong><br><strong>冒泡排序产生的有序子序列是全局有序的</strong>，对应所有元素的关键字的位置必定是全局位置，这一点与插入排序不同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        Status flag = FALSE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt; i; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[j - <span class="number">1</span>].key &gt; A[j].key) &#123;</span><br><span class="line">                swap(A[j - <span class="number">1</span>], A[j]);</span><br><span class="line">                flag = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag == FALSE) <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-3"><a href="#评价-3" class="headerlink" title="评价"></a>评价</h4><p>平均与最坏时间复杂度都是O(n^2)，空间复杂度是O(1)，是稳定的排序算法</p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快排是对冒泡排序的一种改进，<strong>基本思想是基于分治法，在待排序表L[1..n]中任取一个元素pivot作为基准，通过一趟排序将待排序表划分为独立的两部分L[1…k-1]和L[k+1…n]，其中L[1…k-1]所有元素都小于pivot，L[k+1…n]所有元素都大于pivot，此时pivot就已经在其最终位置k上了，这个过程为一趟快速排序</strong>，而后分别递归地对两个子表重复上述过程，直到每部分内只有一个元素或空为止，即所有元素都放在其最终位置上</p>
+<p><strong>对快排过程的理解最好是基于思想看代码，它总有一个位置的元素是暂时无用的，例如排序开始前的low，第一次把A[low]=A[high]之后的high，第一次把A[high]=A[low]之后的low，直到high==low，此时low就是pivot的位置</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotpos = Partition(A, low, high);</span><br><span class="line">        QuickSort(A, low, pivotpos - <span class="number">1</span>);</span><br><span class="line">        QuickSort(A, pivotpos + <span class="number">1</span>, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType pivot = A[low];</span><br><span class="line">    <span class="keyword">while</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) --high;</span><br><span class="line">        A[low] = A[high];</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) ++low;</span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    A[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-4"><a href="#评价-4" class="headerlink" title="评价"></a>评价</h4><p>空间上平均O(log2(n))，最坏O(n)<br>时间上平均O(log2(n))，最坏情况O(n^2)</p>
+<p>是不稳定的排序算法</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序的基本思想是：每一趟（如第i躺）在后面n-i+1个待排序元素中选取关键字最小的元素，作为有序子序列的第i个元素，直到第n-1趟做完，待排序元素只剩下一个，就不用再选了</p>
+<h3 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        min = i;</span><br><span class="line">        <span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">            <span class="keyword">if</span> (A[j] &lt;A[min]) min = j;</span><br><span class="line">        <span class="keyword">if</span> (min != i) swap(A[i], A[min]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-5"><a href="#评价-5" class="headerlink" title="评价"></a>评价</h4><p>简单选择排序是不稳定的排序方法，空间效率O(1)，时间效率O(n^2)</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆是一棵<strong>完全二叉树</strong>，它的定义如下：<strong>n个关键字序列L[1…n]称为堆，当且仅当该序列满足：L[i]&lt;=L[2i]且L[i]&lt;=L[2i+1]（称为小顶堆）或L[i]&gt;=L[2i]且L[i]&gt;=L[2i+1]（称为大顶堆）</strong></p>
+<p>大顶堆最大元素在根结点，且对任一非根结点，它的值小于等于其双亲结点值，小顶堆则相反</p>
+<p>建立大顶堆算法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(ElemType A[], <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len/<span class="number">2</span>; i &gt; <span class="number">0</span>; i--) <span class="comment">// 从i=[n/2] -- 1反复调整堆</span></span><br><span class="line">        AdjustDown(A, i, len);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustDown</span><span class="params">(ElemType A[], <span class="keyword">int</span> k, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 下沉元素A[k]</span></span><br><span class="line">    A[<span class="number">0</span>] = A[k];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = k*<span class="number">2</span>; i &lt;= len; i *= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; len &amp;&amp; A[i] &lt; A[i+<span class="number">1</span>]) <span class="comment">// 找出其较大的子结点，通过交换来向下筛</span></span><br><span class="line">            i++;</span><br><span class="line">        <span class="keyword">if</span> (A[<span class="number">0</span>] &gt;= A[i]) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            A[k] = A[i];</span><br><span class="line">            k = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    A[k] = A[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建堆的时间复杂度是O(n)，n为数组的长度</p>
+<p>下面是堆排序算法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    BuildMaxHeap(A, len);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len; i &gt; <span class="number">1</span>; i--) &#123;</span><br><span class="line">        swap(A[i], A[<span class="number">1</span>]);</span><br><span class="line">        AdjustDown(A, <span class="number">1</span>, i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆也支持删除和插入操作，<strong>删除堆顶元素时，只需要把堆的最后一个元素与堆顶交换，然后对根结点下沉操作。插入元素时，先插入到堆的末端，然后对这个新结点上浮</strong>，上浮代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustUp</span><span class="params">(ElemType A[], <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// A[k]上浮</span></span><br><span class="line">    A[<span class="number">0</span>] = A[k];</span><br><span class="line">    <span class="keyword">int</span> i = k/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; A[i] &lt; A[<span class="number">0</span>]) &#123;</span><br><span class="line">        A[k] = A[i];</span><br><span class="line">        k = i;</span><br><span class="line">        i = k/<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    A[k] = A[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-6"><a href="#评价-6" class="headerlink" title="评价"></a>评价</h4><p>堆排序空间复杂度O(1)，<strong>时间复杂度O(nlogn)</strong>（建堆O(n)，每次调整O(h)），是<strong>不稳定</strong>的排序算法</p>
+<h2 id="归并排序和基数排序"><a href="#归并排序和基数排序" class="headerlink" title="归并排序和基数排序"></a>归并排序和基数排序</h2><h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并指将两个或以上的有序表组合成一个新的有序表</p>
+<p><img src="https://i.imgur.com/7UIOCjF.jpg" alt=""></p>
+<p>空间复杂度O(n)，因为新建了一个辅助数组<br>时间复杂度O(nlogn)</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p><img src="https://i.imgur.com/yfckGjq.jpg" alt=""></p>
+<p>基数排序采用多关键字的思想，借助分配和收集两种操作对单逻辑关键字进行排序，分为最高位优先(MSD)排序和最低位优先(LSD)排序</p>
+<p>结点aj由d元组(kj(d-1),kj(d-2),…,kj(0))组成，r为基数（对于十进制，r=10）</p>
+<p>空间复杂度O(r)<br>时间复杂度O(d*(n+r))</p>
+<h2 id="内部排序的算法比较"><a href="#内部排序的算法比较" class="headerlink" title="内部排序的算法比较"></a>内部排序的算法比较</h2><p><img src="https://i.imgur.com/O5sPJrc.jpg" alt=""></p>
+<h2 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h2><p>将待排序记录存储在外存上，排序时再把数据一部分一部分调入内存进行排序，需要多次内存外存的交换，对外存文件的记录排序后结果仍然被放到原有文件中，这样的排序称为外部排序</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2304,194 +2503,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Java异常/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/22/Java异常/" itemprop="url">Java异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:48:30+08:00">
-                2019-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/22/Java异常/" class="leancloud_visitors" data-flag-title="Java异常">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h1><h2 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h2><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
-<p>Error类层次结构描述了Java运行时系统的内部错误和资源耗尽错误，应用程序不应该抛出这种类型的对象</p>
-<p>Exception分为RuntimeException和IOException，RuntimeException是程序错误导致的异常，有下面几种情况</p>
-<ul>
-<li>错误的类型转换</li>
-<li>数组访问越界</li>
-<li>访问null指针</li>
-</ul>
-<p>不是派生于RuntimeException的有</p>
-<ul>
-<li>试图在文件尾部后读取数据</li>
-<li>试图打开一个不存在的文件</li>
-<li>试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在</li>
-</ul>
-<p><strong>Java语言规范将派生于Error或RuntimeException类的所有异常称为非受查异常，所有其他异常称为受查异常，一个方法必须声明所有可能抛出的受查异常，非受查异常要么不可控制（Error），要么避免发生（RuntimeException）</strong>，编译器会核实是否为所有受查异常提供了异常处理器</p>
-<h2 id="声明受查异常"><a href="#声明受查异常" class="headerlink" title="声明受查异常"></a>声明受查异常</h2><p>e.g.<code>public FileInputStream(String name) throws FileNotFoundException</code>，这个声明表示这个构造器将根据给定的String参数产生一个FileInputStream对象，但也有可能抛出一个FileNotFoundException异常，抛出异常后，运行时系统就会开始搜索异常处理器，以便知道如何处理FileNotFoundException对象</p>
-<p>自己编写方法时，不必将所有可能抛出的异常都进行声明，什么时候需要在方法中throws子句声明异常，什么异常必须使用throws子句声明，需要记住遇到下面4种情况应该抛出异常</p>
-<ul>
-<li>调用一个抛出受查异常的方法，例如FileInputStream构造器</li>
-<li>程序运行过程中发现错误，并且利用throw语句抛出一个受查异常（注意不是方法中的throws）</li>
-<li>程序出现错误，比如a[-1]=0会抛出一个ArrayIndexOutOfBoundsException这样的非受查异常</li>
-<li>Java虚拟机和运行时库出现的内部错误</li>
-</ul>
-<p>不需要声明Java的内部错误，即Error继承的错误，也不应该声明RuntimeException继承的非受查异常</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAnimation</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">drawImage</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="keyword">throws</span> ArrayIndexOutOfBoundsException <span class="comment">// bad style</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h2><p>语法：<code>throw new IOException();</code></p>
-<p>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readData</span><span class="params">(Scanner in)</span> <span class="keyword">throws</span> EOFException </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">while</span>(...) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!in.hasNext()) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> EOFException();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>步骤：</p>
-<ul>
-<li>找到一个合适的异常类</li>
-<li>创建这个类的一个对象</li>
-<li>throw语句抛出</li>
-</ul>
-<h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><p>try，catch，finally语句，不多说了</p>
-<p>如果超类没有抛出任何异常，子类也不能抛出任何异常，如果编写一个覆盖超类的方法，这个方法又没有抛出异常，就必须捕获方法代码种出现的每一个受查异常</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2548,7 +2559,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2570,7 +2581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-count">145</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
