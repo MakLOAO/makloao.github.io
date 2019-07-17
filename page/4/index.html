@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">aha~~~</p>
+        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
       
   </div>
 
@@ -355,6 +355,809 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/文件管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/文件管理/" itemprop="url">文件管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T20:32:01+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/11/文件管理/" class="leancloud_visitors" data-flag-title="文件管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><h2 id="文件的相关基本概念"><a href="#文件的相关基本概念" class="headerlink" title="文件的相关基本概念"></a>文件的相关基本概念</h2><p>数据项：文件系统中最低级的数据组织形式，分为基本数据项和组合数据项，<strong>基本数据项用于描述一个对象的某种属性的字符集</strong>，是可命名的最小逻辑数据单位，又称为字段，例如，用于描述学生的基本数据项有：学号，姓名等；组合数据项是若干基本数据项的组成；数据项还应有数据类型</p>
+<p>记录：<strong>记录是一组相关数据项的集合，用于描述一个对象在某方面的属性</strong>，一个记录应包含哪些数据项取决于需要描述对象的哪个方面。例如，一个学生，当把他作为班上一个学生时，对他的描述为学号，姓名，年龄，所在系班，若把学生当作医疗对象则不同。<strong>唯一标识记录的数据项是关键字</strong></p>
+<p>文件：<strong>文件是由创建者所定义的，具有文件名的一组相关元素的集合</strong>，分为有结构文件和无结构文件，<strong>有结构文件中，文件由若干个相关记录组成，而无结构文件被看成是一个字符流</strong>，文件在文件系统是一个最大的数据单位，它描述了一个对象集，例如可以将一个班的学生记录作为一个文件</p>
+<p>文件属性可以包括：文件类型，文件长度，文件的物理位置，文件的建立时间（最后一次的修改时间等）</p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>文件类型按用途分类可分为系统文件，用户文件和库文件<br>按文件中数据的形式分类可分为源文件，目标文件和可执行文件<br>按存取控制属性分类可分为只执行文件，只读文件，读写文件<br>按组织形式和处理方式分类可分为普通文件，目录文件和特殊文件</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>文件系统的模型是指文件和对文件进行操纵和管理的软件集合</p>
+<p>分为三层：对象及属性，对文件进行操纵和管理的软件集合，文件系统接口</p>
+<p><img src="https://i.imgur.com/T92HXjD.png" alt=""></p>
+<h3 id="对象及其属性层"><a href="#对象及其属性层" class="headerlink" title="对象及其属性层"></a>对象及其属性层</h3><p>文件管理系统管理的对象如下：</p>
+<ul>
+<li>文件</li>
+<li>目录</li>
+<li>磁盘存储空间</li>
+</ul>
+<h3 id="对对象操纵和管理的软件集合层"><a href="#对对象操纵和管理的软件集合层" class="headerlink" title="对对象操纵和管理的软件集合层"></a>对对象操纵和管理的软件集合层</h3><p>该层是文件管理系统的核心部分，文件系统的功能大多是这一层实现，其中包括对文件存储空间的管理，对文件目录的管理，用于将文件的逻辑地址转换为物理地址的机制，对文件的读写管理，对文件的共享保护等功能</p>
+<p>一般把与文件系统有关的软件分为4个层次：</p>
+<ul>
+<li>I/O控制层：磁盘驱动程序等组成</li>
+<li>基本文件系统层：内存与磁盘之间数据块的交换</li>
+<li>基本I/O管理程序：完成与磁盘I/O有关的事务，如文件逻辑块号转换为物理块号等</li>
+<li>逻辑文件系统：用于处理与记录和文件相关的操作，如允许用户使用符号文件名访问文件及记录等</li>
+</ul>
+<h3 id="文件系统接口"><a href="#文件系统接口" class="headerlink" title="文件系统接口"></a>文件系统接口</h3><p>文件系统提供了命令接口和程序接口</p>
+<h2 id="文件逻辑结构"><a href="#文件逻辑结构" class="headerlink" title="文件逻辑结构"></a>文件逻辑结构</h2><p>文件的逻辑结构是从用户观点出发所观察到的文件组织形式，即文件是由一系列逻辑记录组成的，是用户可以直接处理的数据及其结构，独立于文件的物理特性，又称为文件组织</p>
+<p>文件的物理结构又称为文件的存储结构，是指系统将文件存储在外存上所形成的一种存储组织形式，用户是不能看见的</p>
+<p>物理结构和逻辑结构都会影响对文件的检索速度</p>
+<p>下图是文件结构类型的概述</p>
+<p><img src="https://i.imgur.com/M9LFero.png" alt=""></p>
+<h3 id="逻辑结构的类型"><a href="#逻辑结构的类型" class="headerlink" title="逻辑结构的类型"></a>逻辑结构的类型</h3><p>文件按有无结构分为有结构文件和无结构文件</p>
+<p>有结构文件根据记录长度分为定长和不定长两类，定长指文件的所有记录长度都是相同的，所有记录的各数据项都处在记录中相同的位置，具有相同的顺序和长度，定长记录有效提高检索记录的速度和效率，方便对文件处理和修改，文件长度用记录数目来表示；变长记录指文件中各记录长度不相同</p>
+<p>有结构文件按文件组织方式分为</p>
+<ul>
+<li>顺序文件：由一系列记录按某种顺序排列形成的文件，记录通常是定长记录（变长记录查询速度慢，不支持随机访问和删除插入记录）</li>
+<li>索引文件：可变长记录文件建立一张索引表，为每个记录设置一个表项，加速对记录的检索</li>
+<li>索引顺序文件：顺序文件和索引文件的结合，在为每个文件建立一张索引表时，并不是为每个记录建立索引表项，而是为一组记录中的第一个记录建立一个索引表项</li>
+</ul>
+<p>无结构文件是流式文件，信息管理系统和数据库系统中广泛采用了有结构的文件形式，而源程序，可执行文件，库函数等采用的就是无结构文件，长度是以字节为单位，可以把流式文件看作记录式文件的一个特例：一个记录仅有一个字节</p>
+<h4 id="顺序文件"><a href="#顺序文件" class="headerlink" title="顺序文件"></a>顺序文件</h4><p>顺序文件可以按照串结构或顺序结构排列，串结构指按存入时间的先后进行排序，各记录之间的顺序与关键字无关，对串结构文件检索比较费时，顺序结构是由用户指定一个字段作为关键字，文件中所有记录可以按关键字排序，具有更高的检索速度</p>
+<h4 id="索引文件"><a href="#索引文件" class="headerlink" title="索引文件"></a>索引文件</h4><p>为变长记录建立一个索引表，对主文件的每个记录在索引表中设有一个相应表项，用于记录该记录的长度L，以及指向该记录的指针</p>
+<p><img src="https://i.imgur.com/UDTyQoQ.png" alt=""></p>
+<p>索引文件是可以实现直接存取的，索引文件支持随机访问</p>
+<h4 id="索引顺序文件"><a href="#索引顺序文件" class="headerlink" title="索引顺序文件"></a>索引顺序文件</h4><p>索引顺序文件保留了顺序文件的关键字顺序，又增加了文件索引表和溢出文件，溢出文件用来记录新增加的，删除的和修改的记录</p>
+<h5 id="一级索引顺序文件"><a href="#一级索引顺序文件" class="headerlink" title="一级索引顺序文件"></a>一级索引顺序文件</h5><p>将变长记录顺序文件的所有记录分为若干组，为顺序文件建立一张索引表，并为每组的第一个记录，在索引表建立一个索引项，其中包含该记录的关键字和指向该记录的指针</p>
+<p>对索引顺序文件检索时，先利用提供的关键字以及某种查找算法去检索索引表，找到该记录所在记录组第一个记录的表项，从中得到该记录组第一个记录在主文件的位置，然后再利用顺序查找法去查找主文件，从中找到所要求的记录</p>
+<h4 id="直接文件和哈希文件"><a href="#直接文件和哈希文件" class="headerlink" title="直接文件和哈希文件"></a>直接文件和哈希文件</h4><h5 id="直接文件"><a href="#直接文件" class="headerlink" title="直接文件"></a>直接文件</h5><p>直接文件可以根据给定的关键字直接获得记录的物理地址，即关键字本身就决定了记录的物理地址，由关键字到记录物理地址的转换称为键值转换，而上述的索引文件实质是对关键字计算得到对应索引表表项的物理地址，由该物理地址得到指向对应记录的指针</p>
+<h5 id="哈希文件"><a href="#哈希文件" class="headerlink" title="哈希文件"></a>哈希文件</h5><p>利用哈希函数将关键字转换为相应记录的地址</p>
+<h3 id="文件的物理结构"><a href="#文件的物理结构" class="headerlink" title="文件的物理结构"></a>文件的物理结构</h3><p>物理结构是从实现的观点出发，文件在外存上的存放组织形式，有如下三种物理结构</p>
+<ul>
+<li>连续结构</li>
+<li>链接结构</li>
+<li>索引结构</li>
+</ul>
+<h2 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h2><p>对目录管理的要求</p>
+<ul>
+<li><strong>实现”按名存取”</strong>：用户只须向系统提供所需访问的文件的名字，便能快速准确地找到指定文件在外存地存储位置，这是目录管理最基本地功能</li>
+<li>提高对目录的检索速度</li>
+<li>文件共享：允许多个用户共享一个文件，这样只须在外存中保留一份该文件副本供不同用户使用，节省存储空间，提高利用率</li>
+<li>允许文件重名：允许不同用户对不同文件采取相同的名字</li>
+</ul>
+<h3 id="文件控制块FCB"><a href="#文件控制块FCB" class="headerlink" title="文件控制块FCB"></a>文件控制块FCB</h3><p>文件目录：文件控制块的有序集合，即一个文件控制块就是一个文件目录项，通常一个文件目录被看成是一个文件，称为目录文件</p>
+<p>文件控制块：描述和控制文件的数据结构，文件与文件控制块一一对应，一个文件控制块就是一个文件目录项（文件目录是文件控制块的有序集合），包含基本信息，存取控制信息和使用信息，可以分为内存FCB和外存FCB</p>
+<p>它们的关系：文件控制块与文件一一对应，而文件目录是有结构文件，其中的每一个记录都是一个文件控制块</p>
+<p>检索过程：检索的时候，把文件目录调入内存，查找其目录项，找到与给定的文件名对应的文件名，读出其物理地址</p>
+<h4 id="基本信息类"><a href="#基本信息类" class="headerlink" title="基本信息类"></a>基本信息类</h4><ul>
+<li>文件名</li>
+<li>文件物理位置</li>
+<li>文件逻辑结构：流式还是有结构，记录数，定长记录还是变长记录等</li>
+<li>文件物理结构：顺序还是链接还是索引</li>
+</ul>
+<h4 id="存取控制信息类"><a href="#存取控制信息类" class="headerlink" title="存取控制信息类"></a>存取控制信息类</h4><p>文件主，核准用户和一般用户的存取权限</p>
+<h4 id="使用信息类"><a href="#使用信息类" class="headerlink" title="使用信息类"></a>使用信息类</h4><ul>
+<li>文件建立日期和时间</li>
+<li>上一次修改的日期和时间</li>
+<li>当前使用信息（已打开文件的进程数，是否被锁等等）</li>
+</ul>
+<h3 id="索引结点"><a href="#索引结点" class="headerlink" title="索引结点"></a>索引结点</h3><p>OS中每有一个目录，就有一个FCB</p>
+<p>引入：文件目录占空间，检索目录文件过程中，要把存放目录文件的第一个盘块中的目录的调入内存，然后将用户所给定的文件名与目录项的文件名一一对应，若没有找到指定文件，还需要将下一盘块的目录项调入内存。检索过程中，只用到了文件名，而没有其他描述文件的信息，仅当找到一个目录项（即其中文件名与指定要查找的文件名相匹配）时，才需从该目录项中读出该文件的物理地址，而其他一些对该文件进行描述的信息在检索目录时一概不用。显然这些信息在检索目录的时候不需要调入内存，为此，采用把文件名与文件描述信息分开的方法，即使<strong>文件描述信息单独形成一个称为索引结点的数据结构</strong></p>
+<p>引入后，文件目录项就不是FCB了，而是文件名+索引结点，这样可以使每个盘块可以存更多的文件目录项，减少盘块数，从而减少盘块调入内存的次数</p>
+<p><img src="https://i.imgur.com/bUvbRVo.png" alt=""></p>
+<p>引入索引结点前的文件目录项（FCB）</p>
+<p><img src="https://i.imgur.com/31IywfE.png" alt=""></p>
+<p>引入索引结点后的文件目录项（文件名+索引结点）</p>
+<p>例如上图，在没有引入索引结点的时候，FCB是上图一所示，每次检索目录的时候都要把FCB调入内存，而FCB又占用比较大的空间，这样系统开销会很多，采用了上图二的文件目录项后，一个目录项只占用很小的开销（UNIX为16个字节，14字节文件名，2字节为i结点指针），可以减少磁盘启动次数，节省系统开销</p>
+<h4 id="我对索引结点减少磁盘启动次数的理解"><a href="#我对索引结点减少磁盘启动次数的理解" class="headerlink" title="我对索引结点减少磁盘启动次数的理解"></a>我对索引结点减少磁盘启动次数的理解</h4><p>前提：目录文件所占盘块数为N，则检索该文件目录时平均调入盘块次数为(N+1)/2次，检索一个文件要从第一个文件目录开始检索，直到最后一个文件目录</p>
+<p>引入索引结点可以减少磁盘启动次数，节省系统开销，主要原因是调入内存是以盘块为单位和引入索引结点后文件目录项的大小比FCB的大小要小</p>
+<p>e.g.在文件系统中，每个盘块为256字节，文件控制块占64个字节，其中文件名占8个字节。如果索引节点编号占2个字节，对一个存放在磁盘上的128个目录项的目录，试比较引入索引节点前后，为找到其中一个文件，平均启动磁盘的次数</p>
+<p>在引入索引结点前，每个目录项中存放的是对应文件的FCB，故128个目录项的目录总共需要占用128X64／256=32个盘块。因此，在该目录中检索到一个文件，平均启动磁盘的次数为(1+32)/2=16.5次。<br>引入索引结点后，每个目录项中只需存放文件名和索引结点的编号，因此128个目录项的目录总共需要占用128X(8+2)／256=5个盘块。因此，找到匹配的目录项平均需要启动(1+5)／2，即3次磁盘；而得到索引结点编号后，还需启动磁盘将对应文件的索引结点读入内存，故平均需要启动磁盘4次。可见，引入索引结点后，可大大减少启动磁盘的次数，从而有效地提高检索文件的速度。</p>
+<h4 id="引入索引结点后的索引过程"><a href="#引入索引结点后的索引过程" class="headerlink" title="引入索引结点后的索引过程"></a>引入索引结点后的索引过程</h4><ol>
+<li>文件目标项只存放文件名和结点号，结点号存放FCB信息</li>
+<li>查询只调入文件名部分和结点指针，找到后才调入对应i结点指向的内容</li>
+</ol>
+<h4 id="磁盘索引结点"><a href="#磁盘索引结点" class="headerlink" title="磁盘索引结点"></a>磁盘索引结点</h4><p>存放在磁盘的索引结点，每个文件有唯一的磁盘索引结点，包括如下内容：</p>
+<ul>
+<li>文件主标识</li>
+<li>文件类型（正规文件，目录文件，特殊文件）</li>
+<li>文件存取权限</li>
+<li>文件物理地址</li>
+<li>文件长度</li>
+<li>文件连接计数（本文件系统所有指向该文件名的指针计数，用于共享）</li>
+<li>文件存取时间</li>
+</ul>
+<h4 id="内存索引结点"><a href="#内存索引结点" class="headerlink" title="内存索引结点"></a>内存索引结点</h4><p>存放在内存中的索引结点，当文件被打开时，要将磁盘索引结点拷贝到内存的索引结点中方便以后使用，增加了以下内容</p>
+<ul>
+<li>索引结点编号</li>
+<li>状态</li>
+<li>访问计数</li>
+<li>文件所属文件系统的逻辑设备号</li>
+<li>链接指针</li>
+</ul>
+<h3 id="单级目录结构"><a href="#单级目录结构" class="headerlink" title="单级目录结构"></a>单级目录结构</h3><p>最简单的文件目录，在整个文件系统中只建立一张目录表，每个文件占一个目录项，目录项含文件名，文件扩展名，文件长度，文件类型，文件物理地址以及其他文件属性，状态位（是否空闲）</p>
+<p><img src="https://i.imgur.com/1cziASy.png" alt=""></p>
+<p>单级目录结构不允许重名，新建文件时要检查有无同名，删除时回收块并清楚占用目录项</p>
+<h3 id="两级目录结构"><a href="#两级目录结构" class="headerlink" title="两级目录结构"></a>两级目录结构</h3><p><img src="https://i.imgur.com/JKxqy9C.png" alt=""></p>
+<p>可以为每个用户再建立一个单独的用户文件目录UFD，这些文件目录由用户所有文件的文件控制块组成，在系统中再建立一个主文件目录MFD，MFD的每个目录项为用户的目录文件</p>
+<p>两级目录结构允许重名，但不允许用户建立自己的子目录</p>
+<h3 id="树形结构目录"><a href="#树形结构目录" class="headerlink" title="树形结构目录"></a>树形结构目录</h3><p>一个目录文件中目录项可以为目录文件和数据文件，允许重名，便于实现文件共享</p>
+<p><img src="https://i.imgur.com/8nlH5dR.png" alt=""></p>
+<h3 id="目录查询技术"><a href="#目录查询技术" class="headerlink" title="目录查询技术"></a>目录查询技术</h3><p>当用户要访问一个已经存在的文件时，系统首先利用用户提供的文件名对目录进行查询，找出该文件的FCB或对应索引结点，然后根据FCB或索引结点中记录的文件物理地址（盘块号），换算出文件在磁盘上的物理地址，最后再通过磁盘驱动程序将所需文件读入内存</p>
+<p>常用的目录查询方式为线性检索法和Hash方法</p>
+<h4 id="线性检索法"><a href="#线性检索法" class="headerlink" title="线性检索法"></a>线性检索法</h4><p><img src="https://i.imgur.com/aoT42vI.png" alt=""></p>
+<p>查找过程如下：</p>
+<ol>
+<li>系统先读入第一个文件分量名usr，用它与根目录文件中各目录项的文件名顺序的进行比较，找到匹配者，并得到索引结点号，再从索引结点号得知物理地址号（盘块号），将该盘块132号读入内存</li>
+<li>系统再将路径名第二个分量ast读入，与存放在132号盘块的第二级目录文件各目录项的文件名顺序比较，以此类推直到找到mbox的索引结点和物理地址</li>
+</ol>
+<p><img src="https://i.imgur.com/jr8fDTP.png" alt=""></p>
+<h4 id="Hash方法"><a href="#Hash方法" class="headerlink" title="Hash方法"></a>Hash方法</h4><p>建立一张Hash索引文件目录，利用Hash方法查询，系统利用文件名变换为文件目录的索引值，再利用该索引值到目录去查找</p>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>两种共享方式：用户直接通过路径名来访问共享文件和对需要共享的文件进行链接</p>
+<h2 id="文件保护"><a href="#文件保护" class="headerlink" title="文件保护"></a>文件保护</h2><ul>
+<li>存取控制机制防止人为因素造成文件不安全</li>
+<li>磁盘容错技术防止磁盘故障造成文件不安全</li>
+<li>后备系统防止自然因素造成的不安全性</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/设备管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/10/设备管理/" itemprop="url">设备管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T22:38:01+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/10/设备管理/" class="leancloud_visitors" data-flag-title="设备管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h1><p>I/O系统管理的主要对象是I/O设备和相应的设备控制器，其主要任务是，完成用户提出的I/O请求，提高I/O速率，以及提高设备利用率，并为更高层的进程方便地使用这些设备提供手段</p>
+<h2 id="I-O系统的层次结构"><a href="#I-O系统的层次结构" class="headerlink" title="I/O系统的层次结构"></a>I/O系统的层次结构</h2><p>I/O软件组织分为4个层次</p>
+<ul>
+<li>用户层I/O软件：提供库函数对I/O设备操作</li>
+<li>设备独立性软件：实现用户程序与设备驱动器的统一接口，设备命名，保护和分配释放等</li>
+<li>设备驱动软件：与硬件直接相关，用于具体实现系统对设备发出的操作指令</li>
+<li>中断处理程序：用于保存被中断进程的CPU环境，转入相应的中断处理程序处理，处理完恢复现场</li>
+</ul>
+<h2 id="设备控制器"><a href="#设备控制器" class="headerlink" title="设备控制器"></a>设备控制器</h2><p>设备并不是直接与CPU进行通信，而是与设备控制器通信，I/O设备应提供提供数据信号线，状态信号线和控制信号线给设备控制器</p>
+<p>设备控制器主要功能是控制一个或多个I/O设备，实现I/O设备和计算机之间的数据交换，它是CPU与I/O设备之间的接口，接收从CPU发来的命令，去控制I/O设备工作</p>
+<h3 id="设备控制器基本功能"><a href="#设备控制器基本功能" class="headerlink" title="设备控制器基本功能"></a>设备控制器基本功能</h3><ul>
+<li>接收和识别命令</li>
+<li>数据交换：数据总线实现CPU到控制器的交换，数据寄存器实现设备控制器到I/O设备的交换</li>
+<li>标识和报告设备的状态</li>
+<li>地址识别</li>
+<li>数据缓冲区</li>
+<li>差错控制</li>
+</ul>
+<h3 id="设备控制器的组成"><a href="#设备控制器的组成" class="headerlink" title="设备控制器的组成"></a>设备控制器的组成</h3><ul>
+<li>设备控制器与处理机的接口：数据线地址线和控制线，实现CPU和设备控制器的通信，数据线通常与数据寄存器或者控制/状态寄存器连接，与数据寄存器连接的话是传输数据，与控制/状态寄存器连接的话是存放控制信息或设备状态信息</li>
+<li>设备控制器与设备的接口：控制器由一个或多个设备接口，由数据，控制，状态三种信号组成</li>
+<li>I/O逻辑：实现对设备控制，通过一组控制线与处理机交互，处理I/O命令，每当CPU启动一个设备，一方面启动命令发送给控制器，另一方面同时通过地址线把地址发送给控制器，由控制器的I/O逻辑对收到的地址译码，对所选设备控制</li>
+</ul>
+<p><img src="https://i.imgur.com/Wf5JaZW.png" alt=""></p>
+<h2 id="I-O通道"><a href="#I-O通道" class="headerlink" title="I/O通道"></a>I/O通道</h2><p>引入目的：解脱CPU对I/O的组织，管理。虽然设备控制器可以减少CPU对I/O的干预，但当主机所配置的外设很多时，CPU负担仍很重，为此增加了I/O通道</p>
+<p>I/O通道是一种特殊的执行I/O指令的处理机，与CPU共享内存，可以有自己的总线，它从CPU接收I/O指令，从内存取出要执行的通道执行程序，然后执行，完成规定I/O任务后，向CPU发中断信号</p>
+<h3 id="通道类型"><a href="#通道类型" class="headerlink" title="通道类型"></a>通道类型</h3><ul>
+<li>字节多路通道：各通道以时间片轮转方式共享通道，适用于低，中速设备</li>
+<li>数组选择通道：无子通道，仅一主通道，某时间由某设备独占，适用高速设备，利用率低</li>
+<li>数组多路通道：多子通道按需分配，综合前面两种优点</li>
+</ul>
+<h2 id="I-O控制方式"><a href="#I-O控制方式" class="headerlink" title="I/O控制方式"></a>I/O控制方式</h2><p>四个阶段：程序I/O——中断I/O——DMA控制——通道控制</p>
+<p>趋势：减少CPU对I/O操作的干预，提高并行度</p>
+<ol>
+<li>程序I/O控制方式：采用轮询的方式，CPU需要花代价不断查询I/O状态</li>
+<li>中断I/O控制方式：CPU向I/O发命令然后做其他事，设备管理器按照该命令控制指定I/O，当I/O中断产生，CPU转去执行中断处理程序，CPU以字节为单位干预I/O</li>
+<li>DMA控制：由DMA控制器直接控制总线传递数据块，DMA控制器完成从I/O到内存，主要用在块设备中</li>
+<li>通道控制：DMA控制对多离散块的读取仍需要多次中断，通道方式CPU只要给出通道程序首地址，要访问的I/O设备后，通道程序就会完成一组块操作</li>
+</ol>
+<p><img src="https://i.imgur.com/dtoV0Yk.png" alt=""></p>
+<p><img src="https://i.imgur.com/U2xYU5E.png" alt=""></p>
+<h2 id="缓冲管理"><a href="#缓冲管理" class="headerlink" title="缓冲管理"></a>缓冲管理</h2><p>缓冲管理的目的是：组织管理，分配，释放buffer</p>
+<p>引入：</p>
+<ul>
+<li>缓和CPU与I/O设备速度不匹配的矛盾</li>
+<li>减少对CPU的中断频率</li>
+<li>提高CPU和I/O并行性</li>
+<li>解决数据粒度不匹配问题（数据单元大小）</li>
+</ul>
+<h3 id="单缓冲"><a href="#单缓冲" class="headerlink" title="单缓冲"></a>单缓冲</h3><p><img src="https://i.imgur.com/757qokP.png" alt=""></p>
+<h3 id="双缓冲"><a href="#双缓冲" class="headerlink" title="双缓冲"></a>双缓冲</h3><p><img src="https://i.imgur.com/6sjJRcM.png" alt=""></p>
+<p>收发可双向同时传送</p>
+<h3 id="循环多缓冲"><a href="#循环多缓冲" class="headerlink" title="循环多缓冲"></a>循环多缓冲</h3><p><img src="https://i.imgur.com/l6h6TI6.png" alt=""></p>
+<p><img src="https://i.imgur.com/eOKaI4l.png" alt=""></p>
+<p><img src="https://i.imgur.com/HeyUobP.png" alt=""></p>
+<h3 id="缓冲池"><a href="#缓冲池" class="headerlink" title="缓冲池"></a>缓冲池</h3><p><img src="https://i.imgur.com/CULwxH4.png" alt=""></p>
+<p><img src="https://i.imgur.com/YMwks1i.png" alt=""></p>
+<p><img src="https://i.imgur.com/zXCNOoe.png" alt=""></p>
+<h2 id="设备分配"><a href="#设备分配" class="headerlink" title="设备分配"></a>设备分配</h2><p>包括对设备，设备控制器和通道的分配</p>
+<p><img src="https://i.imgur.com/bbGgNk1.png" alt=""></p>
+<p><img src="https://i.imgur.com/vS9hByz.png" alt=""></p>
+<h3 id="设备分配应考虑的若干因素"><a href="#设备分配应考虑的若干因素" class="headerlink" title="设备分配应考虑的若干因素"></a>设备分配应考虑的若干因素</h3><ul>
+<li>设备的固有属性：共享+虚拟，独享</li>
+<li>分配算法：FIFO，优先权</li>
+<li>安全性</li>
+</ul>
+<h3 id="设备独立性"><a href="#设备独立性" class="headerlink" title="设备独立性"></a>设备独立性</h3><p>即设备无关性，指<strong>应用程序独立于具体使用的物理设备</strong></p>
+<p>设备可以分为逻辑设备和物理设备，逻辑设备名到物理设备名的映射由逻辑设备表LUT实现</p>
+<p><img src="https://i.imgur.com/Fg9ojdp.png" alt=""></p>
+<p>分配流程：进程给出逻辑名——通过LUT得到物理设备及其driver入口</p>
+<p>优点是设备分配更灵活，可以是多对多的映射关系，提供均衡性于容错性，提高共享性，易于实现I/O重定向（改变LUT表即可）</p>
+<h4 id="设备独立性软件"><a href="#设备独立性软件" class="headerlink" title="设备独立性软件"></a>设备独立性软件</h4><p>设备独立性软件执行所有设备的公有操作，如分配回收，名字映射，保护，缓冲，差错控制等，并向用户层软件提供统一接口如read，write</p>
+<h3 id="SPOOLING技术"><a href="#SPOOLING技术" class="headerlink" title="SPOOLING技术"></a>SPOOLING技术</h3><p>为了缓和CPU高速性和I/O设备低速性的矛盾，引入脱机输入，脱机输出技术，利用专门的外围控制机，将低速I/O设备上的数据，传送到高速磁盘上，或者相反。当系统引入多道程序技术后，完全可以利用其中一道程序来模拟脱机输入时外围控制机的功能，把低速I/O设备上的数据传送到高速磁盘上，再用另一道程序，模拟脱机输出时外围控制器的功能，将数据从磁盘传送到低速输出设备上，这样便可在主机的直接控制下，实现以前的脱机输入，脱机输出的功能，此时外围操作与CPU对数据的处理同时进行，我们把这种联机情况下实现的同时外围操作的技术，称为SPOOLing技术（Simultaneous Periphernal Operating Online）或称为假脱机技术</p>
+<p><img src="https://i.imgur.com/gc7ms1O.png" alt=""></p>
+<p>SPOOLing提供了I/O速度，将独占设备改造为共享设备，实现了虚拟设备的功能</p>
+<h2 id="设备处理"><a href="#设备处理" class="headerlink" title="设备处理"></a>设备处理</h2><p>设备驱动程序的功能：</p>
+<ul>
+<li>接收I/O进程发来的命令和参数，将命令中的抽象要求转换为具体要求</li>
+<li>检查用于I/O请求的合法性</li>
+<li>发出I/O命令</li>
+<li>及时响应由控制器或通道发来的中断请求，并根据中断类型调用相应的中断处理程序处理</li>
+<li>自动构成通道程序</li>
+</ul>
+<h3 id="设备处理方式"><a href="#设备处理方式" class="headerlink" title="设备处理方式"></a>设备处理方式</h3><ul>
+<li>为每一类设备设置一个进程，专门用于执行这类设备的I/O操作</li>
+<li>整个系统设置一个I/O进程，用于执行系统中所有各类设备的I/O操作</li>
+<li>不设置专门的设备处理进程，而为各类设备设置相应的设备处理程序，供用户或系统进程调用</li>
+</ul>
+<h2 id="磁盘存储器管理"><a href="#磁盘存储器管理" class="headerlink" title="磁盘存储器管理"></a>磁盘存储器管理</h2><p><img src="https://i.imgur.com/dhsseTC.png" alt=""></p>
+<h3 id="磁盘的类型"><a href="#磁盘的类型" class="headerlink" title="磁盘的类型"></a>磁盘的类型</h3><ul>
+<li>固定头磁盘：每条磁道上都有一读/写磁头，所有磁头都被装在刚性磁臂中，通过这些磁头可访问所有磁道，并进行并行读/写，有效提高I/O速度</li>
+<li>移动头磁盘：每一个盘面仅配一个磁头，也被装入磁臂中，该磁头能移动进行寻道，仅能串行方式读/写，I/O速度慢</li>
+</ul>
+<h3 id="磁盘访问时间"><a href="#磁盘访问时间" class="headerlink" title="磁盘访问时间"></a>磁盘访问时间</h3><ol>
+<li>寻道时间Ts：磁臂（磁头）移动到指定磁道上所经历的时间，是启动磁臂时间s与磁头移动n条磁道所花费时间之和，Ts=m*n+s，m是常数，与磁盘驱动器速度有关</li>
+<li>旋转延迟时间Tτ：扇区移动到磁头下面所经历的时间</li>
+<li>传输时间Tt：把数据从磁盘读出或向磁盘写入数据所经历的时间Tt=b/rN，b是每次读/写的字节数，r是磁盘每秒转数，N是一条磁道上的字节数</li>
+</ol>
+<p>当一次读/写的字节数相当于半条磁道上的字节数时，Tt与Tτ相同，可将访问时间Ta表示为Ta=Ts+1/2r+b/rN</p>
+<h3 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h3><h4 id="先来先服务FCFS"><a href="#先来先服务FCFS" class="headerlink" title="先来先服务FCFS"></a>先来先服务FCFS</h4><p>根据进程请求访问磁盘的先后次序调度</p>
+<p><img src="https://i.imgur.com/SY51mcT.png" alt=""></p>
+<h4 id="最短寻道时间优先SSTF"><a href="#最短寻道时间优先SSTF" class="headerlink" title="最短寻道时间优先SSTF"></a>最短寻道时间优先SSTF</h4><p>该算法选择这样的进程，要求访问的磁道与当前磁头所在的磁道距离最近</p>
+<p><img src="https://i.imgur.com/is87d8q.png" alt=""></p>
+<h4 id="扫描算法SCAN"><a href="#扫描算法SCAN" class="headerlink" title="扫描算法SCAN"></a>扫描算法SCAN</h4><p>SSTF实质是基于优先级的调度算法，可能会导致低优先级进程饥饿现象，因为只要不断有新进程请求到达，且所访问的磁道与磁头距离较近，则较远的进程饥饿，扫描算法不仅考虑访问磁道与当前磁道的距离，更优先考虑磁头当前的移动方向，例如当磁头自里向外移动，SCAN算法考虑的是当前磁道之外的，又是距离最近的，直到再无更外的磁道需要访问，就将磁臂换向改为自外向里，跟电梯运行很像，又称为电梯调度算法</p>
+<p><img src="https://i.imgur.com/gdZ27V8.png" alt=""></p>
+<h3 id="磁盘高速缓存"><a href="#磁盘高速缓存" class="headerlink" title="磁盘高速缓存"></a>磁盘高速缓存</h3><p>利用内存中的存储空间，来暂存从磁盘中读出的一系列盘块中的信息<br>高速缓存逻辑上属于磁盘，物理上是内存<br>高速缓存在内存中分为两种：第一种是内存中开辟单独的存储空间来作为磁盘高速缓存，大小是固定的，不会受应用程序多少的影响，第二种是把所有未利用的内存空间变为一个缓冲池，供请求分页系统和磁盘I/O（作为磁盘高速缓存）共享</p>
+<h4 id="数据交付方式"><a href="#数据交付方式" class="headerlink" title="数据交付方式"></a>数据交付方式</h4><p>系统可以采取两种方式，将数据交付给请求进程</p>
+<ul>
+<li>数据交付：直接将高速缓存中的数据传送到请求者进程的内存工作区中</li>
+<li>指针交付：只将指向高速缓存中某区域的指针交付给请求者进程</li>
+</ul>
+<h4 id="置换算法"><a href="#置换算法" class="headerlink" title="置换算法"></a>置换算法</h4><p>高速缓存的置换算法和请求分页系统有些区别，除了考虑最近最久未使用这一原则外，还考虑了访问频率，可预见性和数据的一致性</p>
+<h4 id="周期性写回磁盘"><a href="#周期性写回磁盘" class="headerlink" title="周期性写回磁盘"></a>周期性写回磁盘</h4><p>UNIX系统专门增设一个修改程序，该程序周期性调用一个系统调用SYNC，主要功能是强制性将所有高速缓存中已修改的盘块数据写回磁盘，一般两次SYNC间隔30s</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/虚拟存储器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/10/虚拟存储器/" itemprop="url">虚拟存储器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T20:13:18+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/10/虚拟存储器/" class="leancloud_visitors" data-flag-title="虚拟存储器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>虚拟存储器的引入：常规存储器管理方式特征：一次性（全部装入），驻留性（驻留在内存不换出）</p>
+<p><strong>局部性原理</strong>：</p>
+<ul>
+<li>时间局部性：如循环执行，某条指令被执行，不久以后可能会再次执行，数据被访问，不久后可能会再次被访问，原因是程序中存在大量循环操作</li>
+<li>空间局部性：如顺序执行，一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也将被访问，即程序在一段时间内所访问的地址可能集中在一定范围之内</li>
+</ul>
+<p>虚拟存储器的定义：<strong>具有请求调入功能和置换功能，能从逻辑上对内存容量进行扩充的一种存储系统</strong><br>实质：时间换空间，但时间牺牲不大</p>
+<p>虚拟存储器特征：离散性（部分装入），多次性（局部装入，多次装入），对换性，虚拟性</p>
+<h2 id="虚拟存储器的实现方式"><a href="#虚拟存储器的实现方式" class="headerlink" title="虚拟存储器的实现方式"></a>虚拟存储器的实现方式</h2><p>虚拟存储器的实现，全都建立在离散分配存储管理方式的基础上</p>
+<p>需要动态重定位</p>
+<p>目前的虚拟存储器都是采用分页请求系统和分段请求系统的方式实现的，分页请求系统就是在分页系统的基础上增加了请求调页功能和页面置换功能，分段请求系统在分段系统的基础上加入了请求调段功能和分段置换功能</p>
+<ul>
+<li>分页请求系统<ul>
+<li>以页为单位转换</li>
+<li>需硬件：<ul>
+<li>请求分页的页表机制</li>
+<li>缺页中断</li>
+<li>地址变换机构</li>
+</ul>
+</li>
+<li>需实现请求分页机制的软件</li>
+</ul>
+</li>
+<li>请求分段系统<ul>
+<li>以段为单位转换<ul>
+<li>请求分段的段表结构</li>
+<li>缺段中断</li>
+<li>地址变换机构</li>
+</ul>
+</li>
+<li>需实现请求分段机制的软件</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求分页存储管理方式"><a href="#请求分页存储管理方式" class="headerlink" title="请求分页存储管理方式"></a>请求分页存储管理方式</h2><h3 id="请求分页的页表机制"><a href="#请求分页的页表机制" class="headerlink" title="请求分页的页表机制"></a>请求分页的页表机制</h3><p>在纯页表机制上增加若干项形成，主要作用还是将用户地址空间中的逻辑地址映射为内存空间中的物理地址，为了满足页面换出换进换出的需要，它增加了一些字段</p>
+<p><img src="https://i.imgur.com/EskQP0h.png" alt=""></p>
+<ul>
+<li>状态位P：仅有一位，指示该页是否已经调入内存</li>
+<li>访问字段A：记录本页在一段时间内被访问的次数或记录本页最近已有多长时间未被访问，作为置换算法换出页面时的参考</li>
+<li>修改位M：标识该页在调入内存后是否被修改过，由于内存每一页在外存上都有一份副本，因此置换该页时，如果未被修改，就不需要将该页写回到外存</li>
+</ul>
+<h3 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h3><p>请求分页系统中，每当所要访问的页面不在内存时，便产生一缺页中断，请求OS将所缺之页调入内存，它与一般中断相比有明显区别，主要表现如下：</p>
+<ul>
+<li>在指令执行期间产生和处理信号。通常CPU都是在一条指令执行完后才检查是否有中断请求到达。然而缺页中断在指令执行期间，若发现所要访问的指令或数据不在内存时，便立即产生和处理缺页中断信号，以便及时将所缺的页面调入内存</li>
+<li>一条指令在执行期间可能产生多次缺页中断。例如下图中，执行一条指令copy A to B，可能要产生6次缺页中断，因为指令本身跨了两个页面，A和B各自为一个数据块，它们也都跨了两个页面</li>
+</ul>
+<p><img src="https://i.imgur.com/aW7AfPZ.png" alt=""></p>
+<h3 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p>在分页系统地址变换机构的基础上，为实现虚拟存储器，再增加了某些功能，比如产生和处理缺页中断，以及从内存中换出一页的功能等等</p>
+<p><img src="https://i.imgur.com/fGAbVRm.jpg" alt=""></p>
+<h3 id="请求分页的内存分配"><a href="#请求分页的内存分配" class="headerlink" title="请求分页的内存分配"></a>请求分页的内存分配</h3><p>为进程分配内存时涉及三个问题：第一，为保证进程能正常运行，所需要的最小物理块数的确定；第二，在为每个进程分配物理块时，应采取什么样的分配策略，即所分配的物理块是固定的，还是可变的；第三，为不同进程分配物理块数，是平均分配算法还是根据进程大小按比例分配</p>
+<h4 id="最小物理块数的确定"><a href="#最小物理块数的确定" class="headerlink" title="最小物理块数的确定"></a>最小物理块数的确定</h4><p>最小物理块数指保证进程正常运行所需的最小物理块数，取决于计算机硬件结构和指令格式，比如单地址指令且直接寻址的机器，最小物理块数为2，一块存放指令的页面，一块存放数据的页面，而对于单地址指令间接寻址，至少需要3个物理块，如果指令长度两个或多个字节，且指令本身可跨两个页面，源地址目标地址所涉及区域也跨两个页面，则要为每个进程分配6个物理块以装入6个页面</p>
+<h4 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h4><p>可采用固定和可变分配策略，置换时也可采取全局置换和局部置换，组合出下面三种适用的策略，全局置换指产生缺页都获得新物理块，如果没有空闲物理块，就从内存中选择一页调出，该页可能是系统中任何一个进程的，局部置换指换出的页面只能是该进程的页面，而不能是其他进程的</p>
+<ul>
+<li>固定分配局部置换：固定分配指为每个进程分配一组固定数目的物理块，在进程运行时间不再改变，局部置换指如果进程在运行中发现缺页，则只能从分配给该进程的n个页面中选一页换出，再调入一页，以保证分配给该进程内存空间不变，缺点是难以确定固定分配的页数，如果少，置换率高，如果多就浪费</li>
+<li>可变分配全局置换：可变分配指先为每个进程分配一定数目的物理块，在进程运行器件可根据情况适当增加或减少。可变分配全局置换这可能是最易于实现的一种物理块分配和置换策略，已用于若干个OS中。在采用这种策略时，凡产生缺页（中断）的进程，都将获得新的物理块，仅当空闲物理块队列中的物理块用完时，OS才能从内存中选择一页调出。被选择调出的页可能是系统中任何一个进程中的页，因此这个被选中的进程拥有的物理块会减少，这将导致其缺页率增加</li>
+<li>可变分配局部置换：当某进程发现缺页时，只允许从该进程在内存的页面中选择一页换出，这样不会影响到其它进程的运行，如果进程运行中频繁缺页中断，系统就为该进程分配若干附加的物理块，直到进程缺页率降到适当程度为止，反之如果缺页率比较低，就适当减少该进程物理块数</li>
+</ul>
+<h5 id="物理块分配算法"><a href="#物理块分配算法" class="headerlink" title="物理块分配算法"></a>物理块分配算法</h5><ul>
+<li>平均分配算法</li>
+<li>考虑优先权分配算法</li>
+</ul>
+<h3 id="页面调入策略"><a href="#页面调入策略" class="headerlink" title="页面调入策略"></a>页面调入策略</h3><p>问题：</p>
+<ul>
+<li>何时调入页面<ul>
+<li>预调页策略：将那些预计在不久后会被访问的页面预先调入内存</li>
+<li>请求调页策略：在进程需要访问页面不在内存的数据和程序时才提出请求，费系统开销</li>
+</ul>
+</li>
+<li>从何处调入页面<ul>
+<li>对换区，快</li>
+<li>文件区，慢，在缺少对换区空间时</li>
+<li>UNIX方式：未运行过的页面都从文件区调入，运行过但被换出的页面从对换区调入</li>
+</ul>
+</li>
+<li>页面调入过程：在上面地址变换机构的图的左半部分就是页面调入过程</li>
+</ul>
+<h3 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h3><h4 id="最佳置换算法OPT"><a href="#最佳置换算法OPT" class="headerlink" title="最佳置换算法OPT"></a>最佳置换算法OPT</h4><p>其所选择的被淘汰页面，将是以后永不使用的，或许是在<strong>最长时间内不再被访问的页面</strong>，因为人们目前无法预知，一个进程在内存的若干页面中哪一个是未来最长时间不再被访问的，因而该算法是无法实现的，用于评价其他算法</p>
+<p><img src="https://i.imgur.com/N2jBRuD.png" alt=""></p>
+<p>考虑先将7，0，1三个页面装入内存，当进程要访问页面2，就会产生缺页中断，这个时候就会把页面7淘汰，因为页面0是第5个被访问的页面，页面1是第14个被访问的页面，页面7是第18个被访问的页面，访问到页面3的时候，同理页面1被淘汰，以此类推</p>
+<h4 id="先进先出页面置换算法FIFO"><a href="#先进先出页面置换算法FIFO" class="headerlink" title="先进先出页面置换算法FIFO"></a>先进先出页面置换算法FIFO</h4><p>该算法总是淘汰最先进入内存的页面，即选择内存中驻留时间最久的页面淘汰，该算法实现只需要把 进程已调入内存的页面按先后次序链接成一个队列，并设置一个指针，称为替换指针，它总是指向最老的页面</p>
+<h4 id="最近最久未使用置换算法LRU"><a href="#最近最久未使用置换算法LRU" class="headerlink" title="最近最久未使用置换算法LRU"></a>最近最久未使用置换算法LRU</h4><p>根据页面调入内存后的使用情况做出决策，选择<strong>最近最久未使用的页面</strong>淘汰，每个页面一个访问字段，用来记录一个页面自上次被访问以来经历了多少时间t，当需要淘汰一个页面时，选择现有页面中t值最大的淘汰</p>
+<p>需要移位寄存器R=Rn-1Rn-2…R2R1R0的支持，当访问某物理块时，就将移位寄存器Rn-1置1，定时器每隔一段时间将寄存器右移一位，<strong>具有最小数值的寄存器所对应的页面就是最近最久未使用的页面</strong><br>或者需要栈的支持，当进程访问某页面，将该页面号从栈移出，压入栈顶，栈底就是最近最久未使用的页面号</p>
+<h4 id="Clock置换算法，页面缓冲算法等"><a href="#Clock置换算法，页面缓冲算法等" class="headerlink" title="Clock置换算法，页面缓冲算法等"></a>Clock置换算法，页面缓冲算法等</h4><p>考纲没说要考，再看下去我要挂科了</p>
+<h3 id="请求分页访问内存有效时间"><a href="#请求分页访问内存有效时间" class="headerlink" title="请求分页访问内存有效时间"></a>请求分页访问内存有效时间</h3><p>EAT=(1-p)<em>t+p</em>f<br>其中p为缺页率，t为内存访问时间，f为缺页中断时间</p>
+<h2 id="请求分段存储管理方式"><a href="#请求分段存储管理方式" class="headerlink" title="请求分段存储管理方式"></a>请求分段存储管理方式</h2><h3 id="请求分段的段表机制"><a href="#请求分段的段表机制" class="headerlink" title="请求分段的段表机制"></a>请求分段的段表机制</h3><p><img src="https://i.imgur.com/hp6kwQQ.png" alt=""></p>
+<ul>
+<li>存取方式：执行，只读，读/写</li>
+<li>存在位P：是否已调入内存</li>
+<li>增补位：本段在运行过程中是否做过动态增长</li>
+</ul>
+<h3 id="缺段中断机构"><a href="#缺段中断机构" class="headerlink" title="缺段中断机构"></a>缺段中断机构</h3><p><img src="https://i.imgur.com/DbhfGOj.png" alt=""></p>
+<p>与缺页中断的区别主要是有空区拼接，形成一个合适的空区</p>
+<h3 id="地址变换机构-1"><a href="#地址变换机构-1" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p><img src="https://i.imgur.com/6xN5oK5.png" alt=""></p>
+<h3 id="分段的共享与保护"><a href="#分段的共享与保护" class="headerlink" title="分段的共享与保护"></a>分段的共享与保护</h3><p>分段的优点是便于实现分段的共享与保护</p>
+<h4 id="共享段表"><a href="#共享段表" class="headerlink" title="共享段表"></a>共享段表</h4><p><img src="https://i.imgur.com/MHkyUus.png" alt=""></p>
+<h4 id="分段保护"><a href="#分段保护" class="headerlink" title="分段保护"></a>分段保护</h4><p>提供如下分段保护</p>
+<ul>
+<li>越界检查</li>
+<li>存取控制检查</li>
+<li>环保护机构</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2211,768 +3014,11 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/JavaScript08-DOM扩展/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/JavaScript08-DOM扩展/" itemprop="url">JavaScript08-DOM扩展</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-09T11:08:34+08:00">
-                2018-11-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/09/JavaScript08-DOM扩展/" class="leancloud_visitors" data-flag-title="JavaScript08-DOM扩展">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript08-DOM扩展"><a href="#JavaScript08-DOM扩展" class="headerlink" title="JavaScript08-DOM扩展"></a>JavaScript08-DOM扩展</h1><p>对JavaScript的两个主要扩展主要是Selectors API和HTML5</p>
-<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><p>根据CSS选择符选择与某个模式匹配的DOM元素。jQuery的核心就是通过CSS选择符查询DOM文档取得元素的引用，从而抛开了getElementById()和getElementsByTagName()，它有两个核心方法：querySelector()和querySelectorAll()，可以通过Document及Element类型的实例调用它们。</p>
-<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><p>它接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有就返回null。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得ID为myDiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"selected"的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"button"的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.body.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><p>querySelectorAll()方法接收的参数和上面一样，都是一个CSS选择符，但返回的是所有匹配的元素，是一个NodeList实例。</p>
-<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><p><strong>Chrome Version 70.0.3538.77不支持</strong></p>
-<p>Element Travelsal API为DOM元素添加以下5个属性，用于预防元素间空格造成的childNodes和firstChild等属性不一致的差异。</p>
-<ul>
-<li>childElementCount：返回子元素（不包括文本节点和注释）的个数</li>
-<li>firstElementChild：指向第一个元素</li>
-<li>lastElementChild：指向最后一个元素</li>
-<li>previousElementSibling：指向前一个同辈元素</li>
-<li>nextElementSibling：指向后一个同辈元素</li>
-</ul>
-<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName-方法"><a href="#getElementsByClassName-方法" class="headerlink" title="getElementsByClassName()方法"></a>getElementsByClassName()方法</h4><p>可以通过document对象以及所有HTML元素调用该方法，它接收一个参数，即一个包含一个或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
-<p>取得所有类中包含”username”和”current”的元素，类先后无所谓<br><code>var allCurrentUsernames = document.getElementByClassName(&quot;username current&quot;);</code></p>
-<p>取得ID为myDiv的元素中带有类名”selected”的所有元素<br><code>var selected = document.getElementById(&quot;myDiv&quot;).getElementsByClassName(&quot;selected&quot;);</code></p>
-<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><p>操作类名的时候，可以使用classList属性，classList属性是DOMTokenList的实例，他有一个表示自己包含多少元素的length属性，要取得每个元素，可以使用item()方法，也可以使用方括号。如下：</p>
-<p><code>&lt;div class=&quot;bd user disabled&quot;&gt;&lt;/div&gt;</code></p>
-<p>classList属性有三个值分别是bd user和disabled。</p>
-<p>这个属性还定义了下面方法</p>
-<ul>
-<li>add(value)：将给定的字符串值添加到列表中。</li>
-<li>contains(value)：表示列表中是否存在给定的值，存在返回true。</li>
-<li>remove(value)：删除value</li>
-<li>toggle(value)：如果列表中存在给定值，就删除它，如果不存在，就添加它。</li>
-</ul>
-<p>这样，就可以通过上述方法操控className了，如下</p>
-<p><code>div.classList.remove(&quot;user&quot;); // 删除user类</code></p>
-<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><p>HTML5添加了辅助管理DOM焦点的功能。document.activeElement属性始终会引用DOM中当前获得焦点的元素。<br>元素获得焦点方式有页面加载，用户输入和在代码中调用focus()方法</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"myButton"</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"focusMethod()"</span>&gt;</span>Click me to focus on the button!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./aha.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">focusMethod = <span class="function"><span class="keyword">function</span> <span class="title">getFocus</span>(<span class="params"></span>) </span>&#123;          </span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>).focus();</span><br><span class="line">    alert(<span class="built_in">document</span>.activeElement == <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>文档刚刚加载完，<code>document.activeElement</code>中保存的是<code>document.body</code>元素的引用。</p>
-<p><code>document.hasFocus()</code>用于确定文档是否获得了焦点。</p>
-<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><p>HTML5扩展了HTMLDocument，增加了新功能。</p>
-<h4 id="readyState属性"><a href="#readyState属性" class="headerlink" title="readyState属性"></a>readyState属性</h4><p>Document的readyState属性可能有两个值</p>
-<ul>
-<li>loading：正在加载文档</li>
-<li>complete：已经加载完文档</li>
-</ul>
-<p>基本用法如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">"complete"</span>) &#123;</span><br><span class="line">	<span class="comment">// 执行操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="head属性"><a href="#head属性" class="headerlink" title="head属性"></a>head属性</h4><p>作为对document.body引用文档&lt;body&gt;元素的补充，HTML5新增了document.head属性，引用文档的&lt;head&gt;元素。</p>
-<p><code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></p>
-<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><p>charset属性表示文档中实际使用的字符集，也可以用来指定新字符集，可以通过&lt;meta&gt;元素，响应头部或直接设置charset属性修改这个值。</p>
-<p><code>document.charset = &quot;UTF-8&quot;;</code></p>
-<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><p>HTML5可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或提供语义信息。<br>可以通过元素dataset属性访问这些自定义属性的值。dataset是一个DOMStringMap的实例，键为非标准属性名减去data-前缀（比如自定义属性是data-myname，映射对应属性就是myname）</p>
-<p><code>&lt;div id=&quot;myDiv&quot; data-appid=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appid;</span><br><span class="line"><span class="keyword">var</span> myName = div.dataset.myname;</span><br><span class="line"></span><br><span class="line">alert(appId);</span><br></pre></td></tr></table></figure>
-<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><p>在读模式下，innerHTML属性返回与调用元素的所有子节点（包括元素，注释和文本节点）对应的HTML标记。写模式下，innerHTML会根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</p>
-<p>写模式下，innerHTML的值会被解析为DOM子树，替换调用元素原来的所有子节点。因为它的值被认为是HTML，所以其中的所有标签都会按照浏览器处理HTML的标准方式转换为元素。<br>设置了innerHTML之后，可以像访问文档中其他节点一样访问新创建的节点。</p>
-<p>对下面代码的div块调用innerHTML，会返回其内部子元素（字符串形式）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a <span class="tag">&lt;<span class="name">strong</span>&gt;</span>paragraph<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> with a list following it.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>下面元素不支持innerHTML属性：&lt;col&gt;,&lt;colgroup&gt;,&lt;frameset&gt;,&lt;head&gt;,&lt;html&gt;,&lt;style&gt;,&lt;table&gt;,&lt;tbody&gt;,&lt;thead&gt;,&lt;tfoot&gt;和&lt;tr&gt;</p>
-<h4 id="outerHTML属性"><a href="#outerHTML属性" class="headerlink" title="outerHTML属性"></a>outerHTML属性</h4><p>在读模式下，outerHTML返回调用它的元素及所有子节点的HTML标签。写模式下，outerHTML会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</p>
-<p>对上面代码div块调用outerHTML，会返回上面相同的代码，包括div本身。</p>
-<p><code>div.outerHTML = &quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;&quot;;</code></p>
-<p>对上面代码的调用，等价于下面的代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">p.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"This is a paragraph."</span>));</span><br><span class="line">div.parentNode.replaceChild(p, div);</span><br></pre></td></tr></table></figure>
-<h4 id="insertAdjacentHTML-方法"><a href="#insertAdjacentHTML-方法" class="headerlink" title="insertAdjacentHTML()方法"></a>insertAdjacentHTML()方法</h4><p>它接收两个参数，插入位置和要插入的HTML文本。第一个参数必须是下列值之一：</p>
-<ul>
-<li>beforebegin：当前元素之前插入一个紧邻的同辈元素</li>
-<li>afterbegin：当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素</li>
-<li>beforeend：当前元素之下插入一个新的子元素或再最后一个子元素之后再插入一个新的子元素</li>
-<li>afterend：当前元素之后插入一个紧邻的同辈元素</li>
-</ul>
-<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><p>使用上面2个属性1个方法之前，最好先手工删除要被替换的元素的所有时间处理程序和JavaScript对象属性。</p>
-<p>对上面2个属性，最佳做法是单独构建一个字符串，然后一次性把结果字符串赋值给innerHTML（或outerHTML），这样可以减少访问属性的开支。</p>
-<h3 id="scrollIntoView-方法"><a href="#scrollIntoView-方法" class="headerlink" title="scrollIntoView()方法"></a>scrollIntoView()方法</h3><p>可以在所有HTML元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中，传入true作为参数，或者不传入参数，则窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。传入false，调用元素会尽可能出现在视口中（可能的话，调用元素底部会与视口底部平齐）</p>
-<p>Chrome不支持。。。</p>
-<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><p>这个属性是HTMLCollection的实例，只包含元素中同样还是元素的子节点。children属性与childNodes没什么区别</p>
-<h3 id="contains-方法"><a href="#contains-方法" class="headerlink" title="contains()方法"></a>contains()方法</h3><p>调用contains()方法的应该是祖先节点，这个方法接收一个参数，就是要检测的后代节点。如果被检测的节点是后代节点，就返回true。</p>
-<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><h4 id="innerText属性"><a href="#innerText属性" class="headerlink" title="innerText属性"></a>innerText属性</h4><p>通过这个属性可以操作元素中包含的所有文本内容，包括子文档树中的文本。在通过innerText读取值时，它会按照由浅入深顺序将子文档中所有文本拼接起来。在通过innerText写值时，结果会删除元素的所有子节点。插入包含相应文本值的文本节点。</p>
-<h4 id="outerText属性"><a href="#outerText属性" class="headerlink" title="outerText属性"></a>outerText属性</h4><p>作用范围扩大到了包含调用它的节点，写操作下会替换整个元素（包括子节点）。</p>
-<h3 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h3><ul>
-<li>scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，最终让它可见。如果参数为true，尽量让元素显示在视口中部。</li>
-<li>scrollByLines(lineCount)：元素内容滚动指定的行高，可以正或负值。</li>
-<li>scrollByPages(pageCount)：元素内容滚动指定的页面高度。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/01/JavaScript07-DOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/01/JavaScript07-DOM/" itemprop="url">JavaSCript07-DOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-01T11:08:34+08:00">
-                2018-11-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/01/JavaScript07-DOM/" class="leancloud_visitors" data-flag-title="JavaSCript07-DOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript07-DOM"><a href="#JavaScript07-DOM" class="headerlink" title="JavaScript07-DOM"></a>JavaScript07-DOM</h1><h2 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h2><p>DOM将任何HTML文档描绘成一个多层节点构成的结构。根节点为文档节点，文档节点下一般有一个子节点&lt;html&gt;元素，称为<strong>文档元素</strong>。</p>
-<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><p>DOM定义了一个Node接口，由DOM中所有节点类型实现。每个节点都有一个nodeType属性，用于表明节点的类型，该属性有如下12个数值常量</p>
-<ul>
-<li>Node.ELEMENT_NODE(1);</li>
-<li>Node.ATTRIBUTE_NODE(2);</li>
-<li>Node.TEXT_NODE(3);</li>
-<li>Node.CDATA_SECTION_NODE(4);</li>
-<li>Node.ENTITY_REFERENCE_NODE(5);</li>
-<li>Node.ENTITY_NODE(6);</li>
-<li>Node.PROCESSING_INSTRUCTION_NODE(7);</li>
-<li>Node.COMMENT_NODE(8);</li>
-<li>Node.DOCUMENT_NODE(9);</li>
-<li>Node.DOCUMENT_TYPE_NODE(10);</li>
-<li>Node.DOCUMENT_FRAGMENT_NODE(11);</li>
-<li>Node.NOTATION_NODE(12);</li>
-</ul>
-<h4 id="nodeName和nodeValue属性"><a href="#nodeName和nodeValue属性" class="headerlink" title="nodeName和nodeValue属性"></a>nodeName和nodeValue属性</h4><p>要了解节点具体信息，可以使用这两个属性。</p>
-<p><code>if (someNode.nodeType==1){ value = someNode.nodeName; }</code></p>
-<p>对于元素节点，nodeName始终保存元素标签名，nodeValue始终为null</p>
-<h4 id="节点关系"><a href="#节点关系" class="headerlink" title="节点关系"></a>节点关系</h4><p>每个节点都有一个childNodes属性，其中保存着一个NodeList对象，它是一个类数组对象，用于保存一组有序的节点，也有length属性，但<strong>它是基于DOM结构动态执行查询的结果，因此DOM结构的变化能够自动反映在NodeList对象中。</strong></p>
-<p>可以通过下面方法访问保存在NodeList中的节点</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstChild = someNode.childNodes[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> secondChild = someNode.childNodes.item(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> count = somNode.childNodes.length;</span><br></pre></td></tr></table></figure>
-<p>每个节点都有一个parentNode属性，该属性指向文档树中的父节点。包含在childNodes列表中的所有节点都具有相同的父节点。<br>此外，包含在childNodes列表中的每个节点相互之间都是同胞节点。使用列表中每个节点的previousSibling和nextSibling属性，可以访问同一列表的其他节点。<br>父节点与其第一个和最后一个子节点之间也有关系，使用父节点的firstChild和lastChild属性分别指向childNodes列表的抵押给和最后一个节点。</p>
-<p><img src="https://i.imgur.com/fYBkyX4.png" alt=""></p>
-<p>所有节点都有最后一个属性是ownerDocument，该属性指向表示整个文档的文档节点。</p>
-<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4><h5 id="appendChild"><a href="#appendChild" class="headerlink" title="appendChild()"></a>appendChild()</h5><p>可以通过appendChild()方法向childNodes列表末尾添加一个节点，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> returndNode = someNode.appendChild(newNode);</span><br></pre></td></tr></table></figure>
-<p>如果传入到appendChild()的节点已经是文档的一部分，那结果是将该节点从原来位置转移到新位置。DOM树可以看成是一系列指针连接起来的，但任何DOM节点不能同时出现在文档中的多个位置上。</p>
-<h5 id="insertBefore"><a href="#insertBefore" class="headerlink" title="insertBefore()"></a>insertBefore()</h5><p>可以使用insertBefore()方法把节点放在childNodes的某个特定位置上，接收两个参数，要插入的节点和作为参考的节点。插入节点后，被插入的节点会变成参考节点的前一个同胞节点，然后被该方法返回。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">returnedNode = someNode.insertBefore(newNode, <span class="literal">null</span>); <span class="comment">// 插入到最后</span></span><br></pre></td></tr></table></figure>
-<h5 id="replaceChild"><a href="#replaceChild" class="headerlink" title="replaceChild()"></a>replaceChild()</h5><p>它接收两个参数：要插入的节点和要替换的节点，然后把插入的节点返回。</p>
-<h5 id="removeChild"><a href="#removeChild" class="headerlink" title="removeChild()"></a>removeChild()</h5><p>接收一个参数：要移除的节点。然后该节点被该方法返回。</p>
-<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><p>#####cloneNode()</p>
-<p>cloneNode()接收一个布尔值参数，表示是否执行深复制。如果为true，则复制节点及其整个子节点树，如果为false，只复制节点本身。</p>
-<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><p>Document类型表示文档，在浏览器中，document对象是HTMLDocument的一个实例，表示整个HTML页面。而且document类型是window对象的一个属性，有下列特征：</p>
-<ul>
-<li>nodeType为9；</li>
-<li>nodeName为”#document”；</li>
-<li>nodeValue为null；</li>
-<li>parentNode为null；</li>
-<li>ownerDucument为null;</li>
-</ul>
-<h4 id="文档的子节点"><a href="#文档的子节点" class="headerlink" title="文档的子节点"></a>文档的子节点</h4><p>有一个documentElement属性，始终指向HTML页面的&lt;html&gt;元素，另外还有一个childNodes列表访问文档元素。</p>
-<p>document还提供了body，doctype属性访问对于的标签<br><code>var body = document.body;</code></p>
-<h4 id="文档信息"><a href="#文档信息" class="headerlink" title="文档信息"></a>文档信息</h4><h5 id="title"><a href="#title" class="headerlink" title="title"></a>title</h5><p>document对象作为HTMLDocument的一个实例，还有一些其他属性表现网页的一些信息，其中一个是title属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个修改title的例子</span></span><br><span class="line"><span class="keyword">var</span> originalTitle = <span class="built_in">document</span>.title;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.title = <span class="string">"New page title"</span>;</span><br></pre></td></tr></table></figure>
-<h5 id="URL-domain和referrer"><a href="#URL-domain和referrer" class="headerlink" title="URL,domain和referrer"></a>URL,domain和referrer</h5><p>URL属性包含页面完整的URL，domain属性只包含域名，而referrer属性中则保存链接到当前页面的那个页面的URL，这些属性都保存在HTTP头部，JS提供了这些属性访问它们。</p>
-<p>这三个属性中只有domain可以设置，但只能设置成URL包含的域，否则报错，这个属性可以用于跨页面通信，比如一个页面加载自<a href="http://www.wrox.com，包含一个内嵌框架加载自p2p.wrox.com。只需要把它们的document.domain都设置成wrox.com，就可以实现两者的通信。" target="_blank" rel="noopener">www.wrox.com，包含一个内嵌框架加载自p2p.wrox.com。只需要把它们的document.domain都设置成wrox.com，就可以实现两者的通信。</a><br>注意一旦设置为wrox.com后，就不能设置回p2p.wrox.com了</p>
-<h4 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h4><p>Document类型提供了两个方法查找元素，分别为getElementById()和getElementByTagName()。</p>
-<h5 id="getElementById"><a href="#getElementById" class="headerlink" title="getElementById()"></a>getElementById()</h5><p>getElementById()接收一个参数：要取得的元素的ID，区分大小写,返回该元素。</p>
-<p><code>&lt;div id=&quot;myDiv&quot;&gt;&lt;/div&gt;</code><br><code>var div = document.getElementById(&quot;myDiv&quot;);</code></p>
-<h5 id="getElementsByTagName"><a href="#getElementsByTagName" class="headerlink" title="getElementsByTagName()"></a>getElementsByTagName()</h5><p>getElementByTagName()接收一个参数：要取得的元素的标签名，返回的是包含零个或多个元素的NodeList。在HTML文档中，这个方法返回一个HTMLCollection对象，作为一个动态集合。</p>
-<p><code>var images = document.getElementsByTagName(&quot;img&quot;);</code></p>
-<p>可以通过<code>images.item(i).src</code>取得第i个images对象的src属性</p>
-<p>HTMLCollection对象还有一个方法nameItem()，可以通过元素的name特性取得集合中的项。</p>
-<p><code>&lt;img src=&quot;xxx.gif&quot; name=&quot;myImage&quot;&gt;</code><br><code>var myImage = images.namedItem(&quot;myImage&quot;);</code><br>这与直接用方括号语法等效<br><code>var myImage = images[&quot;myImage&quot;];</code></p>
-<p>要取得文档所有元素，可以传入参数”*”</p>
-<p><code>var allElements = document.getElementsByTagName(&quot;*&quot;);</code></p>
-<h5 id="getElementsByName"><a href="#getElementsByName" class="headerlink" title="getElementsByName()"></a>getElementsByName()</h5><p>这是只有HTMLDocument类型才有的方法，它返回带有给定name特性的所有元素。通常用于取得单选按钮，如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">legend</span>&gt;</span>Which color do you prefer?<span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"red"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorRed"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorRed"</span>&gt;</span>Red<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"green"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorGreen"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorGreen"</span>&gt;</span>Green<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">value</span>=<span class="string">"blue"</span> <span class="attr">name</span>=<span class="string">"color"</span> <span class="attr">id</span>=<span class="string">"colorBlue"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"colorBlue"</span>&gt;</span>Blue<span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这里，所有单选按钮的name属性都是”color”，但他们的ID可以不同，ID的作用是把&lt;label&gt;元素应用到每个单选按钮，而name特性则用以确保三个值中只有一个被发送到浏览器，这样就可以用下面代码取得所有单选按钮</p>
-<p><code>var radios = document.getElementByName(&quot;color&quot;);</code></p>
-<h4 id="特殊集合"><a href="#特殊集合" class="headerlink" title="特殊集合"></a>特殊集合</h4><p>document对象还有一些特殊的集合。这些集合都是HTMLCollection对象。</p>
-<ul>
-<li>document.anchors,包含文档中所有带name特性的&lt;a&gt;元素</li>
-<li>document.forms,包含所有&lt;form&gt;元素</li>
-<li>documents.images,包含所有&lt;img&gt;元素</li>
-<li>document.links,包含所有带href的&lt;a&gt;元素</li>
-</ul>
-<h4 id="文档写入"><a href="#文档写入" class="headerlink" title="文档写入"></a>文档写入</h4><p>document有四个方法可以写入:write(),writeln(),open()和close()</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">        <span class="built_in">document</span>.write((<span class="keyword">new</span> <span class="built_in">Date</span>()).toString());</span><br><span class="line">    &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h3><p>Element类型提供了对元素标签名，子节点以及特性的访问。有如下特征：</p>
-<ul>
-<li>nodeType值为1</li>
-<li>nodeName值为元素的标签名</li>
-<li>nodeValue值为null</li>
-<li>parentNode可能是Document或Element</li>
-<li>其子结点可能是Element,Text,Comment等等</li>
-</ul>
-<p>要访问元素的标签名，可以使用nodeName属性也可以使用tagName属性。</p>
-<h4 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h4><p>所有HTML元素都由HTMLElement类型及其子类型表示，HTMLElement类型直接继承Element并添加了一些属性</p>
-<ul>
-<li>id:元素在文档中的唯一标识符</li>
-<li>className:元素的class特性对应，即为元素指定的CSS类</li>
-</ul>
-<p>这些属性都是可修改的，直接复制即可</p>
-<h4 id="取得特性"><a href="#取得特性" class="headerlink" title="取得特性"></a>取得特性</h4><p>操作特性有三个方法，分别为getAttribute(),setAttribute()和removeAttribute()。这三个方法可以针对任何特性使用。</p>
-<p>getAttribute()也可以取得自定义特性（HTML5中，自定义特性应该加上data-前缀）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var div = document.getElementById(&quot;myDiv&quot;);</span><br><span class="line">alert(div.getAttribute(&quot;class&quot;));</span><br><span class="line">alert(div.getAttribute(&quot;data-yourData&quot;);</span><br></pre></td></tr></table></figure>
-<p>通常更建议直接使用对象的属性，只有在取得自定义特性的情况下才使用getAttribute()方法</p>
-<h4 id="设置特性"><a href="#设置特性" class="headerlink" title="设置特性"></a>设置特性</h4><p>setAttribute()接收两个参数：要设置的特性名和值，如果特性已经存在，他就会替换现有的值，若不存在，就创建该属性并设置值。</p>
-<h4 id="attributes属性"><a href="#attributes属性" class="headerlink" title="attributes属性"></a>attributes属性</h4><p>Element类型是使用attributes属性的唯一一个DOM节点类型。attributes属性中包含一个NamedNodeMap，与NodeList类似，也是一个动态集合。元素的每一个特性都由一个Attr节点表示，每个节点都保存在NamedNodeMap对象中。它有下列方法：</p>
-<ul>
-<li>getNamedItem(name):返回nodeName属性等于name的节点</li>
-<li>removeNamedItem(name):从列表中移除nodeName属性等于name的节点</li>
-<li>setNamedItem(node):向列表中添加节点，以节点的nodeName属性为索引</li>
-<li>item(pos):返回数字pos位置的节点</li>
-</ul>
-<p>attributes包含一系列节点，每个节点的nodeName是特性名，nodeValue为特性值</p>
-<p><code>var id = element.attributes.getNamedItem(&quot;id&quot;).nodeValue; // 取得element节点特性id的值</code></p>
-<p>等效于</p>
-<p><code>var id = element.attributes[&quot;id&quot;].nodeValue;</code></p>
-<h4 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h4><p>使用document.createElement()方法可以创建新元素</p>
-<p><code>var div = document.createElement(&quot;div&quot;);</code></p>
-<p>创建的同时也指定了其ownerDocument属性。</p>
-<p>新创建的元素还没加入文档树</p>
-<p><code>document.body.appendChild(div);</code></p>
-<p>可以把它加入到body元素中</p>
-<h4 id="元素的子节点"><a href="#元素的子节点" class="headerlink" title="元素的子节点"></a>元素的子节点</h4><p>childNodes属性包含了它的所有子节点，这些子节点可能是元素，文本节点，注释或处理指令，可以通过<code>element.childNodes[i].nodeType == 1</code>来作检测</p>
-<h3 id="Text类型"><a href="#Text类型" class="headerlink" title="Text类型"></a>Text类型</h3><p>文本节点可以是字面解释的纯文本内容，也可以是包含转义后的HTML字符，但不能包含HTML代码。</p>
-<ul>
-<li>nodeType=3</li>
-<li>nodeName=”#text”</li>
-<li>nodeValue为节点所包含的文本</li>
-<li>parentNode是一个Element</li>
-<li>不支持子节点</li>
-</ul>
-<p>可以通过nodeValue属性或data属性访问节点中包含的文本。<br>使用下列方法可以操作节点中的文本</p>
-<ul>
-<li>appendData(text)：把text添加到节点末尾</li>
-<li>deleteData(offset, count)：从offset指定的位置开始删除count个字符</li>
-<li>insertData(offset, text)：在offset指定位置插入text</li>
-<li>replaceData(offset, count, text)：用text替换从offset指定的位置开始到offset+count位置的文本</li>
-<li>splitText(offset)：从offset指定的位置将当前文本分开两个文本节点</li>
-<li>substringData(offset, count)：提取从offset指定的位置开始到offset+count为止处的字符串</li>
-</ul>
-<p><code>&lt;div&gt;Hello World!&lt;/div&gt;</code></p>
-<p>上述文本子节点可以通过<code>var textNode = div.firstChild</code>访问</p>
-<h4 id="创建文本节点"><a href="#创建文本节点" class="headerlink" title="创建文本节点"></a>创建文本节点</h4><p>可以使用document.createTextNode()创建新文本节点，接收一个参数：要插入节点的文本。</p>
-<p>一个创建新节点并插入创建文本的例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> element = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">element.className = <span class="string">"message"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> textNode = <span class="built_in">document</span>.createTextNode(<span class="string">"Hello World!"</span>);</span><br><span class="line">element.appendChild(textNode);</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(element);</span><br></pre></td></tr></table></figure>
-<p>一般情况下每个元素只有一个文本子节点，但也可以同时有多个文本子节点，当他们是相邻的同胞节点，那么这两个节点就会连起来显示，中间不会有空格。</p>
-<h4 id="规范化文本节点"><a href="#规范化文本节点" class="headerlink" title="规范化文本节点"></a>规范化文本节点</h4><p>DOM文档中存在相邻的同胞文本节点很容易导致混乱，因为分不清哪个文本节点表示哪个字符串。DOM文档中出现相邻文本节点的情况也不在少数，于是催生了一个能够将相邻文本节点合并的方法，为normalize()，它把所有文本节点合并成一个子节点，结果节点的nodeValue为合并前每个文本节点nodeValue拼接起来的值。</p>
-<h4 id="分割文本节点"><a href="#分割文本节点" class="headerlink" title="分割文本节点"></a>分割文本节点</h4><p>splitText()可以用于分割文本节点。</p>
-<h3 id="Comment类型"><a href="#Comment类型" class="headerlink" title="Comment类型"></a>Comment类型</h3><p>注释在DOM中是通过Comment类型来表示的，有如下特征：</p>
-<ul>
-<li>nodeType值为8</li>
-<li>nodeName值为”#comment”</li>
-<li>nodeValue值为注释的内容</li>
-<li>parentNode可能是Document或Element</li>
-<li>不支持子节点</li>
-</ul>
-<p>Comment类型与Text类型继承自相同的基类，因此它拥有除splitText()之外的所有字符串操作方法，也可以通过nodeValue或data属性来取得注释的内容。</p>
-<p>注释节点可以通过其父节点来访问</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"myDiv"</span>&gt;</span><span class="comment">&lt;!-- <span class="doctag">TODO:</span> do what? --&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> comment = div.firstChild;</span></span><br><span class="line"><span class="undefined">        alert(comment.data);</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>另外，使用createComment()方法也可以创建注释节点</p>
-<h3 id="CDATASection类型"><a href="#CDATASection类型" class="headerlink" title="CDATASection类型"></a>CDATASection类型</h3><p>只针对基于XML的文档，表示的CDATA区域</p>
-<h3 id="DocumentType类型"><a href="#DocumentType类型" class="headerlink" title="DocumentType类型"></a>DocumentType类型</h3><h3 id="DocumentFragment类型"><a href="#DocumentFragment类型" class="headerlink" title="DocumentFragment类型"></a>DocumentFragment类型</h3><h3 id="Attr类型"><a href="#Attr类型" class="headerlink" title="Attr类型"></a>Attr类型</h3><p>元素的特性在DOM中以Attr类型来表示，在所有浏览器中都可以访问Attr类型的构造函数和原型，有下列特征</p>
-<ul>
-<li>nodeType=2</li>
-<li>nodeName是特性的名称</li>
-<li>nodeValue是特性的值</li>
-<li>parentNode是null</li>
-<li>HTML中不支持子节点</li>
-</ul>
-<p>要取得特性，通常用getAttribute(),setAttribute()和removeAttribute()方法，很少直接引用特性节点</p>
-<p>Attr有三个属性，name，value和specified，其中specified是一个布尔值，用于区分特性是在代码中指定还是默认的。</p>
-<p>可以使用document.createAttribute()方法并传入特性的名称来创建新的特性节点。</p>
-<h2 id="DOM操作技术"><a href="#DOM操作技术" class="headerlink" title="DOM操作技术"></a>DOM操作技术</h2><h3 id="动态脚本"><a href="#动态脚本" class="headerlink" title="动态脚本"></a>动态脚本</h3><p>页面加载时不存在，但将来某一时刻通过修改DOM动态添加的脚本。</p>
-<h4 id="动态加载外部JS文件"><a href="#动态加载外部JS文件" class="headerlink" title="动态加载外部JS文件"></a>动态加载外部JS文件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">	script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">	script.src = url;</span><br><span class="line">	<span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="动态添加行内JS代码"><a href="#动态添加行内JS代码" class="headerlink" title="动态添加行内JS代码"></a>动态添加行内JS代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScriptString</span>(<span class="params">code</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type = <span class="string">"text/javascript"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        script.appendChild(<span class="built_in">document</span>.createTextNode(code));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">        script.text = code;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">loadScriptString(<span class="string">"function sayHi()&#123; alert('hi'); &#125;"</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="动态样式"><a href="#动态样式" class="headerlink" title="动态样式"></a>动态样式</h3><p>加载外部CSS</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStyles</span>(<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> link = <span class="built_in">document</span>.createElement(<span class="string">"link"</span>);</span><br><span class="line">    link.rel = <span class="string">"stylesheet"</span>;</span><br><span class="line">    link.type = <span class="string">"text/css"</span>;</span><br><span class="line">    link.href = url;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>];</span><br><span class="line">    head.appendChild(link);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="操作表格"><a href="#操作表格" class="headerlink" title="操作表格"></a>操作表格</h3><p>对于一个表格</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">width</span>=<span class="string">"100%"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 1,1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 2,1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 1,2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>Cell 2,2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>要创建的节点太多了，所以DOM为&lt;table&gt;,&lt;tbody&gt;和&lt;tr&gt;元素添加了一些属性和方法</p>
-<p>&lt;table&gt;的属性和方法如下：</p>
-<ul>
-<li>caption：保存对&lt;caption&gt;元素的指针</li>
-<li>tBodies：是一个&lt;tbody&gt;元素的HTMLCollection</li>
-<li>tFoot：保存对&lt;tfoot&gt;元素的指针</li>
-<li>tHead：保存对&lt;thead&gt;元素的指针</li>
-<li>rows：一个表格中所有行的HTMLCollection</li>
-<li>createTHead()：创建&lt;thead&gt;元素，将其放到表格中，返回引用</li>
-<li>createTFoot()：创建&lt;tfoot&gt;元素，同上</li>
-<li>createCaption()：创建&lt;caption&gt;元素，同上</li>
-<li>deleteCaption()</li>
-<li>deleteTHead()</li>
-<li>deleteCaption()</li>
-<li>deleteRow(pos)：删除指定位置的行</li>
-<li>insertRow(pos)：向rows集合中指定位置插入一行</li>
-</ul>
-<p>&lt;tbody&gt;元素的属性和方法如下：</p>
-<ul>
-<li>rows：保存&lt;tbody&gt;元素中行的HTMLCollection</li>
-<li>deleteRow(pos)：删除指定位置的行</li>
-<li>insertRow(pos)：向rows集合中的指定位置插入一行，返回对新插入行的引用</li>
-</ul>
-<p>&lt;tr&gt;元素添加的属性和方法如下：</p>
-<ul>
-<li>cells：保存&lt;tr&gt;元素中单元格的HTMLCollection</li>
-<li>deleteCell(pos)：删除指定位置的单元格</li>
-<li>insertCell(pos)：向cells集合中指定位置插入一个单元格，返回对新插入单元格的引用</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> table = <span class="built_in">document</span>.createElement(<span class="string">"table"</span>);</span><br><span class="line">table.border = <span class="number">1</span>;</span><br><span class="line">table.width = <span class="string">"100%"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> tbody = <span class="built_in">document</span>.createElement(<span class="string">"tbody"</span>);</span><br><span class="line">table.appendChild(tbody);</span><br><span class="line"></span><br><span class="line">tbody.insertRow(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 1,1"</span>));</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">1</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 2,1"</span>));</span><br><span class="line"></span><br><span class="line">tbody.insertRow(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 1,2"</span>));</span><br><span class="line">tbody.rows[<span class="number">1</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">1</span>].cells[<span class="number">1</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"Cell 2,2"</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(table);</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript05-函数表达式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/JavaScript05-函数表达式/" itemprop="url">JavaSCript05-函数表达式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/26/JavaScript05-函数表达式/" class="leancloud_visitors" data-flag-title="JavaSCript05-函数表达式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript函数表达式"><a href="#JavaScript函数表达式" class="headerlink" title="JavaScript函数表达式"></a>JavaScript函数表达式</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归更好的建议是使用<code>arguments.callee</code>，这是一个指向正在执行的函数的指针</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过<code>arguments.callee</code>代替函数名，可以确保无论怎么样调用函数都不会出问题。</p>
-<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是指有权访问另一个函数作用域中的变量的函数，创建闭包常见方法，就是在一个函数内部创建另一个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createComparisonFunction</span>(<span class="params">propertyName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">object1, object2</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value1 = object1[propertyName];</span><br><span class="line">        <span class="keyword">var</span> value2 = object2[propertyName];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (value1 &lt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value1 &gt; value2) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意到在内部函数访问了外部函数中的变量propertyName，即使这个内部函数被返回了，而且在其他地方被调用了，它仍然可以访问变量propertyName。</p>
-<p><strong>在另一个函数内部定义的函数会将包含函数的活动对象添加到它的作用域链中，这样，匿名函数就可以访问其包含函数中定义的所有变量。即使包含函数被执行完毕后，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。换句话说，包含函数返回后，其执行环境的作用域链会被销毁，但它的活动对象仍然会留在内存中，直到匿名函数被销毁。</strong></p>
-<!-- TODO: 闭包的作用域链.png -->
-<h3 id="闭包与变量"><a href="#闭包与变量" class="headerlink" title="闭包与变量"></a>闭包与变量</h3><p>上述作用域链的机制引出了一个副作用，就是<strong>闭包只能取得包含函数中任何变量的最后一个值，闭包所保存的是整个变量对象，而不是某个特殊的变量。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的结果是每个函数都返回10，因为每个匿名函数都引用了外部变量i，而i最后的值为10.</p>
-<p>可以作如下调整</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> num;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="关于this对象"><a href="#关于this对象" class="headerlink" title="关于this对象"></a>关于this对象</h3><p>闭包中使用this，需要注意<strong>匿名函数的执行环境具有全局性，因此其this对象通常指向window。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "The Window"</span></span><br></pre></td></tr></table></figure>
-<p>可以作如下修改</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"Thie Window"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> object = &#123;</span><br><span class="line">    name : <span class="string">"My Object"</span>,</span><br><span class="line"></span><br><span class="line">    getNameFunc : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> that.name;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">alert(object.getNameFunc()()); <span class="comment">// "My Object"</span></span><br></pre></td></tr></table></figure>
-<h2 id="模仿块级作用域"><a href="#模仿块级作用域" class="headerlink" title="模仿块级作用域"></a>模仿块级作用域</h2><p>在JavaScript中没有块级作用域的概念。这意味着在块语句中定义的变量，实际上是在包含语句中而非语句中创建的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outputNumbers</span>(<span class="params">count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        alert(i);</span><br><span class="line">    &#125;</span><br><span class="line">    alert(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这里，JS仍然可以访问i，而不同于Java，C++。</p>
-<p>可以用匿名函数来模仿块级作用域，语法如下<br><code>(function(){ //code here })();</code><br>以上代码定义并立即调用了一个匿名函数</p>
-<h2 id="私有变量"><a href="#私有变量" class="headerlink" title="私有变量"></a>私有变量</h2><p>JavaScript中没有私有成员的概念，所有对象属性都是公有的。不过有一个私有变量的概念，任何在函数中定义的变量，都可以认为是私有变量。<strong>如果在函数内部创建一个闭包，那么闭包通过自己的作用域链可以访问这些变量，利用这一点就可以创建用于访问私有变量的公有方法，这种方法成为特权方法。</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line">alert(person.getName());</span><br><span class="line">person.setName(<span class="string">"Greg"</span>);</span><br><span class="line">alert(person.getName());</span><br></pre></td></tr></table></figure>
-<h3 id="静态私有变量"><a href="#静态私有变量" class="headerlink" title="静态私有变量"></a>静态私有变量</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 私有变量和私有函数</span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数</span></span><br><span class="line">    Person = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Person.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    Person.prototype.setName = <span class="function"><span class="keyword">function</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">        name = value;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">"Nicholas"</span>);</span><br><span class="line"><span class="comment">// 测试代码</span></span><br></pre></td></tr></table></figure>
-<p>注意name是静态变量，是所有实例共享的。</p>
-<h3 id="模块模式"><a href="#模块模式" class="headerlink" title="模块模式"></a>模块模式</h3><p>模块模式用于只有一个实例的对象，JS用对象字面量方式创建单例对象，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> components.length;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">                components.push(component);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="增强的模块模式"><a href="#增强的模块模式" class="headerlink" title="增强的模块模式"></a>增强的模块模式</h3><p>增强模块模式适合单例必须是某种类型的实例，同时还必须添加某些属性和方法对其加以增强的情况</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> application = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//私有</span></span><br><span class="line">    <span class="keyword">var</span> components = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//初始化</span></span><br><span class="line">    components.push(<span class="keyword">new</span> BaseComponent());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建application的一个局部副本</span></span><br><span class="line">    <span class="keyword">var</span> app = <span class="keyword">new</span> BaseComponent();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//公有</span></span><br><span class="line">    app.getComponentCount : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> components.length;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    app.registerComponent : <span class="function"><span class="keyword">function</span>(<span class="params">component</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> component == <span class="string">"object"</span>) &#123;</span><br><span class="line">            components.push(component);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3024,7 +3070,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3046,7 +3092,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">131</span>
+                  <span class="site-state-item-count">142</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
