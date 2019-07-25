@@ -137,7 +137,7 @@
 <meta property="og:image" content="https://i.imgur.com/Lem8bhI.png">
 <meta property="og:image" content="https://i.imgur.com/ZbfltHM.png">
 <meta property="og:image" content="https://i.imgur.com/YyrGzlW.png">
-<meta property="og:updated_time" content="2019-07-17T13:44:08.911Z">
+<meta property="og:updated_time" content="2019-07-18T08:47:06.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL基本语句">
 <meta name="twitter:description" content="MySQL基本语句数据库相关创建数据库1CREATE DATABASE 数据库名; 删除数据库1DROP DATABASE 数据库名; 选择数据库1USE 数据库名; 数据类型数值类型  时间和日期类型  字符串类型  表相关创建表通用语法 1CREATE TABLE table_name (column_name column_type); 例子 1234567CREATE TABLE IF N">
@@ -520,6 +520,7 @@
 <h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><p>GROUP BY可以对结果集分组，分组列上可以使用COUNT，SUM，AVG等函数</p>
 <p>通用语法</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, <span class="keyword">function</span>(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name;</span><br></pre></td></tr></table></figure>
+<p>WHERE语句在GROUP BY语句之前；SQL会在分组之前计算WHERE语句。<br>HAVING语句在GROUP BY语句之后；SQL会在分组之后计算HAVING语句。</p>
 <h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><ul>
 <li>INNER JOIN：内连接，获取两个表中字段匹配关系的记录</li>
 <li>LEFT JOIN：左连接，获取左表所有记录，即使右表没有对应匹配的记录</li>
@@ -591,6 +592,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/18/Java并发基础2-同步/" rel="prev" title="Java并发基础2-同步">
+                Java并发基础2-同步 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -679,7 +684,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -701,7 +706,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">145</span>
+                  <span class="site-state-item-count">165</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
