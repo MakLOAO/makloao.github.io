@@ -369,6 +369,483 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/23/jQuery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/23/jQuery/" itemprop="url">jQuery</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T23:13:30+08:00">
+                2019-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/23/jQuery/" class="leancloud_visitors" data-flag-title="jQuery">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>jQuery是一个JS函数库，包含以下功能</p>
+<ul>
+<li>HTML元素选取和操作</li>
+<li>CSS操作</li>
+<li>HTML事件函数</li>
+<li>JS特效和动画</li>
+<li>HTML DOM遍历和修改</li>
+<li>AJAX</li>
+<li>Utilities</li>
+</ul>
+<p>CDN引用jQuery</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="jQuery语法"><a href="#jQuery语法" class="headerlink" title="jQuery语法"></a>jQuery语法</h3><p><code>$(selector).action()</code></p>
+<p>e.g.</p>
+<p><code>$(this).hide()</code>：隐藏当前元素<br><code>$(&quot;p&quot;).hide()</code>：隐藏所有<code>&lt;p&gt;</code>元素<br><code>$(&quot;p.test&quot;).hide()</code>：隐藏所有<code>&lt;p class=&quot;test&quot;&gt;</code>的元素<br><code>$(&quot;#test&quot;).hide()</code>：隐藏所有<code>id=&quot;test&quot;</code>元素</p>
+<h3 id="文档就绪事件"><a href="#文档就绪事件" class="headerlink" title="文档就绪事件"></a>文档就绪事件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 开始写 jQuery 代码...</span></span><br><span class="line"> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当文档完全加载完成后再运行jQuery代码，等价于下面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">// 开始写 jQuery 代码...</span></span><br><span class="line"> </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="jQuery选择器"><a href="#jQuery选择器" class="headerlink" title="jQuery选择器"></a>jQuery选择器</h3><ul>
+<li>元素选择器：<code>$(&quot;p&quot;)</code></li>
+<li>#id选择器：<code>$(&quot;#yourID&quot;)</code></li>
+<li>.class选择器：<code>$(&quot;.yourClass&quot;)</code></li>
+</ul>
+<h3 id="jQuery事件"><a href="#jQuery事件" class="headerlink" title="jQuery事件"></a>jQuery事件</h3><p><img src="https://i.imgur.com/Zyki9m7.png" alt=""></p>
+<p>e.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"p"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 动作触发后执行的代码!!</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="jQuery效果"><a href="#jQuery效果" class="headerlink" title="jQuery效果"></a>jQuery效果</h2><h3 id="隐藏-显示"><a href="#隐藏-显示" class="headerlink" title="隐藏/显示"></a>隐藏/显示</h3><h4 id="hide-amp-show"><a href="#hide-amp-show" class="headerlink" title="hide() &amp; show()"></a>hide() &amp; show()</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(selector).hide(speed,callback);</span><br><span class="line">$(selector).show(speed,callback);</span><br></pre></td></tr></table></figure>
+<p>两个参数都是可选的，第一个参数是隐藏/显示的速度，可以取”slow”,”fast”或毫秒，第二个参数callback是隐藏或显示完成后执行的函数名称</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">  $(<span class="string">"#hide"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">"p"</span>).hide();</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="javascript">  $(<span class="string">"#show"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">"p"</span>).show();</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>如果你点击“隐藏” 按钮，我将会消失。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"hide"</span>&gt;</span>隐藏<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"show"</span>&gt;</span>显示<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="toggle"><a href="#toggle" class="headerlink" title="toggle()"></a>toggle()</h4><p>toggle()方法显示被隐藏的元素，隐藏已显示的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(selector).toggle(speed,callback);</span><br></pre></td></tr></table></figure>
+<h3 id="淡入淡出"><a href="#淡入淡出" class="headerlink" title="淡入淡出"></a>淡入淡出</h3><p>fadeTo()允许渐变为给定的不透明度，参数speed为必需的，为渐变速度，参数opacity为透明度，也是必需的（值介于0与1之间）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(selector).fadeIn(speed,callback); <span class="comment">// 淡入已隐藏元素</span></span><br><span class="line">$(selector).fadeOut(speed,callback);</span><br><span class="line">$(selector).fadeToggle(speed,callback);</span><br><span class="line">$(selector).fadeTo(speed,opacity,callback);</span><br></pre></td></tr></table></figure>
+<h3 id="滑动"><a href="#滑动" class="headerlink" title="滑动"></a>滑动</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(selector).slideDown(speed,callback); <span class="comment">// 向下滑动</span></span><br><span class="line">$(selector).slideUp(speed,callback); <span class="comment">// 向上滑动</span></span><br><span class="line">$(selector).slideToggle(speed,callback);</span><br></pre></td></tr></table></figure>
+<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(selector).animate(&#123;params&#125;,speed,callback);</span><br></pre></td></tr></table></figure>
+<p>必需参数params定义形成动画的CSS属性</p>
+<p>e.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// div元素右移250像素</span></span><br><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"div"</span>).animate(&#123;<span class="attr">left</span>:<span class="string">'250px'</span>&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="停止动画"><a href="#停止动画" class="headerlink" title="停止动画"></a>停止动画</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(selector).stop(stopAll,goToEnd);</span><br></pre></td></tr></table></figure>
+<p>可选的 stopAll 参数规定是否应该清除动画队列。默认是 false，即仅停止活动的动画，允许任何排入队列的动画向后执行<br>可选的 goToEnd 参数规定是否立即完成当前动画。默认是 false</p>
+<h3 id="链"><a href="#链" class="headerlink" title="链"></a>链</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#p1"</span>).css(<span class="string">"color"</span>,<span class="string">"red"</span>)</span><br><span class="line">  .slideUp(<span class="number">2000</span>)</span><br><span class="line">  .slideDown(<span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
+<p>可以在相同元素依次运行多条jQuery命令</p>
+<h2 id="jQuery-HTML"><a href="#jQuery-HTML" class="headerlink" title="jQuery HTML"></a>jQuery HTML</h2><h3 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h3><h4 id="获得内容-text-html-val"><a href="#获得内容-text-html-val" class="headerlink" title="获得内容-text(),html(),val()"></a>获得内容-text(),html(),val()</h4><ul>
+<li>text()：设置或返回所选元素的文本内容</li>
+<li>html()：设置或返回所选元素的内容（包括HTML标记）</li>
+<li>val()：设置或返回表单字段的值</li>
+</ul>
+<h4 id="获取属性-attr"><a href="#获取属性-attr" class="headerlink" title="获取属性-attr()"></a>获取属性-attr()</h4><p>e.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取链接中href属性的值</span></span><br><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  alert($(<span class="string">"#yourAnchorID"</span>).attr(<span class="string">"href"</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><h4 id="设置内容"><a href="#设置内容" class="headerlink" title="设置内容"></a>设置内容</h4><p>同样使用text(),html(),val()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"#btn1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#test1"</span>).text(<span class="string">"Hello world!"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  $(<span class="string">"#btn2"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#test2"</span>).html(<span class="string">"&lt;b&gt;Hello world!&lt;/b&gt;"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">  $(<span class="string">"#btn3"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#一个输入框的ID"</span>).val(<span class="string">"改变的输入框内的值"</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以通过回调函数设置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#btn1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#test1"</span>).text(<span class="function"><span class="keyword">function</span>(<span class="params">i,origText</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"旧文本: "</span> + origText + <span class="string">" 新文本: Hello world! (index: "</span> + i + <span class="string">")"</span>; </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line">$(<span class="string">"#btn2"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#test2"</span>).html(<span class="function"><span class="keyword">function</span>(<span class="params">i,origText</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"旧 html: "</span> + origText + <span class="string">" 新 html: Hello &lt;b&gt;world!&lt;/b&gt; (index: "</span> + i + <span class="string">")"</span>; </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="设置属性"><a href="#设置属性" class="headerlink" title="设置属性"></a>设置属性</h4><p>同样通过attr()设置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">"#yourAnchorID"</span>).attr(&#123;</span><br><span class="line">        <span class="string">"href"</span> : <span class="string">"http://www.runoob.com/jquery"</span>,</span><br><span class="line">        <span class="string">"title"</span> : <span class="string">"jQuery 教程"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>attr同样有回调函数，回调函数有两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"#yourAnchorID"</span>).attr(<span class="string">"href"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">i,origValue</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> origValue + <span class="string">"/jquery"</span>; </span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><ul>
+<li>append() - 在被选元素的结尾插入内容</li>
+<li>prepend() - 在被选元素的开头插入内容</li>
+<li>after() - 在被选元素之后插入内容</li>
+<li>before() - 在被选元素之前插入内容</li>
+</ul>
+<p>e.g.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">  $(<span class="string">"#btn1"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">"p"</span>).append(<span class="string">" &lt;b&gt;追加文本&lt;/b&gt;。"</span>);</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">  $(<span class="string">"#btn2"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">"ol"</span>).append(<span class="string">"&lt;li&gt;追加列表项&lt;/li&gt;"</span>);</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>这是另外一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>List item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>List item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>List item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn1"</span>&gt;</span>添加文本<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn2"</span>&gt;</span>添加列表项<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><ul>
+<li>remove() - 删除被选元素（及其子元素）</li>
+<li>empty() - 从被选元素中删除子元素</li>
+</ul>
+<p>jQuery remove() 方法也可接受一个参数，允许您对被删元素进行过滤<br><code>$(&quot;p&quot;).remove(&quot;.italic&quot;);</code>删除 class=”italic” 的所有 </p><p> 元素</p>
+<h3 id="CSS类"><a href="#CSS类" class="headerlink" title="CSS类"></a>CSS类</h3><ul>
+<li>addClass() - 向被选元素添加一个或多个类</li>
+<li>removeClass() - 从被选元素删除一个或多个类</li>
+<li>toggleClass() - 对被选元素进行添加/删除类的切换操作</li>
+<li>css() - 设置或返回样式属性</li>
+</ul>
+<p>可以指定多个类，也可以选取多个元素，对多个类，用空格分隔，对多个元素，用逗号分隔</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多个元素</span></span><br><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"h1,h2,p"</span>).addClass(<span class="string">"blue"</span>);</span><br><span class="line">  $(<span class="string">"div"</span>).addClass(<span class="string">"important"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个类，分别为important和blue</span></span><br><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"body div:first"</span>).addClass(<span class="string">"important blue"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="css-方法"><a href="#css-方法" class="headerlink" title="css()方法"></a>css()方法</h3><p>设置或返回被选元素的一个或多个样式属性</p>
+<p>返回指定CSS属性的值<code>$(&quot;p&quot;).css(&quot;background-color&quot;);</code></p>
+<p>设置指定CSS属性的值<code>$(&quot;p&quot;).css(&quot;background-color&quot;,&quot;yellow&quot;);</code></p>
+<p>设置多个CSS属性<code>$(&quot;p&quot;).css({&quot;background-color&quot;:&quot;yellow&quot;,&quot;font-size&quot;:&quot;200%&quot;});</code></p>
+<h3 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h3><ul>
+<li>width()</li>
+<li>height()</li>
+<li>innerWidth()</li>
+<li>innerHeight()</li>
+<li>outerWidth()</li>
+<li>outerHeight()</li>
+</ul>
+<p><img src="https://i.imgur.com/IIX0Kev.png" alt=""></p>
+<h2 id="jQuery遍历"><a href="#jQuery遍历" class="headerlink" title="jQuery遍历"></a>jQuery遍历</h2><h3 id="祖先"><a href="#祖先" class="headerlink" title="祖先"></a>祖先</h3><ul>
+<li>parent()：直接父元素</li>
+<li>parents()：所有祖先元素，可以通过参数过滤</li>
+<li>parentsUntil()：通过参数选出参数与调用者之间的所有祖先元素</li>
+</ul>
+<h3 id="后代"><a href="#后代" class="headerlink" title="后代"></a>后代</h3><ul>
+<li>children()：直接子元素，同样可以过滤</li>
+<li>find()：一路向下直到最后一个后代，同样可以过滤</li>
+</ul>
+<h3 id="同胞"><a href="#同胞" class="headerlink" title="同胞"></a>同胞</h3><ul>
+<li>siblings()：所有同胞，可以过滤</li>
+<li>next()：下一个同胞，只会返回一个元素</li>
+<li>nextAll()：所有跟随的同胞</li>
+<li>nextUntil()：给定参数之间的所有跟随同胞</li>
+<li>prev()：同上，区别是往前找同胞</li>
+<li>prevAll()：同上，区别是往前找同胞</li>
+<li>prevUntil()：同上，区别是往前找同胞</li>
+</ul>
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><ul>
+<li>first()：返回被选元素的首个元素</li>
+<li>last()：返回被选元素的最后一个元素</li>
+<li>eq()：返回被选元素中带有指定索引号的元素</li>
+<li>filter()：匹配这个标准的元素会被返回</li>
+<li>not()：不匹配这个标准的元素会被返回</li>
+</ul>
+<p>e.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"div p"</span>).first();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"p"</span>).eq(<span class="number">1</span>); <span class="comment">// 注意索引号是从0开始，它选取第二个&lt;p&gt;元素</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  $(<span class="string">"p"</span>).filter(<span class="string">".url"</span>);</span><br><span class="line">&#125;); <span class="comment">// 返回带有类名"url"的所有&lt;p&gt;元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="jQuery-Ajax"><a href="#jQuery-Ajax" class="headerlink" title="jQuery Ajax"></a>jQuery Ajax</h2><h3 id="load-方法"><a href="#load-方法" class="headerlink" title="load()方法"></a>load()方法</h3><p>load方法从服务器加载数据，并把返回的数据放入被选元素中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(selector).load(URL,data,callback);</span><br></pre></td></tr></table></figure>
+<p>必需的 URL 参数规定您希望加载的 URL<br>可选的 data 参数规定与请求一同发送的查询字符串键/值对集合<br>可选的 callback 参数是 load() 方法完成后所执行的函数名称</p>
+<h3 id="get-和post-方法"><a href="#get-和post-方法" class="headerlink" title="get()和post()方法"></a>get()和post()方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.get(URL,callback);</span><br></pre></td></tr></table></figure>
+<p>必需的 URL 参数规定您希望请求的 URL<br>可选的 callback 参数是请求成功后所执行的函数名</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.post(URL,data,callback);</span><br></pre></td></tr></table></figure>
+<p>必需的 URL 参数规定您希望请求的 URL<br>可选的 data 参数规定连同请求发送的数据<br>可选的 callback 参数是请求成功后所执行的函数名</p>
+<p>e.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"button"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $.post(<span class="string">"/try/ajax/demo_test_post.php"</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        name:<span class="string">"菜鸟教程"</span>,</span><br><span class="line">        url:<span class="string">"http://www.runoob.com"</span></span><br><span class="line">    &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">data,status</span>)</span>&#123;</span><br><span class="line">        alert(<span class="string">"数据: \n"</span> + data + <span class="string">"\n状态: "</span> + status);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/23/排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/23/排序/" itemprop="url">排序</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-23T21:59:34+08:00">
+                2019-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/23/排序/" class="leancloud_visitors" data-flag-title="排序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><p>要求：<strong>熟记各个排序的排序过程，能写出代码</strong></p>
+<p><img src="https://i.imgur.com/LCoXgvI.png" alt=""></p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p><strong>插入排序的基本思想是每次将一个待排序的记录按其关键字大小插入到前面已排好序的子序列中，直到全部记录插入完成</strong></p>
+<p><strong>关键字：记录后移，相对有序</strong></p>
+<h3 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h3><p><strong>假定L[1]是一个已经排好序的子序列，将L[2]…L[n]依次插入到已排好序的子序列即可。需要进行的操作就是在已排序子序列有k-1个元素的时候(k初始为2)，判断L[k-1]&lt;L[k]，如果是，令L[0]=L[k]，从L[k-1]开始进行记录后移(L[k-1]移到L[k]，依次类推)，直到L[t]&gt;L[0]，就把L[0]插入到L[t+1]即可</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="comment">// i: 待排元素</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">if</span> (A[i].key &lt; A[i - <span class="number">1</span>].key) &#123;</span><br><span class="line">            A[<span class="number">0</span>] = A[i]; <span class="comment">// 0号哨兵</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; A[<span class="number">0</span>].key &lt; A[j].key; --j)</span><br><span class="line">                A[j + <span class="number">1</span>] = A[j]; <span class="comment">// 记录后移</span></span><br><span class="line">            A[j + <span class="number">1</span>] = A[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h4><p>平均时间复杂度O(n^2)，最差时间复杂度也是O(n^2)，最好是O(n)，稳定，适用于顺序存储和链式存储的线性表</p>
+<h3 id="折半插入排序"><a href="#折半插入排序" class="headerlink" title="折半插入排序"></a>折半插入排序</h3><p>对数据量比较少的排序表往往有更好的性能<br>它把比较和移动分离，先折半查找出元素待插入位置，然后统一地移动待插入位置之后的所有元素</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, low, high, mid;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        A[<span class="number">0</span>] = A[i]; <span class="comment">// 哨兵</span></span><br><span class="line">        low = <span class="number">1</span>; high = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">            mid = (low + high) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (A[mid].key &lt; A[<span class="number">0</span>].key)</span><br><span class="line">                low = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                high = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// high此时为有序序列中A[i].key的直接前驱</span></span><br><span class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= high + <span class="number">1</span>; j--) &#123;</span><br><span class="line">            A[j + <span class="number">1</span>] = A[j];</span><br><span class="line">        &#125;</span><br><span class="line">        A[high + <span class="number">1</span>] = A[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h4><p>时间复杂度仍为O(n^2)，稳定</p>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><p>基本思想：将待排序列表分割为若干形如L[i, i+d, i+2d, …, i+kd]的特殊子表，然后分别进行直接插入排序，当整个表中元素已”基本有序”的时候，再对全体记录进行一次直接插入排序</p>
+<p>实际上，希尔排序就是把<strong>每个间隔dk的序列进行插入排序</strong>，排完之后dk=dk/2，然后继续排序，依次循环直至dk=1时整个序列都是有序的</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> dk = n / <span class="number">2</span>; dk &gt;= <span class="number">1</span>; dk = dk / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = dk + <span class="number">1</span>; i &lt;= n; ++i) </span><br><span class="line">            <span class="keyword">if</span> (A[i].key &lt; A[i - dk].key) &#123; <span class="comment">// 判断是否需要把A[i]插入到有序增量子表</span></span><br><span class="line">                A[<span class="number">0</span>] = A[i]; <span class="comment">// 0号元素作暂存</span></span><br><span class="line">                <span class="keyword">for</span> (j = i - dk; j &gt; <span class="number">0</span> &amp;&amp; A[<span class="number">0</span>].key &lt; A[j].key; j -= dk)</span><br><span class="line">                    A[j + dk] = A[j];</span><br><span class="line">                A[j + dk] = A[<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-2"><a href="#评价-2" class="headerlink" title="评价"></a>评价</h4><p>算法平均时间复杂度O(n^1.3)，最坏情况是O(n^2)，是<strong>不稳定</strong>的排序算法</p>
+<h2 id="交换排序"><a href="#交换排序" class="headerlink" title="交换排序"></a>交换排序</h2><p><strong>交换是指根据序列中两个元素关键字的比较结果来对换这两个记录在序列中的位置</strong></p>
+<p><strong>关键字：最终位置</strong></p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>基本思想：假设待排序表长为n，从后往前（或从前往后）两两比较相邻元素的值，若为逆序（A[i-1]&gt;A[i]），则交换它们，直到序列比较完毕，称为一趟冒泡，结果是将最小的元素交换到待排序列的第一个位置（关键字最小的元素如气泡一样逐渐往上漂浮直到水面）。下一趟冒泡，最小元素就不再参与比较</p>
+<p>注意冒泡排序是与插入排序不同的，<strong>插入排序是把待排序的记录插入到前面的有序区，此时整个序列分为三部分：有序区，待插入记录，无序区，插排的操作是比较，记录后移，插入到对应位置</strong>，i为待插入记录，i之前为有序区，i之后为无序区<br>而<strong>冒泡排序则是把最小的元素往前冒泡（与前面的元素交换），直到冒泡到第0个位置，然后次小元素，以此类推</strong><br><strong>冒泡排序产生的有序子序列是全局有序的</strong>，对应所有元素的关键字的位置必定是全局位置，这一点与插入排序不同</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        Status flag = FALSE;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = n - <span class="number">1</span>; j &gt; i; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[j - <span class="number">1</span>].key &gt; A[j].key) &#123;</span><br><span class="line">                swap(A[j - <span class="number">1</span>], A[j]);</span><br><span class="line">                flag = TRUE;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag == FALSE) <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-3"><a href="#评价-3" class="headerlink" title="评价"></a>评价</h4><p>平均与最坏时间复杂度都是O(n^2)，空间复杂度是O(1)，是稳定的排序算法</p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>快排是对冒泡排序的一种改进，<strong>基本思想是基于分治法，在待排序表L[1..n]中任取一个元素pivot作为基准，通过一趟排序将待排序表划分为独立的两部分L[1…k-1]和L[k+1…n]，其中L[1…k-1]所有元素都小于pivot，L[k+1…n]所有元素都大于pivot，此时pivot就已经在其最终位置k上了，这个过程为一趟快速排序</strong>，而后分别递归地对两个子表重复上述过程，直到每部分内只有一个元素或空为止，即所有元素都放在其最终位置上</p>
+<p><strong>对快排过程的理解最好是基于思想看代码，它总有一个位置的元素是暂时无用的，例如排序开始前的low，第一次把A[low]=A[high]之后的high，第一次把A[high]=A[low]之后的low，直到high==low，此时low就是pivot的位置</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotpos = Partition(A, low, high);</span><br><span class="line">        QuickSort(A, low, pivotpos - <span class="number">1</span>);</span><br><span class="line">        QuickSort(A, pivotpos + <span class="number">1</span>, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType pivot = A[low];</span><br><span class="line">    <span class="keyword">while</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) --high;</span><br><span class="line">        A[low] = A[high];</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) ++low;</span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    A[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-4"><a href="#评价-4" class="headerlink" title="评价"></a>评价</h4><p>空间上平均O(log2(n))，最坏O(n)<br>时间上平均O(log2(n))，最坏情况O(n^2)</p>
+<p>是不稳定的排序算法</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序的基本思想是：每一趟（如第i躺）在后面n-i+1个待排序元素中选取关键字最小的元素，作为有序子序列的第i个元素，直到第n-1趟做完，待排序元素只剩下一个，就不用再选了</p>
+<h3 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        min = i;</span><br><span class="line">        <span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">            <span class="keyword">if</span> (A[j] &lt;A[min]) min = j;</span><br><span class="line">        <span class="keyword">if</span> (min != i) swap(A[i], A[min]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-5"><a href="#评价-5" class="headerlink" title="评价"></a>评价</h4><p>简单选择排序是不稳定的排序方法，空间效率O(1)，时间效率O(n^2)</p>
+<h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆是一棵<strong>完全二叉树</strong>，它的定义如下：<strong>n个关键字序列L[1…n]称为堆，当且仅当该序列满足：L[i]&lt;=L[2i]且L[i]&lt;=L[2i+1]（称为小顶堆）或L[i]&gt;=L[2i]且L[i]&gt;=L[2i+1]（称为大顶堆）</strong></p>
+<p>大顶堆最大元素在根结点，且对任一非根结点，它的值小于等于其双亲结点值，小顶堆则相反</p>
+<p>建立大顶堆算法如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BuildMaxHeap</span><span class="params">(ElemType A[], <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len/<span class="number">2</span>; i &gt; <span class="number">0</span>; i--) <span class="comment">// 从i=[n/2] -- 1反复调整堆</span></span><br><span class="line">        AdjustDown(A, i, len);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustDown</span><span class="params">(ElemType A[], <span class="keyword">int</span> k, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 下沉元素A[k]</span></span><br><span class="line">    A[<span class="number">0</span>] = A[k];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = k*<span class="number">2</span>; i &lt;= len; i *= <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; len &amp;&amp; A[i] &lt; A[i+<span class="number">1</span>]) <span class="comment">// 找出其较大的子结点，通过交换来向下筛</span></span><br><span class="line">            i++;</span><br><span class="line">        <span class="keyword">if</span> (A[<span class="number">0</span>] &gt;= A[i]) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            A[k] = A[i];</span><br><span class="line">            k = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    A[k] = A[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建堆的时间复杂度是O(n)，n为数组的长度</p>
+<p>下面是堆排序算法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">    BuildMaxHeap(A, len);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = len; i &gt; <span class="number">1</span>; i--) &#123;</span><br><span class="line">        swap(A[i], A[<span class="number">1</span>]);</span><br><span class="line">        AdjustDown(A, <span class="number">1</span>, i<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>堆也支持删除和插入操作，<strong>删除堆顶元素时，只需要把堆的最后一个元素与堆顶交换，然后对根结点下沉操作。插入元素时，先插入到堆的末端，然后对这个新结点上浮</strong>，上浮代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustUp</span><span class="params">(ElemType A[], <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// A[k]上浮</span></span><br><span class="line">    A[<span class="number">0</span>] = A[k];</span><br><span class="line">    <span class="keyword">int</span> i = k/<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">while</span> (i &gt; <span class="number">0</span> &amp;&amp; A[i] &lt; A[<span class="number">0</span>]) &#123;</span><br><span class="line">        A[k] = A[i];</span><br><span class="line">        k = i;</span><br><span class="line">        i = k/<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    A[k] = A[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="评价-6"><a href="#评价-6" class="headerlink" title="评价"></a>评价</h4><p>堆排序空间复杂度O(1)，<strong>时间复杂度O(nlogn)</strong>（建堆O(n)，每次调整O(h)），是<strong>不稳定</strong>的排序算法</p>
+<h2 id="归并排序和基数排序"><a href="#归并排序和基数排序" class="headerlink" title="归并排序和基数排序"></a>归并排序和基数排序</h2><h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>归并指将两个或以上的有序表组合成一个新的有序表</p>
+<p><img src="https://i.imgur.com/7UIOCjF.jpg" alt=""></p>
+<p>空间复杂度O(n)，因为新建了一个辅助数组<br>时间复杂度O(nlogn)</p>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><p><img src="https://i.imgur.com/yfckGjq.jpg" alt=""></p>
+<p>基数排序采用多关键字的思想，借助分配和收集两种操作对单逻辑关键字进行排序，分为最高位优先(MSD)排序和最低位优先(LSD)排序</p>
+<p>结点aj由d元组(kj(d-1),kj(d-2),…,kj(0))组成，r为基数（对于十进制，r=10）</p>
+<p>空间复杂度O(r)<br>时间复杂度O(d*(n+r))</p>
+<h2 id="内部排序的算法比较"><a href="#内部排序的算法比较" class="headerlink" title="内部排序的算法比较"></a>内部排序的算法比较</h2><p><img src="https://i.imgur.com/O5sPJrc.jpg" alt=""></p>
+<h2 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h2><p>将待排序记录存储在外存上，排序时再把数据一部分一部分调入内存进行排序，需要多次内存外存的交换，对外存文件的记录排序后结果仍然被放到原有文件中，这样的排序称为外部排序</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2003,495 +2480,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/MyBatis从入门到秃头/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/06/MyBatis从入门到秃头/" itemprop="url">MyBatis从入门到秃头</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-06T23:47:34+08:00">
-                2019-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/06/MyBatis从入门到秃头/" class="leancloud_visitors" data-flag-title="MyBatis从入门到秃头">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="MyBatis从入门到秃头"><a href="#MyBatis从入门到秃头" class="headerlink" title="MyBatis从入门到秃头"></a>MyBatis从入门到秃头</h1><p><a href="https://github.com/MakLOAO/mybatisdemo" target="_blank" rel="noopener">源码地址</a></p>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Ordinary Java Object,普通的 Java对象)映射成数据库中的记录</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>要使用MyBatis，只需将mybatis-x.x.x.jar文件置于classpath中即可。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>x.x.x<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="从0构造一个MyBatis应用"><a href="#从0构造一个MyBatis应用" class="headerlink" title="从0构造一个MyBatis应用"></a>从0构造一个MyBatis应用</h3><p>数据库MySQL账户root，密码123456<br>数据库名sampledb，表名person，有id，name，age三列</p>
-<p>步骤：</p>
-<ol>
-<li>配置mybatis的conf.xml：配置数据库信息和需要加载的映射文件</li>
-<li>配置映射文件xxMapper.xml，增删改查标签</li>
-<li>在测试类中拿到SqlSession对象进行数据操作，<code>session.selectOne(&quot;需要查询的namespace.id&quot;,&quot;SQL的参数值&quot;)</code></li>
-</ol>
-<p>目录树：</p>
-<p><img src="https://i.imgur.com/cKu6qK9.png" alt=""></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person.java</span></span><br><span class="line"><span class="keyword">package</span> com.mkl.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// constructor, setter and getter</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id + <span class="string">","</span> + <span class="keyword">this</span>.name + <span class="string">","</span> + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">        select * from person where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- conf.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">alias</span>=<span class="string">"Person"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span> /&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- ?useUnicode=true&amp;amp;characterEncoding=utf8为了支持中文数据的写入 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span></span></span><br><span class="line"><span class="tag">                          <span class="attr">value</span>=<span class="string">"jdbc:mysql://127.0.0.1:3306/sampledb?useUnicode=true&amp;amp;serverTimezone=UTC&amp;amp;characterEncoding=utf8"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"com/mkl/entity/personMapper.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TestMybatis.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMybatis</span> <span class="keyword">extends</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMybatis</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Reader reader = Resources.getResourceAsReader(<span class="string">"conf.xml"</span>);</span><br><span class="line">        SqlSessionFactory sessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(reader);</span><br><span class="line">        SqlSession session = sessionFactory.openSession();</span><br><span class="line">        <span class="comment">// 通过mapper的namespace+对应查询语句的id选择唯一的查询语句</span></span><br><span class="line">        String statement = <span class="string">"com.mkl.entity.personMapper.queryPersonById"</span>;</span><br><span class="line">        Person person = session.selectOne(statement, <span class="number">1</span>);</span><br><span class="line">        System.out.println(person);</span><br><span class="line">        session.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#environments" target="_blank" rel="noopener">环境配置的官方文档</a></p>
-<h3 id="多个environment"><a href="#多个environment" class="headerlink" title="多个environment"></a>多个environment</h3><ol>
-<li>可以在conf.xml中配置多个environment，比如开发环境的environment，测试环境的environment，部署上线环境的environment，每个environment的数据库参数都不一样</li>
-<li>除了在<code>&lt;environments&gt;</code>中设置default的environment，还可以<code>SqlSessionFactoryBuilder().build(reader, &quot;xxx&quot;)</code>，为build方法传入第二个字符串参数，指定选择哪个environment</li>
-</ol>
-<h3 id="数据源类型"><a href="#数据源类型" class="headerlink" title="数据源类型"></a>数据源类型</h3><p>通过<code>&lt;environment&gt;</code>的子标签<code>&lt;dataSource type=&quot;xxx&quot;&gt;</code>指定数据源，有如下几种：</p>
-<ul>
-<li>POOLED：MyBatis创建一个数据库连接池，连接池中的一个连接用于数据库操作，一旦操作完成，MyBatis将此连接返回给连接池，开发和测试的时候经常使用这种方式</li>
-<li>UNPOOLED：传统JDBC模式，为每一个数据库操作创建一个新的连接，在使用完毕后关闭它（创建Connection对象非常耗时）</li>
-<li>JNDI：从应用服务器（TOMCAT）中内置的配置好的数据源（数据库连接池）获取数据库连接，一般生产环境优先使用该方式</li>
-</ul>
-<h3 id="事务提交方式"><a href="#事务提交方式" class="headerlink" title="事务提交方式"></a>事务提交方式</h3><p>通过<code>&lt;environment&gt;</code>的子标签<code>&lt;transactionManager type=&quot;xxx&quot; /&gt;</code>指定事务提交方式，有如下两种</p>
-<ul>
-<li>JDBC：使用JDBC的事务管理机制,就是利用java.sql.Connection对象完成对事务的提交</li>
-<li>MANAGED：使用MANAGED的事务管理机制，这种机制mybatis自身不会去实现事务管理，而是让程序的容器（Spring）来实现对事务的管理</li>
-</ul>
-<h3 id="SQL语句传入多个参数"><a href="#SQL语句传入多个参数" class="headerlink" title="SQL语句传入多个参数"></a>SQL语句传入多个参数</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">        select * from person where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>如上mapper，MyBaits规定一个增删改查标签只能有一个resultType和一个parameterType，即只能有一个输入参数和一个输出参数，但逻辑上是可以传入多个参数的，如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"addPerson"</span> <span class="attr">parameterType</span>=<span class="string">"com.mkl.entity.Person"</span> &gt;</span></span><br><span class="line">    INSERT INTO person(id, name, age) VALUES (#&#123;id&#125;, #&#123;name&#125;, #&#123;age&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>只要传入对象参数即可，<strong>注意当参数类型是对象的时候，<code>#{xxx}</code>的xxx必须要和对象的属性名一致</strong></p>
-<p>然后构造一个Person对象，调用<code>session.insert(statement, person)</code>即可完成多参数的插入</p>
-<p>多个对象的返回时，<code>resultType</code>为这多个对象的共同类型，只要<code>session.selectList(statement);</code>即可返回包含这多个对象的List类型</p>
-<h2 id="XML映射文件"><a href="#XML映射文件" class="headerlink" title="XML映射文件"></a>XML映射文件</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html" target="_blank" rel="noopener">XML映射文件官方文档</a></p>
-<p>所有<code>&lt;insert&gt;</code>,<code>&lt;delete&gt;</code>,<code>&lt;update&gt;</code>,<code>&lt;select&gt;</code>的属性在官方文档都有详细说明，值得注意的是在<code>&lt;insert&gt;</code>和<code>&lt;update&gt;</code>中有<code>useGeneratedKeys</code>和<code>keyProperty</code>属性，它们的作用是：如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置到目标属性上就 OK 了。例如，如果 Author 表已经对 id 使用了自动生成的列类型，那么语句可以修改为：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertAuthor"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">  insert into Author (username,password,email,bio)</span><br><span class="line">  values (#&#123;username&#125;,#&#123;password&#125;,#&#123;email&#125;,#&#123;bio&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>不用自己显式的为id设置值</p>
-<p>在底层，SqlSession接口的insert和update和delete的实现其实都是调用了update方法，即调用java的insert和delete方法和调用update方法是一样的，只要确保XML的SQL语句不一样即可</p>
-<h2 id="XML配置优化"><a href="#XML配置优化" class="headerlink" title="XML配置优化"></a>XML配置优化</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#" target="_blank" rel="noopener">MyBatis配置官方文档</a></p>
-<p>MyBatis的配置文件包含各种设置和属性，如下：</p>
-<p><img src="https://i.imgur.com/oF2wASt.png" alt=""></p>
-<h3 id="配置config-properties文件"><a href="#配置config-properties文件" class="headerlink" title="配置config.properties文件"></a>配置config.properties文件</h3><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#properties" target="_blank" rel="noopener">properties属性</a></p>
-<p>新建.properties文件，如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># db.properties</span><br><span class="line">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/sampledb?useUnicode=true&amp;serverTimezone=UTC&amp;characterEncoding=utf8</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br></pre></td></tr></table></figure>
-<p>然后修改MyBatis的配置文件conf.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ?useUnicode=true&amp;amp;characterEncoding=utf8为了支持中文数据的写入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="指定别名"><a href="#指定别名" class="headerlink" title="指定别名"></a>指定别名</h3><p>类型别名是为 Java 类型设置一个短的名字。 它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余，可以使得 mapper 映射文件中的 <code>resultType</code> 和 <code>parameterType</code> 直接饮用别名即可</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Author"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Author"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Blog"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Blog"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Comment"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Comment"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Post"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Post"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Section"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Section"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Tag"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Tag"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>也可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean，比如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"domain.blog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>每一个在包 domain.blog 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 比如 domain.blog.Author 的别名为 author；若有注解，则别名为其注解值。见下面的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Alias</span>(<span class="string">"author"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Author</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>它内建了部分Java类型的别名，详情可以去看官方文档</p>
-<h2 id="解决属性名和列名不一致"><a href="#解决属性名和列名不一致" class="headerlink" title="解决属性名和列名不一致"></a>解决属性名和列名不一致</h2><p>当Java实体类的属性名和数据库中列名不一致的时候，查询时MyBatis无法通过setter为实体类对应属性设置值，同理，增改时无法通过getter获取实体类属性对数据库修改列，解决方法如下：</p>
-<ol>
-<li>为列名指定别名，别名和Java实体类属性名一致</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 为name设置别名name1，name1和实体类的属性名一致，name为数据库的列名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span>&gt;</span></span><br><span class="line">        SELECT id, name name1, age FROM person WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>设置结果映射类型</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">        SELECT id, name, age FROM person WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- resultMap的type与实体类名一致 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- column为数据库列名，property为实体类属性名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"PersonMap"</span> <span class="attr">type</span>=<span class="string">"Person"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">property</span>=<span class="string">"name1"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>注意自增主键要设置的标签不是<code>&lt;result&gt;</code>而是<code>&lt;id&gt;</code>，<a href="http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html#Result_Maps" target="_blank" rel="noopener">官方文档在这里</a></p>
-<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><h3 id="MySQL的分页"><a href="#MySQL的分页" class="headerlink" title="MySQL的分页"></a>MySQL的分页</h3><p>语句<code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</code></p>
-<p>LIMIT子句可以被用于指定 SELECT 语句返回的记录数。需注意以下几点：</p>
-<ol>
-<li>第一个参数指定第一个返回记录行的偏移量</li>
-<li>第二个参数指定返回记录行的最大数目</li>
-<li>如果只给定一个参数：它表示返回最大的记录行数目</li>
-<li>第二个参数为 -1 表示检索从某一个偏移量到记录集的结束所有的记录行</li>
-<li>初始记录行的偏移量是0(而不是 1)</li>
-</ol>
-<p>需要注意分页的原理是先读取前面offset条记录，然后抛弃前offset条，读后面rows条想要的，所以offset越大，偏移量越大，性能就越差<br>因此需要对分页进行优化，但这个内容不是MyBatis相关的，所以就不赘述，<a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html" target="_blank" rel="noopener">分页优化看这篇就够了</a></p>
-<h3 id="MyBatis分页的Map实现"><a href="#MyBatis分页的Map实现" class="headerlink" title="MyBatis分页的Map实现"></a>MyBatis分页的Map实现</h3><p>首先在mapper中设置分页的SQL语句，注意指定的parameterType为Map，然后传入SQL参数为<code>#{startIndex}, #{pageSize}</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPage"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM person LIMIT #&#123;startIndex&#125;, #&#123;pageSize&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后为session.selectList(statement, map)传入statement，map，代码如下（该代码应该在Dao中）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">queryPersonPage</span><span class="params">(<span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession(); <span class="comment">// 获取SqlSession</span></span><br><span class="line">    String statement = <span class="string">"com.mkl.entity.personMapper.queryPage"</span>;</span><br><span class="line">    Map&lt;String ,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line">    <span class="comment">// startIndex为MySQL分页的偏移量，currentPage是第几页，pageSize是每页的size，也是返回记录行的最大数目</span></span><br><span class="line">    <span class="comment">// 基于它们的定义，currentPage和startIndex的关系为startIndex = (currentPage - 1) * pageSize</span></span><br><span class="line">    map.put(<span class="string">"startIndex"</span>, (currentPage - <span class="number">1</span>) * pageSize);</span><br><span class="line">    map.put(<span class="string">"pageSize"</span>, pageSize);</span><br><span class="line">	List&lt;Person&gt; list = session.selectList(statement, map);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="MyBatis分页的RowBounds实现"><a href="#MyBatis分页的RowBounds实现" class="headerlink" title="MyBatis分页的RowBounds实现"></a>MyBatis分页的RowBounds实现</h3><p>用RowBounds实现，不需要在SQL语句中加入<code>LIMIT</code>关键字，也不需要指定Map，只需要在<code>session.selectList(statement, null, rowBounds)</code>传入rowBounds参数即可，RowBounds对象构造器有两个参数，第一个是offset，第二个是limit</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPageRowBounds"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM person</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">queryPersonPageRowBounds</span><span class="params">(<span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession(); <span class="comment">// 获取SqlSession</span></span><br><span class="line">    String statement = <span class="string">"com.mkl.entity.personMapper.queryPageRowBounds"</span>;</span><br><span class="line">    RowBounds rowBounds = <span class="keyword">new</span> RowBounds((currentPage - <span class="number">1</span>) * pageSize, pageSize);</span><br><span class="line">    List&lt;Person&gt; list = session.selectList(statement, <span class="keyword">null</span>, rowBounds);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="使用注解实现MyBatis"><a href="#使用注解实现MyBatis" class="headerlink" title="使用注解实现MyBatis"></a>使用注解实现MyBatis</h2><p>使用MyBtis可以在接口中通过注解实现SQL语句，这样不需要mapper.xml的编写<br>面向接口编程好处：扩展性好，分层开发中，上层不用管具体的实现，大家都遵循共同的标准，规范性更好</p>
-<p>编写Dao接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Select</span>(<span class="string">"SELECT * FROM person"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">getList</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Insert</span>(<span class="string">"INSERT INTO user(id, name, age) VALUES(#&#123;id&#125;, #&#123;name&#125;, #&#123;age&#125;)"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Person person)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在核心配置文件中导入该接口，注意使用的是全限定类名，而不是路径</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.mkl.dao.PersonDao"</span></span></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
-<p>然后在service层得到SqlSession对象，通过<code>session.getMapper(PersonDao.class)</code>得到动态代理的PersonDao接口的实现类，通过调用其方法即可执行对应SQL语句</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SqlSession session = MyBatisUtil.getSqlSession();</span><br><span class="line">    PersonDao personDao = session.getMapper(PersonDao.class);</span><br><span class="line">    List&lt;Person&gt; list = personDao.getList();</span><br><span class="line">    <span class="keyword">for</span> (Person person : list)</span><br><span class="line">        System.out.println(person);</span><br></pre></td></tr></table></figure>
-<h2 id="关于联表的处理"><a href="#关于联表的处理" class="headerlink" title="关于联表的处理"></a>关于联表的处理</h2><h3 id="多对一关系的处理"><a href="#多对一关系的处理" class="headerlink" title="多对一关系的处理"></a>多对一关系的处理</h3><p>一个老师对应多个学生，就学生而言（学生设置外键为老师的id），对象关系是多对一的<br>多对一有两种处理方式，一种是按结果嵌套处理，另一种是按查询嵌套处理</p>
-<p>假设我们有一个学生表，有id，name，外键tid为老师的id，一个老师表，有id，name，下面以这个假设为前提就这两种处理进行说明</p>
-<h4 id="按结果嵌套处理"><a href="#按结果嵌套处理" class="headerlink" title="按结果嵌套处理"></a>按结果嵌套处理</h4><ol>
-<li>首先创建实体类，Student有属性id,name和teacher，Teacher有属性id和name</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">// 这是多对一关系的实现，多个学生对应一个老师</span></span><br><span class="line">    <span class="keyword">private</span> Teacher teacher;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter setter constructor toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>创建StudentMapper.xml，SQL语句使用常用的联表查询语句，注意返回类型是一个resultMap，在该resultMap里有一个<code>&lt;association&gt;</code>子标签关联实体类Teacher，如下：</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.StudentMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher"</span>&gt;</span></span><br><span class="line">       SELECT s.id sid, s.name sname, s.tid stid, t.id tid, t.name tname FROM student s, teacher t WHERE s.tid = t.id</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher"</span> <span class="attr">type</span>=<span class="string">"Student"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"sid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- javaType要用全类名或别名，表示对应实体类，property表示Student类的teacher属性 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>在MyBatis核心配置文件配置好mapper，然后获取SqlSession查询即可</li>
-</ol>
-<h4 id="按查询嵌套处理"><a href="#按查询嵌套处理" class="headerlink" title="按查询嵌套处理"></a>按查询嵌套处理</h4><p>按查询嵌套处理的过程是先查询Student表，再通过Student表的tid查询Teacher表，把对应Teacher实例赋值给Student的teacher属性</p>
-<ol>
-<li>实体类同上，StudentMapper.xml先查询Student表</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.StudentMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents2"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher2"</span>&gt;</span></span><br><span class="line">        SELECT * FROM student</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher2"</span> <span class="attr">type</span>=<span class="string">"Student"</span> &gt;</span></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        按查询嵌套的处理过程是：先SELECT从数据库取出数据，然后对应id和name赋值给Student实体类</span></span><br><span class="line"><span class="comment">        tid则作为参数传给&lt;association&gt;的select属性的SQL语句，查出对应的Teacher赋值给Student的teacher属性</span></span><br><span class="line"><span class="comment">         --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> <span class="attr">select</span>=<span class="string">"com.mkl.entity.TeacherMapper.getTeachers"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>TeacherMapper.xml如下</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.TeacherMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeachers"</span> <span class="attr">resultType</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">        SELECT * FROM teacher WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="一对多关系的处理"><a href="#一对多关系的处理" class="headerlink" title="一对多关系的处理"></a>一对多关系的处理</h3><p>一个老师对应多个学生，就老师而言（实体类不是学生设置老师，而是老师设置学生的集合），数据关系是一对多的</p>
-<p>不需要修改数据库表，修改实体类，把学生类的tid删除，然后为老师类添加List属性，List指定类型为Student</p>
-<h4 id="按结果嵌套处理-1"><a href="#按结果嵌套处理-1" class="headerlink" title="按结果嵌套处理"></a>按结果嵌套处理</h4><ol>
-<li><p>修改相关实体类，修改规则如上所述</p>
-</li>
-<li><p>mapper编写如下，按id联表查找出一个老师的所有列，返回类型是resultMap，Map指定collection子标签，collection指定studentList的实体类属性</p>
-</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent"</span>&gt;</span></span><br><span class="line">    SELECT s.id sid, s.name sname, s.tid stid, t.id tid, t.name tname FROM student s, teacher t WHERE s.tid = t.id AND t.id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"studentList"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"sid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>获取SqlSession对象，selectOne方法获取Teacher对象即可</li>
-</ol>
-<h4 id="按查询嵌套处理-1"><a href="#按查询嵌套处理-1" class="headerlink" title="按查询嵌套处理"></a>按查询嵌套处理</h4><ol>
-<li>TeacherMapper</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">先找出Teacher表，然后根据Teacher表的id作为参数传入到select子标签去查Student表</span></span><br><span class="line"><span class="comment">根据select标签的SQL语句，Student表找出tid为id的Student，并构造出Student对象作为studentList的一份子</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher2"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent2"</span> &gt;</span></span><br><span class="line">    SELECT * FROM teacher WHERE id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent2"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"studentList"</span> <span class="attr">javaType</span>=<span class="string">"ArrayList"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">select</span>=<span class="string">"com.mkl.entity.StudentMapper.getStudents3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>StudentMapper</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getStudents3&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    SELECT * FROM student WHERE tid = #&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>获取SqlSession对象，selectOne方法获取Teacher对象即可</li>
-</ol>
-<h2 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h2><p>动态SQL指根据不同的查询条件生成不同的SQL语句<br>MyBatis使用了OGNL表达式来实现动态SQL<br><a href="http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html" target="_blank" rel="noopener">官方文档简单又易懂，稍微看一下就会用了呢</a><br><strong>需要注意的是，对动态SQL传入参数的时候，要用Map来传参</strong>，例子如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentsByObject"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">    SELECT * FROM student</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"id != null"</span>&gt;</span></span><br><span class="line">            id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"name != null"</span>&gt;</span></span><br><span class="line">            AND name = #&#123;name&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StudentDao的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">getStudentsByObject</span><span class="params">(Map&lt;String, Object&gt; map)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession();</span><br><span class="line">    String statement;</span><br><span class="line">    statement = <span class="string">"com.mkl.entity.StudentMapper.getStudentsByObject"</span>;</span><br><span class="line">    List&lt;Student&gt; students = session.selectList(statement, map);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> students;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 单元测试的代码</span></span><br><span class="line">StudentDao studentDao = <span class="keyword">new</span> StudentDao();</span><br><span class="line"><span class="comment">// List&lt;Student&gt; students = studentDao.getStudentsByObject(null);</span></span><br><span class="line">Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line"><span class="comment">// 使用map传参</span></span><br><span class="line">map.put(<span class="string">"name"</span>, <span class="string">"zs"</span>);</span><br><span class="line">List&lt;Student&gt; students = studentDao.getStudentsByObject(map);</span><br><span class="line"><span class="keyword">for</span> (Student s : students)</span><br><span class="line">    System.out.println(s);</span><br></pre></td></tr></table></figure>
-<h2 id="Mybatis注意事项"><a href="#Mybatis注意事项" class="headerlink" title="Mybatis注意事项"></a>Mybatis注意事项</h2><ol>
-<li>Maven导入包</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>配置conf.xml时要指定serverTimezone，分隔符要用<code>&amp;amp;</code>代替</li>
-<li>IDEA查找接口实现类的时候，可以通过在接口的源码界面ctrl+alt+B查找</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Java异常/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/22/Java异常/" itemprop="url">Java异常</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:48:30+08:00">
-                2019-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/22/Java异常/" class="leancloud_visitors" data-flag-title="Java异常">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h1><h2 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h2><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
-<p>Error类层次结构描述了Java运行时系统的内部错误和资源耗尽错误，应用程序不应该抛出这种类型的对象</p>
-<p>Exception分为RuntimeException和IOException，RuntimeException是程序错误导致的异常，有下面几种情况</p>
-<ul>
-<li>错误的类型转换</li>
-<li>数组访问越界</li>
-<li>访问null指针</li>
-</ul>
-<p>不是派生于RuntimeException的有</p>
-<ul>
-<li>试图在文件尾部后读取数据</li>
-<li>试图打开一个不存在的文件</li>
-<li>试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在</li>
-</ul>
-<p><strong>Java语言规范将派生于Error或RuntimeException类的所有异常称为非受查异常，所有其他异常称为受查异常，一个方法必须声明所有可能抛出的受查异常，非受查异常要么不可控制（Error），要么避免发生（RuntimeException）</strong>，编译器会核实是否为所有受查异常提供了异常处理器</p>
-<h2 id="声明受查异常"><a href="#声明受查异常" class="headerlink" title="声明受查异常"></a>声明受查异常</h2><p>e.g.<code>public FileInputStream(String name) throws FileNotFoundException</code>，这个声明表示这个构造器将根据给定的String参数产生一个FileInputStream对象，但也有可能抛出一个FileNotFoundException异常，抛出异常后，运行时系统就会开始搜索异常处理器，以便知道如何处理FileNotFoundException对象</p>
-<p>自己编写方法时，不必将所有可能抛出的异常都进行声明，什么时候需要在方法中throws子句声明异常，什么异常必须使用throws子句声明，需要记住遇到下面4种情况应该抛出异常</p>
-<ul>
-<li>调用一个抛出受查异常的方法，例如FileInputStream构造器</li>
-<li>程序运行过程中发现错误，并且利用throw语句抛出一个受查异常（注意不是方法中的throws）</li>
-<li>程序出现错误，比如a[-1]=0会抛出一个ArrayIndexOutOfBoundsException这样的非受查异常</li>
-<li>Java虚拟机和运行时库出现的内部错误</li>
-</ul>
-<p>不需要声明Java的内部错误，即Error继承的错误，也不应该声明RuntimeException继承的非受查异常</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAnimation</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">drawImage</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="keyword">throws</span> ArrayIndexOutOfBoundsException <span class="comment">// bad style</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h2><p>语法：<code>throw new IOException();</code></p>
-<p>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readData</span><span class="params">(Scanner in)</span> <span class="keyword">throws</span> EOFException </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">while</span>(...) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!in.hasNext()) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> EOFException();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>步骤：</p>
-<ul>
-<li>找到一个合适的异常类</li>
-<li>创建这个类的一个对象</li>
-<li>throw语句抛出</li>
-</ul>
-<h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><p>try，catch，finally语句，不多说了</p>
-<p>如果超类没有抛出任何异常，子类也不能抛出任何异常，如果编写一个覆盖超类的方法，这个方法又没有抛出异常，就必须捕获方法代码种出现的每一个受查异常</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2548,7 +2536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2570,7 +2558,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">175</span>
+                  <span class="site-state-item-count">180</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

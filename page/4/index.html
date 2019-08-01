@@ -369,6 +369,495 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/MyBatis从入门到秃头/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/06/MyBatis从入门到秃头/" itemprop="url">MyBatis从入门到秃头</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-06T23:47:34+08:00">
+                2019-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/06/MyBatis从入门到秃头/" class="leancloud_visitors" data-flag-title="MyBatis从入门到秃头">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="MyBatis从入门到秃头"><a href="#MyBatis从入门到秃头" class="headerlink" title="MyBatis从入门到秃头"></a>MyBatis从入门到秃头</h1><p><a href="https://github.com/MakLOAO/mybatisdemo" target="_blank" rel="noopener">源码地址</a></p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Ordinary Java Object,普通的 Java对象)映射成数据库中的记录</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>要使用MyBatis，只需将mybatis-x.x.x.jar文件置于classpath中即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>x.x.x<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="从0构造一个MyBatis应用"><a href="#从0构造一个MyBatis应用" class="headerlink" title="从0构造一个MyBatis应用"></a>从0构造一个MyBatis应用</h3><p>数据库MySQL账户root，密码123456<br>数据库名sampledb，表名person，有id，name，age三列</p>
+<p>步骤：</p>
+<ol>
+<li>配置mybatis的conf.xml：配置数据库信息和需要加载的映射文件</li>
+<li>配置映射文件xxMapper.xml，增删改查标签</li>
+<li>在测试类中拿到SqlSession对象进行数据操作，<code>session.selectOne(&quot;需要查询的namespace.id&quot;,&quot;SQL的参数值&quot;)</code></li>
+</ol>
+<p>目录树：</p>
+<p><img src="https://i.imgur.com/cKu6qK9.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Person.java</span></span><br><span class="line"><span class="keyword">package</span> com.mkl.entity;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// constructor, setter and getter</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.id + <span class="string">","</span> + <span class="keyword">this</span>.name + <span class="string">","</span> + <span class="keyword">this</span>.age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">        select * from person where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- conf.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE configuration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">type</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">alias</span>=<span class="string">"Person"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span> /&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- ?useUnicode=true&amp;amp;characterEncoding=utf8为了支持中文数据的写入 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span></span></span><br><span class="line"><span class="tag">                          <span class="attr">value</span>=<span class="string">"jdbc:mysql://127.0.0.1:3306/sampledb?useUnicode=true&amp;amp;serverTimezone=UTC&amp;amp;characterEncoding=utf8"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"root"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"123456"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">"com/mkl/entity/personMapper.xml"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TestMybatis.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestMybatis</span> <span class="keyword">extends</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMybatis</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Reader reader = Resources.getResourceAsReader(<span class="string">"conf.xml"</span>);</span><br><span class="line">        SqlSessionFactory sessionFactory = <span class="keyword">new</span> SqlSessionFactoryBuilder().build(reader);</span><br><span class="line">        SqlSession session = sessionFactory.openSession();</span><br><span class="line">        <span class="comment">// 通过mapper的namespace+对应查询语句的id选择唯一的查询语句</span></span><br><span class="line">        String statement = <span class="string">"com.mkl.entity.personMapper.queryPersonById"</span>;</span><br><span class="line">        Person person = session.selectOne(statement, <span class="number">1</span>);</span><br><span class="line">        System.out.println(person);</span><br><span class="line">        session.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件解析"><a href="#配置文件解析" class="headerlink" title="配置文件解析"></a>配置文件解析</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#environments" target="_blank" rel="noopener">环境配置的官方文档</a></p>
+<h3 id="多个environment"><a href="#多个environment" class="headerlink" title="多个environment"></a>多个environment</h3><ol>
+<li>可以在conf.xml中配置多个environment，比如开发环境的environment，测试环境的environment，部署上线环境的environment，每个environment的数据库参数都不一样</li>
+<li>除了在<code>&lt;environments&gt;</code>中设置default的environment，还可以<code>SqlSessionFactoryBuilder().build(reader, &quot;xxx&quot;)</code>，为build方法传入第二个字符串参数，指定选择哪个environment</li>
+</ol>
+<h3 id="数据源类型"><a href="#数据源类型" class="headerlink" title="数据源类型"></a>数据源类型</h3><p>通过<code>&lt;environment&gt;</code>的子标签<code>&lt;dataSource type=&quot;xxx&quot;&gt;</code>指定数据源，有如下几种：</p>
+<ul>
+<li>POOLED：MyBatis创建一个数据库连接池，连接池中的一个连接用于数据库操作，一旦操作完成，MyBatis将此连接返回给连接池，开发和测试的时候经常使用这种方式</li>
+<li>UNPOOLED：传统JDBC模式，为每一个数据库操作创建一个新的连接，在使用完毕后关闭它（创建Connection对象非常耗时）</li>
+<li>JNDI：从应用服务器（TOMCAT）中内置的配置好的数据源（数据库连接池）获取数据库连接，一般生产环境优先使用该方式</li>
+</ul>
+<h3 id="事务提交方式"><a href="#事务提交方式" class="headerlink" title="事务提交方式"></a>事务提交方式</h3><p>通过<code>&lt;environment&gt;</code>的子标签<code>&lt;transactionManager type=&quot;xxx&quot; /&gt;</code>指定事务提交方式，有如下两种</p>
+<ul>
+<li>JDBC：使用JDBC的事务管理机制,就是利用java.sql.Connection对象完成对事务的提交</li>
+<li>MANAGED：使用MANAGED的事务管理机制，这种机制mybatis自身不会去实现事务管理，而是让程序的容器（Spring）来实现对事务的管理</li>
+</ul>
+<h3 id="SQL语句传入多个参数"><a href="#SQL语句传入多个参数" class="headerlink" title="SQL语句传入多个参数"></a>SQL语句传入多个参数</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE mapper</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span> <span class="attr">parameterType</span>=<span class="string">"int"</span>&gt;</span></span><br><span class="line">        select * from person where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上mapper，MyBaits规定一个增删改查标签只能有一个resultType和一个parameterType，即只能有一个输入参数和一个输出参数，但逻辑上是可以传入多个参数的，如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- personMapper.xml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"addPerson"</span> <span class="attr">parameterType</span>=<span class="string">"com.mkl.entity.Person"</span> &gt;</span></span><br><span class="line">    INSERT INTO person(id, name, age) VALUES (#&#123;id&#125;, #&#123;name&#125;, #&#123;age&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>只要传入对象参数即可，<strong>注意当参数类型是对象的时候，<code>#{xxx}</code>的xxx必须要和对象的属性名一致</strong></p>
+<p>然后构造一个Person对象，调用<code>session.insert(statement, person)</code>即可完成多参数的插入</p>
+<p>多个对象的返回时，<code>resultType</code>为这多个对象的共同类型，只要<code>session.selectList(statement);</code>即可返回包含这多个对象的List类型</p>
+<h2 id="XML映射文件"><a href="#XML映射文件" class="headerlink" title="XML映射文件"></a>XML映射文件</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html" target="_blank" rel="noopener">XML映射文件官方文档</a></p>
+<p>所有<code>&lt;insert&gt;</code>,<code>&lt;delete&gt;</code>,<code>&lt;update&gt;</code>,<code>&lt;select&gt;</code>的属性在官方文档都有详细说明，值得注意的是在<code>&lt;insert&gt;</code>和<code>&lt;update&gt;</code>中有<code>useGeneratedKeys</code>和<code>keyProperty</code>属性，它们的作用是：如果你的数据库支持自动生成主键的字段（比如 MySQL 和 SQL Server），那么你可以设置 useGeneratedKeys=”true”，然后再把 keyProperty 设置到目标属性上就 OK 了。例如，如果 Author 表已经对 id 使用了自动生成的列类型，那么语句可以修改为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertAuthor"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">keyProperty</span>=<span class="string">"id"</span>&gt;</span></span><br><span class="line">  insert into Author (username,password,email,bio)</span><br><span class="line">  values (#&#123;username&#125;,#&#123;password&#125;,#&#123;email&#125;,#&#123;bio&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不用自己显式的为id设置值</p>
+<p>在底层，SqlSession接口的insert和update和delete的实现其实都是调用了update方法，即调用java的insert和delete方法和调用update方法是一样的，只要确保XML的SQL语句不一样即可</p>
+<h2 id="XML配置优化"><a href="#XML配置优化" class="headerlink" title="XML配置优化"></a>XML配置优化</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#" target="_blank" rel="noopener">MyBatis配置官方文档</a></p>
+<p>MyBatis的配置文件包含各种设置和属性，如下：</p>
+<p><img src="https://i.imgur.com/oF2wASt.png" alt=""></p>
+<h3 id="配置config-properties文件"><a href="#配置config-properties文件" class="headerlink" title="配置config.properties文件"></a>配置config.properties文件</h3><p><a href="http://www.mybatis.org/mybatis-3/zh/configuration.html#properties" target="_blank" rel="noopener">properties属性</a></p>
+<p>新建.properties文件，如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># db.properties</span><br><span class="line">jdbc.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://127.0.0.1:3306/sampledb?useUnicode=true&amp;serverTimezone=UTC&amp;characterEncoding=utf8</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=123456</span><br></pre></td></tr></table></figure>
+<p>然后修改MyBatis的配置文件conf.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">"development"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">"JDBC"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">"POOLED"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driver"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- ?useUnicode=true&amp;amp;characterEncoding=utf8为了支持中文数据的写入 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span></span></span><br><span class="line"><span class="tag">                  <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="指定别名"><a href="#指定别名" class="headerlink" title="指定别名"></a>指定别名</h3><p>类型别名是为 Java 类型设置一个短的名字。 它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余，可以使得 mapper 映射文件中的 <code>resultType</code> 和 <code>parameterType</code> 直接饮用别名即可</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Author"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Author"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Blog"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Blog"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Comment"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Comment"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Post"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Post"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Section"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Section"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">typeAlias</span> <span class="attr">alias</span>=<span class="string">"Tag"</span> <span class="attr">type</span>=<span class="string">"domain.blog.Tag"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>也可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean，比如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">"domain.blog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>每一个在包 domain.blog 中的 Java Bean，在没有注解的情况下，会使用 Bean 的首字母小写的非限定类名来作为它的别名。 比如 domain.blog.Author 的别名为 author；若有注解，则别名为其注解值。见下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Alias</span>(<span class="string">"author"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Author</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它内建了部分Java类型的别名，详情可以去看官方文档</p>
+<h2 id="解决属性名和列名不一致"><a href="#解决属性名和列名不一致" class="headerlink" title="解决属性名和列名不一致"></a>解决属性名和列名不一致</h2><p>当Java实体类的属性名和数据库中列名不一致的时候，查询时MyBatis无法通过setter为实体类对应属性设置值，同理，增改时无法通过getter获取实体类属性对数据库修改列，解决方法如下：</p>
+<ol>
+<li>为列名指定别名，别名和Java实体类属性名一致</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 为name设置别名name1，name1和实体类的属性名一致，name为数据库的列名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultType</span>=<span class="string">"com.mkl.entity.Person"</span>&gt;</span></span><br><span class="line">        SELECT id, name name1, age FROM person WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>设置结果映射类型</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.personMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPersonById"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">        SELECT id, name, age FROM person WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- resultMap的type与实体类名一致 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- column为数据库列名，property为实体类属性名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"PersonMap"</span> <span class="attr">type</span>=<span class="string">"Person"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"name"</span> <span class="attr">property</span>=<span class="string">"name1"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"age"</span> <span class="attr">property</span>=<span class="string">"age"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意自增主键要设置的标签不是<code>&lt;result&gt;</code>而是<code>&lt;id&gt;</code>，<a href="http://www.mybatis.org/mybatis-3/zh/sqlmap-xml.html#Result_Maps" target="_blank" rel="noopener">官方文档在这里</a></p>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><h3 id="MySQL的分页"><a href="#MySQL的分页" class="headerlink" title="MySQL的分页"></a>MySQL的分页</h3><p>语句<code>SELECT * FROM table LIMIT [offset,] rows | rows OFFSET offset</code></p>
+<p>LIMIT子句可以被用于指定 SELECT 语句返回的记录数。需注意以下几点：</p>
+<ol>
+<li>第一个参数指定第一个返回记录行的偏移量</li>
+<li>第二个参数指定返回记录行的最大数目</li>
+<li>如果只给定一个参数：它表示返回最大的记录行数目</li>
+<li>第二个参数为 -1 表示检索从某一个偏移量到记录集的结束所有的记录行</li>
+<li>初始记录行的偏移量是0(而不是 1)</li>
+</ol>
+<p>需要注意分页的原理是先读取前面offset条记录，然后抛弃前offset条，读后面rows条想要的，所以offset越大，偏移量越大，性能就越差<br>因此需要对分页进行优化，但这个内容不是MyBatis相关的，所以就不赘述，<a href="https://www.w3cschool.cn/mysql/mysql-xilz2oy6.html" target="_blank" rel="noopener">分页优化看这篇就够了</a></p>
+<h3 id="MyBatis分页的Map实现"><a href="#MyBatis分页的Map实现" class="headerlink" title="MyBatis分页的Map实现"></a>MyBatis分页的Map实现</h3><p>首先在mapper中设置分页的SQL语句，注意指定的parameterType为Map，然后传入SQL参数为<code>#{startIndex}, #{pageSize}</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPage"</span> <span class="attr">parameterType</span>=<span class="string">"Map"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM person LIMIT #&#123;startIndex&#125;, #&#123;pageSize&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后为session.selectList(statement, map)传入statement，map，代码如下（该代码应该在Dao中）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">queryPersonPage</span><span class="params">(<span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession(); <span class="comment">// 获取SqlSession</span></span><br><span class="line">    String statement = <span class="string">"com.mkl.entity.personMapper.queryPage"</span>;</span><br><span class="line">    Map&lt;String ,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line">    <span class="comment">// startIndex为MySQL分页的偏移量，currentPage是第几页，pageSize是每页的size，也是返回记录行的最大数目</span></span><br><span class="line">    <span class="comment">// 基于它们的定义，currentPage和startIndex的关系为startIndex = (currentPage - 1) * pageSize</span></span><br><span class="line">    map.put(<span class="string">"startIndex"</span>, (currentPage - <span class="number">1</span>) * pageSize);</span><br><span class="line">    map.put(<span class="string">"pageSize"</span>, pageSize);</span><br><span class="line">	List&lt;Person&gt; list = session.selectList(statement, map);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="MyBatis分页的RowBounds实现"><a href="#MyBatis分页的RowBounds实现" class="headerlink" title="MyBatis分页的RowBounds实现"></a>MyBatis分页的RowBounds实现</h3><p>用RowBounds实现，不需要在SQL语句中加入<code>LIMIT</code>关键字，也不需要指定Map，只需要在<code>session.selectList(statement, null, rowBounds)</code>传入rowBounds参数即可，RowBounds对象构造器有两个参数，第一个是offset，第二个是limit</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryPageRowBounds"</span> <span class="attr">resultMap</span>=<span class="string">"PersonMap"</span>&gt;</span></span><br><span class="line">    SELECT * FROM person</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">queryPersonPageRowBounds</span><span class="params">(<span class="keyword">int</span> currentPage, <span class="keyword">int</span> pageSize)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession(); <span class="comment">// 获取SqlSession</span></span><br><span class="line">    String statement = <span class="string">"com.mkl.entity.personMapper.queryPageRowBounds"</span>;</span><br><span class="line">    RowBounds rowBounds = <span class="keyword">new</span> RowBounds((currentPage - <span class="number">1</span>) * pageSize, pageSize);</span><br><span class="line">    List&lt;Person&gt; list = session.selectList(statement, <span class="keyword">null</span>, rowBounds);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用注解实现MyBatis"><a href="#使用注解实现MyBatis" class="headerlink" title="使用注解实现MyBatis"></a>使用注解实现MyBatis</h2><p>使用MyBtis可以在接口中通过注解实现SQL语句，这样不需要mapper.xml的编写<br>面向接口编程好处：扩展性好，分层开发中，上层不用管具体的实现，大家都遵循共同的标准，规范性更好</p>
+<p>编写Dao接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PersonDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Select</span>(<span class="string">"SELECT * FROM person"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Person&gt; <span class="title">getList</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Insert</span>(<span class="string">"INSERT INTO user(id, name, age) VALUES(#&#123;id&#125;, #&#123;name&#125;, #&#123;age&#125;)"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Person person)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在核心配置文件中导入该接口，注意使用的是全限定类名，而不是路径</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">class</span>=<span class="string">"com.mkl.dao.PersonDao"</span></span></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在service层得到SqlSession对象，通过<code>session.getMapper(PersonDao.class)</code>得到动态代理的PersonDao接口的实现类，通过调用其方法即可执行对应SQL语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SqlSession session = MyBatisUtil.getSqlSession();</span><br><span class="line">    PersonDao personDao = session.getMapper(PersonDao.class);</span><br><span class="line">    List&lt;Person&gt; list = personDao.getList();</span><br><span class="line">    <span class="keyword">for</span> (Person person : list)</span><br><span class="line">        System.out.println(person);</span><br></pre></td></tr></table></figure>
+<h2 id="关于联表的处理"><a href="#关于联表的处理" class="headerlink" title="关于联表的处理"></a>关于联表的处理</h2><h3 id="多对一关系的处理"><a href="#多对一关系的处理" class="headerlink" title="多对一关系的处理"></a>多对一关系的处理</h3><p>一个老师对应多个学生，就学生而言（学生设置外键为老师的id），对象关系是多对一的<br>多对一有两种处理方式，一种是按结果嵌套处理，另一种是按查询嵌套处理</p>
+<p>假设我们有一个学生表，有id，name，外键tid为老师的id，一个老师表，有id，name，下面以这个假设为前提就这两种处理进行说明</p>
+<h4 id="按结果嵌套处理"><a href="#按结果嵌套处理" class="headerlink" title="按结果嵌套处理"></a>按结果嵌套处理</h4><ol>
+<li>首先创建实体类，Student有属性id,name和teacher，Teacher有属性id和name</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="comment">// 这是多对一关系的实现，多个学生对应一个老师</span></span><br><span class="line">    <span class="keyword">private</span> Teacher teacher;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter setter constructor toString</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>创建StudentMapper.xml，SQL语句使用常用的联表查询语句，注意返回类型是一个resultMap，在该resultMap里有一个<code>&lt;association&gt;</code>子标签关联实体类Teacher，如下：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.StudentMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher"</span>&gt;</span></span><br><span class="line">       SELECT s.id sid, s.name sname, s.tid stid, t.id tid, t.name tname FROM student s, teacher t WHERE s.tid = t.id</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher"</span> <span class="attr">type</span>=<span class="string">"Student"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"sid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- javaType要用全类名或别名，表示对应实体类，property表示Student类的teacher属性 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在MyBatis核心配置文件配置好mapper，然后获取SqlSession查询即可</li>
+</ol>
+<h4 id="按查询嵌套处理"><a href="#按查询嵌套处理" class="headerlink" title="按查询嵌套处理"></a>按查询嵌套处理</h4><p>按查询嵌套处理的过程是先查询Student表，再通过Student表的tid查询Teacher表，把对应Teacher实例赋值给Student的teacher属性</p>
+<ol>
+<li>实体类同上，StudentMapper.xml先查询Student表</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.StudentMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents2"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher2"</span>&gt;</span></span><br><span class="line">        SELECT * FROM student</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher2"</span> <span class="attr">type</span>=<span class="string">"Student"</span> &gt;</span></span><br><span class="line">        <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        按查询嵌套的处理过程是：先SELECT从数据库取出数据，然后对应id和name赋值给Student实体类</span></span><br><span class="line"><span class="comment">        tid则作为参数传给&lt;association&gt;的select属性的SQL语句，查出对应的Teacher赋值给Student的teacher属性</span></span><br><span class="line"><span class="comment">         --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> <span class="attr">select</span>=<span class="string">"com.mkl.entity.TeacherMapper.getTeachers"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>TeacherMapper.xml如下</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.mkl.entity.TeacherMapper"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeachers"</span> <span class="attr">resultType</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">        SELECT * FROM teacher WHERE id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="一对多关系的处理"><a href="#一对多关系的处理" class="headerlink" title="一对多关系的处理"></a>一对多关系的处理</h3><p>一个老师对应多个学生，就老师而言（实体类不是学生设置老师，而是老师设置学生的集合），数据关系是一对多的</p>
+<p>不需要修改数据库表，修改实体类，把学生类的tid删除，然后为老师类添加List属性，List指定类型为Student</p>
+<h4 id="按结果嵌套处理-1"><a href="#按结果嵌套处理-1" class="headerlink" title="按结果嵌套处理"></a>按结果嵌套处理</h4><ol>
+<li><p>修改相关实体类，修改规则如上所述</p>
+</li>
+<li><p>mapper编写如下，按id联表查找出一个老师的所有列，返回类型是resultMap，Map指定collection子标签，collection指定studentList的实体类属性</p>
+</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent"</span>&gt;</span></span><br><span class="line">    SELECT s.id sid, s.name sname, s.tid stid, t.id tid, t.name tname FROM student s, teacher t WHERE s.tid = t.id AND t.id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"tname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"studentList"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">"sid"</span> <span class="attr">property</span>=<span class="string">"id"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"sname"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>获取SqlSession对象，selectOne方法获取Teacher对象即可</li>
+</ol>
+<h4 id="按查询嵌套处理-1"><a href="#按查询嵌套处理-1" class="headerlink" title="按查询嵌套处理"></a>按查询嵌套处理</h4><ol>
+<li>TeacherMapper</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">先找出Teacher表，然后根据Teacher表的id作为参数传入到select子标签去查Student表</span></span><br><span class="line"><span class="comment">根据select标签的SQL语句，Student表找出tid为id的Student，并构造出Student对象作为studentList的一份子</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher2"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent2"</span> &gt;</span></span><br><span class="line">    SELECT * FROM teacher WHERE id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent2"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"studentList"</span> <span class="attr">javaType</span>=<span class="string">"ArrayList"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">select</span>=<span class="string">"com.mkl.entity.StudentMapper.getStudents3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>StudentMapper</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;getStudents3&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    SELECT * FROM student WHERE tid = #&#123;id&#125;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>获取SqlSession对象，selectOne方法获取Teacher对象即可</li>
+</ol>
+<h2 id="动态SQL"><a href="#动态SQL" class="headerlink" title="动态SQL"></a>动态SQL</h2><p>动态SQL指根据不同的查询条件生成不同的SQL语句<br>MyBatis使用了OGNL表达式来实现动态SQL<br><a href="http://www.mybatis.org/mybatis-3/zh/dynamic-sql.html" target="_blank" rel="noopener">官方文档简单又易懂，稍微看一下就会用了呢</a><br><strong>需要注意的是，对动态SQL传入参数的时候，要用Map来传参</strong>，例子如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentsByObject"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">    SELECT * FROM student</span><br><span class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"id != null"</span>&gt;</span></span><br><span class="line">            id = #&#123;id&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"name != null"</span>&gt;</span></span><br><span class="line">            AND name = #&#123;name&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// StudentDao的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">getStudentsByObject</span><span class="params">(Map&lt;String, Object&gt; map)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    SqlSession session = MyBatisUtil.getSqlSession();</span><br><span class="line">    String statement;</span><br><span class="line">    statement = <span class="string">"com.mkl.entity.StudentMapper.getStudentsByObject"</span>;</span><br><span class="line">    List&lt;Student&gt; students = session.selectList(statement, map);</span><br><span class="line">    session.close();</span><br><span class="line">    <span class="keyword">return</span> students;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 单元测试的代码</span></span><br><span class="line">StudentDao studentDao = <span class="keyword">new</span> StudentDao();</span><br><span class="line"><span class="comment">// List&lt;Student&gt; students = studentDao.getStudentsByObject(null);</span></span><br><span class="line">Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line"><span class="comment">// 使用map传参</span></span><br><span class="line">map.put(<span class="string">"name"</span>, <span class="string">"zs"</span>);</span><br><span class="line">List&lt;Student&gt; students = studentDao.getStudentsByObject(map);</span><br><span class="line"><span class="keyword">for</span> (Student s : students)</span><br><span class="line">    System.out.println(s);</span><br></pre></td></tr></table></figure>
+<h2 id="Mybatis注意事项"><a href="#Mybatis注意事项" class="headerlink" title="Mybatis注意事项"></a>Mybatis注意事项</h2><ol>
+<li>Maven导入包</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置conf.xml时要指定serverTimezone，分隔符要用<code>&amp;amp;</code>代替</li>
+<li>IDEA查找接口实现类的时候，可以通过在接口的源码界面ctrl+alt+B查找</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Java异常/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/Java异常/" itemprop="url">Java异常</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T21:48:30+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/22/Java异常/" class="leancloud_visitors" data-flag-title="Java异常">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h1><h2 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类"></a>异常分类</h2><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
+<p>Error类层次结构描述了Java运行时系统的内部错误和资源耗尽错误，应用程序不应该抛出这种类型的对象</p>
+<p>Exception分为RuntimeException和IOException，RuntimeException是程序错误导致的异常，有下面几种情况</p>
+<ul>
+<li>错误的类型转换</li>
+<li>数组访问越界</li>
+<li>访问null指针</li>
+</ul>
+<p>不是派生于RuntimeException的有</p>
+<ul>
+<li>试图在文件尾部后读取数据</li>
+<li>试图打开一个不存在的文件</li>
+<li>试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在</li>
+</ul>
+<p><strong>Java语言规范将派生于Error或RuntimeException类的所有异常称为非受查异常，所有其他异常称为受查异常，一个方法必须声明所有可能抛出的受查异常，非受查异常要么不可控制（Error），要么避免发生（RuntimeException）</strong>，编译器会核实是否为所有受查异常提供了异常处理器</p>
+<h2 id="声明受查异常"><a href="#声明受查异常" class="headerlink" title="声明受查异常"></a>声明受查异常</h2><p>e.g.<code>public FileInputStream(String name) throws FileNotFoundException</code>，这个声明表示这个构造器将根据给定的String参数产生一个FileInputStream对象，但也有可能抛出一个FileNotFoundException异常，抛出异常后，运行时系统就会开始搜索异常处理器，以便知道如何处理FileNotFoundException对象</p>
+<p>自己编写方法时，不必将所有可能抛出的异常都进行声明，什么时候需要在方法中throws子句声明异常，什么异常必须使用throws子句声明，需要记住遇到下面4种情况应该抛出异常</p>
+<ul>
+<li>调用一个抛出受查异常的方法，例如FileInputStream构造器</li>
+<li>程序运行过程中发现错误，并且利用throw语句抛出一个受查异常（注意不是方法中的throws）</li>
+<li>程序出现错误，比如a[-1]=0会抛出一个ArrayIndexOutOfBoundsException这样的非受查异常</li>
+<li>Java虚拟机和运行时库出现的内部错误</li>
+</ul>
+<p>不需要声明Java的内部错误，即Error继承的错误，也不应该声明RuntimeException继承的非受查异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyAnimation</span> </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">drawImage</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="keyword">throws</span> ArrayIndexOutOfBoundsException <span class="comment">// bad style</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="抛出异常"><a href="#抛出异常" class="headerlink" title="抛出异常"></a>抛出异常</h2><p>语法：<code>throw new IOException();</code></p>
+<p>e.g.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">readData</span><span class="params">(Scanner in)</span> <span class="keyword">throws</span> EOFException </span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">while</span>(...) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!in.hasNext()) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> EOFException();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>步骤：</p>
+<ul>
+<li>找到一个合适的异常类</li>
+<li>创建这个类的一个对象</li>
+<li>throw语句抛出</li>
+</ul>
+<h2 id="捕获异常"><a href="#捕获异常" class="headerlink" title="捕获异常"></a>捕获异常</h2><p>try，catch，finally语句，不多说了</p>
+<p>如果超类没有抛出任何异常，子类也不能抛出任何异常，如果编写一个覆盖超类的方法，这个方法又没有抛出异常，就必须捕获方法代码种出现的每一个受查异常</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Spring04-AspectJ/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2212,429 +2701,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/多态/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/多态/" itemprop="url">Java多态</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T15:19:18+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/14/多态/" class="leancloud_visitors" data-flag-title="Java多态">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>wiki上对多态的定义是这样的：</p>
-<blockquote>
-<p>在编程语言和类型论中，多型（英语：polymorphism）指为不同数据类型的实体提供统一的接口。 [1]多态类型（英语：polymorphic type）可以将自身所支持的操作套用到其它类型的值上。[2]</p>
-<p>计算机程序執行時，相同的訊息可能會送給多個不同的類別之物件，而系統可依據物件所屬類別，引發對應類別的方法，而有不同的行為。簡單來說，所謂多型意指相同的訊息給予不同的物件會引發不同的動作。</p>
-<p>多态也可定义为“一种将不同的特殊行为和单个泛化记号相关联的能力”。</p>
-<p>多态可分为变量多态与函数多态。变量多态是指：基类型的变量（对于C++是引用或指针）可以被赋值基类型对象，也可以被赋值派生类型的对象。函数多态是指，相同的函数调用界面（函数名与实参表），传送给一个对象变量，可以有不同的行为，这视该对象变量所指向的对象类型而定。因此，变量多态是函数多态的基础。</p>
-</blockquote>
-<h2 id="为什么"><a href="#为什么" class="headerlink" title="为什么"></a>为什么</h2><p>多态通过分离”做什么”和”怎么做”，从另一角度把接口和实现分离，改善代码的组织结构和可读性，创建可扩展的程序</p>
-<h2 id="怎么做"><a href="#怎么做" class="headerlink" title="怎么做"></a>怎么做</h2><p>前提：</p>
-<ul>
-<li>继承关系</li>
-<li>子类重写父类方法</li>
-<li>父类引用指向子类（向上转型）</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> age = <span class="number">20</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物吃饭"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物在睡觉"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"动物在奔跑"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num = <span class="number">80</span>;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> age = <span class="number">90</span>;</span><br><span class="line">    String name = <span class="string">"tomCat"</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫吃饭"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫在睡觉"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">catchMouse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"猫在抓老鼠"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo_Test1</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;	</span><br><span class="line">	Animal am = <span class="keyword">new</span> Cat(); <span class="comment">// 基类型指向子类对象</span></span><br><span class="line">	am.eat(); 		 <span class="comment">// 猫吃饭</span></span><br><span class="line">	am.sleep(); 	 <span class="comment">// 动物在睡觉</span></span><br><span class="line">	am.run(); 		 <span class="comment">// 动物在奔跑</span></span><br><span class="line">	am.catchMouse(); <span class="comment">// 报错</span></span><br><span class="line">    System.out.println(am.name); <span class="comment">// 报错</span></span><br><span class="line">	System.out.println(am.num);  <span class="comment">// 10</span></span><br><span class="line">	System.out.println(am.age);  <span class="comment">// 20</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>成员变量：编译看父类，运行看父类<br>成员方法：编译看父类，运行看子类（动态绑定）<br>静态方法：编译看父类，运行看父类</p>
-<p>弊端：多态不能使用子类特有的方法和属性</p>
-<p>可以通过强制类型转换<code>Cat cat = (Cat)am</code>，这样，cat指向的是最开始在堆内存中创建的那个Cat类型的对象，这是多态的向下转型</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/Spring01-Spring IOC容器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/14/Spring01-Spring IOC容器/" itemprop="url">Spring01-Spring IOC容器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T10:25:34+08:00">
-                2019-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/14/Spring01-Spring IOC容器/" class="leancloud_visitors" data-flag-title="Spring01-Spring IOC容器">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Spring1-Spring-IOC容器"><a href="#Spring1-Spring-IOC容器" class="headerlink" title="Spring1-Spring IOC容器"></a>Spring1-Spring IOC容器</h1><p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源代码在这</a></p>
-<h2 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h2><p><img src="https://i.imgur.com/vVYCtCn.png" alt=""></p>
-<p>控制反转，应用程序本身不负责依赖对象的创建和维护，而是由外部容器负责创建和维护</p>
-<p>DI是其一种实现方式，指由IOC容器在运行期间，动态地将某种依赖关系注入到对象之中</p>
-<p>Bean：IOC容器中把所有对象都称为bean</p>
-<p>bean配置有基于xml配置和注解</p>
-<p>比较基础的spring目录树如下</p>
-<p><img src="https://i.imgur.com/aEnB5Ol.png" alt=""></p>
-<p>src内有main和test文件夹，main里面有java文件夹和resources文件夹，java保存java源代码，resources保存xml文件等，test文件夹里面是java文件夹，保存测试代码</p>
-<h2 id="单元测试的编写"><a href="#单元测试的编写" class="headerlink" title="单元测试的编写"></a>单元测试的编写</h2><ol>
-<li>maven导入junit依赖</li>
-<li>创建UnitTestBase类，完成对Spring配置文件的加载，销毁</li>
-<li>所有单元测试类继承自UnitTestBase，通过它的getBean方法获取想要的对象</li>
-<li>子类加注解@RunWith(BlockJUnit4ClassRunner.class)</li>
-<li>单元测试方法加注释@Test</li>
-<li>右键要执行的单元测试方法执行，或者右键类的任意空位执行所有单元测试方法</li>
-</ol>
-<h3 id="UnitTestBase类的内容"><a href="#UnitTestBase类的内容" class="headerlink" title="UnitTestBase类的内容"></a>UnitTestBase类的内容</h3><p>InitTestBase主要有构造器，getBean方法和带Before注解的方法和带After注解的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ClassPathXmlApplicationContext context;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String springXmlPath;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnitTestBase</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnitTestBase</span><span class="params">(String springXmlPath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.springXmlPath = springXmlPath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(springXmlPath)) &#123;</span><br><span class="line">            springXmlPath = <span class="string">"classpath*:spring-*.xml"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            context = <span class="keyword">new</span> ClassPathXmlApplicationContext(springXmlPath.split(<span class="string">"[,\\s]+"</span>));</span><br><span class="line">            context.start();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (BeansException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        context.destroy();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">    <span class="keyword">protected</span> &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(String beanId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T)context.getBean(beanId);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> &lt;T&gt; <span class="function">T <span class="title">getBean</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> context.getBean(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="具体的测试类编写"><a href="#具体的测试类编写" class="headerlink" title="具体的测试类编写"></a>具体的测试类编写</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定使用的单元测试类</span></span><br><span class="line"><span class="meta">@RunWith</span>(BlockJUnit4ClassRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestOneInterface</span> <span class="keyword">extends</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestOneInterface</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 把classpath作为参数，调用超类的构造函数</span></span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"classpath*:spring-ioc.xml"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 带Test注解的方法，在执行前会调用带有Before注解的方法，执行后调用带有After注解的方法（在超类中）</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        OneInterface oneInterface = <span class="keyword">super</span>.getBean(<span class="string">"oneInterface"</span>);</span><br><span class="line">		<span class="comment">// 通过超类的getBean方法得到bean</span></span><br><span class="line">        System.out.println(oneInterface.hello(<span class="string">"我的输入参数"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Bean容器的初始化"><a href="#Bean容器的初始化" class="headerlink" title="Bean容器的初始化"></a>Bean容器的初始化</h3><p><img src="https://i.imgur.com/6gwo6MH.png" alt=""></p>
-<h2 id="Spring注入"><a href="#Spring注入" class="headerlink" title="Spring注入"></a>Spring注入</h2><p>Spring注入指启动Spring容器加载bean配置的时候，完成对变量的赋值，有设值注入（getter，setter）和构造注入（构造注入是依赖构造器参数，bean要有构造函数）xml文件的bean配置为：&lt;bean&gt;&lt;constructor-arg name=”xxx” value(ref)=”xxx” /&gt;&lt;/bean&gt; </p>
-<h3 id="Spring设值注入"><a href="#Spring设值注入" class="headerlink" title="Spring设值注入"></a>Spring设值注入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"xxx"</span> <span class="attr">class</span>=<span class="string">"xxx"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">ref</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- name是属性名，value是基础值，ref是指向某个对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>对应的bean必须要有getter和setter</p>
-<h3 id="构造注入"><a href="#构造注入" class="headerlink" title="构造注入"></a>构造注入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"xxx"</span> <span class="attr">class</span>=<span class="string">"xxx"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">ref</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- name是属性名，value是基础值，ref是指向某个对象 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>必须要有构造器</p>
-<h2 id="Bean的配置项"><a href="#Bean的配置项" class="headerlink" title="Bean的配置项"></a>Bean的配置项</h2><ul>
-<li>Id：唯一标识</li>
-<li>Class：类</li>
-<li>Scope：范围，作用域</li>
-<li>Constructor：构造器参数</li>
-<li>Properties：属性</li>
-<li>Autowiring mode：自动装配</li>
-<li>lazy-initialization mode：懒装载</li>
-<li>Initialization/destruction method：初始化，销毁方法</li>
-</ul>
-<h3 id="Scope作用域"><a href="#Scope作用域" class="headerlink" title="Scope作用域"></a>Scope作用域</h3><p>singleton：单例，一个bean容器中只存在一份<br>prototype：每次请求都创建新的实例，destroy方式不生效<br>request：每次http请求都会创建一个实例且仅在当前request内有效<br>session：每次http请求创建，当前session内有效</p>
-<p><img src="https://i.imgur.com/FCRk9FK.png" alt=""></p>
-<h2 id="Bean生命周期"><a href="#Bean生命周期" class="headerlink" title="Bean生命周期"></a>Bean生命周期</h2><ul>
-<li>定义</li>
-<li>初始化：在IOC容器启动后加载bean时调用</li>
-<li>使用</li>
-<li>销毁：在IOC容器销毁前调用</li>
-</ul>
-<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>两种方式</p>
-<ul>
-<li>bean对应类实现org.springframework.beans.factory.InitializingBean接口，覆盖afterPropertiesSet方法</li>
-<li>xml对应bean配置init-method：&lt;bean id=”” class=”” init-method=”” /&gt;，对应类中应有init-method指定的方法</li>
-</ul>
-<p>实现接口方法模板</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBean</span> <span class="keyword">implements</span> <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="销毁"><a href="#销毁" class="headerlink" title="销毁"></a>销毁</h3><p>两种方法</p>
-<ul>
-<li>bean对应类实现org.springframework.beans.factory.DisposableBean接口，覆盖destroy方法</li>
-<li>xml对应bean配置destroy-method</li>
-</ul>
-<h3 id="全局初始化和销毁方法"><a href="#全局初始化和销毁方法" class="headerlink" title="全局初始化和销毁方法"></a>全局初始化和销毁方法</h3><p>spring xml中配置</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span></span></span><br><span class="line"><span class="tag">	   <span class="attr">default-init-method</span>=<span class="string">"xxx"</span> <span class="attr">default-destroy-method</span>=<span class="string">"xxx"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- your bean here --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当默认的，内部的和接口的初始化和销毁同时存在的时候，默认的初始化销毁方法被覆盖掉，不会执行，接口的初始化方法先于内部的初始化方法执行</p>
-<h2 id="Aware"><a href="#Aware" class="headerlink" title="Aware"></a>Aware</h2><p>spring提供了一些以Aware结尾的接口，实现了Aware接口的bean在被初始化后，可以获取相应资源，通过Aware接口，可以对Spring相应资源进行操作</p>
-<h3 id="ApplicationContextAware"><a href="#ApplicationContextAware" class="headerlink" title="ApplicationContextAware"></a>ApplicationContextAware</h3><p>When an ApplicationContext creates an object instance that implements the org.springframework.context.ApplicationContextAware interface, the instance is provided with a reference to that ApplicationContext.</p>
-<p>即实现了该接口的类，在容器初始化该类的时候，会调用setApplicationContext，把上下文注入到该类实例中</p>
-<h3 id="BeanNameAware"><a href="#BeanNameAware" class="headerlink" title="BeanNameAware"></a>BeanNameAware</h3><p>When an ApplicationContext creates a class that implements the org.springframework.beans.factory.BeanNameAware interface, the class is provided with a reference to the name defined in its associated object definition.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BeanNameAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setBeanName</span><span class="params">(String name)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>The callback is invoked after population of normal bean properties but before an initialization callback such as InitializingBean afterPropertiesSet or a custom init-method.（在bean属性填充后但在初始化bean方法调用前调用）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="小DEMO"><a href="#小DEMO" class="headerlink" title="小DEMO"></a>小DEMO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBeanName</span> <span class="keyword">implements</span> <span class="title">BeanNameAware</span>, <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String beanName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBeanName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.beanName = name;</span><br><span class="line">        System.out.println(<span class="string">"MoocBeanName："</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        System.out.println(applicationContext.getBean(beanName).hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="其他Aware接口"><a href="#其他Aware接口" class="headerlink" title="其他Aware接口"></a>其他Aware接口</h3><p>见<a href="https://docs.spring.io/spring/docs/5.0.14.RELEASE/spring-framework-reference/core.html#aware-list" target="_blank" rel="noopener">官方文档</a></p>
-<h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2><p>在对应xml配置文件的beans的属性中，设置default-autowire=”xxx”，其中xxx为下面几项</p>
-<ul>
-<li>no：不做任何操作</li>
-<li>byName：根据属性名自动装配，此选项将检查容器并根据名字查找于属性完全一致的bean，将其与属性自动装配</li>
-<li>byType：找属性类型相同的bean，与该属性自动装配，如果有多个该类型bean，就抛出异常</li>
-<li>Constructor：与byType类似，它应用于构造器参数，在IOC容器中查找构造器参数的类型的bean，作为构造器参数传入，如果容器中没有找到与构造器参数类型一致的bean，就抛出异常</li>
-</ul>
-<h3 id="byName"><a href="#byName" class="headerlink" title="byName"></a>byName</h3><p>xml中配置如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">default-autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"autoWiringService"</span> <span class="attr">class</span>=<span class="string">"com.mkl.autowiring.AutoWiringService"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"autoWiringDAO"</span> <span class="attr">class</span>=<span class="string">"com.mkl.autowiring.AutoWiringDAO"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoWiringService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AutoWiringDAO autoWiringDAO;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAutoWiringDAO</span><span class="params">(AutoWiringDAO autoWiringDAO)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.autoWiringDAO = autoWiringDAO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">(String word)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.autoWiringDAO.say(word);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>AutoWiringService中存在成员autoWiringDAO，设置了byName的自动装配后，会在IOC容器中寻找ID为autoWiringDAO的bean，把其实例作为setAutoWiringDAO的参数赋值给AutoWiringService的成员</p>
-<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><p>针对资源文件的统一接口，下面是实现了Resources接口的一些类</p>
-<ul>
-<li>UrlResource：URL对应的资源，根据一个URL地址可构建</li>
-<li>ClassPathResource:：获取类路径下的资源文件</li>
-<li>FileSystemResource：获取文件系统里面的资源</li>
-<li>ServletContextResource：ServletContext封装的资源，用于访问ServletContext环境下的资源</li>
-<li>InputStreamResource：针对输入流封装的资源</li>
-<li>ByteArrayResource：针对字节数组封装的资源</li>
-</ul>
-<h3 id="ResourceLoader"><a href="#ResourceLoader" class="headerlink" title="ResourceLoader"></a>ResourceLoader</h3><p>The ResourceLoader interface is meant to be implemented by objects that can return (i.e. load) Resource instances.</p>
-<p><strong>All application contexts implement the ResourceLoader interface, and therefore all application contexts may be used to obtain Resource instances.</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ResourceLoader</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">Resource <span class="title">getResource</span><span class="params">(String location)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>When you call getResource() on a specific application context, and the location path specified doesn’t have a specific prefix, you will get back a Resource type that is appropriate to that particular application context.<br>For example, assume the following snippet of code was executed against a ClassPathXmlApplicationContext instance:<br><code>Resource template = ctx.getResource(&quot;some/resource/path/myTemplate.txt&quot;);</code><br>What would be returned would be a ClassPathResource;</p>
-<p>不使用前缀的时候，上下文调用getResource，返回的是实现了Resource接口的符合该特定应用程序上下文Resource类型，如对ClassPathXmlApplicationContext的实例调用getResource，返回的是ClassPathResource类型</p>
-<p>使用特定前缀，可以返回特定的Resource类型（实现了Resource接口的特定类型），常见前缀如下</p>
-<p><img src="https://i.imgur.com/cFwpsFq.png" alt=""></p>
-<h3 id="一个Resource的使用例子"><a href="#一个Resource的使用例子" class="headerlink" title="一个Resource的使用例子"></a>一个Resource的使用例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocResource</span> <span class="keyword">implements</span> <span class="title">ApplicationContextAware</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationContext</span><span class="params">(ApplicationContext applicationContext)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resource</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Resource resource = applicationContext.getResource(<span class="string">"classpath:config.txt"</span>);</span><br><span class="line">        System.out.println(resource.getFilename());</span><br><span class="line">        System.out.println(resource.contentLength());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实现ApplicationContextAware接口，实现其setApplicationContext方法，得到上下文，通过该上下文的getResource方法得到Resource，然后调用resource方法输出其文件名和长度</p>
-<p>单元测试和配置文件略</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1.POM加入了依赖却找不到例如ClassPathXmlApplicationContext类<br>解决：右键pom，maven，reimport</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2691,7 +2757,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2713,7 +2779,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">175</span>
+                  <span class="site-state-item-count">180</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
