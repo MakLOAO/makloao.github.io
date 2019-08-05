@@ -132,7 +132,7 @@
 <meta property="og:description" content="Java并发基础2-同步锁对象有两种机制防止代码块受并发访问的干扰，Java语言提供了一个synchronized的关键字达到这一目的，并且Java5引入了ReentrantLock类 ReentrantLock保护代码块基本结构如下 1234567Lock myLock = new ReentrantLock();myLock.lock();try &amp;#123;	critical section">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/ft7hGJm.jpg">
-<meta property="og:updated_time" content="2019-07-18T02:32:10.440Z">
+<meta property="og:updated_time" content="2019-08-03T04:31:36.081Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发基础2-同步">
 <meta name="twitter:description" content="Java并发基础2-同步锁对象有两种机制防止代码块受并发访问的干扰，Java语言提供了一个synchronized的关键字达到这一目的，并且Java5引入了ReentrantLock类 ReentrantLock保护代码块基本结构如下 1234567Lock myLock = new ReentrantLock();myLock.lock();try &amp;#123;	critical section">
@@ -549,7 +549,7 @@
 <p><img src="https://i.imgur.com/ft7hGJm.jpg" alt=""></p>
 <p>在Java内存模型中，每个线程有它自己的工作内存，它们又共享一个主内存。主内存存储了共享变量(静态变量，堆内存的实例)的”本尊”。而工作内存可以理解为计算机的高速缓存，它存储共享变量的”副本”</p>
 <p>在内存模型中，假如线程A从主存读取变量S=0，然后为其赋值S=3，再刷新写回到主存，线程B读取主存数据S，此时线程B可能会出现两种结果，S=3或者S=0（即线程A还没把S写回到主存时，线程B就已经读取主存的S了）</p>
-<p>此时就需要用到关键字volatile，它的作用是保证volatile修饰的变量对所有线程的可见性，<strong>可见性指当一个线程修改了变量的值，新的值会立刻同步到主内存当中，而其他线程读取这个变量的时候，也会从主内存中拉取最新的变量值</strong><br>volatile可以有这样的特性，得意于Java的<strong>先行发生原则</strong>，，先行发生原则指两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序执行的，在这里，线程A的写操作就先于线程B的读操作的发生</p>
+<p>此时就需要用到关键字volatile，它的作用是保证volatile修饰的变量对所有线程的可见性，<strong>可见性指当一个线程修改了变量的值，新的值会立刻同步到主内存当中，而其他线程读取这个变量的时候，也会从主内存中拉取最新的变量值</strong><br>volatile可以有这样的特性，得益于Java的<strong>先行发生原则</strong>，，先行发生原则指两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序执行的，在这里，线程A的写操作就先于线程B的读操作的发生</p>
 <p>但是，<strong>volatile只能保证变量的可见性，并不能保证变量的原子性</strong>，如下面例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Runnable r = () -&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">new</span> Thread(r).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"count = "</span> + count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>理论上，count最后输出的结果是1000，但实际上很难达到1000，这是因为count++并不是原子操作，count++在字节码层面如下：</p>
@@ -747,7 +747,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -758,7 +758,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -769,7 +769,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">180</span>
+                  <span class="site-state-item-count">192</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

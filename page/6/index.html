@@ -369,6 +369,1062 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/存储器管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/存储器管理/" itemprop="url">存储器管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T23:05:18+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/存储器管理/" class="leancloud_visitors" data-flag-title="存储器管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="存储器管理"><a href="#存储器管理" class="headerlink" title="存储器管理"></a>存储器管理</h1><h2 id="存储器管理概述"><a href="#存储器管理概述" class="headerlink" title="存储器管理概述"></a>存储器管理概述</h2><h3 id="存储器的多层结构"><a href="#存储器的多层结构" class="headerlink" title="存储器的多层结构"></a>存储器的多层结构</h3><p>由于CPU与存储器的速度不匹配，需要对存储器进行分层，经典是三层结构：CPU寄存器，主存和辅存，目前比较高级的分层是六层：寄存器，高速缓存，主存储器，磁盘缓存，固定磁盘和可移动存储介质，层次越高，速度越快，但价格越高，存储容量越小</p>
+<p>高速缓存常用SRAM，内存DRAM，SDRAM等，外存是软盘，硬盘，光盘等</p>
+<p><img src="https://i.imgur.com/j0Z0S0T.png" alt=""></p>
+<h4 id="各层次作用"><a href="#各层次作用" class="headerlink" title="各层次作用"></a>各层次作用</h4><p>主存又称内存，用于保存进程运行的程序和数据，处理机都是从主存储器取指令和数据的，并把指令放入指令寄存器，数据放入数据寄存器，或者反过来把寄存器中的数据存入主存储器。</p>
+<p>寄存器有与处理机相同的速度</p>
+<p>高速缓存是介于寄存器和存储器之间的存储器，主要用于备份主存常用的数据，减少处理机对主存的访问次数，可以大幅度提高程序执行速度</p>
+<p>磁盘缓存是为了缓和磁盘I/O速度和主存访问速度的不匹配，主要用于暂时存放频繁使用的一部分磁盘数据和信息，以减少访问磁盘的次数，它本身不是一种实际存在的存储器，而是利用主存中部分存储空间暂时存放从磁盘中读出或写入的信息</p>
+<h3 id="存储器管理功能"><a href="#存储器管理功能" class="headerlink" title="存储器管理功能"></a>存储器管理功能</h3><p>存储器管理主要有如下功能</p>
+<ul>
+<li>存储分配和回收：分配和和回收算法及相应的数据结构</li>
+<li>地址变换<ul>
+<li>可执行文件生成中的链接技术</li>
+<li>程序加载（装入）时的重定位技术</li>
+<li>进程运行时硬件和软件的地址变换技术和机构</li>
+</ul>
+</li>
+<li>存储共享和保护<ul>
+<li>代码和数据共享</li>
+<li>地址空间访问权限（读，写，执行）</li>
+</ul>
+</li>
+<li>存储器扩充</li>
+</ul>
+<h3 id="重定位概念"><a href="#重定位概念" class="headerlink" title="重定位概念"></a>重定位概念</h3><p>重定位是实现逻辑地址（相对地址）到物理地址（绝对地址）的映射<br>逻辑地址：应用程序的地址都是从0开始的<br>物理地址：主存中一系列存储信息的物理单元的地址</p>
+<h3 id="程序的装入"><a href="#程序的装入" class="headerlink" title="程序的装入"></a>程序的装入</h3><p>一个程序一般有5个过程，编辑，编译，链接，装入和运行</p>
+<p>程序装入分为绝对装入和可重定位装入和动态运行时装入<br>绝对装入指编译后，装入前已产生绝对地址，装入时不需要再作地址重定位，绝对地址由编译器或程序员编程完成<br>可重定位装入指静态重定位，静态重定位指地址转换在装入时一次完成，缺点是不允许程序在运行中在内存中移动位置<br>动态运行时装入在把装入模块装入内存后，并不立即把装入模块中的逻辑地址转换成物理地址，而是把这种地址转换推迟到程序真正要执行的时候才进行，因此，装入内存后的地址都是逻辑地址，需要一个重定位寄存器的支持</p>
+<h3 id="程序的链接"><a href="#程序的链接" class="headerlink" title="程序的链接"></a>程序的链接</h3><p>源程序编译后得到一组目标模块，链接程序的功能是将这组目标模块以及它们所需要的库函数装配成一个完整的装入模块</p>
+<p>静态链接：对相对地址进行修改，变换外部调用符号<br>动态链接：便于修改和更新，便于实现对目标模块的共享<br>运行时动态链接</p>
+<h2 id="连续分配管理方式"><a href="#连续分配管理方式" class="headerlink" title="连续分配管理方式"></a>连续分配管理方式</h2><p>为了能将用户程序装入内存，必须为它分配一定大小的内存空间，连续分配方式是最早出现的一种存储器分配方式</p>
+<h3 id="单一连续分配"><a href="#单一连续分配" class="headerlink" title="单一连续分配"></a>单一连续分配</h3><p>用于单用户单任务中，把内存分为系统区和用户区，应用程序装入到用户区，可使用用户区全部空间，优点是易于管理，缺点是对要求内存空间少的程序造成内存浪费，程序全部装入，很少使用的程序部分也会占用内存</p>
+<h3 id="固定分区"><a href="#固定分区" class="headerlink" title="固定分区"></a>固定分区</h3><p>特点：有n个分区，可同时装入n个作业/任务<br>固定分区可以把分区划分为相等的跟不相等的，不相等的利用率更高</p>
+<p>数据结构：分区使用表，将分区按大小排序，并将地址，分配标识符（是否已分配），大小作记录，由于每个分区的大小固定，必然会造成存储空间的浪费</p>
+<h3 id="可变式分区"><a href="#可变式分区" class="headerlink" title="可变式分区"></a>可变式分区</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ul>
+<li>空闲分区表：记录每个空闲分区的情况，每个空闲分区占一个表目，表目中包括分区号，分区大小和分区始址等。</li>
+<li>空闲分区链：实现对空闲分区表的分配和链接，在每个分区的起始部分设置一些用于控制分区分配的信息，以及用于链接各分区所用的前向指针，在分区尾部设置一后向指针，通过前后向链接指针，可将所有空闲分区链接成一个双向链，分区尾部重复设置状态位和分区大小表目，当分区被分配出去后，状态位由”0”改为”1”，此时前后指针无意义</li>
+</ul>
+<p><img src="https://i.imgur.com/JiCVrro.png" alt=""></p>
+<h4 id="分配算法"><a href="#分配算法" class="headerlink" title="分配算法"></a>分配算法</h4><p>为把一个新作业装入内存，须按照一定的分配算法，从空闲分区表或空闲分区链中选一分区分配给该作业</p>
+<h4 id="分区分配操作"><a href="#分区分配操作" class="headerlink" title="分区分配操作"></a>分区分配操作</h4><h5 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h5><p>利用某种分配算法，从空闲分区链（表）中找到所需大小的分区，设请求的分区大小是u.size，表中每个空闲分区的大小可表示为m.size，若m.size-u.size&lt;=size（size是事先规定的不再切割的剩余分区的大小）说明多余部分太小，可不再切割，将整个分区分配给请求者，并从分区链移除，否则从该分区中按请求的大小划分找出一块内存空间分配出去，余下的部分仍留在空闲分区链（表）中，然后将分配区的首地址返回给调用者</p>
+<p><img src="https://i.imgur.com/waRwwTm.png" alt=""></p>
+<h5 id="回收内存"><a href="#回收内存" class="headerlink" title="回收内存"></a>回收内存</h5><p>当进程运行完毕释放内存后，系统根据<strong>回收区的首地址</strong>，从空闲区链（表）中找到相应的插入点，此时可能出现下面四种情况</p>
+<ul>
+<li>回收区与插入点前一个空闲分区F1相邻接，此时应将回收区与插入点前一分区合并，不必为回收区分配新表项，而只需修改前一分区F1的大小</li>
+<li>回收区与插入点后一个空闲分区F2相邻接，此时将两分区合并，形成新的空闲分区，但用回收区的首地址作为新空闲区的首地址，大小为两者之和</li>
+<li>回收区同时与插入点的前，后两个分区邻接，此时将三个分区合并，使用F1的表项和F1的首地址，取消F2的表项，大小为三者之和</li>
+<li>回收区既不与F1邻接也不与F2邻接：新建表项，填入回收区首地址和大小，插入到空闲链适当位置</li>
+</ul>
+<p><img src="https://i.imgur.com/M2f7lE3.png" alt=""></p>
+<h3 id="分配算法-1"><a href="#分配算法-1" class="headerlink" title="分配算法"></a>分配算法</h3><h4 id="基于顺序搜索的动态分区分配算法"><a href="#基于顺序搜索的动态分区分配算法" class="headerlink" title="基于顺序搜索的动态分区分配算法"></a>基于顺序搜索的动态分区分配算法</h4><ul>
+<li>首次适应(first fit, FF)算法：空闲分区链以地址递增的次序链接，从链首开始顺序查找直到找到一个大小能满足要求的空闲分区为止，然后从该分区划出一块内存空间分配给请求者</li>
+<li>循环首次适应(next fit, NF)算法：不再是每次都从链首开始查找，而是从上次找到的空闲分区的下一个空闲分区开始查找</li>
+<li>最佳适应(best fit, BF)算法：每次为作业分配内存时，总是把能满足要求又是最小的空闲分区分配给作业，要求所有空闲分区按容量从大到小顺序形成一空闲分区链</li>
+<li>最坏适应(worst fit, WF)算法：总是挑选最大的空闲区从中分割一部分存储空间给作业使用，要求将所有空闲分区按容量从大到小形成一空闲分区链，查找时只需看第一个分区是否满足作业要求</li>
+</ul>
+<h4 id="基于索引搜索的动态分区分配算法"><a href="#基于索引搜索的动态分区分配算法" class="headerlink" title="基于索引搜索的动态分区分配算法"></a>基于索引搜索的动态分区分配算法</h4><ul>
+<li>快速适应(quick fit)算法：将空闲分区根据容量大小分类，对于每一类具有相同容量的所有空闲分区，单独设立一个空闲分区链，内存设立一张管理索引表，索引表项对应空闲分区类型，并记录该类型空闲分区链表表头的指针，根据进程常用空间大小划分，比如2KB，4KB，8KB等，7KB可以放在8KB也可以放在特殊的空闲分区链表中</li>
+<li>伙伴系统：无论已分配分区或空闲分区，其大小均为2的k次幂，对于相同大小空闲分区单独设立一个空闲分区双向链表，不同大小的空闲分区形成了k个空闲分区链表，对于进程分配一个长度为n的存储空间时，计算i值，使2^(i-1) &lt; n &lt;= 2^i，先从2^i的空闲分区查找，若找到就分配，没有则从2^(i+1)的空闲分区查找，找到就分为相等的两个分区，称为一对伙伴，其中一个分区用于分配，另一个分区加入到2^i的空闲分区链表中</li>
+<li>哈希算法，构造空闲分区大小为关键字的哈希表，每一个表项记录一个对应的空闲分区链表表头指针</li>
+</ul>
+<h4 id="动态可重定位分区分配"><a href="#动态可重定位分区分配" class="headerlink" title="动态可重定位分区分配"></a>动态可重定位分区分配</h4><ul>
+<li>紧凑：连续分配方式的一个重要特点是：一个系统或用户程序必须被装入一片连续的内存空间中，当计算机运行一段时间后，它的内存空间会被划分为许多小的分区，而缺乏大的空闲空间，当有大作业要加入，因为小分区不邻接，无法分配内存给大作业，紧凑就是将内存中的所有<strong>作业</strong>进行移动，使它们全都相邻接，这样，原来分散的多个空闲小分区拼接成一个大分区，每次紧凑后，必须对移动了的程序或数据进行重定位</li>
+<li>动态重定位：动态运行时装入的方式，作业装入内存后所有地址仍然是相对地址，而将相对地址转换成绝对地址的工作被推迟到程序指令要真正执行的时候进行，设一个重定位寄存器，用它存放程序（数据）在内存中的起始地址，程序执行时真正访问的地址是相对地址与重定位寄存器的地址相加而形成的</li>
+</ul>
+<p><img src="https://i.imgur.com/UkxuVZ5.png" alt=""></p>
+<p><img src="https://i.imgur.com/ayDa85o.png" alt=""></p>
+<h2 id="对换"><a href="#对换" class="headerlink" title="对换"></a>对换</h2><p>对换的引入：将阻塞进程，暂时不用的程序，数据换出，将具备运行条件的进程换入<br>类型：</p>
+<ul>
+<li>整体对换：进程对换，解决内存紧张</li>
+<li>部分对换：页面对换/分段对换：提供虚存支持</li>
+</ul>
+<h3 id="对换空间的管理"><a href="#对换空间的管理" class="headerlink" title="对换空间的管理"></a>对换空间的管理</h3><p>具有对换功能的OS中，常把磁盘空间分为文件区和对换区，对换区比文件区侧重于对换速度，因此对换区一般采用连续分配，采用数据结构和分配回收类似于可变化分区分配</p>
+<h3 id="进程的换出与换入"><a href="#进程的换出与换入" class="headerlink" title="进程的换出与换入"></a>进程的换出与换入</h3><p>当内存不足时，便调用对换进程，实现进程的换出和换入</p>
+<h4 id="进程的换出"><a href="#进程的换出" class="headerlink" title="进程的换出"></a>进程的换出</h4><ol>
+<li>选择被换出的进程：选择因素：优先级，驻留时间，进程状态</li>
+<li>进程换出过程：共享段计数减一，如果是0就换出，修改PCB和MCB</li>
+</ol>
+<h4 id="进程的换入"><a href="#进程的换入" class="headerlink" title="进程的换入"></a>进程的换入</h4><ol>
+<li>选择换入进程：优先级，换出时间等</li>
+<li>申请内存</li>
+<li>换入</li>
+</ol>
+<h2 id="分页存储管理方式"><a href="#分页存储管理方式" class="headerlink" title="分页存储管理方式"></a>分页存储管理方式</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>分页主要是将用户程序的地址空间划分为若干个固定大小的区域，称为”页”或”页面”，典型的页面大小为1kb，相应地，也将内存空间分为若干个物理块或页框，页和块的大小相同，这样可以将用户程序的任一页放入任一物理块中，实现离散分配（页是相对用户程序的地址而言，页框或者块是相对内存空间而言）</p>
+<p>离散分配的引入：连续分配引起碎片，紧凑方式消耗系统开销</p>
+<h3 id="分页存储管理的基本方法"><a href="#分页存储管理的基本方法" class="headerlink" title="分页存储管理的基本方法"></a>分页存储管理的基本方法</h3><h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p><img src="https://i.imgur.com/UpDwi5n.png" alt=""></p>
+<p>A：逻辑地址空间的地址 L：页面的大小</p>
+<p>包含两部分内容：前一部分为页号P，后一部分为位（偏）移量W，即页内地址，图中的地址长度为32位，其中0——11位为页内地址，即每页大小4KB（页面大小），12——31位为页号，地址空间最多允许有1M页</p>
+<h4 id="页的计算例子"><a href="#页的计算例子" class="headerlink" title="页的计算例子"></a>页的计算例子</h4><p><img src="https://i.imgur.com/df5F6fB.png" alt=""></p>
+<h4 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h4><p>为了能在内存中找到每个页面对应的物理块，系统为每个进程建立一张页面映射表，为页表，在进程地址空间内的所有页(0——n)，依次在页表中有一页表项，其中记录了相应页在内存中对应的物理块号，实现从页号到物理块号的地址映射</p>
+<p><img src="https://i.imgur.com/ElwJb15.png" alt=""></p>
+<h3 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p>为了能将用户地址空间中的逻辑地址转换成内存空间中的物理地址，系统中设立了地址变换机构，地址变换机构任务实际只是将逻辑地址中的页号转换为内存中的物理块号（页内地址与物理块内的地址是一样的，所以不需要变换），地址变换任务就是<strong>借助页表实现的</strong></p>
+<h4 id="基本地址变换机构"><a href="#基本地址变换机构" class="headerlink" title="基本地址变换机构"></a>基本地址变换机构</h4><ul>
+<li>越界保护</li>
+<li>每个进程对应一页表，其信息（如长度，始址）放在PCB中，执行时将其首地址装入页表寄存器</li>
+</ul>
+<p>页表是驻留在内存中的，当调度程序调度某程序的时候，才将PCB中的页表始址和页表长度装入页表寄存器（一个进程对应一个页表，所以对不同页表，需要有页表始址来区分）</p>
+<p><img src="https://i.imgur.com/eL5lZKb.png" alt=""></p>
+<h5 id="地址变换过程"><a href="#地址变换过程" class="headerlink" title="地址变换过程"></a>地址变换过程</h5><p>当进程要访问某个逻辑地址的数据时，分页地址变换机构会自动地将有效地址（相对地址）分为页号和页内地址两部分，再以页号为索引区检索页表，查找操作由硬件执行。在检索之前，先将页号与页表长度比较，若大于或等于页表长度，则表示本次所访问的地址已超越进程的地址空间，产生一地址越界中断。若未出现越界错误，则将页表始址与页号和页表项长度的乘积相加，便得到该表项在页表中的位置，于是可从中得到该页的物理块号，将它装入物理地址寄存器，然后把页内地址送入物理地址寄存器的块内地址字段中，这样便完成了逻辑地址到物理地址的变换</p>
+<h5 id="我对将页表始址与页号和页表项长度的乘积相加地理解"><a href="#我对将页表始址与页号和页表项长度的乘积相加地理解" class="headerlink" title="我对将页表始址与页号和页表项长度的乘积相加地理解"></a>我对将页表始址与页号和页表项长度的乘积相加地理解</h5><p>页表项长度应该就是页表项（即物理块）的地址的长度<br>通过上述式子的计算，得到的是一个地址值（页表始址+页号*页表项长度（地址长度）），这个地址值应该是页表中该页表项的物理内存地址，访问这个物理内存地址，就得到这个物理块号了</p>
+<h5 id="需要考虑的问题"><a href="#需要考虑的问题" class="headerlink" title="需要考虑的问题"></a>需要考虑的问题</h5><p>直接映射的分页系统对系统效能不利，因为CPU需要访问两次主存才能得到所需要的数据，第一次访问是访问主存中的页表，从中找到指定页的物理块号再将块号与页内偏移量W拼接形成物理地址，第二次访问是从第一次所得地址中获得实际数据，为了解决这个问题，引入快表</p>
+<h4 id="具有快表的地址变换机构"><a href="#具有快表的地址变换机构" class="headerlink" title="具有快表的地址变换机构"></a>具有快表的地址变换机构</h4><p>为了提高地址变换速度，在地址变换机构中增设一个具有并行查寻能力的特殊高速缓冲寄存器，又称为”联想寄存器”，或称为”快表”，或者TLB，用以存放当前访问的那些页表项，此时地址变换过程是这样的：</p>
+<p>在CPU给出有效地址后，由地址变换机构自动地将页号P送入高速缓冲寄存器，并将此页号与高速缓存中地所有页号进行比较，若其中有与此相匹配的页号，便表示所要访问的页表项在快表中，于是，可直接从快表中读出该页所对应的物理块号，并送到物理地址寄存器，如在快表中没有找到对应的页表项，则还须再访问内存中的页表，找到后把从页表中读出的物理块号送往地址寄存器，同时，再将此页表项存入快表的一个寄存器单元中，如果快表满了，则OS找到一个老的且被认为不需要的页表项换出</p>
+<p><img src="https://i.imgur.com/IxGYPDQ.png" alt=""></p>
+<h3 id="访问内存的有效时间"><a href="#访问内存的有效时间" class="headerlink" title="访问内存的有效时间"></a>访问内存的有效时间</h3><p>从进程发出指定逻辑地址的访问请求，经过地址变换，到在内存中找到对应的实际物理地址单元并取出数据，所需要花费的总时间，称为内存的有效访问时间（Effective Access Time, EAT)，有效访问时间分为第一次访问内存时间（即查找页表对应的页表项所耗费的时间t）与第二次访问内存时间（即将页表项的物理块与页内地址拼接成实际物理地址所耗费的时间t）之和</p>
+<p>t：访问一次内存所需要的时间<br>EAT=t+t=2*t</p>
+<p>引入快表后，快表命中率a，查找快表需要的时间λ</p>
+<p>EAT=a<em>(t+λ)+(1-a)(2t+λ)=2</em>t+λ-t*a</p>
+<h3 id="两级和多级页表"><a href="#两级和多级页表" class="headerlink" title="两级和多级页表"></a>两级和多级页表</h3><p><img src="https://i.imgur.com/a87JQe4.jpg" alt=""></p>
+<p>两级页表的逻辑地址结构</p>
+<p><img src="https://i.imgur.com/vAODx2G.png" alt=""></p>
+<p><img src="https://i.imgur.com/dmvJmwv.png" alt=""></p>
+<p>以前面的32位逻辑地址空间为例，当页面大小为4KB的时候(12位)，采用两级页表结构时，再对页表进行分页，使每页包含2^10个页表项，或者说，外层页表中的外层页内地址P2为10位，外层页号P1也为10位</p>
+<p>（通过外部页号得到P2的始址，然后P2和d就可以通过上面说过的地址变换过程获得物理地址了）<br>外层页表的每个页表项中存放的是某页表分页的首地址，地址变换机构中同样要增加外层页表寄存器，用于存放外层页表的始址，并利用逻辑地址中的外层页号作为外层页表的索引，从中找到指定页表的始址（同上页表始址与页号和页表项长度乘积相加那个原理），再利用P2作为指定页表分页的索引，找到指定页表项，即含有该页在内存中的物理块号，用该块号P和页内地址d即可构成访问的内存物理地址</p>
+<h4 id="一个练习小例子"><a href="#一个练习小例子" class="headerlink" title="一个练习小例子"></a>一个练习小例子</h4><p><img src="https://i.imgur.com/NzHTbzz.png" alt=""></p>
+<p>对题目的理解：页号是用户程序而言的，该用户程序有32页，每页2K，而物理块是针对内存空间而言的，内存有1M，第1题第2问中，因为物理空间有1M，每页2K，即每个物理块2K，所以内存中有512个物理块，这32页必须可以对应到这512个物理块中的每一块，物理块号为0#——511#，页表项是物理块的块号，所以页表项位数应该是511的二进制位数，即9位</p>
+<p><img src="https://i.imgur.com/nzZDyXX.png" alt=""></p>
+<p>对第二题，由逻辑地址算出页号和页内地址，通过页号找到物理块号，物理地址=物理块号*页面大小+业内地址</p>
+<p><img src="https://i.imgur.com/Pypgxvw.png" alt=""></p>
+<h2 id="分段存储管理系统"><a href="#分段存储管理系统" class="headerlink" title="分段存储管理系统"></a>分段存储管理系统</h2><p>基本思想：按程序的逻辑结构，将程序的地址空间划分为若干段，各段大小可不相同，在进行存储分配时，以段为单位，这些段在内存中可以不相邻接<br>为什么引入：一方面程序可分为若干个段，主程序段，子程序段A，子程序段B，数据段，栈段等，另一方面实现和满足信息共享，信息保护，动态链接以及信息的动态增长等需要</p>
+<h3 id="分段系统基本原理"><a href="#分段系统基本原理" class="headerlink" title="分段系统基本原理"></a>分段系统基本原理</h3><h4 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h4><p>每个段定义了一组逻辑信息，分段地址的地址具有如下结构</p>
+<p><img src="https://i.imgur.com/lIzzMcm.png" alt=""></p>
+<h4 id="段表"><a href="#段表" class="headerlink" title="段表"></a>段表</h4><p><img src="https://i.imgur.com/0jaI7D8.png" alt=""></p>
+<h4 id="地址变换过程-1"><a href="#地址变换过程-1" class="headerlink" title="地址变换过程"></a>地址变换过程</h4><p><img src="https://i.imgur.com/NI7gUs6.png" alt=""></p>
+<p>设置了段表寄存器，用于存放段表始址和段表长度TL，在进行地址变换时，系统将逻辑地址中的段号和段表长度TL进行比较，若S&gt;TL，表示段号太大，访问越界，若未越界，则根据段表始址和段号，计算出该段对应段表项的位置（物理地址），从中读出该段在内存的起始地址，然后检查段内地址d是否超过该段段长SL，若超过，即d&gt;SL，同样发出越界中断，若未越界，则该段基址d与段内地址相加，即可得到要访问的内存物理地址</p>
+<p>分段同样需要访问两次内存，同样由联想存储器用于保存最近常用的段表项</p>
+<h2 id="分页和分段主要区别"><a href="#分页和分段主要区别" class="headerlink" title="分页和分段主要区别"></a>分页和分段主要区别</h2><ul>
+<li>页是信息的物理单位，段是逻辑单位</li>
+<li>页长度固定由系统决定，段长度不固定</li>
+<li>分页用户程序地址空间是一维的，分段是二维的，既要给出段名又要给出段内地址</li>
+</ul>
+<h2 id="段页式存储管理方式"><a href="#段页式存储管理方式" class="headerlink" title="段页式存储管理方式"></a>段页式存储管理方式</h2><p><img src="https://i.imgur.com/Epa98nQ.png" alt=""></p>
+<p><img src="https://i.imgur.com/VyaIZ0X.png" alt=""></p>
+<p><img src="https://i.imgur.com/kQnRsbQ.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/处理机调度与死锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/09/处理机调度与死锁/" itemprop="url">处理机调度与死锁</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-09T16:56:18+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/09/处理机调度与死锁/" class="leancloud_visitors" data-flag-title="处理机调度与死锁">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="处理机调度与死锁"><a href="#处理机调度与死锁" class="headerlink" title="处理机调度与死锁"></a>处理机调度与死锁</h1><h2 id="处理机调度"><a href="#处理机调度" class="headerlink" title="处理机调度"></a>处理机调度</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>处理机调度分为三个层次</p>
+<ul>
+<li>高级调度：作业调度，调度对象是作业，根据某种算法，决定将外存上处于后备队列的哪几个作业调入内存，为它们创建进程，分配资源，并放入就绪队列，主要用在多道批处理系统，在分时和实时系统中不设置高级调度</li>
+<li>低级调度：进程调度，根据某种算法，决定就绪队列中哪几个进程应获得处理机，并由分派程序将处理机分配给被选中的进程，最基本的调度</li>
+<li>中级调度：内存调度，主要目的是提高内存利用率和系统吞吐量，把暂时不能运行的进程调至外存等待，此时进程状态称为就绪驻外存状态（或挂起状态），当进程具备运行条件且内存又有空闲时，由中级调度决定，把外存上已具备运行条件的就绪进程重新调入内存，并挂在就绪队列上等待，实际上中级调度是存储器管理的对换功能</li>
+</ul>
+<p>调度的运行频率是低&gt;中&gt;高</p>
+<h4 id="调度队列模型"><a href="#调度队列模型" class="headerlink" title="调度队列模型"></a>调度队列模型</h4><p>仅有进程调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/yC8IKjo.png" alt=""></p>
+<p>同时具有三级调度的调度队列模型</p>
+<p><img src="https://i.imgur.com/NZoTVUp.png" alt=""></p>
+<h3 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h3><p>多道批处理系统中，用户提交的作业先存放到外存，排成一个后备队列，作业调度程序按一定算法从后备队列中选择若干作业调入内存，使他们共享CPU和系统资源，当程序A因I/O而暂停执行时，再调度另一道程序B运行，这样可以保持CPU处于忙碌状态</p>
+<p>周转时间常用于批处理系统，指从作业被提交给系统开始，到作业完成的时间，分为</p>
+<ul>
+<li>驻外等待调度时间</li>
+<li>驻内等待调度时间</li>
+<li>执行时间</li>
+<li>阻塞时间</li>
+</ul>
+<p>平均周转时间可以表示为</p>
+<p><img src="https://i.imgur.com/oHUPcXu.png" alt=""></p>
+<p>带权周转时间描述进程在其周转时间中，等待和执行时间的具体分配情况，W=T/Ts，T是周转时间，Ts是系统为它提供服务的时间<br>平均带权周转时间表示为</p>
+<p><img src="https://i.imgur.com/5R2w6fF.png" alt=""></p>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><h4 id="先来先服务-FCFS-和短作业优先-SJF-调度算法"><a href="#先来先服务-FCFS-和短作业优先-SJF-调度算法" class="headerlink" title="先来先服务(FCFS)和短作业优先(SJF)调度算法"></a>先来先服务(FCFS)和短作业优先(SJF)调度算法</h4><p>它们都可以用于作业调度和进程调度</p>
+<p>FCFS(first-come first-served)就不解释了，SJF（short job first)以作业长短计算优先级，作业越短优先级越高，作业长度以作业所要求的运行时间来衡量，SJF缺点是必须预知作业的运行时间，对长作业非常不利，人机无法交互，未考虑作业紧迫程度。</p>
+<h5 id="FCFS和SJF的比较"><a href="#FCFS和SJF的比较" class="headerlink" title="FCFS和SJF的比较"></a>FCFS和SJF的比较</h5><p><img src="https://i.imgur.com/cmZuzFf.png" alt=""></p>
+<p>在SJF中，当A完成后，此时时间为4，B,C,D,E均已到达，因为D的作业最短，所以处理机先为D服务，然后为B，E，C服务</p>
+<h4 id="高优先权优先调度算法"><a href="#高优先权优先调度算法" class="headerlink" title="高优先权优先调度算法"></a>高优先权优先调度算法</h4><p>可以作为作业调度和进程调度</p>
+<p>优先级调度算法（PSA，priority-scheduling algorithm）分为非抢占式优先权算法和抢占式优先权算法，抢占式实时性更好</p>
+<p>优先权的类型分为</p>
+<ul>
+<li>静态优先权：整个运行期不变</li>
+<li>动态优先权：优先权随执行时间而下降，随等待时间而上升，响应比Pp=(等待时间+服务时间)/服务时间作为优先权，优点是长短兼顾，缺点是需要计算Rp</li>
+</ul>
+<h5 id="高响应比优先算法-HRRN-Highest-Response-Ratio-Next"><a href="#高响应比优先算法-HRRN-Highest-Response-Ratio-Next" class="headerlink" title="高响应比优先算法(HRRN,Highest Response Ratio Next)"></a>高响应比优先算法(HRRN,Highest Response Ratio Next)</h5><p>响应比Rp=(tw+ts)/ts，tw为等待时间，ts为服务时间</p>
+<h4 id="基于时间片的轮转调度算法-RR"><a href="#基于时间片的轮转调度算法-RR" class="headerlink" title="基于时间片的轮转调度算法(RR)"></a>基于时间片的轮转调度算法(RR)</h4><p>进程调度算法，基于时间片的轮转(RR,round robin)让就绪队列上的每个进程每次仅运行一个时间片，每个进程每次大约都可获得1/n的处理机时间</p>
+<h5 id="进程切换时间"><a href="#进程切换时间" class="headerlink" title="进程切换时间"></a>进程切换时间</h5><ul>
+<li>若一个时间片尚未用完，正在运行的进程已经完成，则激活调度程序，将它从就绪队列中删除，再调度就绪队列中队首的进程运行，并启动一个新的时间片</li>
+<li>若时间片用完，计时器中断处理程序激活，调度程序把它送往就绪队列的队尾</li>
+</ul>
+<h5 id="时间片大小的确定"><a href="#时间片大小的确定" class="headerlink" title="时间片大小的确定"></a>时间片大小的确定</h5><p>若时间片太大，则退化为FCFS，若太小，则系统开销过大，时间片大小确定应考虑系统对响应时间的要求，就绪队列中进程的数目和系统的处理能力（应保证一个时间片处理完常用命令）</p>
+<h4 id="实时调度"><a href="#实时调度" class="headerlink" title="实时调度"></a>实时调度</h4><p>实时调度必须提供：</p>
+<ul>
+<li>就需时间：某任务成为就绪的起始时间</li>
+<li>开始/完成截止时间</li>
+<li>处理时间</li>
+<li>资源要求</li>
+<li>优先级</li>
+</ul>
+<p>非抢占式用时间片轮转，抢占式可以时钟中断或立即抢占（只要不在临界区就抢占）</p>
+<h4 id="常见的实时调度算法"><a href="#常见的实时调度算法" class="headerlink" title="常见的实时调度算法"></a>常见的实时调度算法</h4><h5 id="最早截止时间优先EDF"><a href="#最早截止时间优先EDF" class="headerlink" title="最早截止时间优先EDF"></a>最早截止时间优先EDF</h5><p>根据任务的开始截止时间来确定任务优先级</p>
+<h5 id="最低松弛度优先LLF"><a href="#最低松弛度优先LLF" class="headerlink" title="最低松弛度优先LLF"></a>最低松弛度优先LLF</h5><p>松弛（紧急）程度=完成截止时间-处理时间-当前时间</p>
+<p>主要用于可抢占的调度方式</p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><p>死锁定义：如果一组进程中的每一个进程都在等待仅由该组进程中的其它进程才能引发的事件，那么该组进程是死锁的。</p>
+<p>产生死锁的原因</p>
+<ul>
+<li>竞争资源引起死锁：竞争不可抢占的资源或可消耗资源引起死锁</li>
+<li>进程推进顺序不当</li>
+</ul>
+<p>产生死锁必要条件</p>
+<ul>
+<li>互斥条件：资源必须互斥</li>
+<li>请求和保持条件：进程已经保持至少一个资源但又提出新的资源请求</li>
+<li>不可抢占条件：资源不可抢占</li>
+<li>循环等待条件：发生死锁时，必然存在一个进程——资源的循环链，即P0等待P1占用的资源，P1等待P2占用的资源，Pn等待P0占用的资源</li>
+</ul>
+<p>解决死锁的方法</p>
+<ul>
+<li>预防死锁</li>
+<li>避免死锁</li>
+<li>检测死锁</li>
+<li>解除死锁</li>
+</ul>
+<h3 id="解决死锁的方法"><a href="#解决死锁的方法" class="headerlink" title="解决死锁的方法"></a>解决死锁的方法</h3><h4 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h4><p>预防死锁：破坏产生死锁的4个必要条件之一，互斥条件一般是不能破坏的，所以主要是破坏产生死锁的后三个条件，预防死锁有效，但资源利用率低</p>
+<p>摒弃请求和保持条件：资源一次性分配<br>摒弃不剥夺条件：新申请不能满足就释放已获得资源<br>摒弃环路条件：资源有序分配，为资源编号，申请时按编号进行</p>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><p>避免死锁是在资源动态分配过程中，防止系统进入不安全状态，以避免发生死锁，最经典的避免死锁的算法是银行家算法</p>
+<h4 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h4><h5 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h5><ul>
+<li>可利用资源向量Available：含有m个元素的数组，每个元素代表一类可利用的资源数目，初始值是系统配置的该类全部可用资源的数目，Available[j]=K表示系统中现有Rj类资源的最大数目K个</li>
+<li>最大需求矩阵Max：是一个n*m的矩阵，定义了系统中n个进程中每一个进程对m类资源的最大需求，如果Max[i, j]=K，则表示进程i需要Rj类资源的最大数目为K</li>
+<li>分配矩阵Allocation：n*m矩阵，定义了系统中每一类资源当前已分配给每一进程的资源数，如果Allocation[i, j]=K，则表示进程i当前已分得Rj类资源的数目为K</li>
+<li>需求矩阵Need：n*m矩阵，用来表示每一个进程尚需的各类资源数，如果Need[i, j]=K，表示进程i还需要Rj类资源K个</li>
+</ul>
+<p>Need[i, j] = Max[i, j] - Allocation[i, j]</p>
+<h5 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h5><p>设Requesti是进程Pi的请求向量，如果Requesti[j]=K，则表示进程Pi需要K个Rj类的资源，当Pi发出资源请求后，系统按下述步骤进行检查</p>
+<ol>
+<li>如果Requesti[j] &lt;= Need[i, j]，则转向步骤2，否则认为出错，因为它申请的资源大于它宣布的最大值</li>
+<li>如果Requesti[j] &lt;= Available[j]，则转向步骤3，否则尚无足够资源，Pi需等待</li>
+<li>系统试探把资源分配给进程Pi，并修改下面数据结构的数值<br> Available[j] = Available[j] - Requesti[j];<br> Allocation[i, j] = Allocation[i, j] + Requesti[j];<br> Need[i, j] = Need[i, j] - Requesti[j];</li>
+<li>系统执行安全性算法，检查此次资源分配后系统是否处于安全状态，若安全，才正式分配资源给Pi，否则本次试探分配作废，恢复原来的资源分配状态，让进程Pi等待</li>
+</ol>
+<h5 id="安全性算法"><a href="#安全性算法" class="headerlink" title="安全性算法"></a>安全性算法</h5><p>如上面所述，<strong>安全性算法是试探性分配后（即修改了Available，Allocation，Need但未正式分配资源）进行的，若安全才正式分配，否则试探分配作废</strong>，算法如下</p>
+<ol>
+<li>设置两个向量：工作向量Work，表示系统可提供给进程继续运行所需的各类资源数目，含有m个元素，执行安全算法开始时，Work=Available；Finish，它表示系统是否有足够资源分配给进程，使之运行完成。开始时Finish[i]=false，当有足够资源分配给进程时，再令Finish[i]=true</li>
+<li>从进程集合中找到一个满足下述条件的进程：<br>Finish[i]=false;<br>Need[i, j] &lt;= Work[j];<br>若找到，则转向步骤3，否则转向步骤4</li>
+<li><strong>假如</strong>进程Pi获得资源，则进程Pi可顺利执行，直到完成，并释放分配给它的资源，故应执行<br>Work[j] = Work[j] + Allocation[i, j];<br>Finish[i] = true;<br>go to step 2;</li>
+<li>如果所有进程的Finish[i]=true都满足，则表示系统处于安全状态，否则，系统处于不安全状态</li>
+</ol>
+<h5 id="银行家算法安全性检查的例子"><a href="#银行家算法安全性检查的例子" class="headerlink" title="银行家算法安全性检查的例子"></a>银行家算法安全性检查的例子</h5><p><img src="https://i.imgur.com/vd5ekYs.png" alt=""></p>
+<p><img src="https://i.imgur.com/5XOTJlu.png" alt=""></p>
+<p>一开始检查，发现p0不满足第2步的条件，p1满足，就把p1的资源释放，加到Work，然后继续检查，p2不满足，p3满足，则释放掉p3的资源，然后释放，最后所有的进程都释放了</p>
+<p>P.S.解题的时候，画表，行是每个进程，列依次是Work,Need,Allocation,Work+Allocation,Finish</p>
+<h4 id="检测死锁"><a href="#检测死锁" class="headerlink" title="检测死锁"></a>检测死锁</h4><h5 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h5><p><img src="https://i.imgur.com/itV3elJ.png" alt=""></p>
+<p>资源分配图圆圈表示进程，方框表示资源，方框内点表示资源数，箭头由资源指向进程表示一个单位的资源分配给进程，进程指向资源表示进程请求一个单位的资源</p>
+<h5 id="死锁定理"><a href="#死锁定理" class="headerlink" title="死锁定理"></a>死锁定理</h5><p>S为死锁状态的充分条件是当且仅当S状态的资源分配图是不可完全简化</p>
+<h5 id="资源分配图的简化"><a href="#资源分配图的简化" class="headerlink" title="资源分配图的简化"></a>资源分配图的简化</h5><p>找出既不阻塞又非独立的进程结点Pi，去掉所有分配边和请求边，若能去掉所有结点的所有分配边和请求边，则不会发生死锁，否则发生死锁</p>
+<h4 id="解除死锁"><a href="#解除死锁" class="headerlink" title="解除死锁"></a>解除死锁</h4><p>主要方法</p>
+<ul>
+<li>抢占资源：从一个或多个进程抢占足够资源分配给死锁进程</li>
+<li>终止进程</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/08/进程管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/08/进程管理/" itemprop="url">进程管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-08T22:06:18+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/08/进程管理/" class="leancloud_visitors" data-flag-title="进程管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程的定义，与程序的区别"><a href="#进程的定义，与程序的区别" class="headerlink" title="进程的定义，与程序的区别"></a>进程的定义，与程序的区别</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位，是程序的一次执行。</p>
+<h3 id="与程序的区别"><a href="#与程序的区别" class="headerlink" title="与程序的区别"></a>与程序的区别</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">进程</th>
+<th style="text-align:left">程序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">程序是指令的集合，是静态的概念</td>
+<td style="text-align:left">进程是处理机上的一次执行过程，动态的概念</td>
+</tr>
+<tr>
+<td style="text-align:left">程序是长期存在的</td>
+<td style="text-align:left">进程有生命周期，有创建，活动和消亡</td>
+</tr>
+<tr>
+<td style="text-align:left">程序是指令的有序集合</td>
+<td style="text-align:left">进程由程序，PCB和数据组成</td>
+</tr>
+<tr>
+<td style="text-align:left">程序和进程并非一一对应，同一程序同时运行在若干不同数据集上，它将属于若干个不同进程</td>
+<td style="text-align:left">一个进程可以执行多个程序</td>
+</tr>
+</tbody>
+</table>
+<h2 id="进程的状态及其转换"><a href="#进程的状态及其转换" class="headerlink" title="进程的状态及其转换"></a>进程的状态及其转换</h2><p>进程三种基本状态分别是</p>
+<ul>
+<li>就绪状态</li>
+<li>执行状态</li>
+<li>阻塞状态</li>
+</ul>
+<p>它们的转换关系如下</p>
+<p><img src="https://i.imgur.com/NKJai9R.png" alt=""></p>
+<p>引入挂起状态（被换出内存的状态）后，进程的转换如下</p>
+<p><img src="https://i.imgur.com/I6mlock.png" alt=""></p>
+<h3 id="挂起状态"><a href="#挂起状态" class="headerlink" title="挂起状态"></a>挂起状态</h3><p>挂起状态是把进程从内存移出外存，不释放CPU</p>
+<p>而阻塞状态是释放CPU，但不释放内存</p>
+<p>引入挂起状态的原因是</p>
+<ul>
+<li>终端用户请求</li>
+<li>父进程请求</li>
+<li>负荷调节需要</li>
+<li>操作系统需要</li>
+</ul>
+<h2 id="进程控制块PCB"><a href="#进程控制块PCB" class="headerlink" title="进程控制块PCB"></a>进程控制块PCB</h2><h3 id="PCB的作用"><a href="#PCB的作用" class="headerlink" title="PCB的作用"></a>PCB的作用</h3><p>PCB是进程的唯一标识，它常驻内存</p>
+<ul>
+<li>它作为独立运行基本单位的标志</li>
+<li>能实现间断性运行方式</li>
+<li>提供进程管理所需要的信息</li>
+<li>提供进程调度所需要的信息</li>
+<li>实现与其他进程的同步和通信</li>
+</ul>
+<h3 id="PCB的信息"><a href="#PCB的信息" class="headerlink" title="PCB的信息"></a>PCB的信息</h3><p>PCB主要包括以下四个方面的信息</p>
+<ul>
+<li>进程标识符：外部标识符（针对用户即进程），内部标识符（针对系统）</li>
+<li>处理机状态：通用寄存器，指令计数器，用户栈指针，程序状态字等</li>
+<li>进程调度信息：进程状态，进程优先级，进程调度其他信息（已等待CPU时间等），事件（阻塞原因）</li>
+<li>进程控制信息：程序和数据地址，进程同步和通信机制，资源清单，链接指针（所在队列下一个进程PCB的首地址）</li>
+</ul>
+<h2 id="进程控制"><a href="#进程控制" class="headerlink" title="进程控制"></a>进程控制</h2><p>任务：对系统中所有进程从产生，存在到消亡的全过程实施有效的管理和控制</p>
+<p>进程控制由内核中原语实现。</p>
+<p>原语（Primitive）：由若干条指令组成，用于完成一定功能的一个过程，它们是原子操作，即所有动作要么全不做，要么全做，是不可分割的，不允许被中断的。原语由内核系统态执行，常驻内存。</p>
+<p>常见的进程控制原语如下</p>
+<ul>
+<li>创建</li>
+<li>撤销</li>
+<li>阻塞：执行-&gt;阻塞</li>
+<li>唤醒：阻塞-&gt;就绪</li>
+<li>挂起：活动-&gt;静止</li>
+<li>激活：静止-&gt;活动</li>
+</ul>
+<h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p>进程创建的过程如下</p>
+<ol>
+<li>申请空白PCB</li>
+<li>为新进程分配资源</li>
+<li>初始化PCB</li>
+<li>新进程插入到就绪队列</li>
+</ol>
+<h2 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h2><h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>同步指并发进程在执行次序上的协调，以达到有效资源共享和相互合作，是程序执行有可再现性。</p>
+<p>进程有两种形式的制约关系，分别是</p>
+<ul>
+<li>资源共享关系：进程间接制约，需互斥地访问临界资源</li>
+<li>相互合作关系：进程直接制约</li>
+</ul>
+<p>临界资源：一次仅允许一个进程访问的资源</p>
+<p>临界区：进程访问临界资源的那段代码</p>
+<p>同步机制应遵循：</p>
+<ul>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待：不能进入临界区的进程应放弃CPU执行权</li>
+</ul>
+<h3 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h3><p>实现进程同步有许多方法，其中比较经典的是信号量机制</p>
+<h4 id="整型信号量"><a href="#整型信号量" class="headerlink" title="整型信号量"></a>整型信号量</h4><p>整型信号量定义为用于表示资源数目的整型量S，它除初始化外，仅能通过两个原子操作wait(S)和signal(S)来访问，这两个操作一直被称为P，V操作，wait，signal操作描述如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wait(S) &#123;</span><br><span class="line">	<span class="keyword">while</span> (S &lt;= <span class="number">0</span>);</span><br><span class="line">	S--;</span><br><span class="line">&#125;</span><br><span class="line">signal(S) &#123;</span><br><span class="line">	S++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两个操作是原子操作，它们在执行的时候是不可中断的</p>
+<h4 id="记录型信号量"><a href="#记录型信号量" class="headerlink" title="记录型信号量"></a>记录型信号量</h4><p>整型信号量并没有实现让权等待，而是让进程处于忙等状态，这个时候就需要引入记录型信号量来实现</p>
+<p>记录型信号量有一个整型变量value表示资源数目，还有一个进程链表指针list，用于链接上述所有等待进程，定义和PV操作描述如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> value;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">process_control_block</span> *<span class="title">list</span>;</span></span><br><span class="line">&#125; semaphore;</span><br><span class="line"></span><br><span class="line">wait(semaphore *S) &#123;</span><br><span class="line">	S-&gt;value--;</span><br><span class="line">	<span class="keyword">if</span> (S-&gt;value &lt; <span class="number">0</span>) block(S-&gt;<span class="built_in">list</span>); <span class="comment">// block是阻塞原语，它的意思是把当前进程自我阻塞并插入到S-&gt;list中</span></span><br><span class="line">&#125;</span><br><span class="line">signal(semaphore *S) &#123;</span><br><span class="line">	S-&gt;value++;</span><br><span class="line">	<span class="keyword">if</span> (S-&gt;value &lt;= <span class="number">0</span>) wakeup(S-&gt;<span class="built_in">list</span>); <span class="comment">// wakeup是唤醒原语</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>S-&gt;value是系统中某类资源数目，对它每次wait，意味进程请求一个单位的该类资源，当S-&gt;value &lt; 0，表示该资源已分配完成，进程应调用block原语自我阻塞，并插入到信号量链表S-&gt;list中。当S-&gt;value &lt; 0，它的绝对值是链表中已阻塞进程的数目。对信号量每次signal操作表示执行进程释放一个单位资源，S-&gt;value++，若+1后S-&gt;value仍然&lt;=0，表示该信号量链表中仍有等待该资源的进程被阻塞，调用wakeup原语唤醒该进程.如果S-&gt;value初值为1，则只允许一个进程访问临界资源，此时信号量为互斥信号量。</p>
+<h4 id="AND型信号量"><a href="#AND型信号量" class="headerlink" title="AND型信号量"></a>AND型信号量</h4><p>AND同步机制基本思想是：将进程整个运行过程中需要的所有资源，一次性全部分配给进程，使用后一次性释放，原语为Swait(Simultaneous wait)和Swakeup</p>
+<h3 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h3><p>引入原因：为了避免凡要使用临界资源的进程都自备同步操作wait(s)和signal(s)，将同步操作的机制和临界资源结合到一起，形成管程</p>
+<p>定义：一个数据结构和能为并发进程所执行的一组操作，包括局部于管程的共享变量，对该数据结构进程操作的一组过程，对局部管程数据设置初值</p>
+<p>管程语法描述如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Monitor monitor_name &#123; 		 <span class="comment">// 管程名</span></span><br><span class="line">	share variable declarations; <span class="comment">// 共享变量</span></span><br><span class="line">	cond declarations; 			 <span class="comment">// 条件变量</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P1</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	</span>&#123;...&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">P2</span><span class="params">(...)</span></span></span><br><span class="line"><span class="function">	</span>&#123;...&#125;</span><br><span class="line">	...</span><br><span class="line">	<span class="keyword">void</span>(....)</span><br><span class="line">	&#123;...&#125;</span><br><span class="line">	&#123;							 <span class="comment">// 管程主体</span></span><br><span class="line">		initialization code;	 <span class="comment">// 初始化代码</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h4><p>用于进程的阻塞和挂起，形式为condition x, y，对条件变量的操作仅仅是wait和signal，每个条件变量保存一个链表，用于记录因该条件变量而阻塞的所有进程，同时提供两个操作x.wait和x.signal</p>
+<p>x.wait：正在调用管程的进程因x条件需要被阻塞或挂起，调用x.wait将自己插入到x条件的等待队列上，并释放管程<br>x.signal：正在调用管程的进程发现x条件发生了变化，则调用它，重新启动一个因x条件而阻塞或挂起的进程</p>
+<h2 id="进程同步的经典问题"><a href="#进程同步的经典问题" class="headerlink" title="进程同步的经典问题"></a>进程同步的经典问题</h2><h3 id="生产者-消费者问题"><a href="#生产者-消费者问题" class="headerlink" title="生产者-消费者问题"></a>生产者-消费者问题</h3><p>问题描述：一组生产者向一组消费者提供消息，它们共享一个包含n个缓冲区的有界缓冲池，生产者向其中投放消息，消费者从中取得消息</p>
+<p>问题求解：<strong>互斥信号量mutex实现诸进程对缓冲池的互斥使用，信号量empty和full分别表示缓冲池中空缓冲区和满缓冲区的数量</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> in = <span class="number">0</span>, out = <span class="number">0</span>;</span><br><span class="line">item buffer[n];</span><br><span class="line">semaphore mutex = <span class="number">1</span>, empty = n, full = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">producer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		produce an item nextp;</span><br><span class="line">		...</span><br><span class="line">		wait(empty); <span class="comment">// 当空缓冲池数量为0，即缓冲池已满</span></span><br><span class="line">		wait(mutex);</span><br><span class="line">		buffer[in] = nextp;</span><br><span class="line">		in = (in + <span class="number">1</span>) % n;</span><br><span class="line">		signal(mutex);</span><br><span class="line">		signal(full);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">consumer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(full); <span class="comment">// 当满缓冲池为0，即缓冲池已空</span></span><br><span class="line">		wait(mutex);</span><br><span class="line">		nextc = buffer[out];</span><br><span class="line">		out = (out + <span class="number">1</span>) % n;</span><br><span class="line">		signal(mutex);</span><br><span class="line">		signal(empty);</span><br><span class="line">	consume the item in nextc;</span><br><span class="line">	...</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		producer(); consumer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>P操作很重要，假如颠倒了生产者的P操作，先拥有了缓冲池的使用权，但此时无空缓冲池，则会进入死锁</strong>，V操作顺序则无关紧要，<strong>当缓冲区只有一个时，mutex可以省略</strong></p>
+<h3 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h3><p><img src="https://i.imgur.com/PST5Kvw.png" alt=""></p>
+<p>哲学家进餐应定义5个信号量表示5只筷子，且初值均为1，而不能定义1个信号量，因为5个筷子位置不同，哲学家并不是随意拿5个筷子的，他们只能拿他们左右最靠近他们的筷子，描述如下<br><code>semaphore chopstick[5] = {1, 1, 1, 1, 1};</code></p>
+<p>第i个哲学家的活动可描述为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">	wait(chopstick[i]);</span><br><span class="line">	wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// eat</span></span><br><span class="line">	...</span><br><span class="line">	signal(chopstick[i]);</span><br><span class="line">	signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// think</span></span><br><span class="line">	...</span><br><span class="line">&#125; <span class="keyword">while</span>(TRUE)</span><br></pre></td></tr></table></figure>
+<p>哲学家问题出现死锁的可能是：五个哲学家同时饥饿而各自拿起左边的筷子，就会使5个信号量chopstick均为0，当他们再试图去拿右边的筷子时，会因没有筷子可拿而无限等待</p>
+<p>解决方法有如下几个：</p>
+<p>1.至多允许有4位哲学家同时拿左边筷子，方法：设置信号量sm初值为4</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(sm);</span><br><span class="line">		wait(chopstick[i]);</span><br><span class="line">		wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		eat;</span><br><span class="line">		signal(sm);</span><br><span class="line">		signal(chopstick[i]);</span><br><span class="line">		signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		signal(sm);</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.规定奇数号哲学家先拿他左手边的筷子，再拿右手边的筷子，偶数号哲学家相反</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">			wait(chopstick[i]);</span><br><span class="line">			wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			eat;</span><br><span class="line">			signal(chopstick[i]);</span><br><span class="line">			signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			wait(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			wait(chopstick[i]);</span><br><span class="line">			eat;</span><br><span class="line">			signal(chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">			signal(chopstick[i]);</span><br><span class="line">		&#125;	</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.仅当左右手两只筷子均可用的时候，才拿起筷子进餐，利用AND信号量解决</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">philopher(i) &#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		Sswait(chopstick[i], chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>])</span><br><span class="line">		eat;</span><br><span class="line">		Ssignal(chopstick[i], chopstick[(i + <span class="number">1</span>) % <span class="number">5</span>]);</span><br><span class="line">		think;</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="读者-写者问题"><a href="#读者-写者问题" class="headerlink" title="读者-写者问题"></a>读者-写者问题</h3><p>问题描述：读进程可共享同一对象，写进程不可共享同一对象</p>
+<p>分析：整型变量readcount表示读者数，信号量rmutex互斥访问readcount，wmutex读写互斥，只要有一个进程在读，就不允许写进程去写</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">semaphore rmutex = <span class="number">1</span>, wmutex = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> readcount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(rmutex); <span class="comment">// readcount的互斥访问</span></span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) wait(wmutex); <span class="comment">// 读写互斥，当该进程为第一个读进程，判断是否有写进程在写，有则阻塞，无则加锁</span></span><br><span class="line">		readcount++;</span><br><span class="line">		signal(rmutex);</span><br><span class="line">		...</span><br><span class="line">		perform read operation;</span><br><span class="line">		...</span><br><span class="line">		wait(rmutex);</span><br><span class="line">		readcount--;</span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) signal(wmutex);</span><br><span class="line">		signal(rmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(wmutex);</span><br><span class="line">		perform write operation;</span><br><span class="line">		signal(wmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		reader(); writer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="读-写问题的扩散——写者优先"><a href="#读-写问题的扩散——写者优先" class="headerlink" title="读-写问题的扩散——写者优先"></a>读-写问题的扩散——写者优先</h4><p>即当写进程到达后，后续的读进程必须等待</p>
+<p>方法：增加信号量S（初值1），当写进程运行时上锁，封锁后续读者。增加信号量s后，当读进程读，先wait(s)，若后续读进程运行，都会进入s的阻塞队列，而不会在其他进程读的期间（上锁了s，没有上锁rmutex）进入wmutex的阻塞队列，当有写进程运行并进入s的阻塞队列，后续再有读进程进入s的阻塞队列，都排在写进程之后，当前面读进程释放s后，写进程就可以对s上锁，阻止后续读进程了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">semaphore rmutex = <span class="number">1</span>, wmutex = <span class="number">1</span>, s = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> readcount = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(s);</span><br><span class="line">		wait(rmutex); <span class="comment">// readcount的互斥访问</span></span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) wait(wmutex); <span class="comment">// 读写互斥，当该进程为第一个读进程，判断是否有写进程在写，有则阻塞，无则加锁</span></span><br><span class="line">		readcount++;</span><br><span class="line">		signal(rmutex);</span><br><span class="line">		signal(s);</span><br><span class="line">		...</span><br><span class="line">		perform read operation;</span><br><span class="line">		...</span><br><span class="line">		wait(rmutex);</span><br><span class="line">		readcount--;</span><br><span class="line">		<span class="keyword">if</span> (readcount == <span class="number">0</span>) signal(wmutex);</span><br><span class="line">		signal(rmutex);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		wait(s);</span><br><span class="line">		wait(wmutex);</span><br><span class="line">		perform write operation;</span><br><span class="line">		signal(wmutex);</span><br><span class="line">		signal(s);</span><br><span class="line">	&#125; <span class="keyword">while</span> (TRUE);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cobegin</span><br><span class="line">		reader(); writer();</span><br><span class="line">	coend</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="进程通信"><a href="#进程通信" class="headerlink" title="进程通信"></a>进程通信</h2><p>进程通信实质是进程间的信息交换，有如下几种通信方式</p>
+<ul>
+<li>信号量机制：低级，效率低，对用户不透明</li>
+<li>共享存贮器：共享存储区等</li>
+<li>消息传递系统：交换报文，由一组通信原语实现</li>
+<li>管道通信：管道是连接一个读进程和一个写进程之间通信的共享文件</li>
+<li>客户机-服务器系统：套接字等</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
+<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/JavaScript09-事件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1912,1133 +2968,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript06-BOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/JavaScript06-BOM/" itemprop="url">JavaSCript06-BOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/26/JavaScript06-BOM/" class="leancloud_visitors" data-flag-title="JavaSCript06-BOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript06-BOM"><a href="#JavaScript06-BOM" class="headerlink" title="JavaScript06-BOM"></a>JavaScript06-BOM</h1><p>BOM是浏览器对象模型，它提供了很多用于访问浏览器的功能。</p>
-<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h2><p>window对象表示浏览器的一个实例，它既是通过JavaScript访问浏览器的一个接口，又是ECMAScript规定的Global对象。这意味着在网页中定义的任何一个对象，变量和函数，都以window作为其Global对象，因此有权访问parseInt等方法。</p>
-<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>所有在全局作用域中声明的变量，函数都会变成window对象的属性和方法，但注意，定义全局变量与在window对象直接定义还是有一点差别：全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">29</span>;</span><br><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.age; <span class="comment">// return false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.color; <span class="comment">// return true</span></span><br></pre></td></tr></table></figure>
-<p>可以通过window对象查询变量是否存在</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newValue = oldValue; <span class="comment">// error,oldValue not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newValue = <span class="built_in">window</span>.oldValue; <span class="comment">// OK,newValue is undefined</span></span><br></pre></td></tr></table></figure>
-<h3 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h3><p>IE，Safari，Opera，Chrome提供了screenLeft，screenTop属性表示窗口相对于屏幕左边和上边的位置。Firefox提供了screenX和screenY属性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取窗口左边和上边的位置</span></span><br><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenLeft:<span class="built_in">window</span>.screenX;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> winodw.screenTop == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenTop:<span class="built_in">window</span>.screenY;</span><br></pre></td></tr></table></figure>
-<p>可以使用moveTo()和moveBy()将窗口精确移动到某个位置<br>moveTo()接收的是新位置的x和y坐标，而moveBy()接收的是在水平和锤石方向上移动的像素数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将窗口移动到屏幕左上角</span></span><br><span class="line"><span class="built_in">window</span>.moveTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将窗口向左移动50像素</span></span><br><span class="line"><span class="built_in">window</span>.moveBy(<span class="number">-50</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>需要注意这两个方法可能会被浏览器禁用</p>
-<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><p>IE9+,Firefox,Safari,Opera和Chrome提供4个属性：innerWidth,innerHeight,outerWidth,outerHeight。在Chrome中，outer和inner返回的是相同的值，都是viewport大小而非浏览器窗口大小。在Firefox中，outer返回的是浏览器窗口本身的尺寸，inner返回的是该容器中页面视图区的大小（减去边框宽度）。</p>
-<p>下面方法可以获得viewport大小</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth,</span><br><span class="line">    pageHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth != <span class="string">"number"</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>) &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以使用resizeTo()和resizeBy()方法来调整浏览器窗口大小。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调整到100*100</span></span><br><span class="line"><span class="built_in">window</span>.resizeTo(<span class="number">100</span>,<span class="number">100</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 调整到200*150</span></span><br><span class="line"><span class="built_in">window</span>.resizeBy(<span class="number">100</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
-<p>同样的，部分浏览器可能禁用这两个方法</p>
-<h3 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h3><p>使用window.open()方法既可以导航到一个特定的URL，也可以打开一个新的浏览器窗口。这个方法接收4个参数：要加载的URL，窗口目标，一个特性字符串以及一个表示新页面是否取代浏览器历史纪录中当前加载页面的布尔值。如果传递第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。看下面例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等同于&lt;a href="http://www.wrox.com" target="topFrame"&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"topFrame"</span>);</span><br></pre></td></tr></table></figure>
-<p>如果有topFrame的窗口，就会在该窗口加载URL，否则创建一个新窗口并命名为topFrame,第二个参数也可以是下列特殊名称:_self,_parent,_top或_blank。</p>
-<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>若第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的参数创建一个新窗口或新标签页。<br>第三个参数是一个逗号分隔的设置字符串，表示在新窗口中都显示哪些特性。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">设置</th>
-<th style="text-align:left">值</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">height</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口高度，不能小于100</td>
-</tr>
-<tr>
-<td style="text-align:left">left</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口左坐标，不能小于0</td>
-</tr>
-<tr>
-<td style="text-align:left">location</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">显示地址栏，不同浏览器默认值不同</td>
-</tr>
-<tr>
-<td style="text-align:left">menubar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">默认no，显示菜单栏</td>
-</tr>
-<tr>
-<td style="text-align:left">resizable</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">是否可以通过拖动浏览器窗口边框改变其大小</td>
-</tr>
-<tr>
-<td style="text-align:left">scrollbars</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">内容在视口显示不下，是否运训滚动，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">status</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">状态栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">toolbar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">工具栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">top</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">上坐标</td>
-</tr>
-<tr>
-<td style="text-align:left">width</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">新窗口宽度</td>
-</tr>
-</tbody>
-</table>
-<p><code>window.open(&quot;http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,resizable=yes&quot;);</code></p>
-<p>通过window.open()新创建的窗口可以使用resizeTo或moveTo等方法，并且其有一个属性opener保存着打开它的原始窗口对象<br>chrome会在独立进程中运行每个标签页，当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。<strong>在chrome中，把新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，即告诉浏览器新创建的标签页不需要与打开它的标签页通信，因此可以在独立进程中运行。</strong></p>
-<h4 id="弹出窗口屏蔽程序"><a href="#弹出窗口屏蔽程序" class="headerlink" title="弹出窗口屏蔽程序"></a>弹出窗口屏蔽程序</h4><p>大多数浏览器都内置弹出窗口屏蔽程序，如下所示可以检测是否被屏蔽</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blocked = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wroxWin = <span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"_blank"</span>);</span><br><span class="line">	<span class="keyword">if</span>(wroxWin == <span class="literal">null</span>) &#123;</span><br><span class="line">		blocked = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (ex）&#123;</span><br><span class="line">	blocked = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (blocked) &#123;</span><br><span class="line">	alert(<span class="string">"The popup was blocked!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="间歇调用和超时调用"><a href="#间歇调用和超时调用" class="headerlink" title="间歇调用和超时调用"></a>间歇调用和超时调用</h3><p>JS是单线程语言，但它允许通过设置超时值和间歇时间来调度代码在特定时刻执行。</p>
-<h4 id="超时调用"><a href="#超时调用" class="headerlink" title="超时调用"></a>超时调用</h4><p>超时调用需要使用window对象的setTimeout()方法，它接收两个参数，要运行的代码和毫秒表示的时间（执行代码之前需要等待的毫秒数），第一个参数可以是包含JS代码的字符串，也可以是一个函数（更推荐用函数）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>注意上述代码经过1000ms不一定会执行，因为JS是一个单线程的解释器。调用setTimeout后，该方法会返回一个数值ID，表示超时调用。可以通过这个ID取消超时调用，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> itmeoutId = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">clearTimeout(timeoutId);</span><br></pre></td></tr></table></figure>
-<h4 id="间歇调用"><a href="#间歇调用" class="headerlink" title="间歇调用"></a>间歇调用</h4><p>按照指定的时间间隔重复执行代码，调用的方法是setInterval()，调用方法与上面setTimeout差不多，只不过第二个参数为每次执行之前要等待的毫秒数，同样可以通过clearInterval()方法传入间歇调用ID取消间歇调用<br><strong>尽量不要使用间歇调用，因为后一个间歇调用可能在前一个间歇调用停止之前启动</strong><br>下面是一个用超时调用实现间歇调用的例子，不会出现上述问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> max = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incrementNumber</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; max) &#123;</span><br><span class="line">		setTimeout(incrementNumber, <span class="number">500</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		alert(<span class="string">"Done"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(incrementNumber, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><p>浏览器通过alert(),confirm()和prompt()方法可以调用系统对话框，<strong>注意系统对话框都是同步和拟态的，即显示这些对话框的时候代码回停止执行，直到关掉对话框</strong></p>
-<h4 id="alert"><a href="#alert" class="headerlink" title="alert()"></a>alert()</h4><p>alert()显示的对话框包括文本和一个OK按钮</p>
-<h4 id="confirm"><a href="#confirm" class="headerlink" title="confirm()"></a>confirm()</h4><p>confirm()除了文本和OK按钮，还有一个取消按钮，可以通过检查confirm()方法返回的布尔值来确定用户点了哪个按钮</p>
-<h4 id="prompt"><a href="#prompt" class="headerlink" title="prompt()"></a>prompt()</h4><p>prompt()方法除了显示OK和Cancel按钮，还会显示一个文本输入框，接收两个参数，要显示给用户的文本提示和和文本输入域的默认值（可以为空字符串）。如果点击OK，该方法返回输入域的值，点击Cancel或其他，该方法返回null</p>
-<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p>location提供了与当前窗口加载的文档有关的信息，它既是window对象的属性，也是document对象的属性，location对象有如下属性</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性名</th>
-<th style="text-align:left">例子</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">hash</td>
-<td style="text-align:left">“#contents”</td>
-<td style="text-align:left">返回URL中的hash（#号后跟0个或多个字符）</td>
-</tr>
-<tr>
-<td style="text-align:left">host</td>
-<td style="text-align:left">“<a href="http://www.wrox.com:80&quot;" target="_blank" rel="noopener">www.wrox.com:80&quot;</a></td>
-<td style="text-align:left">返回服务器名称和端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">hostname</td>
-<td style="text-align:left">“<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">返回不带端口号的服务器名称</td>
-</tr>
-<tr>
-<td style="text-align:left">href</td>
-<td style="text-align:left">“http:/<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">完整URL，与location.toString()方法返回值一样</td>
-</tr>
-<tr>
-<td style="text-align:left">pathname</td>
-<td style="text-align:left">“/WileyCDA/“</td>
-<td style="text-align:left">URL中目录和文件名</td>
-</tr>
-<tr>
-<td style="text-align:left">port</td>
-<td style="text-align:left">“8080”</td>
-<td style="text-align:left">端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">protocol</td>
-<td style="text-align:left">“http:”</td>
-<td style="text-align:left">页面协议</td>
-</tr>
-<tr>
-<td style="text-align:left">search</td>
-<td style="text-align:left">“?q=javascript”</td>
-<td style="text-align:left">URL的查询字符串，以问号开头</td>
-</tr>
-</tbody>
-</table>
-<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><p>一个查询字符串参数的例子，注意字符串参数是被编码过的，需要通过decodeURIComponent解码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span> ),</span><br><span class="line">		args = &#123;&#125;,</span><br><span class="line">		items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</span><br><span class="line">		item = <span class="literal">null</span>,</span><br><span class="line">		name = <span class="literal">null</span>,</span><br><span class="line">		value = <span class="literal">null</span>,</span><br><span class="line">		i = <span class="number">0</span>,</span><br><span class="line">		length = items.length;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">		item = items[i].split(<span class="string">"="</span>);</span><br><span class="line">		name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">		value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (name.length) &#123;</span><br><span class="line">			args[name] = value;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h3><p>可以通过修改上面的属性（直接赋值）来改变当前加载的页面，也可以通过<code>location.assign(&quot;http://www.wrox.com&quot;)</code>来改变，<strong>这样的改变会在浏览器的历史记录中生成一条新纪录，用户通过后退按钮都会导航到前一个页面，如果不想在历史记录中生成新纪录，则可以通过调用</strong><code>location.replace(&quot;http://www.wrox.com/&quot;)</code><br>reload()方法会重新加载当前页面，如果不传递参数，页面会以最有效的方式重新加载，有可能是从缓存中加载，如果强制从服务器加载，则传入参数true即可</p>
-<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h2><p>navigator对象主要用来检测客户端浏览器，其主要属性和方法可以参考<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp" target="_blank" rel="noopener">w3c的navigator对象</a></p>
-<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><p>对于非IE浏览器，可以使用plugins数组来达到检测插件的目的，该数组每一项都有下列属性</p>
-<ul>
-<li>name:插件的名字</li>
-<li>description:插件的描述</li>
-<li>filename:插件的文件名</li>
-<li>length:插件所处理的MIME类型数量</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	name = name.toLowerCase();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; navigator.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (navigator.plugins[i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"QucikTime"</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h2><p>history对象保存用户的上网记录，无法得知具体的URL，但是可以通过<code>go()</code>方法来实现用户历史记录的任意跳转，这个方法接收一个参数，表示向后或向前的页面书的一个整数，也可以传入字符串参数，浏览器会跳转到历史纪录中包含该字符串的第一个位置，可能前进也可能后退。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-1</span>); <span class="comment">// 后退一页</span></span><br><span class="line"></span><br><span class="line">history.go(<span class="number">1</span>); <span class="comment">// 前进一页</span></span><br><span class="line"></span><br><span class="line">history(<span class="string">"wrox.com"</span>);</span><br></pre></td></tr></table></figure>
-<p>另外还可以用<code>history.back()</code>和<code>history.forward()</code>方法前进或后退<br>此外还有一个length属性表示历史纪录数量。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/Servlet06-JSTL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/09/Servlet06-JSTL/" itemprop="url">Servlet06-JSTL-强大的定制标记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-09T19:54:27+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index">
-                    <span itemprop="name">Servlet</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/09/Servlet06-JSTL/" class="leancloud_visitors" data-flag-title="Servlet06-JSTL-强大的定制标记">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Servlet06-JSTL-强大的定制标记"><a href="#Servlet06-JSTL-强大的定制标记" class="headerlink" title="Servlet06-JSTL-强大的定制标记"></a>Servlet06-JSTL-强大的定制标记</h1><p>有时只是EL或标准动作还不够，需要用到JSTL，使用JSTL之前，要把jstl.jar与standard.jar放在WEB应用的lib目录里</p>
-<h2 id="lt-c-out-gt-显示表达式"><a href="#lt-c-out-gt-显示表达式" class="headerlink" title="&lt;c:out&gt;显示表达式"></a>&lt;c:out&gt;显示表达式</h2><p>&lt;c:out&gt;作用与脚本的&lt;%=%&gt;作用相似，但是&lt;c:out&gt;可以直接通过”.”操作符来访问属性。</p>
-<p>语法格式如下<br><code>&lt;c:out value=&quot;&lt;string&gt;&quot; default=&quot;&lt;string&gt;&quot; escapeXml=&quot;&lt;true|false&gt;&quot;/&gt;</code></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">value</td>
-<td style="text-align:left">要输出的内容，必要，可以设置为<code>${class:function}</code>输出函数的结果</td>
-</tr>
-<tr>
-<td style="text-align:left">default</td>
-<td style="text-align:left">输出的默认值，非必要</td>
-</tr>
-<tr>
-<td style="text-align:left">escapeXml</td>
-<td style="text-align:left">设置是否忽略XML特殊字符，默认为true，<strong>设置为false则输出HTML内容</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="lt-c-forEach-gt-实现循环"><a href="#lt-c-forEach-gt-实现循环" class="headerlink" title="&lt;c:forEach&gt;实现循环"></a>&lt;c:forEach&gt;实现循环</h2><p>可以在JSP中使用&lt;c:forEach&gt;实现循环，例子如下</p>
-<p>e.g.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">var</span>=<span class="string">"movie"</span> <span class="attr">items</span>=<span class="string">"$&#123;movieList&#125;"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>$&#123;movie&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>对应脚本如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String[] items = (String[]) request.getAttribute(<span class="string">"movieList"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; items.length; i++) &#123;</span><br><span class="line">    String movie = items[i];</span><br><span class="line">    out.println(movie);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&lt;c:forEach&gt;属性如下</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">items</td>
-<td style="text-align:left">要被循环的信息</td>
-</tr>
-<tr>
-<td style="text-align:left">begin</td>
-<td style="text-align:left">开始的元素，0为索引起点</td>
-</tr>
-<tr>
-<td style="text-align:left">end</td>
-<td style="text-align:left">最后一个元素</td>
-</tr>
-<tr>
-<td style="text-align:left">step</td>
-<td style="text-align:left">迭代的步长</td>
-</tr>
-<tr>
-<td style="text-align:left">var</td>
-<td style="text-align:left">代表当前条目的变量名称</td>
-</tr>
-<tr>
-<td style="text-align:left">varStatus</td>
-<td style="text-align:left">代表循环状态的变量名称</td>
-</tr>
-</tbody>
-</table>
-<p>varStatus建立一个新变量，保存javax.servlet.jsp.jstl.core.LoopTagStatus的一个实例，可以通过在<code>&lt;c:forEach ... varStatus=&quot;movieLoopCount&quot;&gt;</code>内嵌中添加${movieLoopCount.count}得到一个循环计数器，每迭代一次就自增1并输出</p>
-<h3 id="嵌套-lt-c-forEach-gt"><a href="#嵌套-lt-c-forEach-gt" class="headerlink" title="嵌套&lt;c:forEach&gt;"></a>嵌套&lt;c:forEach&gt;</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">var</span>=<span class="string">"listElement"</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:forEach</span> <span class="attr">...</span> <span class="attr">items</span>=<span class="string">"$&#123;listElement&#125;"</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:forEach</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="lt-c-if-gt-实现判断"><a href="#lt-c-if-gt-实现判断" class="headerlink" title="&lt;c:if&gt;实现判断"></a>&lt;c:if&gt;实现判断</h2><p>语法格式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"&lt;boolean&gt;"</span> <span class="attr">var</span>=<span class="string">"&lt;string&gt;"</span> <span class="attr">scope</span>=<span class="string">"&lt;string&gt;"</span>&gt;</span></span><br><span class="line">   ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">test</td>
-<td style="text-align:left">条件，必要</td>
-</tr>
-<tr>
-<td style="text-align:left">var</td>
-<td style="text-align:left">用于存储条件结果的变量，不必要</td>
-</tr>
-<tr>
-<td style="text-align:left">scope</td>
-<td style="text-align:left">var属性的作用域</td>
-</tr>
-</tbody>
-</table>
-<p>e.g.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:if</span>  <span class="attr">test</span>=<span class="string">"$&#123;userType eq 'member'&#125;"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"xxx.jsp"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="lt-c-choose-gt-实现if-else效果"><a href="#lt-c-choose-gt-实现if-else效果" class="headerlink" title="&lt;c:choose&gt;实现if-else效果"></a>&lt;c:choose&gt;实现if-else效果</h2><p><code>&lt;c:choose&gt;</code>是<code>&lt;c:when&gt;</code>与<code>&lt;c:otherwise&gt;</code>的父标签，通过这三个标签可以实现if-else或者switch效果</p>
-<p>语法格式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:choose</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"&lt;boolean&gt;"</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:when</span> <span class="attr">test</span>=<span class="string">"&lt;boolean&gt;"</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">c:when</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">c:otherwise</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:choose</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="lt-c-set-gt-设置变量和对象属性"><a href="#lt-c-set-gt-设置变量和对象属性" class="headerlink" title="&lt;c:set&gt;设置变量和对象属性"></a>&lt;c:set&gt;设置变量和对象属性</h2><p>语法格式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:set</span></span></span><br><span class="line"><span class="tag">   <span class="attr">var</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">value</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">target</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">property</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">scope</span>=<span class="string">"&lt;string&gt;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">value</td>
-<td style="text-align:left">要存储的值</td>
-</tr>
-<tr>
-<td style="text-align:left">target</td>
-<td style="text-align:left">要修改的属性所属的对象</td>
-</tr>
-<tr>
-<td style="text-align:left">property</td>
-<td style="text-align:left">要修改的属性</td>
-</tr>
-<tr>
-<td style="text-align:left">var</td>
-<td style="text-align:left">存储信息的变量</td>
-</tr>
-<tr>
-<td style="text-align:left">scope</td>
-<td style="text-align:left">var属性的作用域</td>
-</tr>
-</tbody>
-</table>
-<h3 id="使用-lt-c-set-gt-设置属性变量var"><a href="#使用-lt-c-set-gt-设置属性变量var" class="headerlink" title="使用&lt;c:set&gt;设置属性变量var"></a>使用&lt;c:set&gt;设置属性变量var</h3><p>1.没有体<br><code>&lt;c:set var=&quot;userLevel&quot; scope=&quot;session&quot; value=&quot;Cowboy&quot; /&gt;</code></p>
-<p>2.有体<br><code>&lt;c:set var=&quot;userLevel&quot; scope=&quot;session&quot; &gt;Sheriff, Bartender, Cowgirl&lt;/c:set&gt;</code></p>
-<p>有体的情况下，会计算体并作为变量的值，<strong>如果值计算为null，变量会被删除</strong></p>
-<h3 id="对bean和Map使用-lt-c-set-gt"><a href="#对bean和Map使用-lt-c-set-gt" class="headerlink" title="对bean和Map使用&lt;c:set&gt;"></a>对bean和Map使用&lt;c:set&gt;</h3><p>这一类<code>&lt;c:set&gt;</code>只能用来设置bean属性和Map值，不能用它来向列表或数组增加元素</p>
-<p>1.没有体<br><code>&lt;c:set target=&quot;${PetMap}&quot; property=&quot;dogName&quot; value=&quot;Clover&quot;&gt;</code></p>
-<p>如果target是一个bean，则property为属性，如果target是一个Map，则property为键。</p>
-<p>2.有体<br><code>&lt;c:set target=&quot;${person}&quot; property=&quot;name&quot; &gt;${foo.name}&lt;/c:set&gt;</code></p>
-<p>体可以是一个String或表达式</p>
-<h3 id="lt-c-set-gt-要点和技巧"><a href="#lt-c-set-gt-要点和技巧" class="headerlink" title="&lt;c:set&gt;要点和技巧"></a>&lt;c:set&gt;要点和技巧</h3><ul>
-<li>&lt;c:set&gt;不能同时有var和target属性</li>
-<li>scope是可选的，默认为page作用域</li>
-<li>如果value为null，var指定的属性将被删除</li>
-<li>target必须放入一个能解析为实际对象的表达式，不能为String</li>
-</ul>
-<h2 id="lt-c-remove-gt-删除元素"><a href="#lt-c-remove-gt-删除元素" class="headerlink" title="&lt;c:remove&gt;删除元素"></a>&lt;c:remove&gt;删除元素</h2><p>语法格式<br><code>&lt;c:remove var=&quot;&lt;string&gt;&quot; scope=&quot;&lt;string&gt;&quot;</code></p>
-<p>var为要删除的变量名，scope为变量的作用域<br>var属性必须是一个String直接量，不能是表达式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:remove</span> <span class="attr">var</span>=<span class="string">"userState"</span> <span class="attr">scoper</span>=<span class="string">"request"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="lt-c-import-gt-包含内容"><a href="#lt-c-import-gt-包含内容" class="headerlink" title="&lt;c:import&gt;包含内容"></a>&lt;c:import&gt;包含内容</h2><p>语法格式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:import</span></span></span><br><span class="line"><span class="tag">   <span class="attr">url</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">var</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">scope</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">varReader</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">context</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">charEncoding</span>=<span class="string">"&lt;string&gt;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">url</td>
-<td style="text-align:left">待导入资源的URL，可以是相对路径或绝对路径</td>
-</tr>
-<tr>
-<td style="text-align:left">context</td>
-<td style="text-align:left">当使用相对路径访问外部context时，context指定了这个资源的名字</td>
-</tr>
-<tr>
-<td style="text-align:left">charEncoding</td>
-<td style="text-align:left">所引入的数据的字符编码集</td>
-</tr>
-<tr>
-<td style="text-align:left">var</td>
-<td style="text-align:left">用于存储所引入的文本的变量</td>
-</tr>
-<tr>
-<td style="text-align:left">scope</td>
-<td style="text-align:left">var属性的作用域</td>
-</tr>
-<tr>
-<td style="text-align:left">varReader</td>
-<td style="text-align:left">可选的用于提供java.io.Reader对象的变量</td>
-</tr>
-</tbody>
-</table>
-<h3 id="三种包含内容方法的区别"><a href="#三种包含内容方法的区别" class="headerlink" title="三种包含内容方法的区别"></a>三种包含内容方法的区别</h3><p>1.include指令<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;%@ include file=&quot;Header.html&quot; %&gt;</code><br>&nbsp;&nbsp;&nbsp;&nbsp;静态导入，在<strong>转换</strong>时将file指定的文件内容加入到当前页面</p>
-<p>2.&lt;jsp:include&gt;标准动作<br>&nbsp;&nbsp;&nbsp;&nbsp;动态，在<strong>请求</strong>时将page属性指定的内容添加到当前页面</p>
-<p>3.&lt;c:import&gt;JSTL标记<br>&nbsp;&nbsp;&nbsp;&nbsp;动态，与标准动作相似但更强大更灵活。</p>
-<h3 id="引用WEB应用之外的内容"><a href="#引用WEB应用之外的内容" class="headerlink" title="引用WEB应用之外的内容"></a>引用WEB应用之外的内容</h3><p>&lt;c:import&gt;可以加载WEB应用之外的内容，只需指定url即可，如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"c"</span> <span class="attr">uri</span>=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:import</span> <span class="attr">url</span>=<span class="string">"http://www.wickedlysmart.com/skyler/horse.html"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>注意！<strong>导入的<code>horse.html</code>应该是一个HTML片段，而不是一个有开始和结束标记的完整页面！</strong></p>
-<h2 id="lt-c-param-gt-定制包含的内容"><a href="#lt-c-param-gt-定制包含的内容" class="headerlink" title="&lt;c:param&gt;定制包含的内容"></a>&lt;c:param&gt;定制包含的内容</h2><p>语法格式</p>
-<p><code>&lt;c:param name=&quot;&lt;string&gt;&quot; value=&quot;&lt;string&gt;&quot;/&gt;</code></p>
-<ul>
-<li>name：URL中要设置的参数的名称</li>
-<li>value：参数的值</li>
-</ul>
-<h3 id="使用-lt-c-param-gt-实现子标题"><a href="#使用-lt-c-param-gt-实现子标题" class="headerlink" title="使用&lt;c:param&gt;实现子标题"></a>使用&lt;c:param&gt;实现子标题</h3><p>上一节中我们使用<code>&lt;jsp:param&gt;</code>实现了页眉的子标题，<code>&lt;c:param&gt;</code>也能实现同样的效果</p>
-<p>使用<code>&lt;jsp:import&gt;</code>的JSP</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:import</span> <span class="attr">url</span>=<span class="string">"Header.jsp"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">c:param</span> <span class="attr">name</span>=<span class="string">"subTitle"</span> <span class="attr">value</span>=<span class="string">"this is a subtitle name"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">c:import</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>所包含的文件Header.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- some html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>$&#123;param.subTitle&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="lt-c-url-gt-满足所有超链接需求"><a href="#lt-c-url-gt-满足所有超链接需求" class="headerlink" title="&lt;c:url&gt;满足所有超链接需求"></a>&lt;c:url&gt;满足所有超链接需求</h2><p>语法格式</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:url</span></span></span><br><span class="line"><span class="tag">  <span class="attr">var</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">scope</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">value</span>=<span class="string">"&lt;string&gt;"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">context</span>=<span class="string">"&lt;string&gt;"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>value是基本url，context是本地网络应用名，var是代表URL的变量名，scope是var的作用域。</p>
-<p>对URL编码，可以把用户的jsessionid追加到特定的 URL最后，具体编码方法如下</p>
-<p>在servlet中</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(...)</span> </span>&#123;</span><br><span class="line">  out.println(response.encodeURL(<span class="string">"/BeerTest.do"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在JSP中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&lt;c:url value='/xxx.jsp' /&gt;"</span>&gt;</span>click here<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>GET请求需要在URL中传入参数，而参数有时有空格的时候需要对URL编码</p>
-<p>e.g.</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"last"</span> <span class="attr">value</span>=<span class="string">"Hidden Cursor"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"first"</span> <span class="attr">value</span>=<span class="string">"Crouching Pixels"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:url</span> <span class="attr">value</span>=<span class="string">"/inputComments.jsp?first=$&#123;first&#125;&amp;last=$&#123;last&#125;"</span> <span class="attr">var</span>=<span class="string">"inputURL"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在&lt;c:url&gt;中使用&lt;c:param&gt;可以解决编码的问题</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"last"</span> <span class="attr">value</span>=<span class="string">"Hidden Cursor"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">c:set</span> <span class="attr">var</span>=<span class="string">"first"</span> <span class="attr">value</span>=<span class="string">"Crouching Pixels"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:url</span> <span class="attr">value</span>=<span class="string">"/inputComments.jsp"</span> <span class="attr">var</span>=<span class="string">"inputURL"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:param</span> <span class="attr">name</span>=<span class="string">"firstName"</span> <span class="attr">value</span>=<span class="string">"$&#123;first&#125;"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">c:param</span> <span class="attr">name</span>=<span class="string">"lastName"</span> <span class="attr">value</span>=<span class="string">"$&#123;last&#125;"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:url</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用参数编码后，URL如下所示<br><code>/inputComments.jsp?firstName=Crouching+Pixels&amp;lastName=Hidden+Cursor</code></p>
-<h2 id="建立自己的错误页面"><a href="#建立自己的错误页面" class="headerlink" title="建立自己的错误页面"></a>建立自己的错误页面</h2><p>指定错误页面errorPage.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">isErrorPage</span>=<span class="string">"true"</span> %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>抛出异常坏页面的普通页面</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">errorPage</span>=<span class="string">"errorPage.jsp"</span> %&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用-lt-error-page-gt-DD标记"><a href="#使用-lt-error-page-gt-DD标记" class="headerlink" title="使用&lt;error-page&gt;DD标记"></a>使用&lt;error-page&gt;DD标记</h3><p>可以在DD中为整个WEB应用声明错误页面，甚至可以为不同异常或HTTP错误码类型（404,500等）配置不同的错误页面。如下：</p>
-<p>声明一个普遍型错误页面，在DD中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exception-type</span>&gt;</span>java.lang.Throwable<span class="tag">&lt;/<span class="name">exception-type</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">location</span>&gt;</span>/errorPage.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>为更明确的异常声明一个错误页面</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exception-type</span>&gt;</span>java.lang.ArithmeticExcption<span class="tag">&lt;/<span class="name">exception-type</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">location</span>&gt;</span>/arithmeticError.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>根据一个HTTP状态码声明错误页面</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>404<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">location</span>&gt;</span>/notFoundError.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="exception对象"><a href="#exception对象" class="headerlink" title="exception对象"></a>exception对象</h3><p>错误页面提供一个exception对象，可以使用隐式对象exception也可以使用<code>${pageContext.exception}</code>得到，这个对象的类型是<code>java.lang.Throwable</code><br>注意，该隐式对象仅对有声明<code>isErrorPage=&quot;true&quot;</code>的页面可用</p>
-<h2 id="lt-c-catch-gt-实现try-catch"><a href="#lt-c-catch-gt-实现try-catch" class="headerlink" title="&lt;c:catch&gt;实现try/catch"></a>&lt;c:catch&gt;实现try/catch</h2><p><code>&lt;c:catch&gt;&lt;/c:catch&gt;</code>体内元素相当于JAVA的<code>try/catch</code>，可以使用属性var保存该异常放在页面作用域，并按var值命名</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">c:catch</span> <span class="attr">var</span>=<span class="string">"myException"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">%</span> <span class="attr">int</span> <span class="attr">x</span> = <span class="string">10/0;</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">c:catch</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">c:if</span> <span class="attr">test</span>=<span class="string">"$&#123;myException != null&#125;"</span>&gt;</span></span><br><span class="line">  exception is $&#123;myException.message&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">c:if</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="理解TLD"><a href="#理解TLD" class="headerlink" title="理解TLD"></a>理解TLD</h2><h3 id="TLD配置文件"><a href="#TLD配置文件" class="headerlink" title="TLD配置文件"></a>TLD配置文件</h3><p>TLD描述了两个主要内容：定制标记和EL函数，上一章曾经用过只有一个&lt;function&gt;元素的TLD，这节还要用到&lt;tag&gt;元素，如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tlib-version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">tlib-version</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">short-name</span>&gt;</span>RandomTags<span class="tag">&lt;/<span class="name">short-name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">uri</span>&gt;</span>randomThings<span class="tag">&lt;/<span class="name">uri</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span>random advice<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>advice<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tag-class</span>&gt;</span>foo.AdvisorTagHandler<span class="tag">&lt;/<span class="name">tag-class</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body-content</span>&gt;</span>empty<span class="tag">&lt;/<span class="name">body-content</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">attribute</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>user<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">required</span>&gt;</span>true<span class="tag">&lt;/<span class="name">required</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rtexprvalue</span>&gt;</span>true<span class="tag">&lt;/<span class="name">rtexprvalue</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">attribute</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="解释TLD"><a href="#解释TLD" class="headerlink" title="解释TLD"></a>解释TLD</h3><p>TLD解释如下:<br><code>&lt;tlib-version&gt;</code>必要，声明标记库版本<br><code>&lt;short-name&gt;</code>必要，主要由工具使用<br><code>&lt;uri&gt;</code>taglib指令使用的唯一名<br><code>&lt;description&gt;</code>不解释<br><code>&lt;name&gt;</code>必要，标记中使用的就是这个名（冒号右边）<br><code>&lt;tag-class&gt;</code>必要，在JSP使用这个标记要调用什么<br><code>&lt;body-content&gt;</code>必要，说明体内不可以有任何内容<br><code>&lt;attribute&gt;</code>用来设置属性，rtexprvalue指定该属性是否可以是一个表达式，<strong>如果设置为false或者没有设置，则不能使用类似<code>&quot;${userName}&quot;</code>这样的表达式</strong></p>
-<h3 id="如何使用定制标记"><a href="#如何使用定制标记" class="headerlink" title="如何使用定制标记"></a>如何使用定制标记</h3><p>使用这个标记的JSP如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">taglib</span> <span class="attr">prefix</span>=<span class="string">"mine"</span> <span class="attr">uri</span>=<span class="string">"randomThings"</span> %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mine:advice</span> <span class="attr">user</span>=<span class="string">"$&#123;userName&#125;"</span> /&gt;</span>&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="定制标记处理器"><a href="#定制标记处理器" class="headerlink" title="定制标记处理器"></a>定制标记处理器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdvisorTagHandler</span> <span class="keyword">extends</span> <span class="title">SimpleTagSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doTag</span><span class="params">()</span> <span class="keyword">throws</span> JspException, IOException </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 这里的XXX对应的是标记的属性</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setXXX</span><span class="params">(String xxx)</span> </span>&#123;</span><br><span class="line">    ...;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="容器对TLD的查找"><a href="#容器对TLD的查找" class="headerlink" title="容器对TLD的查找"></a>容器对TLD的查找</h3><p>容器会在4个地方查找TLD</p>
-<ol>
-<li>WEB-INF</li>
-<li>WEB-INF的子目录</li>
-<li>WEB-INF/lib下一个JAR文件的META-INF</li>
-<li>WEB-INF/lib下一个JAR文件的META-INF目录的子目录</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/03/JavaScript03-引用类型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/03/JavaScript03-引用类型/" itemprop="url">JavaScript03-引用类型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T11:08:34+08:00">
-                2018-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/03/JavaScript03-引用类型/" class="leancloud_visitors" data-flag-title="JavaScript03-引用类型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript03-引用类型"><a href="#JavaScript03-引用类型" class="headerlink" title="JavaScript03-引用类型"></a>JavaScript03-引用类型</h1><h2 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h2><p>引用类型的值是引用类型的一个实例，注意引用类型虽然常被称为类，但它与传统面向对象语言的类不一样，ECMAScript没有类和接口等基本结构，ECMAScript的引用类型有时候也称为对象定义，因为它们描述的是一类对象所具有的属性和方法。</p>
-<h3 id="两种构造Object实例的方法"><a href="#两种构造Object实例的方法" class="headerlink" title="两种构造Object实例的方法"></a>两种构造Object实例的方法</h3><h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">person.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">person.age = <span class="number">29</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="对面字面量表示法"><a href="#对面字面量表示法" class="headerlink" title="对面字面量表示法"></a>对面字面量表示法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name : <span class="string">"Nicholas"</span>,</span><br><span class="line">    age : <span class="number">29</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="访问对象属性"><a href="#访问对象属性" class="headerlink" title="访问对象属性"></a>访问对象属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert(person.name); <span class="comment">// "Nicholas"</span></span><br><span class="line">alert(person[<span class="string">"name"</span>]); <span class="comment">// "Nicholas"</span></span><br><span class="line"><span class="keyword">var</span> propertyName = <span class="string">"name"</span>;</span><br><span class="line">alert(person[propertyName]); <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure>
-<h2 id="Array类型"><a href="#Array类型" class="headerlink" title="Array类型"></a>Array类型</h2><p>与其他语言不一样的是，ECMAScript数组的每一项可以保存任何类型的数据，而且ECMAScript的大小是可以动态调整的。</p>
-<h3 id="创建Array的基本方式"><a href="#创建Array的基本方式" class="headerlink" title="创建Array的基本方式"></a>创建Array的基本方式</h3><h4 id="Array构造函数"><a href="#Array构造函数" class="headerlink" title="Array构造函数"></a>Array构造函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors1 = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="keyword">var</span> colors2 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">20</span>); </span><br><span class="line"><span class="comment">// 指定Array的长度为20，注意，这里并不是让colors2的第一个元素是20，而是指定其长度20</span></span><br><span class="line"><span class="keyword">var</span> colors3 = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="字面量表示法"><a href="#字面量表示法" class="headerlink" title="字面量表示法"></a>字面量表示法</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line"><span class="keyword">var</span> names = [];</span><br></pre></td></tr></table></figure>
-<h3 id="Arrays-length"><a href="#Arrays-length" class="headerlink" title="Arrays.length"></a>Arrays.length</h3><p>由于ECMAScript的数组是可以动态调整的，因此其属性length不是只读的，可以为其赋值达到调整数组长度的效果，也可以<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [ some colors ];</span><br><span class="line">colors[colors.length] = <span class="string">"other-color"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>为Array添加新元素</p>
-<h3 id="一些Array的属性"><a href="#一些Array的属性" class="headerlink" title="一些Array的属性"></a>一些Array的属性</h3><h4 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h4><p><code>Array.isArray(value)</code>判断Array是否为数组</p>
-<h4 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h4><p><code>toLocaleString()</code> 返回逗号分割开的字符串，但是调用的是toLocaleString()方法<br><code>toString()</code> 返回用逗号分割开的数组的每个元素<br><code>valueOf()</code> 返回数组本身<br><code>join(param)</code> 用param分割开数组的每个元素</p>
-<h4 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h4><p><code>push(param1,param2,...,paramn)</code>可以接收任意数量参数，按顺序逐个入栈，并返回修改后数组的长度<br><code>pop()</code>出栈并返回</p>
-<h4 id="队列方法"><a href="#队列方法" class="headerlink" title="队列方法"></a>队列方法</h4><p><code>shift()</code>删除第一个元素并返回<br><code>push()</code>同上栈方法的push()<br><code>unshift(param)</code>数组前端添加任意个项并返回数组的长度</p>
-<h4 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h4><p><code>reverse()</code><br><code>sort()</code><br>默认的sort()会调用toString()然后比较其字符串的大小来排序，在很多情况下这样排序都不是最佳方案，如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>];</span><br><span class="line">values.sort();</span><br><span class="line">alert(values); <span class="comment">// 0,1,10,15,5</span></span><br></pre></td></tr></table></figure></p>
-<p>可以通过重排序方法接收一个比较函数作为参数来排序<br>比较函数接收两个参数，如果第一个参数应位于第二个参数之前则返回一个负数，相等返回0,否则返回正数，以下为一个简单的比较函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">value1, value2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(value1 &lt; value2) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (value1 &gt; value2) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> values = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>];</span><br><span class="line">values.sort(compare);</span><br><span class="line">alert(values); <span class="comment">// 0,1,5,10,15</span></span><br></pre></td></tr></table></figure></p>
-<p>对于数值类型或者valueOf()方法会返回数值的类型，只要<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">value1, value2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value2-value1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h4><p><code>cancat()</code>会创建当前数组的一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组，如果没有参数，则只是复制当前数组并返回副本<br><code>slice()</code>切片，接收1个或2个参数，即要返回项的起始和结束位置。</p>
-<p><code>splice()</code>：</p>
-<ul>
-<li>删除：接收2个参数，删除的第一项的位置和要删除的项数</li>
-<li>插入：三个参数，起始位置，0（要删除的项数），要插入的项，如果要插入多项，可以传递3个以上的参数</li>
-<li>替换：三个参数，起始位置，要删除的项，要插入的任意数量的项</li>
-</ul>
-<p>它始终返回一个数组，包含从原始数组中删除的项。</p>
-<h4 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h4><p><code>indexOf()</code><br><code>lastIndexOf()</code><br>接收2个参数，要查找的项和表示查找起点位置的索引，indexOf()从起点开始往后查找，lastIndexOf()从起点开始往前查找，返回要查找的项在数组中的位置，没找到则返回-1<br>注意位置方法必须严格相等<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">name</span> : <span class="string">"Nicholas"</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> errPeople = [&#123; <span class="attr">name</span> : <span class="string">"Nicholas"</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> corPeoole = [person];</span><br><span class="line">alert(errPeople.indexOf(person)); <span class="comment">// -1</span></span><br><span class="line">alert(corPeople.indexOf(person)); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h4><p>ECMAScript的迭代方法接收2个参数，要在每一项上运行的函数和（可选）运行该函数的作用域对象，传入的函数接收三个参数，数组项的值，该项在数组的位置和数组对象本身。<br><code>every()</code>对数组的每一项运行给定函数，如果该函数对每一项都返回true，则返回true<br><code>filter()</code>对数组的每一项运行给定函数，返回该函数会返回true的项组成的数组<br><code>forEach()</code>对数组每一项运行给定函数，这个方法没有返回值<br><code>map()</code>对数组每一项运行给定函数，返回每次函数调用的结果组成的数组<br><code>some()</code>对数组每一项运行给定函数，如果该函数对任一项返回true，则返回true<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> everyResult = numbers.every(<span class="function"><span class="keyword">function</span>(<span class="params">item,index,array</span>)</span>&#123;<span class="keyword">return</span> (item&gt;<span class="number">2</span>)&#125;);</span><br><span class="line">alert(everyResule); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mapResult = numbers.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>&#123;<span class="keyword">return</span> item * <span class="number">2</span>;&#125;);</span><br><span class="line">alert(mapResult); <span class="comment">// [2,4,6,8,10,8,6,4,2]</span></span><br><span class="line"></span><br><span class="line">numbers.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>&#123; <span class="comment">/* do something on item */</span> &#125;);</span><br></pre></td></tr></table></figure></p>
-<h4 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h4><p><code>reduce()</code><br><code>reduceRight()</code><br>迭代数组的所有项，然后构建一个最终返回的值，reduce()从第一项开始迭代，reduceRight()从最后一项开始，接收两个参数，一个在每一项上调用的函数和（可选）作为归并基础的初始值，传入的函数接收4个参数，前一个值，当前值，项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// e.g. 求和</span></span><br><span class="line"><span class="keyword">var</span> values = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">var</span> sum = values.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, cur, index, array</span>)</span>&#123;<span class="keyword">return</span> prev + cur;&#125;);</span><br><span class="line">alert(sum); <span class="comment">// 15</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="Date类型"><a href="#Date类型" class="headerlink" title="Date类型"></a>Date类型</h2><p>ECMAScript的Date类型类似于java.util.Date类，使用自UTC 1970年1月1日午夜开始经过的毫秒数来保存日期<br>创建一个日期对象可以<br><code>var now = new Date()</code><br>可以为构造函数传递毫秒来构建Date对象</p>
-<h3 id="Date-parse"><a href="#Date-parse" class="headerlink" title="Date.parse()"></a>Date.parse()</h3><p>接收一个表示日期的字符串参数，转换为毫秒数<br>地区为美国的浏览器接收下列日期格式：</p>
-<ul>
-<li>“月/日/年”，如6/13/2004;</li>
-<li>“英文月名 日,年”，如January 12,2004</li>
-<li>“英文星期几 英文月名 日 年 时:分:秒 时区”，如 Tue May 25 2004 00:00:00 GMT-0700</li>
-<li>ISO 8601扩展格式 YYYY-MM-DDTHH:mm:ss.sssz(如2004-05-25T00:00:00)</li>
-</ul>
-<p>e.g. 构建2004/5/24的日期对象 <code>var someDate = new Date(Date.parse(&quot;May 25, 2004&quot;));</code><br>实际上<code>var someDate = new Date(&quot;May 25, 2004&quot;);</code>会自动调用parse</p>
-<h3 id="Date-UTC"><a href="#Date-UTC" class="headerlink" title="Date.UTC()"></a>Date.UTC()</h3><p>Date.UTC()参数为年份，基于0的月份，月中的日，小时，分钟，秒以及毫秒，年和月是必须的，其他可选，返回对应的毫秒数</p>
-<p>e.g. <code>var y2k = new Date(2000, 0);</code>构建2000年1月1日0时的时间</p>
-<h3 id="Date-now"><a href="#Date-now" class="headerlink" title="Date.now()"></a>Date.now()</h3><p>返回调用这个函数的时间的毫秒数</p>
-<h3 id="继承的方法"><a href="#继承的方法" class="headerlink" title="继承的方法"></a>继承的方法</h3><p><code>toLocaleString()</code>可能时间格式会有AM或PM<br><code>toString()</code>带有时区信息的日期和时间<br><code>valueOf()</code>返回毫秒</p>
-<h3 id="日期格式化方法"><a href="#日期格式化方法" class="headerlink" title="日期格式化方法"></a>日期格式化方法</h3><ul>
-<li>toDateString()——以特定于实现的格式显示星期几，月，日，年</li>
-<li>toTimeString()——以特定于实现的格式显示时，分，秒和时区</li>
-<li>toLocaleDateString()——以特定于地区的格式显示</li>
-<li>toLocaleTimeString()——同上</li>
-<li>toUTCString()——以特定于实现的格式完整的UTC日期</li>
-</ul>
-<h3 id="其他日期-时间组件方法"><a href="#其他日期-时间组件方法" class="headerlink" title="其他日期/时间组件方法"></a>其他日期/时间组件方法</h3><p><a href="http://www.w3school.com.cn/jsref/jsref_obj_date.asp" target="_blank" rel="noopener">w3school列出的Date对象方法</a></p>
-<h2 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h2><p>ECMAScript通过RegExp类型来支持正则表达式,由于之前学Python的时候有认真的学过正则，但是一段时间没用就忘得差不多了，所以在没有用到的时候就先不学了，摆个链接在需要的时候再去看<br><a href="http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp" target="_blank" rel="noopener">w3school RegExp对象</a></p>
-<h2 id="Function类型"><a href="#Function类型" class="headerlink" title="Function类型"></a>Function类型</h2><p>函数是对象，因此函数名实际上是一个指向函数对象的指针，不会与某个函数绑定<br>由于函数名是指针,所以ECMAScript也没有函数重载的概念</p>
-<h3 id="函数声明与函数表达式"><a href="#函数声明与函数表达式" class="headerlink" title="函数声明与函数表达式"></a>函数声明与函数表达式</h3><p>看下面例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert(sum(<span class="number">10</span>, <span class="number">10</span>));</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>以上代码完全可以执行,因为在代码开始执行之前,解析器会通过一个名为<strong>函数声明提升</strong>的过程,读取并将函数声明添加到执行环境中,对代码求值时,JavaScript引擎在第一遍会声明函数并将它们放到源代码树的顶部,所以即使先调用函数再定义也不会出错,而像下面的例子就会报错<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert(sum(<span class="number">10</span>, <span class="number">10</span>));</span><br><span class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span>(<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>原因在于函数位于一个初始化语句中,而不是一个函数声明</p>
-<p>同样的,由于函数为对象,它可以作为另一个函数的参数或返回值.</p>
-<h3 id="函数内部属性"><a href="#函数内部属性" class="headerlink" title="函数内部属性"></a>函数内部属性</h3><h4 id="arguments及其属性callee"><a href="#arguments及其属性callee" class="headerlink" title="arguments及其属性callee"></a>arguments及其属性callee</h4><p>函数内部有两个特殊的对象:arguments和this,arguments保存传入函数中的所有参数,arguments还有一个属性名为callee,该属性是一个指针,指向拥有这个arguments对象的函数<br>请看下面例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;    </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> num * factorial(num<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面例子中,如果函数名字不会发生改变,那么这样定义是没有问题的,但如果函数名字改变了,则会发生错误,可以用下面的例子来解决<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;    </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> num * <span class="built_in">arguments</span>.callee(num<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><p>this与Java的this类似,引用的是函数执行的环境对象(当在网页的全局作用域中调用函数时,this对象引用的就是window)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">color</span>: <span class="string">"blue"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sayColor(); <span class="comment">// "red" 引用this对象为window</span></span><br><span class="line"></span><br><span class="line">o.sayColor = sayColor;</span><br><span class="line">o.sayColor(); <span class="comment">// "blue"</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h4><p>这个属性保存调用当前函数的函数的引用,若在全局作用域中调用当前函数,则它的值为null<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">outer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	inner();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inner</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(inner.caller); <span class="comment">// 返回outer的源码</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">outer();</span><br></pre></td></tr></table></figure></p>
-<h3 id="函数属性和方法"><a href="#函数属性和方法" class="headerlink" title="函数属性和方法"></a>函数属性和方法</h3><h4 id="length"><a href="#length" class="headerlink" title="length"></a>length</h4><p>length属性表示函数希望接收的命名参数的个数</p>
-<h4 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h4><p>保存实例方法,不可枚举</p>
-<h4 id="call-与apply"><a href="#call-与apply" class="headerlink" title="call()与apply()"></a>call()与apply()</h4><p>在特定的作用域中调用函数,call()接收第一个参数为运行函数的作用域,后面多个参数为函数的参数,allpy()接收2个参数,第一个为运行函数的作用域,第二个为参数数组或arguments,它们可以用于扩充函数的作用域<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">color</span>: <span class="string">"blue"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sayColor(); <span class="comment">//red</span></span><br><span class="line"></span><br><span class="line">sayColor.call(<span class="keyword">this</span>); <span class="comment">//red</span></span><br><span class="line">sayColor.call(<span class="built_in">window</span>); <span class="comment">//red</span></span><br><span class="line">sayColor.call(o); <span class="comment">//blue</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h4><p>创建一个函数的实例,并将该实例的this绑定在bind()的参数上<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">color</span>: <span class="string">"blue"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.color);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> objectSayColor = sayColor.bind(o);</span><br><span class="line">objectSayColor(); <span class="comment">//blue</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="基本包装类型–特殊的引用类型"><a href="#基本包装类型–特殊的引用类型" class="headerlink" title="基本包装类型–特殊的引用类型"></a>基本包装类型–特殊的引用类型</h2><p>引用类型与基本包装类型最大的区别是对象的生命周期,使用new创建的引用类型的实例,在执行流离开当前作用域之前都一直保存在内存中,而自动创建的基本包装类型的对象,则只存在于一行代码的执行瞬间,然后就会销毁.</p>
-<h3 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h3><p>建议不适用Boolean对象,而是使用布尔值</p>
-<h3 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h3><p>重写了valueOf(),toLocaleString()和toString(),toString()可以传入参数显示返回几进制数值,除了继承的方法,Number类型还提供了一些用于将数值格式化为字符串的方法<br><code>num.toFixed(2) // 仅显示小数点后两位,四舍五入</code><br><code>num.toExponential(1) // 小数位数为1的指数表示法(e表示法)</code><br><code>num.toPrecision() // 返回自适应格式,参数为小数位显示</code></p>
-<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><h4 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h4><p><code>stringValue.charAt(num);</code><br><code>stringValue[num];</code><br><code>stringValue.charCodeAt(num); // 返回num所在的字符的字符编码</code></p>
-<h4 id="字符串操作方法"><a href="#字符串操作方法" class="headerlink" title="字符串操作方法"></a>字符串操作方法</h4><p><code>stringValue.concat(otherString);</code><br><code>stringValue.substring();</code><br><code>stringValue.slice();</code><br><code>stringValue.substr(); // 第一个参数开始位置，第二个为字符串长</code><br>传入负数后它们的行为不一样，不详述</p>
-<h4 id="字符串位置方法"><a href="#字符串位置方法" class="headerlink" title="字符串位置方法"></a>字符串位置方法</h4><p><code>stringValue.indexOf()</code><br><code>stringValue.lastIndexOf()</code><br><code>stringValue.trim() // 删除前置后缀所有空格并返回</code></p>
-<h4 id="字符串大小写转换方法"><a href="#字符串大小写转换方法" class="headerlink" title="字符串大小写转换方法"></a>字符串大小写转换方法</h4><p><code>stringValue.toLocaleUpperCase(); // 和下面那个一样，不过一般用这个比较多</code><br><code>stringValue.toUpperCase();</code><br><code>stringValue.toLocaleLowerCase();</code><br><code>stringValue.toLowerCase();</code></p>
-<h4 id="字符串模式匹配方法"><a href="#字符串模式匹配方法" class="headerlink" title="字符串模式匹配方法"></a>字符串模式匹配方法</h4><p><code>stringValue.match()</code><br><code>stringValue.search()</code><br>涉及到正则，偷懒就不写了</p>
-<h4 id="localeCompare"><a href="#localeCompare" class="headerlink" title="localeCompare()"></a>localeCompare()</h4><p>比较两个字符串，根据结果返回-1,0,1</p>
-<h2 id="单体内置对象"><a href="#单体内置对象" class="headerlink" title="单体内置对象"></a>单体内置对象</h2><p>由ECMAScript实现提供的，不依赖于寄主环境的对象，在ECMAScript程序执行之前就已经存在了</p>
-<h3 id="Global对象"><a href="#Global对象" class="headerlink" title="Global对象"></a>Global对象</h3><p>偷懒，很多前面都有写，不重复了，书本P131</p>
-<h4 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h4><p>同上</p>
-<h3 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h3><p>提供了数学公式和信息</p>
-<ul>
-<li>Math.E 自然对数</li>
-<li>Math.LN10 10为底的自然对数</li>
-<li>Math.PI π</li>
-<li>Math.LOG10E 10为底e的对数</li>
-<li>Math.SQRT2 2的平方根</li>
-</ul>
-<p>等等其他值</p>
-<h4 id="舍入方法"><a href="#舍入方法" class="headerlink" title="舍入方法"></a>舍入方法</h4><ul>
-<li>Math.ceil() 向上舍入</li>
-<li>Math.floor() 向下舍入</li>
-<li>Math.round() 四舍五入</li>
-</ul>
-<h4 id="random"><a href="#random" class="headerlink" title="random()"></a>random()</h4><p>返回0-1的随机数</p>
-<h4 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h4><ul>
-<li>Math.abs()</li>
-<li>Math.exp()</li>
-<li>Math.log()</li>
-</ul>
-<p>等等</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/JavaScript02-变量-作用域和内存问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/02/JavaScript02-变量-作用域和内存问题/" itemprop="url">JavaScript02-变量，作用域和内存问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T11:08:34+08:00">
-                2018-09-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/02/JavaScript02-变量-作用域和内存问题/" class="leancloud_visitors" data-flag-title="JavaScript02-变量，作用域和内存问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript02-变量，作用域和内存问题"><a href="#JavaScript02-变量，作用域和内存问题" class="headerlink" title="JavaScript02-变量，作用域和内存问题"></a>JavaScript02-变量，作用域和内存问题</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>JavaScript变量只是在特定时间用于保存特定值的一个名字，不存在定义某个变量就必须保存何种数据类型值的规则，变量的值及其数据类型可以在脚本的生命周期内改变。</p>
-<h3 id="基本类型和引用类型的值"><a href="#基本类型和引用类型的值" class="headerlink" title="基本类型和引用类型的值"></a>基本类型和引用类型的值</h3><p>ECMAScript规定基本类型值指的是简单的数据段，而引用数据值指那些可能由多个值构成的对象，在JavaScript中，Undefined,Null,Boolean,Number,String都是基本数据类型，都是按值访问的。而引用类型的值是保存在内存中的对象，只有Object类型是引用数据类型。</p>
-<h3 id="动态的属性"><a href="#动态的属性" class="headerlink" title="动态的属性"></a>动态的属性</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">person.name = <span class="string">"PersonName"</span>;</span><br><span class="line">alert(person.name); <span class="comment">// "PersonName"</span></span><br></pre></td></tr></table></figure>
-<p>以上代码我们创建了一个对象并将其值保存在person中，然后为该对象添加了一个名为name的属性，而对基本数据类型，虽然为其添加属性不会报错，但访问该属性的时候并不能成功访问。</p>
-<h3 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h3><p>对于基本数据类型，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num1 = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> num2 = num1;</span><br></pre></td></tr></table></figure></p>
-<p>两个变量之间不会相互影响。</p>
-<p>而对于引用数据类型<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line">obj1.name = <span class="string">"objName"</span>;</span><br><span class="line">alert(obj2.name); <span class="comment">// "objName"</span></span><br></pre></td></tr></table></figure></p>
-<p>obj1和obj2引用的都是同一个对象</p>
-<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><p>基本类型值的传递就如同基本类型变量的复制一样，而引用类型值的传递，也如同引用类型变量的复制一样。</p>
-<h2 id="执行环境及作用域"><a href="#执行环境及作用域" class="headerlink" title="执行环境及作用域"></a>执行环境及作用域</h2><p>执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为，每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中，解析器在处理数据时会在后台使用它。<br>全局执行环境是最外围的一个执行环境。根据ECMAScript实现所在宿主环境不同，表示环境的对象也不同，在WEB浏览器中，全局执行环境被认为是window对象。<br>每个函数都有自己的执行环境，当执行流进入一个函数的时候，函数的环境会进入环境栈，函数执行完毕后栈将其环境弹出，把控制权交还给之前的执行环境。<br>当代码在一个环境中执行，会创建变量对象的一个作用域链。作用域链的作用是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前段始终是当前执行代码所在环境的变量对象，如果这个环境是函数，则将其活动对象作为变量对象，该活动最开始时只有一个变量arguments对象。作用域链的下一对象来自包含的环境，再下一个变量对象来自下一个包含环境，一直到全局执行环境。<br>标识符解析是沿着作用域链一级一级地搜索标识符的过程。搜索过程始终从作用域链的前端开始，逐级往后回溯，直至找到标识符为止。<br>其实跟Java的作用域在表现上差不多。</p>
-<h3 id="延长作用域链"><a href="#延长作用域链" class="headerlink" title="延长作用域链"></a>延长作用域链</h3><p>以下两个语句都会在作用域链的前端添加一个变量对象。</p>
-<ol>
-<li>try-catch语句的catch块</li>
-<li>with语句</li>
-</ol>
-<h3 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> color = <span class="string">"blue"</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(color); <span class="comment">// "blue"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    doSomeThing(i);</span><br><span class="line">&#125;</span><br><span class="line">alert(i); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
-<p>在JavaScript中，if和for中创建的变量依旧存在于外部的执行环境中。</p>
-<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>JavaScript具有自动垃圾收集机制，执行环境会负责管理代码执行过程中使用的内存。</p>
-<h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><p>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记，然后它会去掉环境中的变量以及被环境中的变量引用的变量的标记。而再次之后再被加上标记的变量将被视为准备删除的变量。</p>
-<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><p>跟踪记录每个值被引用的次数，当引用次数变为0的时候，就回收其占用的内存空间，循环引用问题无法解决，很少使用。</p>
-<h3 id="管理内存"><a href="#管理内存" class="headerlink" title="管理内存"></a>管理内存</h3><p>对于全局变量，当确定不再使用的时候，可以为其赋值null，让值脱离执行环境，以便垃圾收集器下次运行时将其回收。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3095,7 +3024,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-count">78</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3106,7 +3035,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3117,7 +3046,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">180</span>
+                  <span class="site-state-item-count">192</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
