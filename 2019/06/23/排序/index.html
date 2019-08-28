@@ -134,8 +134,8 @@
 <meta property="og:image" content="https://i.imgur.com/LCoXgvI.png">
 <meta property="og:image" content="https://i.imgur.com/7UIOCjF.jpg">
 <meta property="og:image" content="https://i.imgur.com/yfckGjq.jpg">
-<meta property="og:image" content="https://i.imgur.com/O5sPJrc.jpg">
-<meta property="og:updated_time" content="2019-06-23T14:00:55.330Z">
+<meta property="og:image" content="https://i.imgur.com/cvN09rf.png">
+<meta property="og:updated_time" content="2019-08-20T06:57:46.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序">
 <meta name="twitter:description" content="排序要求：熟记各个排序的排序过程，能写出代码  插入排序插入排序的基本思想是每次将一个待排序的记录按其关键字大小插入到前面已排好序的子序列中，直到全部记录插入完成 关键字：记录后移，相对有序 直接插入排序假定L[1]是一个已经排好序的子序列，将L[2]…L[n]依次插入到已排好序的子序列即可。需要进行的操作就是在已排序子序列有k-1个元素的时候(k初始为2)，判断L[k-1]&amp;lt;L[k]，如果">
@@ -500,7 +500,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotpos = Partition(A, low, high);</span><br><span class="line">        QuickSort(A, low, pivotpos - <span class="number">1</span>);</span><br><span class="line">        QuickSort(A, pivotpos + <span class="number">1</span>, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(ElemType A[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElemType pivot = A[low];</span><br><span class="line">    <span class="keyword">while</span> (low &lt; high)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[high] &gt;= pivot) --high;</span><br><span class="line">        A[low] = A[high];</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; A[low] &lt;= pivot) ++low;</span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    A[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="评价-4"><a href="#评价-4" class="headerlink" title="评价"></a>评价</h4><p>空间上平均O(log2(n))，最坏O(n)<br>时间上平均O(log2(n))，最坏情况O(n^2)</p>
 <p>是不稳定的排序算法</p>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序的基本思想是：每一趟（如第i躺）在后面n-i+1个待排序元素中选取关键字最小的元素，作为有序子序列的第i个元素，直到第n-1趟做完，待排序元素只剩下一个，就不用再选了</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序的基本思想是：每一趟（如第i趟）在后面n-i+1个待排序元素中选取关键字最小的元素，作为有序子序列的第i个元素，直到第n-1趟做完，待排序元素只剩下一个，就不用再选了</p>
 <h3 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(ElemType A[], <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        min = i;</span><br><span class="line">        <span class="keyword">for</span> (j = i + <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">            <span class="keyword">if</span> (A[j] &lt;A[min]) min = j;</span><br><span class="line">        <span class="keyword">if</span> (min != i) swap(A[i], A[min]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="评价-5"><a href="#评价-5" class="headerlink" title="评价"></a>评价</h4><p>简单选择排序是不稳定的排序方法，空间效率O(1)，时间效率O(n^2)</p>
 <h3 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h3><p>堆是一棵<strong>完全二叉树</strong>，它的定义如下：<strong>n个关键字序列L[1…n]称为堆，当且仅当该序列满足：L[i]&lt;=L[2i]且L[i]&lt;=L[2i+1]（称为小顶堆）或L[i]&gt;=L[2i]且L[i]&gt;=L[2i+1]（称为大顶堆）</strong></p>
@@ -520,7 +520,7 @@
 <p>基数排序采用多关键字的思想，借助分配和收集两种操作对单逻辑关键字进行排序，分为最高位优先(MSD)排序和最低位优先(LSD)排序</p>
 <p>结点aj由d元组(kj(d-1),kj(d-2),…,kj(0))组成，r为基数（对于十进制，r=10）</p>
 <p>空间复杂度O(r)<br>时间复杂度O(d*(n+r))</p>
-<h2 id="内部排序的算法比较"><a href="#内部排序的算法比较" class="headerlink" title="内部排序的算法比较"></a>内部排序的算法比较</h2><p><img src="https://i.imgur.com/O5sPJrc.jpg" alt=""></p>
+<h2 id="内部排序的算法比较"><a href="#内部排序的算法比较" class="headerlink" title="内部排序的算法比较"></a>内部排序的算法比较</h2><p><img src="https://i.imgur.com/cvN09rf.png" alt=""></p>
 <h2 id="外部排序的概念"><a href="#外部排序的概念" class="headerlink" title="外部排序的概念"></a>外部排序的概念</h2><p>将待排序记录存储在外存上，排序时再把数据一部分一部分调入内存进行排序，需要多次内存外存的交换，对外存文件的记录排序后结果仍然被放到原有文件中，这样的排序称为外部排序</p>
 
       
@@ -682,7 +682,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -704,7 +704,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">192</span>
+                  <span class="site-state-item-count">200</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

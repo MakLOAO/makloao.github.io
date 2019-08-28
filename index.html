@@ -369,6 +369,655 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" itemprop="url">Java并发基础5-AQS,Atomic与ThreadLocal</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T23:49:34+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" class="leancloud_visitors" data-flag-title="Java并发基础5-AQS,Atomic与ThreadLocal">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484202&idx=1&sn=dbf9e94d2486ee0baa43e043a2363231&chksm=ebd7422bdca0cb3dc0451e09d139b72558b1cfa3593a6bcc1716ae9d1bd443804d194a303985&scene=21#wechat_redirect" target="_blank" rel="noopener">java3y AQS</a></p>
+</blockquote>
+<h1 id="Java并发基础5-AQS-Atomic与ThreadLocal-补充"><a href="#Java并发基础5-AQS-Atomic与ThreadLocal-补充" class="headerlink" title="Java并发基础5-AQS,Atomic与ThreadLocal(补充)"></a>Java并发基础5-AQS,Atomic与ThreadLocal(补充)</h1><p>前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记</p>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称，通过阅读其注释，可以得出如下信息：</p>
+<ul>
+<li>是一个可以给我们<strong>实现锁的框架</strong></li>
+<li>内部实现的关键：<strong>先进先出的队列</strong>，<strong>state状态</strong></li>
+<li>拥有两种线程模式：<strong>独占和共享</strong></li>
+<li>定义了内部类ConditionObject</li>
+<li>locks包中的ReadWriteLock，ReentrantLock都是基于AQS构建</li>
+<li>一般叫AQS为<strong>同步器</strong></li>
+</ul>
+<p>对象每获一次锁，state就增1<br>state通过volatile实现可见性，CAS算法来修改state的值</p>
+<p>队列源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 共享与独占</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node SHARED = <span class="keyword">new</span> Node();</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node EXCLUSIVE = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 线程状态，依次为被取消，需要唤醒，等待condition唤醒，无条件传播？</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANCELLED =  <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SIGNAL    = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CONDITION = -<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PROPAGATE = -<span class="number">3</span>;</span><br><span class="line">    <span class="comment">// 值为上面几种状态</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">int</span> waitStatus;</span><br><span class="line">    <span class="keyword">volatile</span> Node prev;</span><br><span class="line">    <span class="keyword">volatile</span> Node next;</span><br><span class="line">    <span class="comment">// 每个线程对应一个Node</span></span><br><span class="line">    <span class="keyword">volatile</span> Thread thread;</span><br><span class="line">    <span class="comment">// Link to next node waiting on condition, or the special value SHARED</span></span><br><span class="line">    Node nextWaiter;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">isShared</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nextWaiter == SHARED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">final</span> Node <span class="title">predecessor</span><span class="params">()</span> <span class="keyword">throws</span> NullPointerException </span>&#123;</span><br><span class="line">        Node p = prev;</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node() &#123;    <span class="comment">// Used to establish initial head or SHARED marker</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, Node mode) &#123;     <span class="comment">// Used by addWaiter</span></span><br><span class="line">        <span class="keyword">this</span>.nextWaiter = mode;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, <span class="keyword">int</span> waitStatus) &#123; <span class="comment">// Used by Condition</span></span><br><span class="line">        <span class="keyword">this</span>.waitStatus = waitStatus;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>获取独占锁的过程在acquire定义，该方法使用模板设计模式，由子类实现</p>
+<p>过程：acquire(int)尝试获取资源，如果获取失败，将线程插入等待队列。插入等待队列后，acquire(int)并没有放弃获取资源，而是根据前置节点状态状态判断是否应该继续获取资源，如果前置节点是头结点，继续尝试获取资源，如果前置节点是SIGNAL状态，就中断当前线程，否则继续尝试获取资源。直到当前线程被park()或者获取到资源，acquire(int)结束</p>
+<p>release方法释放独占锁，方法使用模板设计模式，由子类实现</p>
+<p>过程:首先调用子类的tryRelease()方法释放锁,然后唤醒后继节点,在唤醒的过程中,需要判断后继节点是否满足情况,如果后继节点不为且不是作废状态,则唤醒这个后继节点,否则从tail节点向前寻找合适的节点,如果找到,则唤醒</p>
+<p>锁对象的lock与unlock就分别使用了这两个方法</p>
+<h2 id="Atomic"><a href="#Atomic" class="headerlink" title="Atomic"></a>Atomic</h2><p>count++操作不是原子操作，需要经过 读取-修改-写入 三个步骤，如果需要同步，则可以加上synchronized关键字，但是开销很大，所以可以使用原子变量，它通过CAS操作来实现原子性</p>
+<p>CAS操作是：如果当前内存值=预期值，则把内存值改为想要修改的值，否则什么都不做（或重试），CAS操作是原子性的（虽然它是比较后再修改）</p>
+<p>原子变量分类：</p>
+<ul>
+<li>基本类型<ul>
+<li>AtomicBoolean</li>
+<li>AtomicInteger</li>
+<li>AtomicLong</li>
+</ul>
+</li>
+<li>数组<ul>
+<li>AtomicIntegerArray</li>
+<li>AtomicLongArray</li>
+<li>AtomicReferenceArray</li>
+</ul>
+</li>
+<li>引用类型<ul>
+<li>AtomicReference</li>
+<li>AtomicStampedReference：带有版本号的引用类型</li>
+<li>AtomicMarkableReference：带有标记位的引用类型</li>
+</ul>
+</li>
+<li>对象的属性<ul>
+<li>AtomicIntegerFieldUpdater：对象的属性是整型</li>
+<li>AtomicLongFieldUpdater：对象的属性是长整型</li>
+<li>AtomicReferenceFieldUpdater：对象的属性是引用类型</li>
+</ul>
+</li>
+<li>JDK 8新增DoubleAccumulator,LongAccumulator,DoubleAdder,LongAdder，它们是对AtomicLong等类的改进，高并发情况下会更高效</li>
+</ul>
+<p>Atomic包的类基本都是使用Unsafe实现的包装类，Unsafe提供了三种CAS方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一和第二个参数代表对象的实例以及地址，第三个参数代表期望值，第四个参数代表更新值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapObject</span><span class="params">(Object var1, <span class="keyword">long</span> var2, Object var4, Object var5)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapLong</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">long</span> var4, <span class="keyword">long</span> var6)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h3><p>使用CAS有个缺点就是ABA问题，ABA问题描述如下：</p>
+<ul>
+<li>有一个变量count=10，三个线程A,B,C</li>
+<li>线程A和线程C同时读到count变量，所以线程A和线程C的内存值和预期值都为10,</li>
+<li>此时线程A使用CAS将count修改为100</li>
+<li>修改完后，线程B进来了，读取到count的值为100（内存值和预期值都是100），将count修改为10</li>
+<li>线程C拿到执行权，发现内存值是10，预期值也是10，将count修改为11</li>
+</ul>
+<p>这样 线程C无法得知线程A和线程B修改过count的值，是有风险的</p>
+<h3 id="解决ABA问题"><a href="#解决ABA问题" class="headerlink" title="解决ABA问题"></a>解决ABA问题</h3><p>可以使用JDK提供的AtomicStampedReference和AtomicMarkableReference类</p>
+<p>简单来说就是给这个对象提供一个版本，并且这个版本如果被修改了，这个版本号是自动更新的<br>多了这个版本号比较，就不会存在ABA的问题了</p>
+<h3 id="LongAdder性能"><a href="#LongAdder性能" class="headerlink" title="LongAdder性能"></a>LongAdder性能</h3><p>LongAdder性能要比AtomicLong好，它减少乐观锁的重试次数</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal设计的目的就是为了能够<strong>在当前线程中有属于自己的变量</strong>，并不是为了解决并发或者共享变量的问题</p>
+<p>ThreadLocal提供了<strong>线程的局部变量</strong>，每个线程都可以通过<strong>set()</strong>和<strong>get()</strong>来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</p>
+<p>往ThreadLocal中填充的变量属于当前线程，该变量对其他线程而言是隔离的</p>
+<p>set方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">        map.set(<span class="keyword">this</span>, value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        createMap(t, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ThreadLocal内部使用的是ThreadLocalMap，ThreadLocalMap是<strong>ThreadLocal的一个静态内部类</strong>，也<strong>是Thread的一个域，由Thread去维护ThreadLocalMap变量</strong></p>
+<p>我们调用set()方法，值都是存储在这个Map上的，<strong>key就是当前的ThreadLocal对象</strong></p>
+<p>get方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">            T result = (T)e.value;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setInitialValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Map.Entry和集合类的Entry是类似的，可以通过它获得value</p>
+<p>总结：</p>
+<ul>
+<li>每个Thread维护一个ThreadLocalMap的引用</li>
+<li>ThreadLocalMap是ThreadLocal的内部静态类，用Entry来进行存储</li>
+<li>调用ThreadLocal的set()方法，实际上就是往ThreadLocalMap设置值，key是ThreadLocal对象，值是传递进来的对象</li>
+<li>ThreadLocal的get()方法，实际上就是往ThreadLocalMap获取值，key是ThreadLocal对象</li>
+<li><strong>ThreadLocal本身并不存储值，它只是作为一个key让线程从Thread维护的ThreadLocalMap获取value</strong></li>
+</ul>
+<h2 id="ThreadLocal的内存泄漏"><a href="#ThreadLocal的内存泄漏" class="headerlink" title="ThreadLocal的内存泄漏"></a>ThreadLocal的内存泄漏</h2><p>ThreadLocalMap的生命周期跟Thread是一样的，如果没有手动删除对应key就会导致内存泄漏，所以必须手动remove()</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/22/源码解析-Map相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/22/源码解析-Map相关/" itemprop="url">源码解析-Map相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-22T20:44:34+08:00">
+                2019-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/22/源码解析-Map相关/" class="leancloud_visitors" data-flag-title="源码解析-Map相关">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="源码解析-Map相关"><a href="#源码解析-Map相关" class="headerlink" title="源码解析-Map相关"></a>源码解析-Map相关</h1><blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/31805309" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/31805309</a></p>
+</blockquote>
+<p>基于JDK8</p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>在讲HashMap之前，先了解红黑树的基本概念：</p>
+<p>红黑树是一棵自平衡的二叉查找树，除了符合二叉查找树的基本特性，它还符合如下特性：</p>
+<ul>
+<li>节点是红色或黑色</li>
+<li>根节点是黑色</li>
+<li>每个叶子节点都是黑色的空节点（NIL节点）</li>
+<li>每个红色节点的两个子结点都是黑色（从每个叶子到根的所有路径上不能有两个连续的红色节点）</li>
+<li>从<strong>任一节点到其每个叶子</strong>的所有路径都包含相同数目的黑色节点</li>
+</ul>
+<p><img src="https://i.imgur.com/aYMLN3D.jpg" alt=""></p>
+<p>这些约束强制了红黑树的关键性质: <strong>从根到叶子的最长的可能路径不多于最短的可能路径的两倍长</strong></p>
+<p>红黑树失衡时可以通过<strong>旋转</strong>和<strong>变色</strong>来让红黑树重新恢复平衡并且保持上述特性不变，具体如何操作需要看失衡的情况来决定，略</p>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="基础的东西"><a href="#基础的东西" class="headerlink" title="基础的东西"></a>基础的东西</h3><h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><p>从注释我们可以知道：</p>
+<ul>
+<li>HashMap允许null key和null values</li>
+<li>HashMap和HashTable大致相等，区别是HashMap方法unsynchronized和允许null值</li>
+<li>初始容量太高和装载因子太低对遍历都不好</li>
+<li>当 初始容量&times;装载因子 小于哈希表的容量时，哈希表会再散列，桶数会&times;2</li>
+<li>装载因子默认是0.75，设置高虽然会减少空间，但会导致遍历开销大</li>
+<li>如果要将大量数据加入到HashMap，最好手动指定其容量，而不是使用默认容量然后自动扩容（这样开销大）</li>
+<li>不同步，如果要同步，使用<code>Map m = Collections.synchronizedMap(new HashMap(...));</code></li>
+</ul>
+<p>HashMap继承自父类AbstractMap，该抽象父类实现了一些常用的Map默认方法，唯一的抽象方法是entrySet()要求子类去具体实现<br>HashMap实现接口Serializable，Cloneable，Map&lt;K,V&gt;</p>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p>观察它的属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// 默认初始容量16</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;        <span class="comment">// 最大容量2^30</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;     <span class="comment">// 默认装填因子0.75</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;             <span class="comment">// 桶中链表个数大于8时，桶中链表会转换为树形结构（每次往桶添加元素都会判断桶的节点个数是否大于该值）</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;           <span class="comment">// 桶中树形转换成链表的桶节点个数</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;         <span class="comment">// 当容量大于等于64时才触发链表转红黑树</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;                        <span class="comment">// Node数组存储元素，长度为2的次幂</span></span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;             <span class="comment">// 具体元素存放集</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;                                 <span class="comment">// 存放的元素个数，数组+链表</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;                             <span class="comment">// 扩容和更改map的计数器</span></span><br><span class="line"><span class="keyword">int</span> threshold;                                      <span class="comment">// 数组临界值 = 容量 * 装载因子，当size&gt;threshold，就调用resize()方法扩容（扩大2倍）</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor;                             <span class="comment">// 装载因子，默认0.75，构造器可以修改</span></span><br></pre></td></tr></table></figure>
+<h4 id="内部类Node-lt-K-V-gt"><a href="#内部类Node-lt-K-V-gt" class="headerlink" title="内部类Node&lt;K,V&gt;"></a>内部类Node&lt;K,V&gt;</h4><p>内部类主要有的属性是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.hash = hash;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> K <span class="title">getKey</span><span class="params">()</span>        </span>&#123; <span class="keyword">return</span> key; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">getValue</span><span class="params">()</span>      </span>&#123; <span class="keyword">return</span> value; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> key + <span class="string">"="</span> + value; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">setValue</span><span class="params">(V newValue)</span> </span>&#123;</span><br><span class="line">        V oldValue = value;</span><br><span class="line">        value = newValue;</span><br><span class="line">        <span class="keyword">return</span> oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">this</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o <span class="keyword">instanceof</span> Map.Entry) &#123;</span><br><span class="line">            Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;</span><br><span class="line">            <span class="keyword">if</span> (Objects.equals(key, e.getKey()) &amp;&amp;</span><br><span class="line">                Objects.equals(value, e.getValue()))</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Node实现了Map.Entry接口</strong><br>Java散列表是通过数组+链表实现的，next就是链表的next指针</p>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>可以使用的构造方法：</p>
+<ul>
+<li>默认无参构造方法</li>
+<li>传递容量参数</li>
+<li>传递容量+装载因子参数</li>
+<li>直接传递一个Map作为参数</li>
+</ul>
+<h3 id="put方法"><a href="#put方法" class="headerlink" title="put方法"></a>put方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到它是直接调用putVal方法，并通过<code>hash(key)</code>计算哈希值，我们观察它是怎么计算哈希值的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当key==null时哈希值为0，否则哈希值为<strong>该键的哈希值与哈希值本身高16位作异或的结果（即哈希值高16位为hashCode()的高16位，低16位为hashCode()高16位与低16位相异或的结果）</strong><br>用这个作为哈希值的原因是：</p>
+<p><img src="https://i.imgur.com/OymSOi2.png" alt=""></p>
+<p>我们是根据key的哈希值来保存在散列表中的，<strong>表默认容量是16，即只有1-15的位置上是可以用的，位置的计算公式为：<code>tab[i = (n - 1) &amp; hash]</code>，在做&amp;运算的时候，只有后4位是有效的，如果我们key的哈希值高位变化很大，低位变化很小，直接拿去做&amp;运算，就会导致计算出来的hash值冲突次数会很多</strong><br><strong>而将key的哈希值的高位也做了运算</strong>（哈希值低位与高位做了异或运算，使得在做&amp;运算时，低位实际上是高低位的结合），<strong>这就增加了随机性，减少碰撞冲突的可能性</strong></p>
+<p>来看看putVal做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, i;</span><br><span class="line">    <span class="comment">// 当散列表为null，则通过resize()方法初始化散列表</span></span><br><span class="line">    <span class="comment">// resize()函数的作用是当哈希表为null就初始化它，当哈希表需要扩容就扩大两倍（threshold在这里被计算）</span></span><br><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">        n = (tab = resize()).length;</span><br><span class="line">    <span class="comment">// 没有冲突，直接插入到散列表</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    <span class="comment">// 发生冲突</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        <span class="comment">// 要插入的元素中的key和hash在该散列表已存在，则用e记录下来</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        <span class="comment">// 当为红黑树结构的时候，就调用树的插入方法</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        <span class="comment">// 链表结构</span></span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) &#123;</span><br><span class="line">                <span class="comment">// 插入到链表的末尾，当插入后临界值大于TREEIFY_THRESHOLD，就把该链表转换为红黑树结构</span></span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for 1st</span></span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 当链表中存在key与hash与待插入节点的key与hash相等的节点时，就退出循环（此时e保存的节点就是key相等的节点）</span></span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                p = e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// e不为null，意味着插入时已存在该key，则用新的value覆盖旧value，并返回旧value</span></span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123; <span class="comment">// existing mapping for key</span></span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ++modCount;</span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>putVal的过程大致归纳：</p>
+<ol>
+<li>先判断Node&lt;K,V&gt;[] table是否为null，若为null就通过resize()初始化它，设置它的初始容量为16和threshold为初始容量&times;装载因子</li>
+<li>没有发生碰撞，就直接添加到散列表数组对应位置</li>
+<li>发生碰撞，如果散列表table的元素已存在key和hash值，则记录该节点，然后更新值并返回旧值</li>
+<li>如果桶中链表头不存在该key，判断是红黑树就使用红黑树的插入方法，是链表就使用链表的插入方法，并在插入后判断是否需要转换为红黑树</li>
+<li>如果插入过程中（链表查找过程）找到key相等的节点，就更新值并返回旧值</li>
+<li>插入成功后判断是否需要resize</li>
+</ol>
+<h4 id="resize方法"><a href="#resize方法" class="headerlink" title="resize方法"></a>resize方法</h4><p>resize方法就不贴代码了，它主要实现的功能是：当哈希表为null（实际是Node&lt;K,V&gt;[] table为null）就初始化它，当哈希表需要扩容就扩大两倍（提供边界检查防止容量超过最大容量），并把旧的散列表赋值到新散列表中，threshold在这里被计算<br>当Node&lt;K,V&gt;[] table为null，设置</p>
+<h3 id="get方法"><a href="#get方法" class="headerlink" title="get方法"></a>get方法</h3><p>get方法主要调用了getNode方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> Node&lt;K,V&gt; <span class="title">getNode</span><span class="params">(<span class="keyword">int</span> hash, Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; first, e; <span class="keyword">int</span> n; K k;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) != <span class="keyword">null</span> &amp;&amp; (n = tab.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">        (first = tab[(n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (first.hash == hash &amp;&amp; <span class="comment">// always check first node</span></span><br><span class="line">            ((k = first.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="keyword">return</span> first;</span><br><span class="line">        <span class="keyword">if</span> ((e = first.next) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (first <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                <span class="keyword">return</span> ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">return</span> e;</span><br><span class="line">            &#125; <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>判断table是否为null，first = table[(n - 1) &amp; hash]是否为null（key对应的哈希的桶是否为null，为null则不存在该key）</li>
+<li>不为null再判断first.hash是否等于给定key的hash，不等于则沿着链表或红黑树一直往下找，直到找到就返回该Node</li>
+</ol>
+<h3 id="remove方法"><a href="#remove方法" class="headerlink" title="remove方法"></a>remove方法</h3><p>remove主要调用removeNode方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> Node&lt;K,V&gt; <span class="title">removeNode</span><span class="params">(<span class="keyword">int</span> hash, Object key, Object value,</span></span></span><br><span class="line"><span class="function"><span class="params">                           <span class="keyword">boolean</span> matchValue, <span class="keyword">boolean</span> movable)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> n, index;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) != <span class="keyword">null</span> &amp;&amp; (n = tab.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">        (p = tab[index = (n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Node&lt;K,V&gt; node = <span class="keyword">null</span>, e; K k; V v;</span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            node = p;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((e = p.next) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                node = ((TreeNode&lt;K,V&gt;)p).getTreeNode(hash, key);</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">do</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                        ((k = e.key) == key ||</span><br><span class="line">                         (key != <span class="keyword">null</span> &amp;&amp; key.equals(k)))) &#123;</span><br><span class="line">                        node = e;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    p = e;</span><br><span class="line">                &#125; <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node != <span class="keyword">null</span> &amp;&amp; (!matchValue || (v = node.value) == value ||</span><br><span class="line">                             (value != <span class="keyword">null</span> &amp;&amp; value.equals(v)))) &#123;</span><br><span class="line">            <span class="keyword">if</span> (node <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                ((TreeNode&lt;K,V&gt;)node).removeTreeNode(<span class="keyword">this</span>, tab, movable);</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (node == p)</span><br><span class="line">                tab[index] = node.next;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                p.next = node.next;</span><br><span class="line">            ++modCount;</span><br><span class="line">            --size;</span><br><span class="line">            afterNodeRemoval(node);</span><br><span class="line">            <span class="keyword">return</span> node;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>removeNode方法和getNode类似，先查找到对应桶，然后顺着链表或红黑树查找直到找到对应节点，然后判断节点是树节点还是桶首位还是链表节点来进行对应的删除操作</p>
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><p>调用entrySet()方法会返回一个<code>Set&lt;Map.Entry&lt;K,V&gt;&gt;</code>对象，该对象实现了iterator()方法和forEach()方法</p>
+<p>forEach()方法的迭代过程是：先进入数组取得桶，然后顺着桶的链表或红黑树往下迭代，然后再取下一个桶依次重复</p>
+<p>iterator()方法返回继承自HashIterator的EntryIterator对象，并重写了next()方法，该方法调用父类HashIterator的nextNode()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">EntryIterator</span> <span class="keyword">extends</span> <span class="title">HashIterator</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Iterator</span>&lt;<span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> Map.<span class="function">Entry&lt;K,V&gt; <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> nextNode(); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HashIterator</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt; next;        <span class="comment">// next entry to return</span></span><br><span class="line">    Node&lt;K,V&gt; current;     <span class="comment">// current entry</span></span><br><span class="line">    <span class="keyword">int</span> expectedModCount;  <span class="comment">// for fast-fail</span></span><br><span class="line">    <span class="keyword">int</span> index;             <span class="comment">// current slot</span></span><br><span class="line"></span><br><span class="line">    HashIterator() &#123;</span><br><span class="line">        expectedModCount = modCount;</span><br><span class="line">        Node&lt;K,V&gt;[] t = table;</span><br><span class="line">        current = next = <span class="keyword">null</span>;</span><br><span class="line">        index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (t != <span class="keyword">null</span> &amp;&amp; size &gt; <span class="number">0</span>) &#123; <span class="comment">// advance to first entry</span></span><br><span class="line">            <span class="keyword">do</span> &#123;&#125; <span class="keyword">while</span> (index &lt; t.length &amp;&amp; (next = t[index++]) == <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> next != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">final</span> Node&lt;K,V&gt; <span class="title">nextNode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Node&lt;K,V&gt;[] t;</span><br><span class="line">        Node&lt;K,V&gt; e = next;</span><br><span class="line">        <span class="keyword">if</span> (modCount != expectedModCount)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</span><br><span class="line">        <span class="keyword">if</span> (e == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">        <span class="keyword">if</span> ((next = (current = e).next) == <span class="keyword">null</span> &amp;&amp; (t = table) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;&#125; <span class="keyword">while</span> (index &lt; t.length &amp;&amp; (next = t[index++]) == <span class="keyword">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// remove方法，略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>nextNode()的执行是这样的：</p>
+<ul>
+<li>首先调用iterator()方法返回EntryIterator的时候，会调用其父类的构造方法，该方法从table[0]开始找，直到找到第一个不为null的桶</li>
+<li>然后调用next()的时候，next()调用nextNode()方法，它从这个不为null的桶开始顺着链表或者树往下遍历，每次遍历都判断该节点的next是否为null，如果为null，就让next指向下一个不为null的桶</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>HashMap默认装载因子0.75，默认长度16，超过16*0.75的容量就会自动扩大2倍</li>
+<li>HashMap底层使用的是Entry[]数组，数组每个元素是一个桶，元素类型是一个实现了Map.Entry接口的Node类型，存储键值对，且有next指针指向下一个Node</li>
+<li>在JDK 1.8中，当链表长度大于8，并且Entry数组长度大于64，就会转换成红黑树，如果链表长度大于8，Entry数组长度不大于64，就扩大数组长度</li>
+<li>初始容量太高和装载因子太低对遍历都不好</li>
+<li>允许null，不同步</li>
+</ul>
+<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>继承自HashMap，所以和HashMap大体上类似，增加了下面的的域</p>
+<p><img src="https://i.imgur.com/zXlFqcO.jpg" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The head (eldest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The tail (youngest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br></pre></td></tr></table></figure>
+<p>它的每个Node&lt;K,V&gt;都多了一个before和after指针，用来指向按插入顺序先后的前后节点</p>
+<p><strong>get方法会导致LinkedHashMap的顺序发生变化</strong>，它的顺序是这样的：<strong>最常用的将其放在链表的最后，不常用的放在链表的最前，和LRU算法很类似</strong></p>
+<h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>看了下注释 大概就是：</p>
+<ul>
+<li>底层是红黑树，实现NavigableMap接口，可以根据key<strong>自然排序</strong>，可以传递Comparator实现Map的排序</li>
+<li>containsKey，get，put，remove方法的时间复杂度是O(logn)</li>
+<li>非同步</li>
+<li>使用Comparator或者Conparable来比较key是否相等与排序的问题，如果为null，则使用自然顺序</li>
+<li>key不能为null，否则抛出NullPointException</li>
+</ul>
+<h2 id="Set相关"><a href="#Set相关" class="headerlink" title="Set相关"></a>Set相关</h2><p>HashSet的底层实现其实就是使用HashMap，key为HashMap的key，value为一个final Object类型的对象</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/二叉树遍历/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/20/二叉树遍历/" itemprop="url">二叉树的遍历</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T13:59:34+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/20/二叉树遍历/" class="leancloud_visitors" data-flag-title="二叉树的遍历">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二叉树的定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><h3 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h3><p>中序遍历思路：<strong>p!=null，则往左走到底，边走边入栈，走到底后p==null，出栈，访问，然后往右走一步，如果p!=null，则再往左走到底，边走边入栈，走到底p==null，出栈，重复上述步骤</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || stack.size() != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = stack.pop();</span><br><span class="line">            visit(p);</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != <span class="keyword">null</span>) &#123;</span><br><span class="line">        inOrderRecursive(pRoot.left);</span><br><span class="line">        visit(pRoot);</span><br><span class="line">        inOrderRecursive(pRoot.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h2><h3 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h3><p>前序遍历：<strong>访问根，入栈，然后访问左子树，直到走到底，然后出栈，访问其右孩子，入栈，重复上述步骤</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">            visit(p);</span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = stack.pop();</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != null) &#123;</span><br><span class="line">        visit(pRoot);</span><br><span class="line">        preOrderRecursive(pRoot.left);</span><br><span class="line">        preOrderRecursive(pRoot.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><h3 id="非递归-2"><a href="#非递归-2" class="headerlink" title="非递归"></a>非递归</h3><p>后序难点：王道书课后题第三题，需要判断上次访问的是左子树还是右子树，若是左子树，则要跳过根，去访问它的兄弟，然后再回头访问根，若是右子树，则直接访问根<br>算法思想:<strong>往左走到底，并入栈，走到底后出栈，判断其右孩子是否为空||右孩子是否被访问了(pre)，若符合判断，则访问该结点（因为这个时候它的左右孩子都已经访问了），然后令pre=p（记录最近访问的结点是否是其父的右孩子），并重置p指针，让它指向null（使得下一次循环直接进入stack.pop()环节，避免无限循环的发生），如果不符合，说明这个结点的右孩子还没有被访问，则先让它入栈，然后再让p=p-&gt;rchild，然后再入栈，往左走到底，边走边入</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot, pre = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() || p != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123; <span class="comment">// 往左走到底并入栈</span></span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 走到底后出栈判断</span></span><br><span class="line">            p = stack.pop();</span><br><span class="line">            <span class="keyword">if</span> (p.right == <span class="keyword">null</span> || p.right == pre) &#123;</span><br><span class="line">                <span class="comment">// 右孩子被访问了，此时要访问该结点</span></span><br><span class="line">                visit(p);</span><br><span class="line">                pre = p;</span><br><span class="line">                <span class="comment">// 因为根也被访问了，说明这棵子树已经被访问完了，应该让下次循环继续出栈，访问它的父结点或它的兄弟</span></span><br><span class="line">                p = <span class="keyword">null</span>; <span class="comment">// 关键步骤！！！重置p指针，让下次循环继续出栈，防止无限循环</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 右孩子存在且没有被访问</span></span><br><span class="line">                stack.push(p);</span><br><span class="line">                p = p.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != <span class="keyword">null</span>) &#123;</span><br><span class="line">        postOrderRecursive(pRoot.left);</span><br><span class="line">        postOrderRecursive(pRoot.right);</span><br><span class="line">        visit(pRoot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><h3 id="非递归-3"><a href="#非递归-3" class="headerlink" title="非递归"></a>非递归</h3><p>借助队列实现即可，根入队，while(!queue.empty())循环体内出队并访问，然后判断左右子树是否空，非空则入队，依次类推</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    queue.addLast(p);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        p = queue.removeFirst();</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span> (p.left != <span class="keyword">null</span>) queue.addLast(p.left);</span><br><span class="line">        <span class="keyword">if</span> (p.right != <span class="keyword">null</span>) queue.addLast(p.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现分层输出：层间隔间添加null作分隔符</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder2</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.addLast(<span class="keyword">null</span>);</span><br><span class="line">    queue.addLast(pRoot);</span><br><span class="line">    <span class="comment">// 注意当size==1的时候，意味着只剩下一个null了，就退出循环</span></span><br><span class="line">    <span class="keyword">while</span> (queue.size() != <span class="number">1</span>) &#123;</span><br><span class="line">        TreeNode p = queue.removeFirst();</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 输出该层</span></span><br><span class="line">            Iterator&lt;TreeNode&gt; iterator = queue.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) visit(iterator.next());</span><br><span class="line">            System.out.println();</span><br><span class="line">            queue.addLast(<span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">// 输出该层后直接进入下一个循环，把该层的子结点加入到队列</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p.left != <span class="keyword">null</span>) queue.add(p.left);</span><br><span class="line">        <span class="keyword">if</span> (p.right != <span class="keyword">null</span>) queue.add(p.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/redis基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2158,1049 +2807,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/网络5-应用层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/31/网络5-应用层/" itemprop="url">计算机网络5-应用层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:07:34+08:00">
-                2019-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/31/网络5-应用层/" class="leancloud_visitors" data-flag-title="计算机网络5-应用层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络4-应用层"><a href="#网络4-应用层" class="headerlink" title="网络4-应用层"></a>网络4-应用层</h1><ul>
-<li>网络应用模型<br>客户/服务器模型；P2P模型</li>
-<li>域名系统DNS<br>层次域名控件；域名服务器；域名解析过程</li>
-<li>文件传输协议FTP<br>FTP的工作原理；控制连接与数据连接</li>
-<li>电子邮件E-mail<br>电子邮件系统的组成结构；电子邮件格式与MIME；SMTP与POP3</li>
-<li>万维网WWW<br>WWW的概念与组成结构；HTTP</li>
-</ul>
-<h2 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h2><h3 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户/服务器模型"></a>客户/服务器模型</h3><p>C/S模型中，服务器总是处于打开状态，它服务于许多来自其他客户机的主机请求，工作流程如下</p>
-<ul>
-<li>服务器处于接收请求的状态</li>
-<li>客户机发出服务请求，并等待接收结果</li>
-<li>服务器收到请求后，分析请求，进行必要的处理，得到结果并发送给客户机</li>
-</ul>
-<h3 id="P2P模型"><a href="#P2P模型" class="headerlink" title="P2P模型"></a>P2P模型</h3><p>P2P模型的思想是整个网络中的传输内容不再被保存在中心服务器上，每个结点都同时又下载，上传的功能</p>
-<p>P2P优点是减轻服务器压力，可扩展性好，网络健壮性强，多个客户机之间可以直接共享文档；缺点是占用内存，对硬盘损伤大，使网络非常拥塞</p>
-<h2 id="域名系统DNS"><a href="#域名系统DNS" class="headerlink" title="域名系统DNS"></a>域名系统DNS</h2><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h3 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h3><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
-<ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
-</ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
-<ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
-</ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h3 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h3><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h4 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h4><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h4 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h4><p>它返回权威服务器的IP地址</p>
-<h4 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h4><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h4 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h4><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h3 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h3><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.edu</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h3 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h3><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h3 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h3><h4 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h4><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
-<ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
-</ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h4 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h4><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h4 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h4><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
-<ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
-</ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
-<h2 id="文件传输协议FTP"><a href="#文件传输协议FTP" class="headerlink" title="文件传输协议FTP"></a>文件传输协议FTP</h2><p>FTP提供以下功能：</p>
-<ul>
-<li>提供不同种类主机系统之间的文件传输能力</li>
-<li>以用户权限管理的方式提供用户对远程FTP服务器上的文件管理能力</li>
-<li>以匿名FTP的方式提供公用文件共享的能力</li>
-</ul>
-<p>FTP采用C/S工作方式，使用TCP可靠传输服务，FTP服务器进程由两大部分组成：一个主进程负责就收新的请求；另外若干从属进程，负责处理单个请求，工作步骤如下：</p>
-<ul>
-<li>打开端口21（控制端口），等待客户进程发连接请求</li>
-<li>启动从属进程来处理客户进程发来的请求</li>
-</ul>
-<h3 id="控制连接与数据连接"><a href="#控制连接与数据连接" class="headerlink" title="控制连接与数据连接"></a>控制连接与数据连接</h3><p>FTP工作时使用两个并行的TCP连接，一个是控制连接（端口21），一个是数据连接（端口20）</p>
-<p><img src="https://i.imgur.com/wsZwAO2.png" alt=""></p>
-<p><img src="https://i.imgur.com/XcfFv3f.png" alt=""></p>
-<p>控制连接用来传输控制信息（连接请求，传送请求，中止传输等），并且控制信息都以7位ASCII格式传送</p>
-<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h2><h3 id="组成结构"><a href="#组成结构" class="headerlink" title="组成结构"></a>组成结构</h3><p>电子邮件系统主要由用户代理，邮件服务器和电子邮件协议组成，常见电子邮件协议是SMTP,POP3等</p>
-<p><img src="https://i.imgur.com/xbHpobS.png" alt=""></p>
-<p>常见的用户代理是Outlook,Foxmail等，邮件服务器采用C/S工作方式，但它能同时充当客户和服务器，发送方是客户，接收方的服务器，SMTP采用”推”的他通信方式，SMTP客户端是主动将邮件”推”到SMTP服务器的，POP3采用的是”拉”的通信方式，用户读取邮件时，用户代理向邮件服务器发出请求，”拉”取用户邮箱中的邮件</p>
-<p><img src="https://i.imgur.com/fD2xiTH.png" alt=""></p>
-<p>发送方发送邮件到邮件服务器和发送方邮件服务器发送邮件到接收方服务器采用的都是SMTP</p>
-<h3 id="电子邮件格式与MIME"><a href="#电子邮件格式与MIME" class="headerlink" title="电子邮件格式与MIME"></a>电子邮件格式与MIME</h3><p>电子邮件分为信封和内容两大部分，邮件内容又分为首部和主体两部分</p>
-<p>常见的邮件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">From: xxx@xxx.com</span><br><span class="line">To : xxx@xxx.com</span><br><span class="line">Subjuect: xxxxx</span><br><span class="line">主体</span><br></pre></td></tr></table></figure>
-<p>SMTP只能传送一定长度的ASCII码，MIME（多用途网际邮件扩充）的意图是继续使用目前SMTP的格式，但增加了邮件主体的结构，并定义了传送非ASCII码的编码规则</p>
-<p><img src="https://i.imgur.com/yRvFc6Q.png" alt=""></p>
-<ul>
-<li>MIME增加了5个新的邮件首部字段，包括MIME版本，内容描述，内容标识，内容传送编码和内容类型</li>
-<li>定义了许多邮件内容的格式，对多媒体电子邮件的表示方法进行了标准化</li>
-<li>定义了传送编码，可对任何内容格式进行转换，而不会被邮件系统改变</li>
-</ul>
-<h3 id="SMTP和POP3"><a href="#SMTP和POP3" class="headerlink" title="SMTP和POP3"></a>SMTP和POP3</h3><p>SMTP采用C/S方式，TCP连接，端口号25，有连接建立，邮件传送，连接释放三个阶段</p>
-<p>OPO3采用C/S方式，TCP连接，端口号110</p>
-<h2 id="万维网WWW"><a href="#万维网WWW" class="headerlink" title="万维网WWW"></a>万维网WWW</h2><p>万维网是一个资料空间，这个空间中：一样有用的事务称为一样”资源”，并由一个全域”统一资源定位符”(URL)标识，这些资源通过超文本传输协议HTTP传送给使用者</p>
-<p>万维网使用链接的方法能让用户非常方便从因特网一个站点访问另一个站点，万维网内核部分由3个标准构成：统一资源定位符URL，超文本传输协议HTTP，超文本标记语言HTML</p>
-<p>URL一般格式是：<code>&lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</code><br>常见协议有http，ftp等，主机是存放资源的主机在因特网的域名，也可以是IP地址，端口和路径有时可以省略，URL不区分大小写</p>
-<p>万维网以C/S方式工作，浏览器是客户机</p>
-<h3 id="超文本传输协议HTTP"><a href="#超文本传输协议HTTP" class="headerlink" title="超文本传输协议HTTP"></a>超文本传输协议HTTP</h3><p>每个万维网站点都有一个服务器进程，它不断监听TCP的端口80，当监听到连接请求后便与浏览器建立连接，用户单击鼠标后发生的事件按顺序如下：</p>
-<ol>
-<li>浏览器分析链接指向页面的URL</li>
-<li>浏览器向DNS请求解析</li>
-<li>域名系统DNS解析出服务器的IP地址</li>
-<li>浏览器与该服务器建立TCP连接（HTTP默认端口80）</li>
-<li>浏览器发出HTTP请求，GET /xx/index.html</li>
-<li>服务器通过HTTP响应把文件index.html发送给浏览器</li>
-<li>TCP连接释放</li>
-<li>浏览器解释文件index.html，并将WEB页显示给用户</li>
-</ol>
-<h4 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点"></a>HTTP特点</h4><p>HTTP是无状态的，通常使用Cookie加数据库的方式来跟踪用户的活动，HTTP采用TCP作为运输层协议，但HTTP本身是无连接的，通信双方交换HTTP报文之前不需要先建立HTTP连接</p>
-<p>HTTP非持久连接会对网页元素对象（JPEG图形，Flash等）的传输单独建立一个TCP连接，HTTP/1.1支持持久连接，服务器发送响应后仍保持这条连接，这样可以继续上传后续HTTP请求与响应报文<br>持久连接又分为流水线和非流水线，非流水线是客户收到前一个响应之后才能发出下一个请求，HTTP/1.1默认是流水线的持久连接，客户每遇到一个对象引用就立即发出一个请求，客户可以逐个地连续发出对各个引用对象的请求</p>
-<h4 id="HTTP-1-0与HTTP-1-1的区别"><a href="#HTTP-1-0与HTTP-1-1的区别" class="headerlink" title="HTTP/1.0与HTTP/1.1的区别"></a>HTTP/1.0与HTTP/1.1的区别</h4><ul>
-<li>长连接：HTTP/1.0发送一个响应后就关闭连接，可以使用keep-alive参数来告知服务器建立一个长连接，而HTTP/1.1默认就支持长连接</li>
-<li>节约带宽：HTTP/1.1支持只发送header信息（不带任何body），如果服务器认为客户端有权限请求服务器，就返回100，客户端接收到100才开始把请求body发送到服务器，当服务器返回401，客户端就可以不用发送请求body了，节约了带宽</li>
-<li>HOST域：HTTP/1.0认为每台服务器都绑定一个唯一的IP地址，因此请求消息中的URL并没有传递主机名，现在一台物理服务器可以存在多个虚拟主机，且他们共享同一个IP地址，所以HTTP/1.1引入HOST头域</li>
-</ul>
-<h4 id="HTTP-1-1与HTTP-2-0的区别"><a href="#HTTP-1-1与HTTP-2-0的区别" class="headerlink" title="HTTP/1.1与HTTP/2.0的区别"></a>HTTP/1.1与HTTP/2.0的区别</h4><ul>
-<li>多路复用：HTTP/2.0同一个连接可以并发处理多个请求，且并发数量比HTTP/1.1大了好几个数量级</li>
-<li>数据压缩：HTTP/1.1不支持header数据的压缩，HTTP/2.0使用HPACK算法对header的数据进行压缩</li>
-<li>服务器推送：当我们请求数据的时候，HTTP/2.0的服务器可以顺便把一些客户端需要的资源一起推送到客户端</li>
-</ul>
-<h4 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h4><p>请求报文，CR LF是回车和换行，sp是空格</p>
-<p><img src="https://i.imgur.com/pFnuyW0.png" alt=""></p>
-<p>响应报文</p>
-<p><img src="https://i.imgur.com/UjC1HLk.png" alt=""></p>
-<p>HTTP请求常用的几个方法如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法</th>
-<th style="text-align:left">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">GET</td>
-<td style="text-align:left">请求读取由URL标识的信息</td>
-</tr>
-<tr>
-<td style="text-align:left">HEAD</td>
-<td style="text-align:left">请求读取由URL标识的信息的头部</td>
-</tr>
-<tr>
-<td style="text-align:left">POST</td>
-<td style="text-align:left">给服务器添加信息</td>
-</tr>
-</tbody>
-</table>
-<p>CONNECT 用于代理服务器</p>
-<p>请求报文一般用不到实体主体</p>
-<h2 id="常见应用层的协议和熟知端口"><a href="#常见应用层的协议和熟知端口" class="headerlink" title="常见应用层的协议和熟知端口"></a>常见应用层的协议和熟知端口</h2><table>
-<thead>
-<tr>
-<th style="text-align:left">应用程序</th>
-<th style="text-align:left">FTP数据连接</th>
-<th style="text-align:left">FTP控制连接</th>
-<th style="text-align:left">TELNET</th>
-<th style="text-align:left">SMTP</th>
-<th style="text-align:left">DNS</th>
-<th style="text-align:left">TFTP</th>
-<th style="text-align:left">HTTP</th>
-<th style="text-align:left">POP3</th>
-<th style="text-align:left">SNMP</th>
-<th style="text-align:left">HTTPS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">使用协议</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">UDP</td>
-<td style="text-align:left">UDP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-</tr>
-<tr>
-<td style="text-align:left">熟知端口号</td>
-<td style="text-align:left">20</td>
-<td style="text-align:left">21</td>
-<td style="text-align:left">23</td>
-<td style="text-align:left">25</td>
-<td style="text-align:left">53</td>
-<td style="text-align:left">69</td>
-<td style="text-align:left">80</td>
-<td style="text-align:left">110</td>
-<td style="text-align:left">161</td>
-<td style="text-align:left">443</td>
-</tr>
-</tbody>
-</table>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/OrdRHEk.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/网络4-传输层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/31/网络4-传输层/" itemprop="url">计算机网络4-传输层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T10:42:34+08:00">
-                2019-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/31/网络4-传输层/" class="leancloud_visitors" data-flag-title="计算机网络4-传输层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络4-传输层"><a href="#网络4-传输层" class="headerlink" title="网络4-传输层"></a>网络4-传输层</h1><ul>
-<li>传输层提供的服务<br>传输层的功能；传输层寻址与端口；无连接服务和面向连接服务</li>
-<li>UDP<br>UDP数据报；UDP校验</li>
-<li>TCP<br>TCP段；TCP连接管理；TCP可靠传输；TCP流量控制与拥塞控制</li>
-</ul>
-<h2 id="传输层提供的服务"><a href="#传输层提供的服务" class="headerlink" title="传输层提供的服务"></a>传输层提供的服务</h2><h3 id="传输层的功能"><a href="#传输层的功能" class="headerlink" title="传输层的功能"></a>传输层的功能</h3><p>运输层为运行在不同主机上的进程之间提供逻辑通信，而网络层则提供主机之间的逻辑通信</p>
-<p>传输层的功能如下：</p>
-<ul>
-<li>传输层提供<strong>应用进程</strong>之间的逻辑通信（网络层提供主机之间），逻辑通信指传输层之间的通信像是沿水平方向传送数据，但事实上这两个传输层之间并没有一条水平方向的物理连接</li>
-<li>复用和分用。复用指发送方不同的应用进程都可使用同一个传输层协议传送数据；分用指接收方的传输层在剥去报文首部后能够把这些数据正确交付到目的应用进程</li>
-<li>差错检测，应用层检查首部和数据部分，而网络层只检查IP数据报的首部，不检验数据部分是否出错</li>
-<li>提供两种不同的传输协议，TCP和UDP。而网络层无法同时实现两种协议（网络层要么只提供面向连接服务，如虚电路，要么只提供无连接服务，如数据报，不可能同时存在这两种方式）</li>
-</ul>
-<h3 id="传输层的寻址与端口"><a href="#传输层的寻址与端口" class="headerlink" title="传输层的寻址与端口"></a>传输层的寻址与端口</h3><h4 id="端口的作用"><a href="#端口的作用" class="headerlink" title="端口的作用"></a>端口的作用</h4><p>端口能够让应用层的各种应用进程将其数据通过端口向下交付给传输层，以及让传输层直到应当将其报文段的数据向上通过端口交付给应用层相应的进程。端口是传输层服务访问点（TSAP），它在传输层的作用类似于IP地址在网络层的作用或MAC地址在数据链路层的作用，区别是端口标识的是主机中的应用进程，而IP地址和MAC地址标识的是主机（数据链路层的SAP是MAC地址，网络层的SAP是IP地址，传输层的SAP是端口）</p>
-<h4 id="端口号"><a href="#端口号" class="headerlink" title="端口号"></a>端口号</h4><p>端口号长度16位，能够表示65536个不同的端口，用于标识本计算机应用层的各进程，按端口范围分为两类：</p>
-<p><img src="https://i.imgur.com/Oqhbb4M.png" alt=""></p>
-<ul>
-<li>服务端使用的端口。这里又分为2类，最重要的一类是熟知端口号，数值0&sim;1023，这些端口指派给了TCP/IP最重要的一些应用程序。另一类是登记端口号，数值为1024&sim;49151，它是供没有熟知端口号的应用程序使用的，使用它们必须在IANA登记防止重复，常见熟知端口号如下：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">应用程序</th>
-<th style="text-align:left">FTP</th>
-<th style="text-align:left">TELNET</th>
-<th style="text-align:left">SMTP</th>
-<th style="text-align:left">DNS</th>
-<th style="text-align:left">TFTP</th>
-<th style="text-align:left">HTTP</th>
-<th style="text-align:left">SNMP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">熟知端口号</td>
-<td style="text-align:left">21</td>
-<td style="text-align:left">23</td>
-<td style="text-align:left">25</td>
-<td style="text-align:left">53</td>
-<td style="text-align:left">69</td>
-<td style="text-align:left">80</td>
-<td style="text-align:left">161</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>客户端使用的端口号，数值为49152&sim;65535，客户进程运行时才动态选择，又称为短暂端口号</li>
-</ul>
-<h4 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h4><p>网络中通过IP地址来标识和区别不同的主机，端口号来标识和区别一台主机中的不同应用进程。在网络中采用发送方和接收方的套接字组合来识别端点，套接字实际上是一个通信端点，即</p>
-<p>套接字 =（主机IP地址，端口号）</p>
-<p>它唯一标识网络中一台主机和其上一个应用</p>
-<h3 id="无连接服务与面向连接服务"><a href="#无连接服务与面向连接服务" class="headerlink" title="无连接服务与面向连接服务"></a>无连接服务与面向连接服务</h3><p>TCP是面向连接的传输控制协议，采用全双工，TCP不提供广播或组播服务，要提供面向连接的可靠服务，要增加许多开销，如确认，流量控制，计时器及连接管理等，使协议数据单元头部增大，占用处理机资源。主要用于FTP，HTTP，TELNET等</p>
-<p>UDP是无连接的用户数据报协议，它在IP之上仅提供多路复用和对数据的错误检查，UDP主要用于TFTP（小文件传送协议），DNS，SNMP和RTP（实时传输协议）</p>
-<h2 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h2><h3 id="UDP数据报"><a href="#UDP数据报" class="headerlink" title="UDP数据报"></a>UDP数据报</h3><p>UDP只做传输协议能够做的最少工作，仅在IP数据报服务之上增加了两个最基本的功能：复用和分用以及差错检测。UDP优点如下：</p>
-<ul>
-<li>无须建立连接</li>
-<li>无连接状态（接收和发送缓存，拥塞控制参数和序号与确定号的参数）</li>
-<li>分组首部开销小（TCP 20B首部开销，UDP 8B）</li>
-<li>应用层能够更好地控制要发送的数据和发送时间（没有拥塞控制）</li>
-</ul>
-<p>UDP是面向报文的，发送方UDP对应用层交下来的报文，在添加首部后就向下交付给IP层，不合并也不拆分，接收方UDP对IP层交上来的UDP用户数据报，在去除首部后就交付给上层应用进程，报文是UDP数据报处理的最小单位</p>
-<h4 id="UDP首部格式"><a href="#UDP首部格式" class="headerlink" title="UDP首部格式"></a>UDP首部格式</h4><p>UDP数据报包含两部分：UDP首部和用户数据<br>UDP首部有8B，由4个字段组成，每个字段长度都为2B，各字段意义如下：</p>
-<ul>
-<li>源端口：需要对方回信时使用，不需要时可为0</li>
-<li>目的端口</li>
-<li>长度：UDP数据报的长度（包括首部和数据），最小值为8（只有首部）</li>
-<li>校验和：检测UDP数据报在传输中是否有错，可选，若不想计算校验和就该字段为0</li>
-</ul>
-<p><img src="https://i.imgur.com/N3xlBey.png" alt=""></p>
-<p>如果接收方UDP发现收到的报文中的目的端口号不正确，则丢弃该报文，并由ICMP发送 端口不可达 差错报文给发送方</p>
-<h3 id="UDP校验"><a href="#UDP校验" class="headerlink" title="UDP校验"></a>UDP校验</h3><p>计算校验和时，要在UDP数据报之前增加12B的伪首部（伪首部不传送也不递交）</p>
-<p><img src="https://i.imgur.com/qBu4o0n.png" alt=""></p>
-<p>然后和IP数据报的首部检验和计算方法相似，先二进制反码运算求和再取反（IP只校验IP数据报首部，UDP则校验首部和数据部分），UDP校验既可以检查UDP数据报，又对IP数据报的源IP地址和目的IP地址进行校验</p>
-<p>发送方首先把全0放入校验和字段并添加伪首部，然后把UDP数据报视为许多个16位的字连接起来（若数据部分不是偶数个字节，则在数据部分末尾增加一个全0字节，此字节不发送），然后按二进制反码计算出这些16位字的和，将此和的二进制反码写入校验和字段<br>接收方把收到的UDP数据报加上伪首部，按二进制反码计算出这些16位字的和，当无差错时结果应全为1，否则表明有差错，接收方就丢弃这个UDP数据报</p>
-<p><img src="https://i.imgur.com/TwkHLTY.png" alt=""></p>
-<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>特点：</p>
-<ul>
-<li>面向连接</li>
-<li>每个TCP连接只有2个端点，每条TCP连接只能点对点</li>
-<li>提供可靠的交付服务</li>
-<li>全双工通信</li>
-<li>面向字节流（应用程序和TCP的交互是一次一个数据块，但TCP把数据仅视为一连串无结构的字节流）</li>
-</ul>
-<p>面向字节流指的是封装的仍然是报文段，但是报文段中的序号是根据字节来编号的</p>
-<h3 id="TCP报文段"><a href="#TCP报文段" class="headerlink" title="TCP报文段"></a>TCP报文段</h3><p>TCP传送的数据单元称为报文段。一个TCP报文段分为TCP首部和TCP数据两部分<br>TCP首部前20B是固定的，后面4N字节是根据需要而增加的选项，通常长度为4B的整数倍</p>
-<p><img src="https://i.imgur.com/NFkeMAa.png" alt=""></p>
-<p>各字段意义如下：</p>
-<ul>
-<li>源端口和目的端口，各2B</li>
-<li>序号字段，4B，TCP是面向字节流的，所以TCP连接传送的数据流中每个字节都编上一个序号</li>
-<li>确认号字段，4B，期望收到对方的下一个报文段的数据的第一个字节的序号，若确认号为N，则表明序号N-1为止的所有数据都正确收到（如B正确收到A发送过来的一个报文段，序号字段为501，数据长度为200B，则B发送给A的确认报文段中把确认号置为701）</li>
-<li>数据偏移，4位，表示首部长度，指出TCP报文段的数据起始处距离TCP报文段的起始处有多远，单位是4B（可以退出TCP首部最大长度为60B）</li>
-<li>保留字段，6位，目前全置为0</li>
-<li>紧急位URG，URG=1表明紧急指针字段有效，它告诉系统报文段中有紧急数据，应尽快处理</li>
-<li>确认位ACK，ACK=1确认号字段有效，TCP规定连接建立后所有传送的报文段都必须把ACK置1</li>
-<li>推送位PSH，接收TCP收到PSH=1的报文段，就尽快交付给接收应用进程，而不再等缓存满后再交付</li>
-<li>复位为RST，RST=1，表明TCP连接中出现严重差错，必须释放连接然后重连</li>
-<li>同步位SYN，SYN=1表示这是一个连接请求或连接接收报文，当SYN=1，ACK=0，这时一个连接请求报文，当SYN=1，ACK=1，是一个连接接收报文</li>
-<li>终止为FIN，用来释放一个连接，当FIN=1表示此报文段发送方已发送完毕，要求释放传输连接</li>
-<li>窗口字段，2B，指出现在允许对方发送的数据量，接收方的数据缓存空间有限，用窗口值作为接收方让发送方设置其发送窗口的依据，单位为字节</li>
-<li>校验和，2B，和UDP基本一样（把UDP伪首部的第4个字节17改为6，其他和UDP一样）</li>
-<li>紧急指针字段，16位，指出紧急数据有多少字节（紧急数据放在本报文段数据的最前面）</li>
-<li>选项字段，长度可变</li>
-<li>填充字段，整个首部长度是4B的整数倍</li>
-</ul>
-<h3 id="TCP连接管理"><a href="#TCP连接管理" class="headerlink" title="TCP连接管理"></a>TCP连接管理</h3><p>TCP把连接作为最基本的抽象，连接的端点为套接字，TCP连接的建立采用客户/服务器方式，主动发起连接建立的应用进程称为客户机，被动等待连接建立的应用进程称为服务器</p>
-<h4 id="TCP连接的建立"><a href="#TCP连接的建立" class="headerlink" title="TCP连接的建立"></a>TCP连接的建立</h4><p>三次握手</p>
-<ol>
-<li>客户机的TCP首先向服务器的TCP发送一个连接请求报文段，不含应用层数据，首部的SYN标志位置1，称为SYN报文段，另外，客户机会随机选择一个初始序号（client_isn），放置于该起始的TCP SYN报文段的序号字段中，然后该SYN报文段封装成IP数据报发送给服务器</li>
-<li>一旦包含TCP SYN报文段的IP数据报到达服务器主机，服务器会从该数据报中提取出TCP SYN报文段，为该TCP连接分配TCP缓存和变量，并向该客户TCP发送允许连接的报文段，这个报文段也不包含应用层数据，SYN置1，确认号字段置为client_isn+1，服务器选择自己的初始序号置入TCP报文段首部的序号字段中，这个允许连接的报文段实际上表明：我收到了你发起建立连接的SYN分组，该分组有初始序号client_isn，我同意建立该连接，我自己的初始序号是server_isn，该允许连接的报文段称为SYNACK报文段</li>
-<li>收到SYNACK报文段后，客户也要给该连接分配缓存和变量，客户机则向服务器发送另外一个报文段，这最后一个报文段对服务器的允许连接的报文段进行了确认（通过将值server_isn+1放置在TCP报文段首部的确认号字段中来完成），因为连接已经建立，所以该SYN比特置为0，第三个阶段可以在报文段负载中携带客户到服务器的数据</li>
-</ol>
-<p><img src="https://i.imgur.com/aahO0e9.png" alt=""></p>
-<h4 id="TCP连接的释放"><a href="#TCP连接的释放" class="headerlink" title="TCP连接的释放"></a>TCP连接的释放</h4><p>参与TCP连接的两个进程中的任何一个都能终止该连接，TCP连接释放的过程称为四次握手</p>
-<ol>
-<li>客户机打算关闭连接时，向其TCP发送一个连接释放报文段，并停止发送数据，主动关闭TCP连接，该报文段的FIN标志位置1，seq（序号）=u，它等于前面已传送过的数据的最后一个字节的序号加1（FIN报文段不携带数据，消耗序号），TCP是全双工的，发送FIN报文时，发送FIN的一端不能再发送数据，但对方仍然可以发送</li>
-<li>服务器收到连接释放报文段后发出确认，确认号是ack=u+1，，这个报文段自身的序号是v，等于它前面已传送过的数据的最后一个字节的序号加1，此时，从客户机到服务器这个方向的连接就释放了，TCP连接处于半关闭状态</li>
-<li>若服务器已经没有要向客户机发送的数据，就通知TCP释放连接，此时其发送一个FIN=1的连接释放报文段</li>
-<li>客户机收到连接释放的报文段后，必须发出确认，确认报文段中，ACK置1，ack=w+1，seq=u+1，定时等待后连接关闭</li>
-</ol>
-<p><img src="https://i.imgur.com/Rmnsbvh.png" alt=""></p>
-<h3 id="TCP可靠传输"><a href="#TCP可靠传输" class="headerlink" title="TCP可靠传输"></a>TCP可靠传输</h3><p>TCP使用校验，序号，确认和重传等机制完成可靠传输这一目的，TCP校验机制和UDP一样，不再赘述</p>
-<p>TCP序号建立在字节流的基础上，而不建立在报文段之上，TCP为数据流中每个字节都编上一个序号，序号字段的值是指本报文段锁发送的数据的第一个字节的序号</p>
-<p>TCP首部的确认号是期望收到对方的下一个报文段的数据的第一个字节的序号</p>
-<p>有两件事会导致TCP对报文段重传，超时和冗余ACK</p>
-<ul>
-<li>超时：TCP每发送一个报文段，就对这个报文段设置一个计时器，设置的重传时间到期但还未收到确认时，就重传这一报文段</li>
-<li>冗余ACK：每当比期望序号大的失序报文段到达时，就发送一个冗余ACK，指明下一个期待字节的序号，当发送方收到对同一报文段的3个冗余ACK时，就可以认为跟在这个被确认报文段之后的报文段已经丢失，如发送方发送了序号为1,2,3,4,5的TCP报文段，其中2丢失了，3,4,5就成了失序报文段，接收方就发送3个对1号报文的冗余ACK，表示自己期望收到2号报文段</li>
-</ul>
-<h3 id="TCP流量控制"><a href="#TCP流量控制" class="headerlink" title="TCP流量控制"></a>TCP流量控制</h3><p>TCP提供流量控制服务来消除发送方使接收方缓存区溢出的可能性，它是一个速度匹配服务（匹配发送方发送速率和接收方接收速率）</p>
-<p>TCP提供一种基于滑动窗口协议的流量控制机制，在通信过程，接收方根据自己接收缓存的大小，动态地调整发送方的发送窗口大小，称为接收窗口，即调整TCP报文段首部中的 窗口 字段值，来限制发送方向网络注入报文的速率，同时，发送方根据其对当前网络拥塞程序的估计而确定的窗口值，称为拥塞窗口</p>
-<h3 id="TCP拥塞控制"><a href="#TCP拥塞控制" class="headerlink" title="TCP拥塞控制"></a>TCP拥塞控制</h3><p>拥塞控制指防止过多的数据注入网络，以使网络中的路由器或链路不致过载</p>
-<p>拥塞控制和流量控制都是通过控制发送方发送数据的速率来达到控制效果，区别是：拥塞控制是让网络能够承受现有的网络负荷，是一个全局性过程，涉及所有主机，路由器等因素，流量控制往往是指点对点的通信量的控制，它的目的是抑制发送端发送数据的速率来使得接收端来得及接收</p>
-<p>TCP协议要求发送方维护两个窗口</p>
-<ul>
-<li>接收窗口rwnd：接收方根据目前接收缓存大小所许诺的最新窗口值，反映接收方的容量</li>
-<li>拥塞窗口cwnd，发送方根据自己估算的网络拥塞程度而设置的窗口值，反映网络的当前容量</li>
-</ul>
-<p>发送窗口的上限值=min(rwnd,cwnd)</p>
-<p>接收窗口大小可以根据TCP报文首部的 窗口 字段来通知发送方，而发送方如何维护拥塞窗口要用到慢开始和拥塞避免算法或快重传和快恢复算法，略</p>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/qBx6T1j.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/网络3-网络层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/网络3-网络层/" itemprop="url">计算机网络3-网络层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T09:24:34+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/25/网络3-网络层/" class="leancloud_visitors" data-flag-title="计算机网络3-网络层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络3-网络层"><a href="#网络3-网络层" class="headerlink" title="网络3-网络层"></a>网络3-网络层</h1><ul>
-<li>网络层的功能<br>异构网络互联；路由与转发；拥塞控制</li>
-<li>路由算法<br>静态路由与动态路由：距离-向量路由算法；链路状态路由算法；层次路由</li>
-<li>IPv4<br>IPv4分组：IPv4地址与NAT；子网划分与子网掩码，CIDR，路由聚集<br>ARP，DHCP与ICMP</li>
-<li>IPv6<br>IPv6主要特点，IPv6地址</li>
-<li>路由协议<br>自治系统；域内路由与域间路由；RIP路由协议；OSPF路由协议；BGP路由协议</li>
-<li>IP组播<br>组播的概念：IP组播地址</li>
-<li>移动IP<br>移动IP的概念：移动IP通信过程</li>
-<li>网络层设备<br>路由器的组成和功能；路由表与路由转发</li>
-</ul>
-<h2 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h2><h3 id="异构网络互联"><a href="#异构网络互联" class="headerlink" title="异构网络互联"></a>异构网络互联</h3><p>要解决数以万计的网络互联，需要解决许多问题，如不同的寻址方案，不同的网络接入机制，不同的差错处理方法，不同的路由选择机制等<br>网络互联指将两个以上的计算机网络，通过一定方法，用一种或多种通信处理设备（中间设备）相互连接起来，中间设备又称中继系统，分为以下4种：</p>
-<ul>
-<li>物理层中继系统：中继器，集线器</li>
-<li>数据链路层中继系统：网桥或交换机</li>
-<li>网络层中继系统：路由器</li>
-<li>网络层以上的中继系统：网关</li>
-</ul>
-<p>TCP/IP体系在网络互联上采用的做法是在网络层（IP层）采用标准化协议，但相互连接的网络可以是异构的</p>
-<h3 id="路由与转发"><a href="#路由与转发" class="headerlink" title="路由与转发"></a>路由与转发</h3><p>路由器主要完成两个功能：一是路由选择（确定路径），二是分组转发（一个分组到达时采取的动作）。前者根据特定的路由选择协议构造出路由表，经常或定期和相邻路由器交换路由信息而不断更新维护路由表。后者处理通过路由器的数据流，关键操作是转发表查询，转发及相关的队列管理和任务调度</p>
-<ul>
-<li>路由选择：指按照复杂的分布式算法，根据从各相邻路由器所得到的关于整个网络拓扑的变化情况，动态地改变所选择的路由</li>
-<li>分组转发：指路由器根据转发表将用户的IP数据报从合适的端口发送出去</li>
-</ul>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>通信子网中，因出现过量的分组而引起的网络性能下降的现象称为拥塞。拥塞控制主要解决的问题是如何获取网络中发生拥塞的信息，从而利用这些信息进行控制，以避免由于拥塞而出现分组的丢失，以及严重拥塞而产生网络死锁的现象</p>
-<p>流量控制与拥塞控制的区别：流量控制往往指发送端和接收端之间点对点通信量的控制，流量控制要做的是抑制发送端发送数据的速率。而拥塞控制必须确保通信子网能够传送待传送的数据，是一个全局性的问题</p>
-<p>拥塞控制有如下两种方法：</p>
-<ul>
-<li>开环控制：设计网络时事先将有关发生拥塞的因素考虑周到，力求网络在工作时不产生拥塞，是静态的预防方法</li>
-<li>闭环控制：事先不考虑有关发生拥塞的各种因素，采用监测网络系统去监视，及时监测哪里发生拥塞，然后调整，基于反馈环路的概念，是动态的方法</li>
-</ul>
-<h2 id="路由算法"><a href="#路由算法" class="headerlink" title="路由算法"></a>路由算法</h2><h3 id="静态路由与动态路由"><a href="#静态路由与动态路由" class="headerlink" title="静态路由与动态路由"></a>静态路由与动态路由</h3><p>从能否随网络通信量或拓扑自适应地进行调整变化来划分，路由算法可分为如下两大类</p>
-<p>静态路由算法：指网络管理员手工配置的路由信息，当网络的拓扑结构或链路状态发生变化时，网络管理员需要手工去修改路由表中相关的静态路由信息<br>动态路由算法：指路由器上的路由表项是通过相互连接的路由器之间彼此交换信息，然后按照一定的算法优化出来的，这些路由信息会在一定时间间隙里不断更新，以适应不断变化的网络，随时获得最优的寻路效果</p>
-<h3 id="距离-向量路由算法"><a href="#距离-向量路由算法" class="headerlink" title="距离-向量路由算法"></a>距离-向量路由算法</h3><p>所有结点都定期将它们的整个路由选择表传送给所有与之直接相连的结点。这些路由选择表包含：</p>
-<ul>
-<li>每条路径的目的地（另一结点）</li>
-<li>路径的代价（距离）</li>
-</ul>
-<p>这种算法中，所有结点都监听从其他结点传来的路由选择更新信息，在下列情况下更新它们的路由选择表：</p>
-<ul>
-<li>被通告一条新的路由，该路由在本结点的路由表中不存在，此时本地系统加入这条新的路由</li>
-<li>发来的路由信息中有一条到达某个目的地的路由，该路由与当前使用的路由相比，有较短的距离</li>
-</ul>
-<p>距离-向量算法的实质是：迭代计算一条路由中的站段数或延迟时间，从而得到到达一个目标的最短通路。它要求每个结点在每次更新时将它的全部路由表发送给所有相邻的结点</p>
-<p>典型的距离-向量算法是RIP算法，它采用跳数（源到目的所经过的路由个数）作为距离的度量</p>
-<h3 id="链路状态路由算法"><a href="#链路状态路由算法" class="headerlink" title="链路状态路由算法"></a>链路状态路由算法</h3><p>要求每个参与该算法的结点都具有完全的网络拓扑信息，它们执行下述两项任务，第一，主动测试所有邻接结点的状态。两个共享一条链路的结点是相邻结点，它们连接到同一条链路，或者连接到同一广播型物理网络。第二，定期地将链路状态传播给所有其他结点。典型的链路状态算法是OSPF算法</p>
-<p>一个链路状态路由选择中，一个结点检查所有直接链路的状态，并将所得的状态信息发送给网上的所有其他结点，而不是仅送给那些直接相连的结点，每个结点用这种方式从网上所有其他的结点接收包含直接链路状态的路由选择信息，每当链路状态报文到达，路由结点使用这些状态信息去更新自己的网络拓扑和状态视野图，一旦链路状态发生变化，就利用Dijsktra最短路径算法重新计算路由，从单一源触发计算到达所有目的结点的最短路径</p>
-<p>OSPF算法中，链路状态的度量主要表示费用，距离，时延，带宽等</p>
-<h3 id="两者比较"><a href="#两者比较" class="headerlink" title="两者比较"></a>两者比较</h3><p>距离-向量路由算法中，每个结点仅与它的直接邻居交谈，它为它的邻居提供从自己到网络中所有其他结点的最低费用估计，最低费用估计是由迭代计算得出<br>链路状态路由中，每个结点通过广播与所有其他结点交谈，但它仅告诉它们与它直接连接的链路的费用，然后让其它结点自行计算单一源到所有目的结点的最短路径</p>
-<h3 id="层次路由"><a href="#层次路由" class="headerlink" title="层次路由"></a>层次路由</h3><p>因特网将整个互联网划分为许多较小的自治系统，每个自治系统有权自主决定本系统内采用何种路由选择协议。如果两个自治系统需要通信，就需要一种在两个自治系统间的协议来屏蔽这些差异，据此因特网把路由选择协议划分为两大类：</p>
-<ul>
-<li>一个自治系统内部所使用的路由选择协议称为内部网关协议（IGP），具体有RIP和OSPF等</li>
-<li>自治系统间的路由选择协议称为外部网关协议（EGP），在不同自治系统的路由器之间交换路由信息，具体有BGP等</li>
-</ul>
-<h2 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h2><h3 id="IPv4分组"><a href="#IPv4分组" class="headerlink" title="IPv4分组"></a>IPv4分组</h3><p>IPv4即现在普遍使用的IP（版本4）。IP定义数据传送的基本单元——IP分组及其确切的数据格式，IP也包括一套规则，指明分组如何处理，错误怎么控制。特别是IP还包含非可靠投递的思想，以及与此关联的分组路由选择的思想</p>
-<h4 id="IPv4分组的格式"><a href="#IPv4分组的格式" class="headerlink" title="IPv4分组的格式"></a>IPv4分组的格式</h4><p><img src="https://i.imgur.com/TaCniUE.png" alt=""></p>
-<p>IP分组由首部和数据组成，首部前一部分是长度固定，共20B，是所有IP分组必须具有的，首部固定部分后面有一些可选字段，长度可变，用来提供错误检测及安全等机制，重要字段如下：</p>
-<ul>
-<li>版本：IP的版本，目前广泛版本号4</li>
-<li>首部长度：4位，以32位为单位，最大值为60B（4位最大值15,32位=4字节，4*15=60B），最常用首部长度是20B</li>
-<li>总长度：16位，指首部和数据之和的长度，单位为字节，因此数据报最大长度为2^16-1=65535B。以太网帧的最大传送单元（MTU）为1500B，因此一个IP数据报封装成帧时，数据报长度不能超过链路层的MTU值</li>
-<li>标识：16位，是一个计数器，每产生一个IP数据报就加1，并赋值给标识字段（但不是序号，IP是无连接服务）。当一个数据报长度超过网络的MTU时，必须分片，此时每个数据报片都赋值一次标识号，以便能正确重装成原来的数据报</li>
-<li>标志：3位，最低位为MF，MF=1表示后面还有分片，MF=0表示最后一个分片，中间位是DF，只有当DF=0才允许分片</li>
-<li>片偏移：13位，指出较长的分组在分片后，某片在原分组中的相对位置。片偏移以8个字节为偏移单位，即每个分片的长度一定是8B的整数倍</li>
-<li>首部校验和：16位，IP数据报的首部校验和只校验分组的首部，而不校验数据部分</li>
-<li>生存时间（TTL）：8位，数据报在网络中可通过的路由器数的最大值，标识分组在网络中的寿命，以确保分组不会永远在网络中循环。路由器转发分组前，先把TTL减1，若TTL减为0，则丢弃该分组</li>
-<li>协议：8位，指出该分组携带的数据使用何种协议，即分组数据部分应交给哪个传输层协议，如TCP,UDP等，值为6表示TCP，17表示UDP</li>
-<li>源地址字段：4B，标识发送方的IP地址</li>
-<li>目的地址字段：4B，标识接收方的IP地址</li>
-</ul>
-<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>一个链路层数据报能承载的最大数据量称为最大传送单元(MTU)。IP数据报是被封装在链路层数据报中，因此链路层的MTU严格限制IP数据报的长度，且在IP数据报的源和目的地路径上的各段链路可能使用不同的链路层协议，有不同的MTU。如以太网的MTU为1500B，许多广域网的MTU不超过576B，当IP数据报总长度大于链路MTU时，就需要将IP数据报的数据分装在两个或多个较小的IP数据报中，这些较小的数据报称为片</p>
-<p>网络层转发分组的流程</p>
-<ol>
-<li>从数据报首部提取目的主机的IP地址D，得出目的网络地址N</li>
-<li>若网络N与此路由器直接相连，则把数据报直接交付给目的主机D，这称为路由器的直接交付；否则是间接交付，执行步骤3</li>
-<li>若路由表中有目的地址D的特定主机路由，则把数据报传送给路由表中所指明的下一跳路由器；否则执行步骤4</li>
-<li>若路由表有到达网络N的路由，则把数据报传送给路由表指明的下一跳路由，否则执行步骤5</li>
-<li>若路由表有一条默认路由，则把数据报传送给路由表指明的默认路由器，否则执行步骤6</li>
-<li>报告转发分组出错</li>
-</ol>
-<h3 id="IPv4地址与NAT"><a href="#IPv4地址与NAT" class="headerlink" title="IPv4地址与NAT"></a>IPv4地址与NAT</h3><p>连接到因特网上的每台主机都分配一个32比特的全球唯一标识符，即IP地址，分为A,B,C,D,E五类，无论哪类，都由网络号和主机号两部分组成，网络号是整个因特网范围内唯一的，主机号是该网络号的网络范围内唯一的</p>
-<p><img src="https://i.imgur.com/BMSwYhc.png" alt=""></p>
-<p>有些IP地址具有特殊用途，不用做主机的IP地址</p>
-<ul>
-<li>主机号全为0的表示本网络本身，如202.98.174.0</li>
-<li>主机号全为1的表示本网络的广播地址，如202.98.174.255</li>
-<li>127.0.0.0保留为环路自检地址，表示任意主机本身，目的地址为环路自检地址的IP数据报永远不会出现在任何网络上</li>
-<li>32位全为0，即0.0.0.0表示本网络上的本主机</li>
-<li>32位全为1，即255.255.255.255表示整个TCP/IP网络的广播地址，又称受限广播地址，实际使用时由于路由器对广播域的隔离，可以等效为本网络的广播地址</li>
-</ul>
-<p><img src="https://i.imgur.com/pAwuxc4.png" alt=""></p>
-<p>&nbsp;</p>
-<p>网络地址转换(NAT)指通过将专用网络转换为共用地址，从而对外隐藏内部管理的IP地址。它使得整个专用网只需要一个全球IP地址就可以与因特网连通，专用网本地IP地址是可重用的，NAT大大节省了IP地址的消耗。同时，它隐藏了内部网络结构，降低内部网络受到攻击的风险</p>
-<p>此外，为了网络安全，划出了部分IP地址为私有IP地址，私有IP地址只用于LAN，不用于WAN连接（私有IP地址不能直接用于Internet，必须通过网关利用NAT把私有IP地址转换为Internet中合法的全球IP地址后才能用于Internet），并且允许私有IP地址被LAN重复利用，私有IP地址网段如下：</p>
-<p>A类：1个A类网段，即10.0.0.0&sim;10.255.255.255<br>B类：16个B类网段：172.16.0.0&sim;172.31.255.255<br>C类：256个C类网段：192.168.0.0&sim;192.168.255.255</p>
-<p>对目的地址是私有地址的数据报一律不进行转发</p>
-<p>使用NAT需要在专用网连接到因特网的路由器上安装NAT软件，NAT路由器至少有一个有效的外部全球地址。使用本地地址的主机和外界通信时，NAT路由器使用NAT转换表将本地地址转换成全球地址，或将全球地址转换成本地地址。NAT转换表存放着 {本地IP地址: 端口}到{全球IP地址: 端口}的映射。通过{IP地址: 端口}的映射方式，可以让多个私有IP地址映射到同一个全球IP地址</p>
-<p>以宿舍共享宽带上网为例，假设某个宿舍办理了电信宽带，就获得一个全球IP地址如138.76.29.7，而宿舍内4台主机使用私有地址（如192.168.0.0网段）。宿舍的网关路由器应该开启NAT功能，并且某时刻路由器的NAT转换表如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">WAN端</th>
-<th style="text-align:left">LAN端</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">138.76.29.7:5001</td>
-<td style="text-align:left">192.168.0.2:2233</td>
-</tr>
-<tr>
-<td style="text-align:left">138.76.29.7:5060</td>
-<td style="text-align:left">192.168.0.3:1234</td>
-</tr>
-</tbody>
-</table>
-<p>当路由器从LAN端收到源IP及源端口号的数据报时，会映射为对应的WAN端的IP和端口号，从WAN端发送到因特网，当路由器从WAN收到目的IP及目的端口号，会映射为LAN端的IP和端口号，这样只需要一个全球地址，就可以让多台主机同时访问因特网</p>
-<h3 id="子网划分与子网掩码，CIDR"><a href="#子网划分与子网掩码，CIDR" class="headerlink" title="子网划分与子网掩码，CIDR"></a>子网划分与子网掩码，CIDR</h3><h4 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h4><p>两级IP地址的缺点是：IP地址空间的利用率有时很低；给每个物理网络分配一个网络号会使得路由表变得太大而使网络性能变坏；两级IP地址不够灵活</p>
-<p>1985年在IP地址增加一个子网号字段，使2级IP地址变为3级IP地址，这种做法称为子网划分，基本思路如下：</p>
-<ul>
-<li>子网划分纯属一个单位内部的事情，单位对外仍然表现为没有划分子网的网络</li>
-<li>从主机号借用若干比特作为子网号，三级IP地址结构如下：IP地址={&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}</li>
-<li>凡是从其他网络发往本单位某台主机的IP数据报，仍然是根据IP数据报的目的网络号先找到连接到本单位网络上的路由器，然后该路由器在收到IP数据报后，按目的网络号和子网号找到目的子网。最后把IP数据报直接交付给目的主机</li>
-</ul>
-<p>不能从网络号判断是否为子网划分；IPv4子网划分时，子网号不能全为0或1，但CIDR可以使用全为0或全为1的子网号；不论是分类的IPv4地址还是CIDR，主机号都不能全0或全1，主机号全0表示子网的网络号，主机号全1表示子网的广播地址</p>
-<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>为了告诉主机或路由器对一个A类，B类，C类网络进行了子网划分，使用子网掩码来表达对原网络号中主机号的借位<br>子网掩码是一个与IP地址相对应的，长32bit的二进制串，它由一串1和跟随的一串0组成。其中1对应于IP地址中的网络号及子网号，0对应于主机号。计算机只需要将IP地址和其对应的子网掩码逐位与，就可得到相应子网的网络地址（网络号）<br>现在因特网标准规定所有网络都必须使用子网掩码，如果一个网络未划分子网，那么采用默认的子网掩码。A，B，C类地址的默认子网掩码分别为255.0.0.0 , 255.255.0.0 , 255.255.255.0。如某主机的IP地址为192.168.5.56，子网掩码为255.255.255.0，则该主机的网络号为192.168.5<br>路由器交换路由信息时也必须交换子网掩码，路由表的每个条目也必须给出该目的网络的子网掩码</p>
-<p>使用子网掩码的情况下，每台主机必须设置IP地址信息和子网掩码；同属于一个子网的所有主机及路由器的相应端口，必须设置相同的子网掩码；路由器的路由表中，所包含信息主要内容必须有目的网络地址，子网掩码，下一跳地址</p>
-<p>使用子网掩码的分组转发算法如下：</p>
-<ol>
-<li>从收到的分组首部提取目的主机的IP地址D（不需要得出目的网络地址，下面步骤使用子网掩码按位与即可）</li>
-<li>先判断是否为直接交付，对路由器直接相连的网络逐个进行检查：用各网络的子网掩码和D逐位相与，结果是否和相应的网络地址匹配，若匹配则分组直接交付，否则间接交付，执行步骤3</li>
-<li>若路由表中有目的地址为D的特定主机路由，则将该分组传送给路由表中所指明的下一跳路由器，否则执行步骤4</li>
-<li>对路由表中的每一行中的子网掩码和D逐位相与，结果为N，若N与该行的目的网络地址匹配，则将该分组传送给该行指明的下一跳路由器，否则执行步骤5</li>
-<li>若路由器中有一个默认路由，则将分组传送给路由表中所指明的默认路由器；否则执行步骤6</li>
-<li>报告转发分组出错</li>
-</ol>
-<h4 id="无分类域间路由选择-CIDR"><a href="#无分类域间路由选择-CIDR" class="headerlink" title="无分类域间路由选择(CIDR)"></a>无分类域间路由选择(CIDR)</h4><p>无分类域间路由选择是在变长子网掩码的基础上提出的一种消除传统A,B,C类网络划分，并且可以在软件的支持下实现超网构造的一种IP地址的划分方法，略</p>
-<h3 id="ARP，DHCP与ICMP"><a href="#ARP，DHCP与ICMP" class="headerlink" title="ARP，DHCP与ICMP"></a>ARP，DHCP与ICMP</h3><h4 id="IP地址与硬件地址"><a href="#IP地址与硬件地址" class="headerlink" title="IP地址与硬件地址"></a>IP地址与硬件地址</h4><p>IP地址是网络层使用的地址，是分层次等级的，而硬件地址是数据链路层的地址（如MAC地址），是平面式的。网络层及其以上使用IP地址，IP地址放在IP数据报的首部，MAC地址放在MAC帧的首部。数据链路层看不到数据报分组中的IP地址</p>
-<p>IP地址是逻辑上的概念，是网络层及其上层使用的地址，由软件实现，而MAC地址是数据链路层和物理层使用的地址，它们的区别见下面图</p>
-<p><img src="https://i.imgur.com/wOTjX2V.png" alt=""></p>
-<p>IP数据报一旦交给数据链路层，就封装成帧了，MAC帧在传送时使用的都是MAC地址</p>
-<p>下面例子是3个局域网用2个路由器R1和R2互连起来，通信路径是：H1-&gt;R1转发-&gt;R2转发-&gt;H2，路由器R1同时连接两个局域网，有两个硬件地址HA3和HA4，R2也有两个硬件地址HA5和HA6</p>
-<p><img src="https://i.imgur.com/SOCcyMl.png" alt=""></p>
-<p><img src="https://i.imgur.com/SUCthiz.png" alt=""></p>
-<p>主要有如下几点：</p>
-<ul>
-<li>IP层的抽象只会看到IP地址和IP数据报，IP数据报的地址始终是IP1和IP2</li>
-<li>链路层只看到MAC地址，会在每次转发的时候封装MAC帧，重新设置源和目的MAC地址</li>
-<li>IP层的抽象屏蔽了下面链路层复杂的细节</li>
-</ul>
-<h4 id="地址解析协议ARP"><a href="#地址解析协议ARP" class="headerlink" title="地址解析协议ARP"></a>地址解析协议ARP</h4><p>无论网络层使用什么协议，在实际网络的链路上传送数据帧时，最终必须使用硬件地址。所以需要一种方法来完成IP地址到MAC地址的映射，这就是地址解析协议。每台主机都设有一个ARP高速缓存，用来存放本局域网上各主机和路由器的IP地址到MAC地址的映射表，称ARP表。使用ARP动态维护此ARP表</p>
-<p>ARP在网络层上工作，原理如下：<strong>主机A欲向本局域网上某台主机B发送IP数据报时，先在其ARP高速缓存中查看有无主机B的IP地址。如有，就可以查出其对应的硬件地址，再将此硬件地址写入MAC帧，然后通过局域网将该MAC帧发往此硬件地址。如果没有，就通过使用目的MAC地址为FF-FF-FF-FF-FF-FF的帧封装并广播ARP请求分组，使同一个局域网里的所有主机收到ARP请求，该请求包括源主机IP，源主机MAC地址，目的主机IP，目的主机地址。所有主机都会受到该ARP请求包，当主机B收到该ARP请求后，会检查包中IP地址是否是自己的IP地址，如果是，则先把该ARP数据报的源主机IP和源MAC地址写入自己的ARP缓存列表，如果已存在则覆盖，然后向主机A发出响应ARP分组，分组中包含主机B的IP地址与MAC地址的映射关系，主机A收到后将次映射写入ARP缓存，然后按查询到的硬件地址发送MAC帧</strong>。ARP是可以看到IP地址的，所以工作在网络层，NAT路由器看到了端口，所以工作在传输层<br>ARP用于解决同一局域网上的主机或路由器的IP地址和硬件地址的映射关系，如果要找的主机和源主机不在同一局域网，就要通过ARP找到一个位于本局域网上的某个路由器的硬件地址，把分组发送给这个路由器，这个路由器把分组转发给下一个网络。剩下的工作就由下一个网络来做。ARP请求分组是广播发送的，但ARP响应分组是普通的单播</p>
-<p>ARP的4种典型情况如下：</p>
-<ul>
-<li>发送方是主机，要把IP数据报发送本网络的另一台主机。这时用ARP找到目的主机的硬件地址</li>
-<li>发送方是主机，要把IP数据报发送给另一个网络的主机。这时用ARP找到本网络的一个路由器的硬件地址，剩下工作由这个路由器完成</li>
-<li>发送方是路由器，要把IP数据报转发给本网络的一台主机。这时用ARP找到目的主机的硬件地址</li>
-<li>发送方是路由器，要把IP数据报转发到另一个网络的一台主机。这时用ARP找到本网络上一个路由器的硬件地址，剩下的工作由找到的这个路由器来完成</li>
-</ul>
-<h4 id="动态主机配置协议DHCP"><a href="#动态主机配置协议DHCP" class="headerlink" title="动态主机配置协议DHCP"></a>动态主机配置协议DHCP</h4><p>动态主机配置协议常用于给主机动态分配IP地址，提供即插即用联网的机制，这种机制允许一台计算机加入新的网络和获取IP地址而不用手工参与。DHCP是应用层协议，是基于UDP的</p>
-<p>工作原理：使用客户/服务器方式，需要IP地址的主机在启动时向DHCP服务器广播发送发现报文，这时该主机称为DHCP客户。本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文。DHCP服务器先在其数据库查找该计算机的配置信息，若找到则返回找到的信息，若找不到，则从服务器的IP地址池取一个地址分配给该计算机，DHCP服务器的回答报文称为提供报文</p>
-<p>DHCP服务器聚合DHCP客户端交换过程如下：</p>
-<ul>
-<li>DHCP客户机广播 DHCP发现 消息，试图找到网络中的DHCP服务器，服务器获得一个IP地址</li>
-<li>DHCP服务器收到 DHCP发现 消息后，向网络广播 DHCP提供 消息，其中包括提供DHCP客户机的IP地址和相关配置信息</li>
-<li>DHCP客户机收到 DHCP提供 消息，如果接收DHCP服务器提供的相关参数，那么通过广播 DHCP请求 消息向DHCP服务器请求提供IP地址</li>
-<li>DHCP服务器广播 DHCP确认 消息，将IP地址分配给DHCP客户机</li>
-</ul>
-<p>DHCP服务器分配给DHCP客户的IP地址是临时的，客户只能在一段有限时间内使用这个分配的IP地址<br>DHCP是应用层协议，因为它通过客户/服务器方式工作<br>DHCP通过广播方式交互，客户和服务器都没有标识自己身份的IP地址</p>
-<h4 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h4><p>为了提高IP数据报交付成功的机会，在网络层使用网际控制报文协议让主机或路由器报告差错和异常情况，<strong>它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息</strong>。ICMP报文作为IP层数据报的数据，加上数据报的首部，组成IP数据报发送出去。ICMP是IP层协议</p>
-<p>ICMP报文有两种，ICMP差错报告报文和ICMP询问报文</p>
-<p>ICMP差错报告报文用于目标主机或到目标主机路径上的路由器向源主机报告差错和异常情况。共有以下5种类型</p>
-<ul>
-<li>终点不可达：当路由器或主机不能交付数据报时，向源点发送终点不可达报文</li>
-<li>源点抑制：当路由器或主机由于拥塞而丢弃数据报时，向源点发送源点抑制报文，使源点知道应当把数据报的发送速率放慢</li>
-<li>时间超过：当路由器收到生存时间TTL为0的数据报时，除丢弃该数据报外，还要向源点发送时间超过报文。终点在预先规定时间内不能收到一个数据报的全部数据报片时，就把已收到数据报片丢弃，向源点发送时间超过报文</li>
-<li>参数问题：路由器或目的主机收到的数据报首部有字段值不正确时，就丢弃该数据报并向源点发送参数问题报文</li>
-<li>改变路由（重定向）：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器</li>
-</ul>
-<p>ICMP询问报文有4种类型：回送请求和回答报文，时间戳请求和回答报文，掩码地址请求和回答报文，路由器询问和通告报文</p>
-<p>ICMP两个常见应用是分组网间探测PING和Traceroute（Windows是tracert，用来跟踪分组经过的路由），PING使用了ICMP回送请求和回答报文，Traceroute使用ICMP时间超过报文，PING工作在应用层，直接使用网络层的ICMP，而未使用TCP或UDP，Traceroute工作在网络层</p>
-<h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><p>解决IP地址耗尽的措施有如下三种：采用无类别CIDR；采用NAT方法；采用更大地址空间的IPv6（根本）</p>
-<h3 id="IPv6特点"><a href="#IPv6特点" class="headerlink" title="IPv6特点"></a>IPv6特点</h3><p>IPv6特点：</p>
-<ul>
-<li>更大地址空间，IPv6地址从32位增大到128位，字节数是IPv4(4字节)的平方(16字节)</li>
-<li>扩展的地址层次结构</li>
-<li>灵活的首部格式</li>
-<li>允许协议继续扩充</li>
-<li>支持即插即用</li>
-<li>支持资源的预分配</li>
-<li>IPv6只有在包的源结点才能分片，是端到端的，传输路径中路由器不能分片，所以一般意义上说，IPv6不允许分片</li>
-<li>IPv6首部长度必须是8B的整数倍（IPv4是4B整数倍）</li>
-<li>增大了安全性（身份验证和保密功能）</li>
-</ul>
-<p>IPv6和IPv4不兼容，但它与所有其他因特网协议兼容，包括TCP,UDP,DNS等，只需要在少数地方做修改</p>
-<h3 id="IPv6地址"><a href="#IPv6地址" class="headerlink" title="IPv6地址"></a>IPv6地址</h3><p>IPv6数据报的目的地址可以是以下三种基本类型地址之一：</p>
-<ul>
-<li>单播：传统的点对点通信</li>
-<li>多播：一点对多点通信</li>
-<li>任播：目的站是一组计算机，交付时只交付其中的一台</li>
-</ul>
-<p>IPv6通常是表示方法是十六进制，每16位用冒号分隔（IPv4是点分十进制法），如：4BF5:0000:0000:0000:BA5F:039A:000A:2176，对于16位域开头为0的，可以省略，如：4BF5:0:0:0:BA5F:39A:A:2176</p>
-<h2 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h2><h3 id="自治系统"><a href="#自治系统" class="headerlink" title="自治系统"></a>自治系统</h3><p>自治系统（AS)是单一技术管理下的一组路由器，这些路由器用一种AS内部的路由选择协议和共同的度量来确定分组在该AS内的路由，同时还使用一种AS之间的路由选择协议来确定分组在AS之间的路由</p>
-<p>一个自治系统内所有网络都由一个行政单位管辖</p>
-<h3 id="域内路由与域间路由"><a href="#域内路由与域间路由" class="headerlink" title="域内路由与域间路由"></a>域内路由与域间路由</h3><p>内部网关协议IGP：在一个自治系统内部使用的路由选择协议，RIP，OSPF等<br>外部网关协议EGP：源站和目的站处于不同自治系统的路由选择协议，如BGP-4</p>
-<h3 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h3><p>基于距离向量路由选择协议，使用UDP，与相邻路由器交换整个路由表</p>
-<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><p>基于链路状态路由算法，使用IP，与全部路由器交换相邻结点链路状态</p>
-<h3 id="BGP协议"><a href="#BGP协议" class="headerlink" title="BGP协议"></a>BGP协议</h3><p>基于路径向量路由选择协议，使用TCP，寻找的并非最佳路由</p>
-<h2 id="IP组播"><a href="#IP组播" class="headerlink" title="IP组播"></a>IP组播</h2><p>组播机制指源计算机一次发送的单个分组可以抵达用一个组地址标识的若干目标主机，并被它们正确接收</p>
-<p>组播应用于UDP（TCP要连接，只能一对一发送）。IP组播使用组播组概念，每个组都有一个特别分配的地址，要给该组发送的计算机将使用这个地址作为分组的目标地址，IPv4种，这些地址在D类地址空间中分配。主机使用一个称为IGMP的协议加入组播组。组播需要路由器的支持才能实现，称为组播路由器</p>
-<p><img src="https://i.imgur.com/2N4e9Ti.png" alt=""></p>
-<h3 id="IP组播地址"><a href="#IP组播地址" class="headerlink" title="IP组播地址"></a>IP组播地址</h3><p>IP组播使用D类地址格式，前4位是1110，首部协议字段是2，表示使用IGMP，特点如下：</p>
-<ul>
-<li>组播数据报尽最大努力交付</li>
-<li>组播地址只用于目的地址，不用于源地址</li>
-<li>对组播数据报不产生ICMP差错报文，PING命令后加入组播地址永远不会收到响应</li>
-<li>并非所有D类地址都作为组播地址</li>
-</ul>
-<h3 id="IGMP"><a href="#IGMP" class="headerlink" title="IGMP"></a>IGMP</h3><p>IGMP不知道IP组播组包含的成员数，也不知道成员分布在哪些网络，IGMP让连接到本地局域网上的组播路由器知道本局域网上是否有主机参加或退出某个组播组</p>
-<p>IGMP应视为TCP/IP的一部分，其工作分为两个阶段</p>
-<ol>
-<li>当某台主机加入新的组播组，该主机向组播组的组播地址发送一个IGMP报文声明自己要成为该组成员，本地组播路由器收到IGMP报文后将组成员关系转发给因特网上其他组播路由器</li>
-<li>因为组成员关系是动态的，本地组播路由器要周期性探询本地局域网上的主机，以便知道这些主机是否仍继续是组的成员。只要对某个组有一台主机响应，那么组播路由器就认为这个组是活跃的。一个组经过几次探询后仍然没有一台主机响应时，就不再将该组成员关系转发给其他组播路由器</li>
-</ol>
-<h2 id="网络层设备"><a href="#网络层设备" class="headerlink" title="网络层设备"></a>网络层设备</h2><h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p>路由器是一种具有多个输入/输出端口的专用计算机，其任务是连接不同的网络并完成路由转发。在多个逻辑网络互联时必须使用路由器，路由器也可以作为最基础的包过滤防火墙应用</p>
-<p>路由表通常有4项：目的网络IP地址，子网掩码，下一跳IP地址，接口</p>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/Mfyxnin.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3252,7 +2863,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">81</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3274,7 +2885,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">192</span>
+                  <span class="site-state-item-count">200</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
