@@ -123,18 +123,18 @@
 
 
 
-<meta name="description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称，通过阅读其注释，可以得出如下信息：  是一个可以给我们实现锁的框架 内部实现的关键：先进先出的队列，s">
+<meta name="description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称  是一个可以给我们实现锁的框架，实现了AQS的常见的有ReentrantLock,CountDownL">
 <meta name="keywords" content="并发,AQS,ThreadLocal,Atomic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java并发基础5-AQS,Atomic与ThreadLocal">
 <meta property="og:url" content="http://yoursite.com/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称，通过阅读其注释，可以得出如下信息：  是一个可以给我们实现锁的框架 内部实现的关键：先进先出的队列，s">
+<meta property="og:description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称  是一个可以给我们实现锁的框架，实现了AQS的常见的有ReentrantLock,CountDownL">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-28T15:49:25.570Z">
+<meta property="og:updated_time" content="2019-08-29T15:17:39.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java并发基础5-AQS,Atomic与ThreadLocal">
-<meta name="twitter:description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称，通过阅读其注释，可以得出如下信息：  是一个可以给我们实现锁的框架 内部实现的关键：先进先出的队列，s">
+<meta name="twitter:description" content="java3y AQS  Java并发基础5-AQS,Atomic与ThreadLocal(补充)前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记 AQSJ.U.C包下子包locks的AbstractQueuedSynchronizer的简称  是一个可以给我们实现锁的框架，实现了AQS的常见的有ReentrantLock,CountDownL">
 
 
 
@@ -474,23 +474,27 @@
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484202&idx=1&sn=dbf9e94d2486ee0baa43e043a2363231&chksm=ebd7422bdca0cb3dc0451e09d139b72558b1cfa3593a6bcc1716ae9d1bd443804d194a303985&scene=21#wechat_redirect" target="_blank" rel="noopener">java3y AQS</a></p>
 </blockquote>
 <h1 id="Java并发基础5-AQS-Atomic与ThreadLocal-补充"><a href="#Java并发基础5-AQS-Atomic与ThreadLocal-补充" class="headerlink" title="Java并发基础5-AQS,Atomic与ThreadLocal(补充)"></a>Java并发基础5-AQS,Atomic与ThreadLocal(补充)</h1><p>前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记</p>
-<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称，通过阅读其注释，可以得出如下信息：</p>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称</p>
 <ul>
-<li>是一个可以给我们<strong>实现锁的框架</strong></li>
-<li>内部实现的关键：<strong>先进先出的队列</strong>，<strong>state状态</strong></li>
+<li>是一个可以给我们<strong>实现锁的框架</strong>，实现了AQS的常见的有ReentrantLock,CountDownLatch</li>
+<li>acquire()方法调用了<strong>tryAcquire()</strong>，release()方法调用了<strong>tryRelease()</strong>，需要继承AQS的实现类去实现</li>
+<li>内部实现的关键：<strong>先进先出的阻塞等待队列CLH</strong>，<strong>state状态</strong></li>
 <li>拥有两种线程模式：<strong>独占和共享</strong></li>
-<li>定义了内部类ConditionObject</li>
-<li>locks包中的ReadWriteLock，ReentrantLock都是基于AQS构建</li>
-<li>一般叫AQS为<strong>同步器</strong></li>
 </ul>
-<p>对象每获一次锁，state就增1<br>state通过volatile实现可见性，CAS算法来修改state的值</p>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>对象每上一次锁，state就通过<strong>CAS操作</strong>加1，表示它是可重入的<br>state的修改通过compareAndSetState（内部调用unsafe.compareAndSwapInt）函数实现</p>
+<h3 id="CLH队列"><a href="#CLH队列" class="headerlink" title="CLH队列"></a>CLH队列</h3><p>Node的每个结点有标识该线程状态的waitStatus<br>CLH的操作是这样的：当有线程持有了锁，另外一个线程竞争不到锁，就让它进入CLH队列，<strong>head代表持有锁的线程</strong>，tail指向队列的尾部<br>在公平竞争的前提下，来竞争锁的线程都会依次进入CLH队列的尾部<br>CLH还有一个内部类ConditionObject以及Node的状态CONDITION，是与条件队列有关的，这里先不去看了</p>
 <p>队列源码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 共享与独占</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node SHARED = <span class="keyword">new</span> Node();</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node EXCLUSIVE = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 线程状态，依次为被取消，需要唤醒，等待condition唤醒，无条件传播？</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANCELLED =  <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SIGNAL    = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CONDITION = -<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PROPAGATE = -<span class="number">3</span>;</span><br><span class="line">    <span class="comment">// 值为上面几种状态</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">int</span> waitStatus;</span><br><span class="line">    <span class="keyword">volatile</span> Node prev;</span><br><span class="line">    <span class="keyword">volatile</span> Node next;</span><br><span class="line">    <span class="comment">// 每个线程对应一个Node</span></span><br><span class="line">    <span class="keyword">volatile</span> Thread thread;</span><br><span class="line">    <span class="comment">// Link to next node waiting on condition, or the special value SHARED</span></span><br><span class="line">    Node nextWaiter;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">isShared</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nextWaiter == SHARED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">final</span> Node <span class="title">predecessor</span><span class="params">()</span> <span class="keyword">throws</span> NullPointerException </span>&#123;</span><br><span class="line">        Node p = prev;</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node() &#123;    <span class="comment">// Used to establish initial head or SHARED marker</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, Node mode) &#123;     <span class="comment">// Used by addWaiter</span></span><br><span class="line">        <span class="keyword">this</span>.nextWaiter = mode;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, <span class="keyword">int</span> waitStatus) &#123; <span class="comment">// Used by Condition</span></span><br><span class="line">        <span class="keyword">this</span>.waitStatus = waitStatus;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>获取独占锁的过程在acquire定义，该方法使用模板设计模式，由子类实现</p>
-<p>过程：acquire(int)尝试获取资源，如果获取失败，将线程插入等待队列。插入等待队列后，acquire(int)并没有放弃获取资源，而是根据前置节点状态状态判断是否应该继续获取资源，如果前置节点是头结点，继续尝试获取资源，如果前置节点是SIGNAL状态，就中断当前线程，否则继续尝试获取资源。直到当前线程被park()或者获取到资源，acquire(int)结束</p>
-<p>release方法释放独占锁，方法使用模板设计模式，由子类实现</p>
-<p>过程:首先调用子类的tryRelease()方法释放锁,然后唤醒后继节点,在唤醒的过程中,需要判断后继节点是否满足情况,如果后继节点不为且不是作废状态,则唤醒这个后继节点,否则从tail节点向前寻找合适的节点,如果找到,则唤醒</p>
-<p>锁对象的lock与unlock就分别使用了这两个方法</p>
+<h3 id="acquire"><a href="#acquire" class="headerlink" title="acquire()"></a>acquire()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">acquireQueued</span><span class="params">(<span class="keyword">final</span> Node node, <span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">boolean</span> interrupted = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="keyword">final</span> Node p = node.predecessor();</span><br><span class="line">            <span class="keyword">if</span> (p == head &amp;&amp; tryAcquire(arg)) &#123;</span><br><span class="line">                setHead(node);</span><br><span class="line">                p.next = <span class="keyword">null</span>; <span class="comment">// help GC</span></span><br><span class="line">                failed = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">return</span> interrupted;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                parkAndCheckInterrupt())</span><br><span class="line">                interrupted = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (failed)</span><br><span class="line">            cancelAcquire(node);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>acquire()方法调用子类实现的tryAcquire()方法来获取资源</li>
+<li>如果失败（tryAcquire返回false），就通过addWaiter()方法把当前线程创建一个Node结点（排他锁方式）并插入到队尾</li>
+<li>acquireQueued()使线程在等待队列中获取资源，一直获取到资源后才返回。如果在整个等待过程中被中断过，则返回true，否则返回false（<strong>这个函数说实话我还没有看明白</strong>）</li>
+</ul>
+<p>因此tryAcquire()需要我们实现的逻辑是获取资源</p>
+<h3 id="release"><a href="#release" class="headerlink" title="release()"></a>release()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">release</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tryRelease(arg)) &#123;</span><br><span class="line">        Node h = head;</span><br><span class="line">        <span class="keyword">if</span> (h != <span class="keyword">null</span> &amp;&amp; h.waitStatus != <span class="number">0</span>)</span><br><span class="line">            unparkSuccessor(h);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>release()方法调用子类实现的tryRelease()方法释放锁，然后沿队列找到第一个不是作废状态的结点唤醒</p>
 <h2 id="Atomic"><a href="#Atomic" class="headerlink" title="Atomic"></a>Atomic</h2><p>count++操作不是原子操作，需要经过 读取-修改-写入 三个步骤，如果需要同步，则可以加上synchronized关键字，但是开销很大，所以可以使用原子变量，它通过CAS操作来实现原子性</p>
 <p>CAS操作是：如果当前内存值=预期值，则把内存值改为想要修改的值，否则什么都不做（或重试），CAS操作是原子性的（虽然它是比较后再修改）</p>
 <p>原子变量分类：</p>
@@ -615,6 +619,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/01/MySQL/" rel="prev" title="MySQL（持续更新）">
+                MySQL（持续更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -702,7 +710,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">81</span>
+                  <span class="site-state-item-count">93</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -713,7 +721,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -724,7 +732,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">200</span>
+                  <span class="site-state-item-count">206</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -779,7 +787,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java并发基础5-AQS-Atomic与ThreadLocal-补充"><span class="nav-number">1.</span> <span class="nav-text">Java并发基础5-AQS,Atomic与ThreadLocal(补充)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS"><span class="nav-number">1.1.</span> <span class="nav-text">AQS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Atomic"><span class="nav-number">1.2.</span> <span class="nav-text">Atomic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ABA问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">ABA问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决ABA问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">解决ABA问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder性能"><span class="nav-number">1.2.3.</span> <span class="nav-text">LongAdder性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">1.3.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal的内存泄漏"><span class="nav-number">1.4.</span> <span class="nav-text">ThreadLocal的内存泄漏</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java并发基础5-AQS-Atomic与ThreadLocal-补充"><span class="nav-number">1.</span> <span class="nav-text">Java并发基础5-AQS,Atomic与ThreadLocal(补充)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS"><span class="nav-number">1.1.</span> <span class="nav-text">AQS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#state"><span class="nav-number">1.1.1.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLH队列"><span class="nav-number">1.1.2.</span> <span class="nav-text">CLH队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#acquire"><span class="nav-number">1.1.3.</span> <span class="nav-text">acquire()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#release"><span class="nav-number">1.1.4.</span> <span class="nav-text">release()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Atomic"><span class="nav-number">1.2.</span> <span class="nav-text">Atomic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ABA问题"><span class="nav-number">1.2.1.</span> <span class="nav-text">ABA问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决ABA问题"><span class="nav-number">1.2.2.</span> <span class="nav-text">解决ABA问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LongAdder性能"><span class="nav-number">1.2.3.</span> <span class="nav-text">LongAdder性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">1.3.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadLocal的内存泄漏"><span class="nav-number">1.4.</span> <span class="nav-text">ThreadLocal的内存泄漏</span></a></li></ol></li></ol></div>
             
 
           </div>

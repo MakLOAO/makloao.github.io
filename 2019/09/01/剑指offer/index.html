@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="algs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="剑指offer这里只写解题思路，代码在这里 1.二维数组中的查找Find题目描述在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 12345示例：1 2 8 92 4 9 124 7 10 136 8 11 15 解题思路观察这个矩阵的规律，从左下（右上）">
+<meta name="keywords" content="algs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer（持续更新）">
+<meta property="og:url" content="http://yoursite.com/2019/09/01/剑指offer/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="剑指offer这里只写解题思路，代码在这里 1.二维数组中的查找Find题目描述在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 12345示例：1 2 8 92 4 9 124 7 10 136 8 11 15 解题思路观察这个矩阵的规律，从左下（右上）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-03T11:51:42.105Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="剑指offer（持续更新）">
+<meta name="twitter:description" content="剑指offer这里只写解题思路，代码在这里 1.二维数组中的查找Find题目描述在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。 12345示例：1 2 8 92 4 9 124 7 10 136 8 11 15 解题思路观察这个矩阵的规律，从左下（右上）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/01/剑指offer/"/>
+
+
+
+
+
+  <title>剑指offer（持续更新） | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/剑指offer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">剑指offer（持续更新）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/剑指offer/" class="leancloud_visitors" data-flag-title="剑指offer（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指offer"><a href="#剑指offer" class="headerlink" title="剑指offer"></a>剑指offer</h1><p>这里只写解题思路，代码在<a href="https://github.com/MakLOAO/Sword-refers-to-offer" target="_blank" rel="noopener">这里</a></p>
+<h2 id="1-二维数组中的查找Find"><a href="#1-二维数组中的查找Find" class="headerlink" title="1.二维数组中的查找Find"></a>1.二维数组中的查找Find</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">1 2 8 9</span><br><span class="line">2 4 9 12</span><br><span class="line">4 7 10 13</span><br><span class="line">6 8 11 15</span><br></pre></td></tr></table></figure>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>观察这个矩阵的规律，从左下（右上）开始的结点，它上面的结点值都比它小，它右边的结点值都比它大，类比折半查找的思想</p>
+<h2 id="2-替换空格replaceSpace"><a href="#2-替换空格replaceSpace" class="headerlink" title="2.替换空格replaceSpace"></a>2.替换空格replaceSpace</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</p>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><p>如果可以开辟新的字符串，直接从头到尾遍历即可..<br>如果只能在原来的字符串上操作，那就先遍历一次该字符串，找到对应的空格的个数spaceCount，然后对该字符串（StringBuilder）扩容（oldLength+2*spaceCount），设置扩容后的待插入位置指针和待插入元素指针，从后往前遍历插入（这样可以避免从前往后插入遇到空格时因为要替换成%20而导致后面的元素后移）</p>
+<h2 id="3-从尾到头打印链表printListFromTailToHead"><a href="#3-从尾到头打印链表printListFromTailToHead" class="headerlink" title="3.从尾到头打印链表printListFromTailToHead"></a>3.从尾到头打印链表printListFromTailToHead</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个链表，按链表从尾到头的顺序返回一个ArrayList。</p>
+<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><ol>
+<li>自己设置一个头结点，然后使用头插法，再遍历输出</li>
+<li>栈</li>
+<li>递归</li>
+</ol>
+<h2 id="4-重建二叉树reConstructBinaryTree"><a href="#4-重建二叉树reConstructBinaryTree" class="headerlink" title="4.重建二叉树reConstructBinaryTree"></a>4.重建二叉树reConstructBinaryTree</h2><h3 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">示例：</span><br><span class="line">前序遍历序列&#123;1,2,4,7,3,5,6,8&#125;</span><br><span class="line">中序遍历序列&#123;4,7,2,1,5,3,8,6&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><ol>
+<li>使用递归，<code>reConstructBinaryTree(int[] pre,int preStart,int preEnd,int[] in,int inStart,int inEnd)</code></li>
+<li>preStart为该子树的root，在in中找到preStart对应的值并记录其在中序的位标i</li>
+<li>这样，root.left的inStart为inStart，inEnd为i-1，root.right的inStart为i+1，inEnd为inEnd</li>
+<li>现在的目标是找到root.left和root.right的preStart和preEnd</li>
+<li>首先可以确定的是：root.left的preStart为preStart+1，以及root.right的preEnd为preEnd</li>
+<li>然后根据对应子树前序和中序序列的长度相等，把剩下的root.left的preEnd和root.right的preStart确定即可</li>
+</ol>
+<p>（前序root.left所有子树的遍历必然在root.right所有子树之前，所以前序序列中属于root.left的必然连续，且在root.right之前）</p>
+<h2 id="5-用两个栈实现队列StackToQueue"><a href="#5-用两个栈实现队列StackToQueue" class="headerlink" title="5.用两个栈实现队列StackToQueue"></a>5.用两个栈实现队列StackToQueue</h2><h3 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h3><p>用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。</p>
+<h3 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h3><p>栈是FILO，队列是FIFO，栈1作为主要栈使用，栈2作为辅助栈使用，每次push的时候都插入到栈1的栈顶，然后每次pop的时候，都把栈1所有元素全部pop到栈2，这样栈1的栈底就是栈2的栈顶，把栈2的栈顶出栈，就实现了2个栈的FIFO，然后再把栈2所有元素pop回栈1</p>
+<h2 id="6-旋转数组的最小数字minNumberInRotateArray"><a href="#6-旋转数组的最小数字minNumberInRotateArray" class="headerlink" title="6.旋转数组的最小数字minNumberInRotateArray"></a>6.旋转数组的最小数字minNumberInRotateArray</h2><h3 id="题目描述-5"><a href="#题目描述-5" class="headerlink" title="题目描述"></a>题目描述</h3><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。<br>输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。<br>例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。<br>NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
+<h3 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h3><p>观察旋转数组的规律：把该数组分为两部分，后半部分的值都比前半部分要小，<strong>目标是找到后半部分的第一个数字</strong>，可以使用折半查找，如果array[mid]&gt;array[right]，则mid在前半部分，<strong>让left=mid+1</strong>，如果array[mid]==array[right]，则mid在后半部分，且从mid到right的数字都是重复一样的，<strong>让right=right-1</strong>，如果array[mid]&lt;array[right]，则mid在后半部分，让<strong>right=mid</strong>，这样一直缩减旋转数组的范围，最终缩减到只有一个值的范围时，就是后半部分的第一个值，即最小值</p>
+<h2 id="7-斐波那契数列Fibonacci"><a href="#7-斐波那契数列Fibonacci" class="headerlink" title="7.斐波那契数列Fibonacci"></a>7.斐波那契数列Fibonacci</h2><h3 id="题目描述-6"><a href="#题目描述-6" class="headerlink" title="题目描述"></a>题目描述</h3><p>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。<br>n&lt;=39</p>
+<h3 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h3><p>递归的话，性能相对不好，最好还是用循环<br>因为斐波那契是前两项相加，所以使用pre，now两个指针，初始化分别为0,1，设置一个temp保存now的值，每次n–，就让temp暂存now当前值，然后now=now+pre，然后pre=temp，当判断n==0，就输出now</p>
+<h2 id="8-跳台阶JumpFloor"><a href="#8-跳台阶JumpFloor" class="headerlink" title="8.跳台阶JumpFloor"></a>8.跳台阶JumpFloor</h2><h3 id="题目描述-7"><a href="#题目描述-7" class="headerlink" title="题目描述"></a>题目描述</h3><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+<h3 id="解题思路-7"><a href="#解题思路-7" class="headerlink" title="解题思路"></a>解题思路</h3><p>DP问题<br>最优子结构：跳上n-1级台阶的跳法+跳上n-2级台阶的跳法<br>边界：跳上t级台阶时跳法为t（t&lt;=2）<br>状态转移方程：f(n)=f(n-1)+f(n-2)<br>（或者找规律来做）</p>
+<h2 id="9-变态跳台阶JumpFloorII"><a href="#9-变态跳台阶JumpFloorII" class="headerlink" title="9.变态跳台阶JumpFloorII"></a>9.变态跳台阶JumpFloorII</h2><h3 id="题目描述-8"><a href="#题目描述-8" class="headerlink" title="题目描述"></a>题目描述</h3><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<h3 id="解题思路-8"><a href="#解题思路-8" class="headerlink" title="解题思路"></a>解题思路</h3><p>找规律，最后会发现跳法=2^(target-1)<br>可以使用位运算加快上述算法速度： <code>int a = 1; return a &lt;&lt; (target - 1);</code></p>
+<h2 id="10-矩形覆盖RectCover"><a href="#10-矩形覆盖RectCover" class="headerlink" title="10.矩形覆盖RectCover"></a>10.矩形覆盖RectCover</h2><h3 id="题目描述-9"><a href="#题目描述-9" class="headerlink" title="题目描述"></a>题目描述</h3><p>我们可以用2&times;1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2&times;1的小矩形无重叠地覆盖一个2&times;n的大矩形，总共有多少种方法？</p>
+<h3 id="解题思路-9"><a href="#解题思路-9" class="headerlink" title="解题思路"></a>解题思路</h3><p>实质上和跳台阶是一样的<br>最优子结构：2&times;(n-1)和2&times;(n-2)的矩形的种数之和<br>边界：2&times;1时f(1)=1，2&times;2时f(2)=2<br>状态转移方程：f(n)=f(n-1)+f(n-2)</p>
+<h2 id="11-二进制中1的个数NumberOf1"><a href="#11-二进制中1的个数NumberOf1" class="headerlink" title="11.二进制中1的个数NumberOf1"></a>11.二进制中1的个数NumberOf1</h2><h3 id="题目描述-10"><a href="#题目描述-10" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。</p>
+<h3 id="解题思路-10"><a href="#解题思路-10" class="headerlink" title="解题思路"></a>解题思路</h3><p>把一个数考虑成二进制数，考虑它的个位是否为1的算法是： <code>(n &amp; 1) == 1</code> ，如果是，则另计数器+1，然后n无符号右移1位</p>
+<h2 id="12-数值的整数次方Power"><a href="#12-数值的整数次方Power" class="headerlink" title="12.数值的整数次方Power"></a>12.数值的整数次方Power</h2><h3 id="题目描述-11"><a href="#题目描述-11" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。</p>
+<p>保证base和exponent不同时为0</p>
+<h3 id="解题思路-11"><a href="#解题思路-11" class="headerlink" title="解题思路"></a>解题思路</h3><p>首先判断exponent是正还是负，一个Boolean类型的变量positive保存它是否为正，还要考虑特殊情况，如果为0，直接返回1，如果为负，且base为0，则抛出异常，否则让exponent变为正数</p>
+<p><strong>快速幂算法！！</strong><br>如 <code>10^1101 // 2的13次幂</code> 的结果为： <code>10^1101 = 10^0001 * 10^0100 * 10^1000</code> ，改为使用java描述就是：</p>
+<ol>
+<li>使用一个curr初值为base</li>
+<li>然后判断exponent==0，不等于就执行3 4 5步</li>
+<li>判断if((exponent &amp; 1) == 1)，即判断exponent二进制数的个位是否为1，符合就让res *= curr</li>
+<li>然后每次都让curr *= curr（每次右移都翻倍）</li>
+<li>最后让exponent右移1位</li>
+</ol>
+<p>最后判断positive，如果为正，则返回res，否则返回1/res</p>
+<h2 id="13-调整数组顺序使奇数位于偶数前面reOrderArray"><a href="#13-调整数组顺序使奇数位于偶数前面reOrderArray" class="headerlink" title="13.调整数组顺序使奇数位于偶数前面reOrderArray"></a>13.调整数组顺序使奇数位于偶数前面reOrderArray</h2><h3 id="题目描述-12"><a href="#题目描述-12" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。</p>
+<h3 id="解题思路-12"><a href="#解题思路-12" class="headerlink" title="解题思路"></a>解题思路</h3><p>使用插入排序的思想，前面是有序区，后面是待排序区，有序区的元素全部都是偶数，当遇到奇数时，就让前面的偶数记录后移即可</p>
+<h2 id="14-链表中倒数第k个结点FindKthToTail"><a href="#14-链表中倒数第k个结点FindKthToTail" class="headerlink" title="14.链表中倒数第k个结点FindKthToTail"></a>14.链表中倒数第k个结点FindKthToTail</h2><h3 id="题目描述-13"><a href="#题目描述-13" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个链表，输出该链表中倒数第k个结点。</p>
+<h3 id="解题思路-13"><a href="#解题思路-13" class="headerlink" title="解题思路"></a>解题思路</h3><p>快慢指针法，让快指针先走k-1步走到第k个结点，然后两个一起走，直到快指针走到尾（fast.next==null），慢指针所在的结点就是倒数第k个结点</p>
+<h2 id="15-反转链表ReverseList"><a href="#15-反转链表ReverseList" class="headerlink" title="15.反转链表ReverseList"></a>15.反转链表ReverseList</h2><h3 id="题目描述-14"><a href="#题目描述-14" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个链表，反转链表后，输出新链表的表头。</p>
+<h3 id="解题思路-14"><a href="#解题思路-14" class="headerlink" title="解题思路"></a>解题思路</h3><p>头插法步骤</p>
+<ol>
+<li>保存当前工作结点的next域</li>
+<li>让工作结点p的next指向HEAD.next（插入过程1）</li>
+<li>让HEAD.next指向p（插入过程2）</li>
+<li>让p=next（此时已经断开了，所以需要next来保存）</li>
+</ol>
+<h2 id="16-合并两个排序的链表Merge"><a href="#16-合并两个排序的链表Merge" class="headerlink" title="16.合并两个排序的链表Merge"></a>16.合并两个排序的链表Merge</h2><h3 id="题目描述-15"><a href="#题目描述-15" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p>
+<h3 id="解题思路-15"><a href="#解题思路-15" class="headerlink" title="解题思路"></a>解题思路</h3><p>归并的思路</p>
+<ol>
+<li>首先创建头结点head，工作结点p=head，辅助结点l1和l2</li>
+<li>然后按照归并的思路做就行了</li>
+<li>最后返回head.next</li>
+</ol>
+<h2 id="17-树的子结构HasSubtree"><a href="#17-树的子结构HasSubtree" class="headerlink" title="17.树的子结构HasSubtree"></a>17.树的子结构HasSubtree</h2><h3 id="题目描述-16"><a href="#题目描述-16" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p>
+<h3 id="解题思路-16"><a href="#解题思路-16" class="headerlink" title="解题思路"></a>解题思路</h3><p>基本思路就是遍历大树，找到与子树跟节点相同的节点，然后传入判断函数进行遍历比较，判断函数的边界是：当判断函数中判断到大树为null，则返回false，表示未成功匹配。当判断到小树为null，则返回true，表示成功匹配，然后如果都不为null，且它们的val相等，就递归判断左右子树</p>
+<p><strong>在judge函数中，一定要先判断root2，因为当root1和root2同时为null，返回的结果也是true</strong></p>
+<h2 id="18-二叉树的镜像Mirror"><a href="#18-二叉树的镜像Mirror" class="headerlink" title="18.二叉树的镜像Mirror"></a>18.二叉树的镜像Mirror</h2><h3 id="题目描述-17"><a href="#题目描述-17" class="headerlink" title="题目描述"></a>题目描述</h3><p>操作给定的二叉树，将其变换为源二叉树的镜像。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">二叉树的镜像定义：源二叉树 </span><br><span class="line">    	    8</span><br><span class="line">    	   /  \</span><br><span class="line">    	  6   10</span><br><span class="line">    	 / \  / \</span><br><span class="line">    	5  7 9  11</span><br><span class="line">    	镜像二叉树</span><br><span class="line">    	    8</span><br><span class="line">    	   /  \</span><br><span class="line">    	  10   6</span><br><span class="line">    	 / \  / \</span><br><span class="line">    	11 9 7  5</span><br></pre></td></tr></table></figure>
+<h3 id="解题思路-17"><a href="#解题思路-17" class="headerlink" title="解题思路"></a>解题思路</h3><p>镜像二叉树的过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">1.</span><br><span class="line">    	    8</span><br><span class="line">    	   /  \</span><br><span class="line">    	  6   10</span><br><span class="line">    	 / \  / \</span><br><span class="line">    	5  7 9  11</span><br><span class="line"></span><br><span class="line">2.</span><br><span class="line">    	    8</span><br><span class="line">    	   /  \</span><br><span class="line">    	  10   6</span><br><span class="line">    	 / \  / \</span><br><span class="line">    	9  11 5  7</span><br><span class="line"></span><br><span class="line">3.</span><br><span class="line">    	    8</span><br><span class="line">    	   /  \</span><br><span class="line">    	  10   6</span><br><span class="line">    	 / \  / \</span><br><span class="line">    	11 9 7  5</span><br></pre></td></tr></table></figure>
+<p>即<strong>只需要依次交换非叶结点的左右子树即可实现镜像</strong>，（从上往下交换和从下往上交换均可）</p>
+<h2 id="19-顺时针打印矩阵printMatrix"><a href="#19-顺时针打印矩阵printMatrix" class="headerlink" title="19.顺时针打印矩阵printMatrix"></a>19.顺时针打印矩阵printMatrix</h2><h3 id="题目描述-18"><a href="#题目描述-18" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p>
+<h3 id="解题思路-18"><a href="#解题思路-18" class="headerlink" title="解题思路"></a>解题思路</h3><p>定义4个变量up，down，left，right，然后不断收缩边界<br>每走一次就让对应的边界变量-1，然后判断该边界变量是否超过(大于小于)它对应的对立边界变量的值，超过则表示遍历完成，中断循环</p>
+<h2 id="20-包含mid函数的栈minStack"><a href="#20-包含mid函数的栈minStack" class="headerlink" title="20.包含mid函数的栈minStack"></a>20.包含mid函数的栈minStack</h2><h3 id="题目描述-19"><a href="#题目描述-19" class="headerlink" title="题目描述"></a>题目描述</h3><p>定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。</p>
+<h3 id="解题思路-19"><a href="#解题思路-19" class="headerlink" title="解题思路"></a>解题思路</h3><p>使用2个栈去实现，一个是数据栈，一个是最小栈</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如入栈顺序依次为 2 3 1 5 3</span><br><span class="line">则  数据栈   最小栈</span><br><span class="line">      2       2</span><br><span class="line">      3       2</span><br><span class="line">      1       1</span><br><span class="line">      5       1</span><br><span class="line">      3       1</span><br><span class="line">     栈顶     栈顶</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最小栈栈顶保存的是当前数据栈中的最小值，它的长度和数据栈一致</li>
+<li>push操作时先让它进入data栈，然后peek最小栈栈顶，如果当前入栈元素小于最小栈栈顶元素，就让当前元素入栈，否则继续让peek出的值入栈</li>
+<li>pop操作让两个栈同时出栈即可</li>
+<li>top操作返回数据栈栈顶</li>
+<li>min操作返回最小栈栈顶</li>
+</ul>
+<h2 id="21-栈的压入，弹出序列IsPopOrder"><a href="#21-栈的压入，弹出序列IsPopOrder" class="headerlink" title="21.栈的压入，弹出序列IsPopOrder"></a>21.栈的压入，弹出序列IsPopOrder</h2><h3 id="题目描述-20"><a href="#题目描述-20" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<h3 id="解题思路-20"><a href="#解题思路-20" class="headerlink" title="解题思路"></a>解题思路</h3><p>模拟这个过程就可以了，遍历第一个序列，并入栈，然后判断第二个序列是否等于栈顶元素，等于就让栈顶出栈，直到不等于栈顶为止，如果栈最后是空的，则符合</p>
+<h2 id="22-从上往下打印二叉树PrintFromTopToBottom"><a href="#22-从上往下打印二叉树PrintFromTopToBottom" class="headerlink" title="22.从上往下打印二叉树PrintFromTopToBottom"></a>22.从上往下打印二叉树PrintFromTopToBottom</h2><h3 id="题目描述-21"><a href="#题目描述-21" class="headerlink" title="题目描述"></a>题目描述</h3><p>从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
+<h3 id="解题思路-21"><a href="#解题思路-21" class="headerlink" title="解题思路"></a>解题思路</h3><p>层次遍历二叉树，不详述了</p>
+<h2 id="23-二叉搜索树的后序遍历序列VerifySquenceOfBST"><a href="#23-二叉搜索树的后序遍历序列VerifySquenceOfBST" class="headerlink" title="23.二叉搜索树的后序遍历序列VerifySquenceOfBST"></a>23.二叉搜索树的后序遍历序列VerifySquenceOfBST</h2><h3 id="题目描述-22"><a href="#题目描述-22" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。</p>
+<h3 id="解题思路-22"><a href="#解题思路-22" class="headerlink" title="解题思路"></a>解题思路</h3><p>二叉搜索树：左子树比根都小，右子树比根都大<br>后序：左右根<br>则遍历序列数组的特征：最后一个结点为根，前面有连续的一部分是比根都要小，后面有连续的一部分是比根都要大<br>根据这个特性，我们的算法设计如下：如果该子树对应的子序列的起始位置(start)大于等于终点位置(end)，则表示该子树对应的子序列是后序遍历数组，否则遍历找出左右子树的分界点（后半部分的第一个结点）并记录下来，然后继续遍历后半部分，当后半部分发现有结点值比root小，则此序列就不是后序遍历序列了，然后递归判断其左子树和右子树即可（只有左子树和右子树对应的子序列都是后序遍历序列，才能说该根节点的子树的子序列是后序遍历序列）</p>
+<h2 id="24-二叉树中和为某一值的路径FindPath"><a href="#24-二叉树中和为某一值的路径FindPath" class="headerlink" title="24.二叉树中和为某一值的路径FindPath"></a>24.二叉树中和为某一值的路径FindPath</h2><h3 id="题目描述-23"><a href="#题目描述-23" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p>
+<h3 id="解题思路-23"><a href="#解题思路-23" class="headerlink" title="解题思路"></a>解题思路</h3><p>paths是一个整型数组的数组，path是paths的元素，路径是从根到叶，则每进入一个子结点，都让值减去该子结点的val，直到判断进入到叶，如果叶的val等于该值，就把此时的path加入到paths中，否则分别对左右子树创建path，并递归左右子树（<strong>难点是这里：左子树继续使用从根延续下来的path，而右子树则新创建一条path，把根延续下来的path添加进来(addAll() method)，然后进入递归</strong>）</p>
+<h2 id="25-复杂链表的复制Clone"><a href="#25-复杂链表的复制Clone" class="headerlink" title="25.复杂链表的复制Clone"></a>25.复杂链表的复制Clone</h2><h3 id="题目描述-24"><a href="#题目描述-24" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空）</p>
+<h3 id="解题思路-24"><a href="#解题思路-24" class="headerlink" title="解题思路"></a>解题思路</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algs/" rel="tag"># algs</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/Java集合类/" rel="next" title="Java集合（持续更新）">
+                <i class="fa fa-chevron-left"></i> Java集合（持续更新）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/java基础/" rel="prev" title="Java基础（持续更新）">
+                Java基础（持续更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">206</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指offer"><span class="nav-number">1.</span> <span class="nav-text">剑指offer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-二维数组中的查找Find"><span class="nav-number">1.1.</span> <span class="nav-text">1.二维数组中的查找Find</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路"><span class="nav-number">1.1.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-替换空格replaceSpace"><span class="nav-number">1.2.</span> <span class="nav-text">2.替换空格replaceSpace</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-从尾到头打印链表printListFromTailToHead"><span class="nav-number">1.3.</span> <span class="nav-text">3.从尾到头打印链表printListFromTailToHead</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-重建二叉树reConstructBinaryTree"><span class="nav-number">1.4.</span> <span class="nav-text">4.重建二叉树reConstructBinaryTree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-3"><span class="nav-number">1.4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-用两个栈实现队列StackToQueue"><span class="nav-number">1.5.</span> <span class="nav-text">5.用两个栈实现队列StackToQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-4"><span class="nav-number">1.5.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-4"><span class="nav-number">1.5.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-旋转数组的最小数字minNumberInRotateArray"><span class="nav-number">1.6.</span> <span class="nav-text">6.旋转数组的最小数字minNumberInRotateArray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-5"><span class="nav-number">1.6.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-5"><span class="nav-number">1.6.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-斐波那契数列Fibonacci"><span class="nav-number">1.7.</span> <span class="nav-text">7.斐波那契数列Fibonacci</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-6"><span class="nav-number">1.7.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-6"><span class="nav-number">1.7.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-跳台阶JumpFloor"><span class="nav-number">1.8.</span> <span class="nav-text">8.跳台阶JumpFloor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-7"><span class="nav-number">1.8.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-7"><span class="nav-number">1.8.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-变态跳台阶JumpFloorII"><span class="nav-number">1.9.</span> <span class="nav-text">9.变态跳台阶JumpFloorII</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-8"><span class="nav-number">1.9.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-8"><span class="nav-number">1.9.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-矩形覆盖RectCover"><span class="nav-number">1.10.</span> <span class="nav-text">10.矩形覆盖RectCover</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-9"><span class="nav-number">1.10.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-9"><span class="nav-number">1.10.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-二进制中1的个数NumberOf1"><span class="nav-number">1.11.</span> <span class="nav-text">11.二进制中1的个数NumberOf1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-10"><span class="nav-number">1.11.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-10"><span class="nav-number">1.11.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-数值的整数次方Power"><span class="nav-number">1.12.</span> <span class="nav-text">12.数值的整数次方Power</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-11"><span class="nav-number">1.12.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-11"><span class="nav-number">1.12.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-调整数组顺序使奇数位于偶数前面reOrderArray"><span class="nav-number">1.13.</span> <span class="nav-text">13.调整数组顺序使奇数位于偶数前面reOrderArray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-12"><span class="nav-number">1.13.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-12"><span class="nav-number">1.13.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-链表中倒数第k个结点FindKthToTail"><span class="nav-number">1.14.</span> <span class="nav-text">14.链表中倒数第k个结点FindKthToTail</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-13"><span class="nav-number">1.14.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-13"><span class="nav-number">1.14.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15-反转链表ReverseList"><span class="nav-number">1.15.</span> <span class="nav-text">15.反转链表ReverseList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-14"><span class="nav-number">1.15.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-14"><span class="nav-number">1.15.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-合并两个排序的链表Merge"><span class="nav-number">1.16.</span> <span class="nav-text">16.合并两个排序的链表Merge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-15"><span class="nav-number">1.16.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-15"><span class="nav-number">1.16.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#17-树的子结构HasSubtree"><span class="nav-number">1.17.</span> <span class="nav-text">17.树的子结构HasSubtree</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-16"><span class="nav-number">1.17.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-16"><span class="nav-number">1.17.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#18-二叉树的镜像Mirror"><span class="nav-number">1.18.</span> <span class="nav-text">18.二叉树的镜像Mirror</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-17"><span class="nav-number">1.18.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-17"><span class="nav-number">1.18.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#19-顺时针打印矩阵printMatrix"><span class="nav-number">1.19.</span> <span class="nav-text">19.顺时针打印矩阵printMatrix</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-18"><span class="nav-number">1.19.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-18"><span class="nav-number">1.19.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20-包含mid函数的栈minStack"><span class="nav-number">1.20.</span> <span class="nav-text">20.包含mid函数的栈minStack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-19"><span class="nav-number">1.20.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-19"><span class="nav-number">1.20.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-栈的压入，弹出序列IsPopOrder"><span class="nav-number">1.21.</span> <span class="nav-text">21.栈的压入，弹出序列IsPopOrder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-20"><span class="nav-number">1.21.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-20"><span class="nav-number">1.21.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-从上往下打印二叉树PrintFromTopToBottom"><span class="nav-number">1.22.</span> <span class="nav-text">22.从上往下打印二叉树PrintFromTopToBottom</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-21"><span class="nav-number">1.22.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-21"><span class="nav-number">1.22.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#23-二叉搜索树的后序遍历序列VerifySquenceOfBST"><span class="nav-number">1.23.</span> <span class="nav-text">23.二叉搜索树的后序遍历序列VerifySquenceOfBST</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-22"><span class="nav-number">1.23.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-22"><span class="nav-number">1.23.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#24-二叉树中和为某一值的路径FindPath"><span class="nav-number">1.24.</span> <span class="nav-text">24.二叉树中和为某一值的路径FindPath</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-23"><span class="nav-number">1.24.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-23"><span class="nav-number">1.24.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#25-复杂链表的复制Clone"><span class="nav-number">1.25.</span> <span class="nav-text">25.复杂链表的复制Clone</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目描述-24"><span class="nav-number">1.25.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路-24"><span class="nav-number">1.25.2.</span> <span class="nav-text">解题思路</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
