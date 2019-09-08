@@ -133,7 +133,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/0zniqNH.png">
 <meta property="og:image" content="https://i.imgur.com/cqS6vAk.png">
-<meta property="og:updated_time" content="2019-09-03T11:50:15.330Z">
+<meta property="og:updated_time" content="2019-09-08T10:20:27.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL（持续更新）">
 <meta name="twitter:description" content="三个范式满足第三范式必定满足第二范式，满足第二范式必定满足第一范式第一范式：字段是最小的单元，不可再分  学生信息组成学生信息表，有年龄、性别、学号等信息组成。这些字段都不可再分，所以它是满足第一范式的  第二范式：满足第一范式，表中的字段必须完全依赖于全部主键而非部分主键  其他字段组成的这行记录和主键表示的是同一个东西，而主键是唯一的，它们只需要依赖于主键，也就成了唯一的 学号为1024的同学">
@@ -477,12 +477,12 @@
 <ul>
 <li>学生信息组成学生信息表，有年龄、性别、学号等信息组成。这些字段都不可再分，所以它是满足第一范式的</li>
 </ul>
-<p>第二范式：满足第一范式，表中的字段必须完全依赖于全部主键而非部分主键</p>
+<p>第二范式：满足第一范式，<strong>表中的字段必须完全依赖于全部主键而非部分主键</strong></p>
 <ul>
 <li>其他字段组成的这行记录和主键表示的是同一个东西，而主键是唯一的，它们只需要依赖于主键，也就成了唯一的</li>
 <li>学号为1024的同学，姓名为Java3y，年龄是22岁。姓名和年龄字段都依赖着学号主键。</li>
 </ul>
-<p>第三范式：满足第二范式，非主键外的所有字段必须互不依赖</p>
+<p>第三范式：满足第二范式，<strong>非主键外的所有字段必须互不依赖</strong></p>
 <ul>
 <li>就是数据只在一个地方存储，不重复出现在多张表中，可以认为就是消除传递依赖</li>
 <li>比如，我们大学分了很多系（中文系、英语系、计算机系……），这个系别管理表信息有以下字段组成：系编号，系主任，系简介，系架构。那我们能不能在学生信息表添加系编号，系主任，系简介，系架构字段呢？不行的，因为这样就冗余了，非主键外的字段形成了依赖关系(依赖到学生信息表了)！正确的做法是：学生表就只能增加一个系编号字段。</li>
@@ -652,7 +652,8 @@
 <li>数据库结构优化</li>
 <li>硬件优化</li>
 </ul>
-<h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><h5 id="选择最有效率的表名顺序"><a href="#选择最有效率的表名顺序" class="headerlink" title="选择最有效率的表名顺序"></a>选择最有效率的表名顺序</h5><p>数据库解析器按照<strong>从右到左的顺序处理FROM子句的表名，FROM子句写在最后的表将被最先处理</strong></p>
+<h4 id="合理设计数据库"><a href="#合理设计数据库" class="headerlink" title="合理设计数据库"></a>合理设计数据库</h4><p>根据数据库三范式进行表结构设计</p>
+<h4 id="读写分离，缓存"><a href="#读写分离，缓存" class="headerlink" title="读写分离，缓存"></a>读写分离，缓存</h4><h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><h5 id="选择最有效率的表名顺序"><a href="#选择最有效率的表名顺序" class="headerlink" title="选择最有效率的表名顺序"></a>选择最有效率的表名顺序</h5><p>数据库解析器按照<strong>从右到左的顺序处理FROM子句的表名，FROM子句写在最后的表将被最先处理</strong></p>
 <p>在FROM子句中包含多个表的情况下：</p>
 <ul>
 <li>如果多个表<strong>完全无关</strong>，将记录和列名<strong>最少</strong>的表写在最后，然后以此类推</li>
@@ -688,6 +689,36 @@
 <li>拆分表：垂直拆分和水平拆分</li>
 </ul>
 <h3 id="mysql给离散度低的字段建立索引会出现什么问题，具体说下原因"><a href="#mysql给离散度低的字段建立索引会出现什么问题，具体说下原因" class="headerlink" title="mysql给离散度低的字段建立索引会出现什么问题，具体说下原因"></a>mysql给离散度低的字段建立索引会出现什么问题，具体说下原因</h3><p>重复性较强的字段，不适合添加索引，比如性别，这样查询反而更慢<br>索引是把一个或几个字段按规律排列，然后加上该字段所在行的数据的物理地址<br>访问索引需要额外的IO开销，从索引中拿到的只是地址，如果建立离散度低的索引，比如100万行数据，一次索引定位能拿到50万行，访问完这50万行的索引后，再进行50万次访问表，IO开销就十分大，如果离散度高，则一次索引访问后只剩下几行数据，就十分值得</p>
+<h3 id="数据库系统的组成"><a href="#数据库系统的组成" class="headerlink" title="数据库系统的组成"></a>数据库系统的组成</h3><ul>
+<li>硬件平台及数据库：大内存，大硬盘</li>
+<li>软件：<ul>
+<li>数据库管理系统：为数据库建立，使用和维护配置的系统软件</li>
+<li>OS</li>
+<li>与数据库接口的高级语言及其编译系统</li>
+<li>数据库应用系统</li>
+</ul>
+</li>
+<li>人员：<ul>
+<li>数据库管理员</li>
+<li>系统分析员和数据库设计人员</li>
+<li>应用程序员</li>
+<li>用户</li>
+</ul>
+</li>
+</ul>
+<h3 id="存储过程优点"><a href="#存储过程优点" class="headerlink" title="存储过程优点"></a>存储过程优点</h3><ul>
+<li>允许模块化程序设计</li>
+<li>不需要像解释执行的SQL语句那样在提出请求时才进行语法分析和优化工作，运行效率高</li>
+<li>降低客户机和服务器之间的通信量，客户机的应用程序只要通过网络向服务器发出调用存储过程的名字和参数即可</li>
+<li>安全性：没有权限执行存储过程的用户，也可授权他们执行存储过程</li>
+</ul>
+<h3 id="SQL语句HAVINT与WHERE"><a href="#SQL语句HAVINT与WHERE" class="headerlink" title="SQL语句HAVINT与WHERE"></a>SQL语句HAVINT与WHERE</h3><p>WHERE语句在GROUP BY语句之前；SQL会在分组之前计算WHERE语句。<br>HAVING语句在GROUP BY语句之后；SQL会在分组之后计算HAVING语句。</p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><ul>
+<li>%：替代0个或多个字符</li>
+<li>_：替代一个字符</li>
+<li>[charlist]：字符列中任何单一字符</li>
+<li>[^charlist]或[!charlist]：不在字符列中的任何单一字符</li>
+</ul>
 
       
     </div>
@@ -733,8 +764,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" rel="next" title="Java并发基础5-AQS,Atomic与ThreadLocal">
-                <i class="fa fa-chevron-left"></i> Java并发基础5-AQS,Atomic与ThreadLocal
+              <a href="/2019/09/01/剑指offer/" rel="next" title="剑指offer（持续更新）">
+                <i class="fa fa-chevron-left"></i> 剑指offer（持续更新）
               </a>
             
           </div>
@@ -834,7 +865,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -856,7 +887,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">206</span>
+                  <span class="site-state-item-count">207</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -911,7 +942,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三个范式"><span class="nav-number">1.</span> <span class="nav-text">三个范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是视图？视图的使用场景有哪些？"><span class="nav-number">2.</span> <span class="nav-text">什么是视图？视图的使用场景有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drop，delete和truncate分别在什么场景使用"><span class="nav-number">3.</span> <span class="nav-text">drop，delete和truncate分别在什么场景使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引是什么？有什么作用与优缺点？"><span class="nav-number">4.</span> <span class="nav-text">索引是什么？有什么作用与优缺点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是事务"><span class="nav-number">5.</span> <span class="nav-text">什么是事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务隔离级别"><span class="nav-number">6.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL锁"><span class="nav-number">7.</span> <span class="nav-text">MySQL锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁与悲观锁"><span class="nav-number">8.</span> <span class="nav-text">乐观锁与悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超键，候选键，主键，外键的概念"><span class="nav-number">9.</span> <span class="nav-text">超键，候选键，主键，外键的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL约束有哪几种"><span class="nav-number">10.</span> <span class="nav-text">SQL约束有哪几种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL存储引擎"><span class="nav-number">11.</span> <span class="nav-text">MySQL存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyIASM和InnoDB使使用的索引的数据结构是什么"><span class="nav-number">12.</span> <span class="nav-text">MyIASM和InnoDB使使用的索引的数据结构是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#varchar和char的区别"><span class="nav-number">13.</span> <span class="nav-text">varchar和char的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql有关权限的表"><span class="nav-number">14.</span> <span class="nav-text">mysql有关权限的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库优化的思路"><span class="nav-number">15.</span> <span class="nav-text">数据库优化的思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL优化"><span class="nav-number">15.1.</span> <span class="nav-text">SQL优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选择最有效率的表名顺序"><span class="nav-number">15.1.1.</span> <span class="nav-text">选择最有效率的表名顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WHERE子句中的连接顺序"><span class="nav-number">15.1.2.</span> <span class="nav-text">WHERE子句中的连接顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SELECT子句中避免使用-号"><span class="nav-number">15.1.3.</span> <span class="nav-text">SELECT子句中避免使用*号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用TRUNCATE替代DELETE"><span class="nav-number">15.1.4.</span> <span class="nav-text">用TRUNCATE替代DELETE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多使用内部函数提高SQL效率"><span class="nav-number">15.1.5.</span> <span class="nav-text">多使用内部函数提高SQL效率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用表或列的别名"><span class="nav-number">15.1.6.</span> <span class="nav-text">使用表或列的别名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多使用COMMIT"><span class="nav-number">15.1.7.</span> <span class="nav-text">多使用COMMIT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#善用索引"><span class="nav-number">15.1.8.</span> <span class="nav-text">善用索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL写大写"><span class="nav-number">15.1.9.</span> <span class="nav-text">SQL写大写</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在索引列上使用NOT"><span class="nav-number">15.1.10.</span> <span class="nav-text">避免在索引列上使用NOT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在索引列上使用计算"><span class="nav-number">15.1.11.</span> <span class="nav-text">避免在索引列上使用计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用-gt-替代-gt"><span class="nav-number">15.1.12.</span> <span class="nav-text">用&gt;=替代&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用IN替代OR"><span class="nav-number">15.1.13.</span> <span class="nav-text">用IN替代OR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总是使用索引的第一个列"><span class="nav-number">15.1.14.</span> <span class="nav-text">总是使用索引的第一个列</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库结构优化"><span class="nav-number">15.2.</span> <span class="nav-text">数据库结构优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql给离散度低的字段建立索引会出现什么问题，具体说下原因"><span class="nav-number">16.</span> <span class="nav-text">mysql给离散度低的字段建立索引会出现什么问题，具体说下原因</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#三个范式"><span class="nav-number">1.</span> <span class="nav-text">三个范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是视图？视图的使用场景有哪些？"><span class="nav-number">2.</span> <span class="nav-text">什么是视图？视图的使用场景有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#drop，delete和truncate分别在什么场景使用"><span class="nav-number">3.</span> <span class="nav-text">drop，delete和truncate分别在什么场景使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引是什么？有什么作用与优缺点？"><span class="nav-number">4.</span> <span class="nav-text">索引是什么？有什么作用与优缺点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是事务"><span class="nav-number">5.</span> <span class="nav-text">什么是事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务隔离级别"><span class="nav-number">6.</span> <span class="nav-text">事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL锁"><span class="nav-number">7.</span> <span class="nav-text">MySQL锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观锁与悲观锁"><span class="nav-number">8.</span> <span class="nav-text">乐观锁与悲观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超键，候选键，主键，外键的概念"><span class="nav-number">9.</span> <span class="nav-text">超键，候选键，主键，外键的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL约束有哪几种"><span class="nav-number">10.</span> <span class="nav-text">SQL约束有哪几种</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL存储引擎"><span class="nav-number">11.</span> <span class="nav-text">MySQL存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MyIASM和InnoDB使使用的索引的数据结构是什么"><span class="nav-number">12.</span> <span class="nav-text">MyIASM和InnoDB使使用的索引的数据结构是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#varchar和char的区别"><span class="nav-number">13.</span> <span class="nav-text">varchar和char的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql有关权限的表"><span class="nav-number">14.</span> <span class="nav-text">mysql有关权限的表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库优化的思路"><span class="nav-number">15.</span> <span class="nav-text">数据库优化的思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#合理设计数据库"><span class="nav-number">15.1.</span> <span class="nav-text">合理设计数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写分离，缓存"><span class="nav-number">15.2.</span> <span class="nav-text">读写分离，缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL优化"><span class="nav-number">15.3.</span> <span class="nav-text">SQL优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选择最有效率的表名顺序"><span class="nav-number">15.3.1.</span> <span class="nav-text">选择最有效率的表名顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#WHERE子句中的连接顺序"><span class="nav-number">15.3.2.</span> <span class="nav-text">WHERE子句中的连接顺序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SELECT子句中避免使用-号"><span class="nav-number">15.3.3.</span> <span class="nav-text">SELECT子句中避免使用*号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用TRUNCATE替代DELETE"><span class="nav-number">15.3.4.</span> <span class="nav-text">用TRUNCATE替代DELETE</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多使用内部函数提高SQL效率"><span class="nav-number">15.3.5.</span> <span class="nav-text">多使用内部函数提高SQL效率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用表或列的别名"><span class="nav-number">15.3.6.</span> <span class="nav-text">使用表或列的别名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多使用COMMIT"><span class="nav-number">15.3.7.</span> <span class="nav-text">多使用COMMIT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#善用索引"><span class="nav-number">15.3.8.</span> <span class="nav-text">善用索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL写大写"><span class="nav-number">15.3.9.</span> <span class="nav-text">SQL写大写</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在索引列上使用NOT"><span class="nav-number">15.3.10.</span> <span class="nav-text">避免在索引列上使用NOT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#避免在索引列上使用计算"><span class="nav-number">15.3.11.</span> <span class="nav-text">避免在索引列上使用计算</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用-gt-替代-gt"><span class="nav-number">15.3.12.</span> <span class="nav-text">用&gt;=替代&gt;</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用IN替代OR"><span class="nav-number">15.3.13.</span> <span class="nav-text">用IN替代OR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总是使用索引的第一个列"><span class="nav-number">15.3.14.</span> <span class="nav-text">总是使用索引的第一个列</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库结构优化"><span class="nav-number">15.4.</span> <span class="nav-text">数据库结构优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql给离散度低的字段建立索引会出现什么问题，具体说下原因"><span class="nav-number">16.</span> <span class="nav-text">mysql给离散度低的字段建立索引会出现什么问题，具体说下原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库系统的组成"><span class="nav-number">17.</span> <span class="nav-text">数据库系统的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储过程优点"><span class="nav-number">18.</span> <span class="nav-text">存储过程优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL语句HAVINT与WHERE"><span class="nav-number">19.</span> <span class="nav-text">SQL语句HAVINT与WHERE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配符"><span class="nav-number">20.</span> <span class="nav-text">通配符</span></a></li></ol></div>
             
 
           </div>

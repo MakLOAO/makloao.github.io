@@ -132,7 +132,7 @@
 <meta property="og:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready 无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法   限期等待Timed Waiting：一定时间后由系统">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/aMswcG1.png">
-<meta property="og:updated_time" content="2019-09-03T11:51:07.764Z">
+<meta property="og:updated_time" content="2019-09-08T15:36:27.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程（持续更新）">
 <meta name="twitter:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready 无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法   限期等待Timed Waiting：一定时间后由系统">
@@ -490,11 +490,12 @@
 <li>阻塞Blocked：阻塞与等待的区别是：阻塞在等待获取一个排他锁，是被动发生，等待则是等待一段时间或者唤醒动作的发生，主动行为</li>
 <li>结束Terminated</li>
 </ul>
-<h2 id="sleep和wait区别"><a href="#sleep和wait区别" class="headerlink" title="sleep和wait区别"></a>sleep和wait区别</h2><ul>
+<h2 id="sleep和wait等区别"><a href="#sleep和wait等区别" class="headerlink" title="sleep和wait等区别"></a>sleep和wait等区别</h2><ul>
 <li>sleep是Thread类的静态方法，wait是Object类的实例方法</li>
 <li>Thread.sleep()不会导致锁的改变，可以简单认为和锁相关的方法都定义在Object类中</li>
 <li>调用wait后，需要别的线程调用notify/notifyAll才能重新获得CPU执行时间</li>
 </ul>
+<p>sleep和yield不会释放锁，yield让步，让线程从运行状态转为就绪状态<br>wait会释放锁</p>
 <h2 id="object-wait-机制"><a href="#object-wait-机制" class="headerlink" title="object.wait()机制"></a>object.wait()机制</h2><blockquote>
 <p>This method should only be called by a thread that is the owner of this object’s monitor</p>
 </blockquote>
@@ -552,6 +553,7 @@
 <li>对象每上一次锁，state就通过<strong>CAS操作</strong>加1</li>
 <li>当有线程持有了锁，另外一个线程竞争不到锁，就让它进入CLH队列，该队列每个结点有标识该线程状态的waitStatus</li>
 </ul>
+<h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值（B）。 如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作</p>
 <h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><ul>
 <li>支持公平和非公平模式，公平模式下会去看FIFO队列线程是否是在队头（AQS的队列），而非公平模式下是没有的</li>
 <li>state的变量高16位是读锁，低16位是写锁</li>
@@ -695,8 +697,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/01/spring/" rel="next" title="Spring（持续更新）">
-                <i class="fa fa-chevron-left"></i> Spring（持续更新）
+              <a href="/2019/09/01/algs/" rel="next" title="algs（持续更新）">
+                <i class="fa fa-chevron-left"></i> algs（持续更新）
               </a>
             
           </div>
@@ -705,8 +707,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/01/OS/" rel="prev" title="OS（持续更新）">
-                OS（持续更新） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/01/redis/" rel="prev" title="Redis（持续更新）">
+                Redis（持续更新） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -796,7 +798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -818,7 +820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">206</span>
+                  <span class="site-state-item-count">207</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -873,7 +875,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java多线程"><span class="nav-number">1.</span> <span class="nav-text">java多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么引入多线程？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么引入多线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程状态"><span class="nav-number">1.2.</span> <span class="nav-text">线程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep和wait区别"><span class="nav-number">1.3.</span> <span class="nav-text">sleep和wait区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-wait-机制"><span class="nav-number">1.4.</span> <span class="nav-text">object.wait()机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么wait，notify，notifyAll被定义在Object类里"><span class="nav-number">1.5.</span> <span class="nav-text">为什么wait，notify，notifyAll被定义在Object类里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用"><span class="nav-number">1.6.</span> <span class="nav-text">为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized实现原理"><span class="nav-number">1.7.</span> <span class="nav-text">synchronized实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized对象锁与类锁"><span class="nav-number">1.8.</span> <span class="nav-text">synchronized对象锁与类锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized的优化"><span class="nav-number">1.9.</span> <span class="nav-text">synchronized的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Callable与Future"><span class="nav-number">1.10.</span> <span class="nav-text">Callable与Future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步器"><span class="nav-number">1.11.</span> <span class="nav-text">同步器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#倒计时门栓"><span class="nav-number">1.11.1.</span> <span class="nav-text">倒计时门栓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障栅"><span class="nav-number">1.11.2.</span> <span class="nav-text">障栅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CyclicBarrier和CountDownLatch区别"><span class="nav-number">1.11.3.</span> <span class="nav-text">CyclicBarrier和CountDownLatch区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">1.11.4.</span> <span class="nav-text">信号量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">1.12.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS"><span class="nav-number">1.13.</span> <span class="nav-text">AQS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写锁"><span class="nav-number">1.14.</span> <span class="nav-text">读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.15.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的用法"><span class="nav-number">1.16.</span> <span class="nav-text">线程池的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.17.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果你提交任务时，线程池队列已满，这时会发生什么"><span class="nav-number">1.18.</span> <span class="nav-text">如果你提交任务时，线程池队列已满，这时会发生什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"><span class="nav-number">1.19.</span> <span class="nav-text">高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-sleep-0-的作用是什么"><span class="nav-number">1.20.</span> <span class="nav-text">Thread.sleep(0)的作用是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个最简单的死锁例子"><span class="nav-number">1.21.</span> <span class="nav-text">一个最简单的死锁例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ABA问题"><span class="nav-number">1.22.</span> <span class="nav-text">ABA问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决ABA问题"><span class="nav-number">1.22.1.</span> <span class="nav-text">解决ABA问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LongAdder性能"><span class="nav-number">1.23.</span> <span class="nav-text">LongAdder性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的线程安全问题"><span class="nav-number">1.24.</span> <span class="nav-text">单例模式的线程安全问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程类的构造方法、静态块是被哪个线程调用的"><span class="nav-number">1.25.</span> <span class="nav-text">线程类的构造方法、静态块是被哪个线程调用的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步方法和同步块，哪个是更好的选择"><span class="nav-number">1.26.</span> <span class="nav-text">同步方法和同步块，哪个是更好的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写一个生产者消费者模式"><span class="nav-number">1.27.</span> <span class="nav-text">写一个生产者消费者模式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java多线程"><span class="nav-number">1.</span> <span class="nav-text">java多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么引入多线程？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么引入多线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程状态"><span class="nav-number">1.2.</span> <span class="nav-text">线程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sleep和wait等区别"><span class="nav-number">1.3.</span> <span class="nav-text">sleep和wait等区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object-wait-机制"><span class="nav-number">1.4.</span> <span class="nav-text">object.wait()机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么wait，notify，notifyAll被定义在Object类里"><span class="nav-number">1.5.</span> <span class="nav-text">为什么wait，notify，notifyAll被定义在Object类里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用"><span class="nav-number">1.6.</span> <span class="nav-text">为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized实现原理"><span class="nav-number">1.7.</span> <span class="nav-text">synchronized实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized对象锁与类锁"><span class="nav-number">1.8.</span> <span class="nav-text">synchronized对象锁与类锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized的优化"><span class="nav-number">1.9.</span> <span class="nav-text">synchronized的优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Callable与Future"><span class="nav-number">1.10.</span> <span class="nav-text">Callable与Future</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步器"><span class="nav-number">1.11.</span> <span class="nav-text">同步器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#倒计时门栓"><span class="nav-number">1.11.1.</span> <span class="nav-text">倒计时门栓</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#障栅"><span class="nav-number">1.11.2.</span> <span class="nav-text">障栅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CyclicBarrier和CountDownLatch区别"><span class="nav-number">1.11.3.</span> <span class="nav-text">CyclicBarrier和CountDownLatch区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">1.11.4.</span> <span class="nav-text">信号量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程安全"><span class="nav-number">1.12.</span> <span class="nav-text">线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AQS"><span class="nav-number">1.13.</span> <span class="nav-text">AQS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS"><span class="nav-number">1.14.</span> <span class="nav-text">CAS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读写锁"><span class="nav-number">1.15.</span> <span class="nav-text">读写锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">1.16.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池的用法"><span class="nav-number">1.17.</span> <span class="nav-text">线程池的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">1.18.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果你提交任务时，线程池队列已满，这时会发生什么"><span class="nav-number">1.19.</span> <span class="nav-text">如果你提交任务时，线程池队列已满，这时会发生什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"><span class="nav-number">1.20.</span> <span class="nav-text">高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-sleep-0-的作用是什么"><span class="nav-number">1.21.</span> <span class="nav-text">Thread.sleep(0)的作用是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个最简单的死锁例子"><span class="nav-number">1.22.</span> <span class="nav-text">一个最简单的死锁例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ABA问题"><span class="nav-number">1.23.</span> <span class="nav-text">ABA问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决ABA问题"><span class="nav-number">1.23.1.</span> <span class="nav-text">解决ABA问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LongAdder性能"><span class="nav-number">1.24.</span> <span class="nav-text">LongAdder性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式的线程安全问题"><span class="nav-number">1.25.</span> <span class="nav-text">单例模式的线程安全问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程类的构造方法、静态块是被哪个线程调用的"><span class="nav-number">1.26.</span> <span class="nav-text">线程类的构造方法、静态块是被哪个线程调用的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步方法和同步块，哪个是更好的选择"><span class="nav-number">1.27.</span> <span class="nav-text">同步方法和同步块，哪个是更好的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写一个生产者消费者模式"><span class="nav-number">1.28.</span> <span class="nav-text">写一个生产者消费者模式</span></a></li></ol></li></ol></div>
             
 
           </div>

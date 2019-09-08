@@ -137,7 +137,7 @@
 <meta property="og:image" content="https://i.imgur.com/oaK89Y2.png">
 <meta property="og:image" content="https://i.imgur.com/XcZahS0.png">
 <meta property="og:image" content="https://i.imgur.com/bGPZAqg.jpg">
-<meta property="og:updated_time" content="2019-09-03T11:50:23.792Z">
+<meta property="og:updated_time" content="2019-09-08T15:50:24.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM（持续更新）">
 <meta name="twitter:description" content="JVMJVM组成类加载器（ClassLoader）运行时数据区（Runtime Data Area）执行引擎（Execution Engine）本地库接口（Native Interface） 程序在执行之前先要把java代码转换成字节码（class文件），jvm首先需要把字节码通过一定的方式 类加载器（ClassLoader） 把文件加载到内存中 运行时数据区（Runtime Data Area）">
@@ -518,7 +518,7 @@
 <h2 id="Java引用"><a href="#Java引用" class="headerlink" title="Java引用"></a>Java引用</h2><ul>
 <li>强引用：常见的都是强引用，垃圾回收器不会回收被强引用引用的对象</li>
 <li>软引用：有用但不是必需，发送内存溢出异常之前被回收</li>
-<li>若引用：有用但不是必需，下一次GC被回收</li>
+<li>弱引用：有用但不是必需，下一次GC被回收</li>
 <li>虚引用：无法通过虚引用获得对象，用在GC时返回一个通知</li>
 </ul>
 <h2 id="回收方法区"><a href="#回收方法区" class="headerlink" title="回收方法区"></a>回收方法区</h2><p>回收价值很低</p>
@@ -632,6 +632,13 @@
 <p>锁粗化：<br>一串零碎的操作都对同一个对象加锁，则把加锁的范围扩展到整个操作序列的外部（如循环体内一直加锁，直接把加锁操作放到循环体之外）</p>
 <p>轻量级锁：<br>无竞争的情况下使用CAS操作避免互斥量的开销</p>
 <p>偏向锁：<br>无竞争的情况下把整个同步都消除</p>
+<h2 id="导致OOM异常"><a href="#导致OOM异常" class="headerlink" title="导致OOM异常"></a>导致OOM异常</h2><ul>
+<li>堆溢出</li>
+<li>方法区溢出，常量池溢出</li>
+<li>栈中如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常</li>
+<li>如果虚拟机<strong>在扩展栈时无法申请到足够的内存空间</strong>，则抛出OutOfMemoryError异常</li>
+</ul>
+<h2 id="内存泄露和内存溢出"><a href="#内存泄露和内存溢出" class="headerlink" title="内存泄露和内存溢出"></a>内存泄露和内存溢出</h2><p>内存溢出out of memory：程序申请内存时，没有足够的内存空间供其使用，出现OOM<br>内存泄露memory leak：程序在申请内存后，无法释放已申请的内存空间（<strong>ThreadLocalMap的生命周期跟Thread是一样的，如果没有手动删除对应key就会导致内存泄漏，所以必须手动remove()</strong>）</p>
 
       
     </div>
@@ -687,8 +694,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/01/algs/" rel="prev" title="algs（持续更新）">
-                algs（持续更新） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/01/剑指offer/" rel="prev" title="剑指offer（持续更新）">
+                剑指offer（持续更新） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -778,7 +785,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -800,7 +807,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">206</span>
+                  <span class="site-state-item-count">207</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -855,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM组成"><span class="nav-number">1.1.</span> <span class="nav-text">JVM组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM内存模型"><span class="nav-number">1.2.</span> <span class="nav-text">JVM内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建步骤"><span class="nav-number">1.3.</span> <span class="nav-text">对象创建步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java对象结构"><span class="nav-number">1.4.</span> <span class="nav-text">Java对象结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java对象定位方式"><span class="nav-number">1.5.</span> <span class="nav-text">Java对象定位方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内的分区"><span class="nav-number">1.6.</span> <span class="nav-text">堆内的分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC判定方法"><span class="nav-number">1.7.</span> <span class="nav-text">GC判定方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java引用"><span class="nav-number">1.8.</span> <span class="nav-text">Java引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回收方法区"><span class="nav-number">1.9.</span> <span class="nav-text">回收方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">1.10.</span> <span class="nav-text">垃圾回收算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全点"><span class="nav-number">1.11.</span> <span class="nav-text">安全点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">1.12.</span> <span class="nav-text">垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS"><span class="nav-number">1.12.1.</span> <span class="nav-text">CMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1"><span class="nav-number">1.12.2.</span> <span class="nav-text">G1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配策略"><span class="nav-number">1.13.</span> <span class="nav-text">内存分配策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM性能调优"><span class="nav-number">1.14.</span> <span class="nav-text">JVM性能调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC原因"><span class="nav-number">1.15.</span> <span class="nav-text">GC原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Minor-GC原因"><span class="nav-number">1.15.1.</span> <span class="nav-text">Minor GC原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-GC原因"><span class="nav-number">1.15.2.</span> <span class="nav-text">Full GC原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类文件结构"><span class="nav-number">1.16.</span> <span class="nav-text">类文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类生命周期"><span class="nav-number">1.17.</span> <span class="nav-text">类生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机类加载机制"><span class="nav-number">1.18.</span> <span class="nav-text">虚拟机类加载机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器"><span class="nav-number">1.19.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写自己的ClassLoader"><span class="nav-number">1.20.</span> <span class="nav-text">如何写自己的ClassLoader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述分派"><span class="nav-number">1.21.</span> <span class="nav-text">简述分派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机运行时栈帧结构"><span class="nav-number">1.22.</span> <span class="nav-text">虚拟机运行时栈帧结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java内存模型"><span class="nav-number">1.23.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM可见性"><span class="nav-number">1.24.</span> <span class="nav-text">JMM可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁优化"><span class="nav-number">1.25.</span> <span class="nav-text">锁优化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM组成"><span class="nav-number">1.1.</span> <span class="nav-text">JVM组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM内存模型"><span class="nav-number">1.2.</span> <span class="nav-text">JVM内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象创建步骤"><span class="nav-number">1.3.</span> <span class="nav-text">对象创建步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java对象结构"><span class="nav-number">1.4.</span> <span class="nav-text">Java对象结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java对象定位方式"><span class="nav-number">1.5.</span> <span class="nav-text">Java对象定位方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆内的分区"><span class="nav-number">1.6.</span> <span class="nav-text">堆内的分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC判定方法"><span class="nav-number">1.7.</span> <span class="nav-text">GC判定方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java引用"><span class="nav-number">1.8.</span> <span class="nav-text">Java引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回收方法区"><span class="nav-number">1.9.</span> <span class="nav-text">回收方法区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">1.10.</span> <span class="nav-text">垃圾回收算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全点"><span class="nav-number">1.11.</span> <span class="nav-text">安全点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">1.12.</span> <span class="nav-text">垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS"><span class="nav-number">1.12.1.</span> <span class="nav-text">CMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1"><span class="nav-number">1.12.2.</span> <span class="nav-text">G1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存分配策略"><span class="nav-number">1.13.</span> <span class="nav-text">内存分配策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM性能调优"><span class="nav-number">1.14.</span> <span class="nav-text">JVM性能调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GC原因"><span class="nav-number">1.15.</span> <span class="nav-text">GC原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Minor-GC原因"><span class="nav-number">1.15.1.</span> <span class="nav-text">Minor GC原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Full-GC原因"><span class="nav-number">1.15.2.</span> <span class="nav-text">Full GC原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类文件结构"><span class="nav-number">1.16.</span> <span class="nav-text">类文件结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类生命周期"><span class="nav-number">1.17.</span> <span class="nav-text">类生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机类加载机制"><span class="nav-number">1.18.</span> <span class="nav-text">虚拟机类加载机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器"><span class="nav-number">1.19.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何写自己的ClassLoader"><span class="nav-number">1.20.</span> <span class="nav-text">如何写自己的ClassLoader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简述分派"><span class="nav-number">1.21.</span> <span class="nav-text">简述分派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机运行时栈帧结构"><span class="nav-number">1.22.</span> <span class="nav-text">虚拟机运行时栈帧结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java内存模型"><span class="nav-number">1.23.</span> <span class="nav-text">Java内存模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JMM可见性"><span class="nav-number">1.24.</span> <span class="nav-text">JMM可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁优化"><span class="nav-number">1.25.</span> <span class="nav-text">锁优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导致OOM异常"><span class="nav-number">1.26.</span> <span class="nav-text">导致OOM异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄露和内存溢出"><span class="nav-number">1.27.</span> <span class="nav-text">内存泄露和内存溢出</span></a></li></ol></li></ol></div>
             
 
           </div>

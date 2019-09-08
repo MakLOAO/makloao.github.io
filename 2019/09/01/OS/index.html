@@ -132,7 +132,7 @@
 <meta property="og:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/3xOqcwx.png">
-<meta property="og:updated_time" content="2019-09-03T11:49:50.177Z">
+<meta property="og:updated_time" content="2019-09-06T13:47:12.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OS（持续更新）">
 <meta name="twitter:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
@@ -536,6 +536,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分别表示独木桥，东侧车辆，西侧车辆在桥上数量</span></span><br><span class="line">semaphore mutex = <span class="number">1</span>, east = <span class="number">1</span>, west = <span class="number">1</span></span><br><span class="line"><span class="keyword">int</span> countE = <span class="number">0</span>, countW = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">cobegin</span><br><span class="line"><span class="function">process <span class="title">PEast</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    P(east);</span><br><span class="line">    <span class="keyword">if</span> (countE == <span class="number">0</span>) P(mutex);</span><br><span class="line">    countE++;</span><br><span class="line">    V(east)</span><br><span class="line">    <span class="comment">// 过桥</span></span><br><span class="line">    P(east);</span><br><span class="line">    countE--;</span><br><span class="line">    <span class="keyword">if</span> (countE == <span class="number">0</span>) V(mutex);</span><br><span class="line">    V(east);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">process <span class="title">PWest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    P(west);</span><br><span class="line">    <span class="keyword">if</span> (countW == <span class="number">0</span>) P(mutex);</span><br><span class="line">    countW++;</span><br><span class="line">    V(west);</span><br><span class="line">    <span class="comment">// 过桥</span></span><br><span class="line">    P(west);</span><br><span class="line">    countW--;</span><br><span class="line">    <span class="keyword">if</span> (countW == <span class="number">0</span>) V(mutex);</span><br><span class="line">    V(west);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="进程调度策略"><a href="#进程调度策略" class="headerlink" title="进程调度策略"></a>进程调度策略</h3><p>先来先服务，短作业优先，优先级，时间片轮转，多级反馈</p>
 <p>多级反馈指设置多个就绪队列，每个队列优先级不同（从第一个到最后一个依次降低），为不同队列中的进程赋予的执行时间片的大小也各不相同，优先级越高的队列时间片越小，每个队列按先来先服务调度，队列间按优先级调度，高优先级的队列非空，低优先级的队列就无法被调度</p>
+<h3 id="两个互为存在的条件"><a href="#两个互为存在的条件" class="headerlink" title="两个互为存在的条件"></a>两个互为存在的条件</h3><p>并发和共享是 os 的两个最基本的特征,又互为存在的条件</p>
 
       
     </div>
@@ -581,8 +582,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/01/java多线程/" rel="next" title="Java多线程（持续更新）">
-                <i class="fa fa-chevron-left"></i> Java多线程（持续更新）
+              <a href="/2019/09/01/Java常用API/" rel="next" title="Java常用API（持续更新）">
+                <i class="fa fa-chevron-left"></i> Java常用API（持续更新）
               </a>
             
           </div>
@@ -682,7 +683,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">93</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -704,7 +705,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">206</span>
+                  <span class="site-state-item-count">207</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -759,7 +760,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">5.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">6.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">7.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">8.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">9.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">10.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">11.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">12.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">13.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">14.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">15.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">16.</span> <span class="nav-text">进程调度策略</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">5.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">6.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">7.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">8.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">9.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">10.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">11.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">12.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">13.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">14.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">15.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">16.</span> <span class="nav-text">进程调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个互为存在的条件"><span class="nav-number">17.</span> <span class="nav-text">两个互为存在的条件</span></a></li></ol></div>
             
 
           </div>
