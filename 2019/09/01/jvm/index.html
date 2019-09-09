@@ -137,7 +137,7 @@
 <meta property="og:image" content="https://i.imgur.com/oaK89Y2.png">
 <meta property="og:image" content="https://i.imgur.com/XcZahS0.png">
 <meta property="og:image" content="https://i.imgur.com/bGPZAqg.jpg">
-<meta property="og:updated_time" content="2019-09-08T15:50:24.052Z">
+<meta property="og:updated_time" content="2019-09-09T14:31:41.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM（持续更新）">
 <meta name="twitter:description" content="JVMJVM组成类加载器（ClassLoader）运行时数据区（Runtime Data Area）执行引擎（Execution Engine）本地库接口（Native Interface） 程序在执行之前先要把java代码转换成字节码（class文件），jvm首先需要把字节码通过一定的方式 类加载器（ClassLoader） 把文件加载到内存中 运行时数据区（Runtime Data Area）">
@@ -537,11 +537,11 @@
 </ul>
 <h2 id="安全点"><a href="#安全点" class="headerlink" title="安全点"></a>安全点</h2><p>引用关系不会发生变化的点</p>
 <h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><ul>
-<li>Serial：单线程，新生代</li>
-<li>ParNew：多线程，新生代</li>
+<li>Serial：单线程，新生代，采取复制算法</li>
+<li>ParNew：多线程，新生代，采取复制算法</li>
 <li>Parallel Scavenge：新生代，多线程，更注重吞吐量</li>
-<li>Serial Old：Serial的老年代版本</li>
-<li>Parallel Old：Parallel的老年代版本</li>
+<li>Serial Old：Serial的老年代版本，采取标记-整理算法</li>
+<li>Parallel Old：Parallel的老年代版本，多线程</li>
 </ul>
 <h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>以最短回收停顿时间为目的</p>
 <p>初始标记-&gt;并发标记-&gt;重新标记-&gt;并发清除</p>
@@ -578,7 +578,7 @@
 <h2 id="类文件结构"><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h2><p>Class文件为8字节为单位的二进制流，采用伪结构，只有两种数据类型：无符号数和表<br>无符号数有u1，u2，u4和u8</p>
 <p>从上往下Class文件结构为：魔数（0xCAFEBABE），次版本（2字节），主版本（2字节），常量池，访问标志，类索引，父类索引，接口索引，字段表，方法表，属性表</p>
 <h2 id="类生命周期"><a href="#类生命周期" class="headerlink" title="类生命周期"></a>类生命周期</h2><p>加载-&gt;连接-&gt;初始化-&gt;使用-&gt;卸载</p>
-<h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><p>类加载指将Class文件的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构</p>
+<h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><p><strong>类加载指将Class文件的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象</strong>，用来封装类在方法区内的数据结构</p>
 <p>加载-&gt;连接-&gt;初始化</p>
 <p>连接又分为：验证-&gt;准备-&gt;解析</p>
 <p>加载：文件加载到内存，通过类的完全限定名查找此类字节码文件，并利用字节码文件创建一个Class对象</p>
@@ -613,7 +613,7 @@
 <h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><p><img src="https://i.imgur.com/bGPZAqg.jpg" alt=""></p>
 <p>规定所有变量都存储在主内存中，每条线程都有自己的工作内存（可以类比高速缓存），线程的工作内存中保存了被该线程使用的变量的主内存副本拷贝，线程对变量的所有操作（读取，赋值等）都必须在工作内存中进行，而不能直接读写主内存的变量，这里的变量指的是实例字段，静态字段和构成数组对象的元素，而不包括线程私有的局部变量和方法参数</p>
 <h2 id="JMM可见性"><a href="#JMM可见性" class="headerlink" title="JMM可见性"></a>JMM可见性</h2><p><strong>volatile关键字可以保证变量对所有线程的可见性，可见性指一个线程修改了变量的值，新的值立刻同步到主内存中，而其他线程读取这个变量的时候，也会从主内存中拉取最新的值</strong></p>
-<p><strong>volatile的特性得益于先行发生原则，先行发生原则指两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序的</strong></p>
+<p><strong>volatile的特性得益于先行发生原则，先行发生原则指两个事件的结果之间的关系，如果一个事件A发生在另一个事件B之前，事件A产生的影响能被B观察到</strong></p>
 <p><strong>volatile只保证可见性，不保证原子性</strong>，如果定义100个线程，它们执行循环100次的count++，count最终值不一定是10000，因为count++这个操作并不是原子性的，可能发生这种情况：线程A读取变量count，此时count值为0，然后线程B读取count为0并执行+1操作，写回到主内存，然后线程A再执行+1操作，写回到主内存，则主内存的count的值为1而不是理想的2</p>
 <p>volatile适用于以下场景：</p>
 <ul>
@@ -621,6 +621,7 @@
 <li>变量不需要与其他状态变量共同参与不变约束</li>
 </ul>
 <p><strong>volatile第二个语义是禁止指令重排优化</strong>，这样可以避免由于指令重排而导致的错误</p>
+<p><strong>volatile底层禁止指令重排是通过内存屏障来实现的，内存屏障用于实现对内存操作的顺序限制</strong></p>
 <p>总结：</p>
 <ul>
 <li>工作内存中，每次使用volatile的变量时都必须先从主内存刷新最新的值</li>

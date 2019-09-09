@@ -1460,7 +1460,9 @@
 <li>是一种快速查询表中内容的机制，<strong>类似于新华字典的目录</strong></li>
 <li>运用在表中某些字段上，<strong>但存储时，独立于表外</strong></li>
 </ul>
-<p>InnoDB的聚集索引使用B+树实现，<strong>叶节点存放整张表的行记录数据</strong>（称为数据页），B+树叶结点包含信息，非叶结点只起索引作用<strong>（非叶结点的值是主键，两个值A和B之间的子树内所有值大小不大于B，不小于A）</strong><br>辅助索引（非聚集索引）叶子节点不包含行记录的全部数据，它的索引行中还额外包含一个书签，用于告诉InnoDB哪里可以找到与索引相对应的行数据，查询语句中如果条件满足辅助索引，但查询列不在辅助索引，则通过辅助索引找到对应行后，需要使用这个书签回表查询该行记录的其他列<strong>（非叶结点的值是索引列，两个值A和B之间的子树内所有值大小不大于B，不小于A）</strong></p>
+<p>InnoDB的聚集索引使用B+树实现，<strong>叶节点存放整张表的行记录数据</strong>（称为数据页），B+树叶结点包含信息，非叶结点只起索引作用<strong>（非叶结点的值是主键，两个值A和B之间的子树内所有值大小不大于B，不小于A）</strong><br>辅助索引（非聚集索引）叶子节点不包含行记录的全部数据，它的索引行中还额外包含一个书签，用于告诉InnoDB哪里可以找到与索引相对应的<strong>行数据</strong>，查询语句中如果条件满足辅助索引，但查询列不在辅助索引，则通过辅助索引找到对应行后，需要使用这个书签回表查询该行记录的其他列<strong>（非叶结点的值是索引列，两个值A和B之间的子树内所有值大小不大于B，不小于A）</strong></p>
+<p><strong>覆盖索引</strong>：一个查询语句的执行只要从索引中就能取得，不必从数据表中读取（只要查询列在辅助索引，就不需要回表查询，只要查询1次即可）</p>
+<p><code>CREATE INDEX index_name ON table_name (column_name)</code></p>
 <p>表的数据行实际上存放在聚簇索引的叶子页中</p>
 <p>索引的使用场合：</p>
 <ul>
@@ -1482,7 +1484,9 @@
 </ul>
 <p>索引分类</p>
 <p>唯一索引，主键索引，聚集索引，非聚集索引</p>
-<p>最左匹配原则略</p>
+<h3 id="最左匹配原则"><a href="#最左匹配原则" class="headerlink" title="最左匹配原则"></a>最左匹配原则</h3><p>创建索引考虑哪些因素？<br>查询概率比较高，经常作为where条件的字段设置索引</p>
+<p>创建多列索引，where子句中使用最频繁的一列放在最左边，MySQL查询索引会遵循最左前缀匹配原则，检索数据时从最左边</p>
+<p>底层就是把索引拼凑在一起，然后插入到B+树中</p>
 <h3 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h3><p>事务：一个事务中所进行的所有操作，要么同时成功，要么同时失败</p>
 <p>事务符合ACID特性：</p>
 <ul>
@@ -1492,6 +1496,7 @@
 <li>持久性：事务一旦提交，其结果是永久性的</li>
 </ul>
 <p>原子性关注状态，要么全部成功要么全部失败<br>一致性关注的是数据的可见性，中间状态不可见，最初和最终状态对外可见，且必须符合数据完整性约束（转账的例子）</p>
+<p>比如有A有500块存款，B有500块存款，A转200给B，则一致性操作如下：<br>A-200;B+200<br>如果这两条操作都执行完毕，那同时它也是原子性的<br>如果操作变为A-200;B+100，且都完成了，那这个操作是原子性的，但不是一致性的</p>
 <h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><ul>
 <li>READ UNCOMMITTED 未提交读：</li>
 <li>READ COMMITTED 提交读：</li>
@@ -1543,6 +1548,7 @@
 <p>脏读：一个事务读到另一个事务未提交的数据<br>不可重复读：一个事务(还没COMMIT)读取到另一个事务已经提交(COMMIT)的数据，即一个事务可以看到其他事务所做的修改<br>幻读：一个事务内读取到别的事务插入(或删除)的数据，导致前后读取不一致（幻读出现的前提是并发的事务中有事务发生了插入，删除操作）</p>
 <p>不可重复读的重点是<strong>修改</strong>:<br>同样的条件, 你读取过的数据, 再次读取出来发现值不一样了<br>幻读的重点在于<strong>新增或者删除</strong><br>同样的条件, 第1次和第2次读出来的记录数不一样</p>
 <p>对于不可重复读，只需要锁住满足条件的记录，而对于幻读，则需要锁住满足条件及其相近的记录</p>
+<h3 id="哈希索引和B-树索引的区别"><a href="#哈希索引和B-树索引的区别" class="headerlink" title="哈希索引和B+树索引的区别"></a>哈希索引和B+树索引的区别</h3><p>哈希索引使用哈希表，等值查询速度快，但不支持范围查询，也没有办法利用索引完成排序，不支持多列索引的最左匹配原则，大量重复键的时候，存在哈希碰撞，效率很低</p>
 <h3 id="MySQL锁"><a href="#MySQL锁" class="headerlink" title="MySQL锁"></a>MySQL锁</h3><p>lock锁事务，latch锁线程（轻量级）</p>
 <p><strong>行级锁</strong>：<br>共享锁（S Lock）：允许事务读一行数据<br>排他锁（X Lock）：允许事务删除或更新一行数据</p>
 <p>只有共享锁与共享锁之间才兼容</p>
@@ -1585,36 +1591,22 @@
 <li>硬件优化</li>
 </ul>
 <h4 id="合理设计数据库"><a href="#合理设计数据库" class="headerlink" title="合理设计数据库"></a>合理设计数据库</h4><p>根据数据库三范式进行表结构设计</p>
-<h4 id="读写分离，缓存"><a href="#读写分离，缓存" class="headerlink" title="读写分离，缓存"></a>读写分离，缓存</h4><h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><h5 id="选择最有效率的表名顺序"><a href="#选择最有效率的表名顺序" class="headerlink" title="选择最有效率的表名顺序"></a>选择最有效率的表名顺序</h5><p>数据库解析器按照<strong>从右到左的顺序处理FROM子句的表名，FROM子句写在最后的表将被最先处理</strong></p>
-<p>在FROM子句中包含多个表的情况下：</p>
-<ul>
-<li>如果多个表<strong>完全无关</strong>，将记录和列名<strong>最少</strong>的表写在最后，然后以此类推</li>
-</ul>
-<p>如果有3个以上的表连接查询</p>
-<ul>
-<li>如果三个表是<strong>有关系</strong>的话，将<strong>引用最多</strong>的表，放在最后，然后以此类推</li>
-<li>也就是说：被其他表所引用的表放在最后</li>
-</ul>
-<p>e.g.</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp.empno,emp.ename,emp.sal,salgrade.grade,dept.dname</span><br><span class="line"><span class="keyword">from</span> salgrade,dept,emp</span><br><span class="line"><span class="keyword">where</span> (emp.deptno = dept.deptno) <span class="keyword">and</span> (emp.sal <span class="keyword">between</span> salgrade.losal <span class="keyword">and</span> salgrade.hisal)</span><br></pre></td></tr></table></figure>
-<p>emp表被引用最多，记录数也是最多，所以放在最后</p>
-<h5 id="WHERE子句中的连接顺序"><a href="#WHERE子句中的连接顺序" class="headerlink" title="WHERE子句中的连接顺序"></a>WHERE子句中的连接顺序</h5><p>数据库<strong>自右向左解析WHERE子句，表之间的连接必须写在其他WHERE条件之左，那些可以过滤掉最大数量记录的条件必须写在WHERE子句之右</strong></p>
-<p>e.g.</p>
+<h4 id="读写分离，缓存"><a href="#读写分离，缓存" class="headerlink" title="读写分离，缓存"></a>读写分离，缓存</h4><h4 id="SQL优化"><a href="#SQL优化" class="headerlink" title="SQL优化"></a>SQL优化</h4><h5 id="善用索引"><a href="#善用索引" class="headerlink" title="善用索引"></a>善用索引</h5><p>索引就是为了提高我们的查询数据的，当表的记录量非常大的时候，我们就可以使用索引了</p>
+<h5 id="避免在索引列上使用计算"><a href="#避免在索引列上使用计算" class="headerlink" title="避免在索引列上使用计算"></a>避免在索引列上使用计算</h5><p>WHERE子句中，如果索引列是函数的一部分，优化器将不使用索引而使用全表扫描，这样会变得变慢</p>
+<h5 id="多使用内部函数提高SQL效率"><a href="#多使用内部函数提高SQL效率" class="headerlink" title="多使用内部函数提高SQL效率"></a>多使用内部函数提高SQL效率</h5><p>例如使用mysql的concat()函数会比使用||来进行拼接快，因为concat()函数已经被mysql优化过了</p>
+<h5 id="WHERE子句中的连接顺序"><a href="#WHERE子句中的连接顺序" class="headerlink" title="WHERE子句中的连接顺序"></a>WHERE子句中的连接顺序</h5><p><strong>MySQL是自左向右解析</strong>，Oracle是自右向左解析</p>
+<p>e.g.在Oracle中</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp.empno,emp.ename,emp.sal,dept.dname</span><br><span class="line">      <span class="keyword">from</span> dept,emp</span><br><span class="line">      <span class="keyword">where</span> (emp.deptno = dept.deptno) <span class="keyword">and</span> (emp.sal &gt; <span class="number">1500</span>)</span><br></pre></td></tr></table></figure>
 <p>emp.sal可以过滤多条记录，写在WHERE子句的最右边</p>
 <h5 id="SELECT子句中避免使用-号"><a href="#SELECT子句中避免使用-号" class="headerlink" title="SELECT子句中避免使用*号"></a>SELECT子句中避免使用*号</h5><p>它要通过查询数据字典完成的，这意味着将耗费更多的时间</p>
+<h5 id="当只要一行数据时使用LIMIT-1"><a href="#当只要一行数据时使用LIMIT-1" class="headerlink" title="当只要一行数据时使用LIMIT 1"></a>当只要一行数据时使用LIMIT 1</h5><p>这样引擎在找到一条数据后救护停止搜索</p>
 <h5 id="用TRUNCATE替代DELETE"><a href="#用TRUNCATE替代DELETE" class="headerlink" title="用TRUNCATE替代DELETE"></a>用TRUNCATE替代DELETE</h5><p>这里仅仅是：删除表的全部记录，除了表结构才这样做。</p>
 <p>DELETE是一条一条记录的删除，而Truncate是将整个表删除，保留表结构，这样比DELETE快</p>
-<h5 id="多使用内部函数提高SQL效率"><a href="#多使用内部函数提高SQL效率" class="headerlink" title="多使用内部函数提高SQL效率"></a>多使用内部函数提高SQL效率</h5><p>例如使用mysql的concat()函数会比使用||来进行拼接快，因为concat()函数已经被mysql优化过了</p>
 <h5 id="使用表或列的别名"><a href="#使用表或列的别名" class="headerlink" title="使用表或列的别名"></a>使用表或列的别名</h5><p>如果表或列的名称太长了，使用一些简短的别名也能稍微提高一些SQL的性能。毕竟要扫描的字符长度就变少了</p>
 <h5 id="多使用COMMIT"><a href="#多使用COMMIT" class="headerlink" title="多使用COMMIT"></a>多使用COMMIT</h5><p>COMMIT会释放回滚点</p>
-<h5 id="善用索引"><a href="#善用索引" class="headerlink" title="善用索引"></a>善用索引</h5><p>索引就是为了提高我们的查询数据的，当表的记录量非常大的时候，我们就可以使用索引了</p>
 <h5 id="SQL写大写"><a href="#SQL写大写" class="headerlink" title="SQL写大写"></a>SQL写大写</h5><p>我们在编写SQL 的时候，官方推荐的是使用大写来写关键字，因为Oracle服务器总是先将小写字母转成大写后，才执行</p>
-<h5 id="避免在索引列上使用NOT"><a href="#避免在索引列上使用NOT" class="headerlink" title="避免在索引列上使用NOT"></a>避免在索引列上使用NOT</h5><p>因为Oracle服务器遇到NOT后，他就会停止目前的工作，转而执行全表扫描</p>
-<h5 id="避免在索引列上使用计算"><a href="#避免在索引列上使用计算" class="headerlink" title="避免在索引列上使用计算"></a>避免在索引列上使用计算</h5><p>WHERE子句中，如果索引列是函数的一部分，优化器将不使用索引而使用全表扫描，这样会变得变慢</p>
 <h5 id="用-gt-替代-gt"><a href="#用-gt-替代-gt" class="headerlink" title="用&gt;=替代&gt;"></a>用&gt;=替代&gt;</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">低效：</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> EMP <span class="keyword">WHERE</span> DEPTNO &gt; <span class="number">3</span>   </span><br><span class="line">首先定位到DEPTNO=<span class="number">3</span>的记录并且扫描到第一个DEPT大于<span class="number">3</span>的记录</span><br><span class="line">高效：</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> EMP <span class="keyword">WHERE</span> DEPTNO &gt;= <span class="number">4</span>  </span><br><span class="line">直接跳到第一个DEPT等于<span class="number">4</span>的记录</span><br></pre></td></tr></table></figure>
 <h5 id="用IN替代OR"><a href="#用IN替代OR" class="headerlink" title="用IN替代OR"></a>用IN替代OR</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal = <span class="number">1500</span> <span class="keyword">or</span> sal = <span class="number">3000</span> <span class="keyword">or</span> sal = <span class="number">800</span>;</span><br><span class="line">      <span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> sal <span class="keyword">in</span> (<span class="number">1500</span>,<span class="number">3000</span>,<span class="number">800</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="总是使用索引的第一个列"><a href="#总是使用索引的第一个列" class="headerlink" title="总是使用索引的第一个列"></a>总是使用索引的第一个列</h5><p>最左匹配原则</p>
 <h4 id="数据库结构优化"><a href="#数据库结构优化" class="headerlink" title="数据库结构优化"></a>数据库结构优化</h4><ul>
 <li>范式优化：比如消除冗余</li>
 <li>反范式优化：比如适当加冗余（减少join）</li>
@@ -2140,11 +2132,11 @@
 </ul>
 <h2 id="安全点"><a href="#安全点" class="headerlink" title="安全点"></a>安全点</h2><p>引用关系不会发生变化的点</p>
 <h2 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h2><ul>
-<li>Serial：单线程，新生代</li>
-<li>ParNew：多线程，新生代</li>
+<li>Serial：单线程，新生代，采取复制算法</li>
+<li>ParNew：多线程，新生代，采取复制算法</li>
 <li>Parallel Scavenge：新生代，多线程，更注重吞吐量</li>
-<li>Serial Old：Serial的老年代版本</li>
-<li>Parallel Old：Parallel的老年代版本</li>
+<li>Serial Old：Serial的老年代版本，采取标记-整理算法</li>
+<li>Parallel Old：Parallel的老年代版本，多线程</li>
 </ul>
 <h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p>以最短回收停顿时间为目的</p>
 <p>初始标记-&gt;并发标记-&gt;重新标记-&gt;并发清除</p>
@@ -2181,7 +2173,7 @@
 <h2 id="类文件结构"><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h2><p>Class文件为8字节为单位的二进制流，采用伪结构，只有两种数据类型：无符号数和表<br>无符号数有u1，u2，u4和u8</p>
 <p>从上往下Class文件结构为：魔数（0xCAFEBABE），次版本（2字节），主版本（2字节），常量池，访问标志，类索引，父类索引，接口索引，字段表，方法表，属性表</p>
 <h2 id="类生命周期"><a href="#类生命周期" class="headerlink" title="类生命周期"></a>类生命周期</h2><p>加载-&gt;连接-&gt;初始化-&gt;使用-&gt;卸载</p>
-<h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><p>类加载指将Class文件的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象，用来封装类在方法区内的数据结构</p>
+<h2 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h2><p><strong>类加载指将Class文件的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个java.lang.Class对象</strong>，用来封装类在方法区内的数据结构</p>
 <p>加载-&gt;连接-&gt;初始化</p>
 <p>连接又分为：验证-&gt;准备-&gt;解析</p>
 <p>加载：文件加载到内存，通过类的完全限定名查找此类字节码文件，并利用字节码文件创建一个Class对象</p>
@@ -2216,7 +2208,7 @@
 <h2 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h2><p><img src="https://i.imgur.com/bGPZAqg.jpg" alt=""></p>
 <p>规定所有变量都存储在主内存中，每条线程都有自己的工作内存（可以类比高速缓存），线程的工作内存中保存了被该线程使用的变量的主内存副本拷贝，线程对变量的所有操作（读取，赋值等）都必须在工作内存中进行，而不能直接读写主内存的变量，这里的变量指的是实例字段，静态字段和构成数组对象的元素，而不包括线程私有的局部变量和方法参数</p>
 <h2 id="JMM可见性"><a href="#JMM可见性" class="headerlink" title="JMM可见性"></a>JMM可见性</h2><p><strong>volatile关键字可以保证变量对所有线程的可见性，可见性指一个线程修改了变量的值，新的值立刻同步到主内存中，而其他线程读取这个变量的时候，也会从主内存中拉取最新的值</strong></p>
-<p><strong>volatile的特性得益于先行发生原则，先行发生原则指两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序的</strong></p>
+<p><strong>volatile的特性得益于先行发生原则，先行发生原则指两个事件的结果之间的关系，如果一个事件A发生在另一个事件B之前，事件A产生的影响能被B观察到</strong></p>
 <p><strong>volatile只保证可见性，不保证原子性</strong>，如果定义100个线程，它们执行循环100次的count++，count最终值不一定是10000，因为count++这个操作并不是原子性的，可能发生这种情况：线程A读取变量count，此时count值为0，然后线程B读取count为0并执行+1操作，写回到主内存，然后线程A再执行+1操作，写回到主内存，则主内存的count的值为1而不是理想的2</p>
 <p>volatile适用于以下场景：</p>
 <ul>
@@ -2224,6 +2216,7 @@
 <li>变量不需要与其他状态变量共同参与不变约束</li>
 </ul>
 <p><strong>volatile第二个语义是禁止指令重排优化</strong>，这样可以避免由于指令重排而导致的错误</p>
+<p><strong>volatile底层禁止指令重排是通过内存屏障来实现的，内存屏障用于实现对内存操作的顺序限制</strong></p>
 <p>总结：</p>
 <ul>
 <li>工作内存中，每次使用volatile的变量时都必须先从主内存刷新最新的值</li>
