@@ -369,6 +369,326 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Java常用API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/Java常用API/" itemprop="url">Java常用API（持续更新）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/Java常用API/" class="leancloud_visitors" data-flag-title="Java常用API（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java常用API"><a href="#Java常用API" class="headerlink" title="Java常用API"></a>Java常用API</h1><p>主要是一些常用的，容易忘的，像String的equals，substring这些就不写了</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ul>
+<li>indexOf(char)：返回指定字符的索引</li>
+<li>charAt(int)：返回指定索引的字符</li>
+<li>replace(oldChar, newChar)：字符串替换</li>
+<li>trim()：去掉字符串两端空白</li>
+<li>split(regex)：分隔字符串</li>
+<li>getBytes()：返回字符串的byte类型数组</li>
+<li>toCharArray()：返回字符串的字符数组（新的，不是内置的那个）</li>
+<li>static valueOf(double[or float int long Object])：参数转换为String</li>
+</ul>
+<h2 id="集合类"><a href="#集合类" class="headerlink" title="集合类"></a>集合类</h2><p><strong>要对List排序，使用 <code>Collections.sort(list)</code> ！！！</strong><br><strong>要对数组排序，使用 <code>Arrays.sort(array)</code> ！！！</strong></p>
+<p>List转换为数组： <code>ArrayList的toArray方法（实例方法）</code><br>数组转换为List：<br>对于引用类型的数组： <code>new ArrayList&lt;&gt;(Arrays.asList())</code><br>对于基本类型的数组： 写个for循环一个一个手动添加进去吧。。</p>
+<p>排序的Comparator中的compare方法：</p>
+<p><code>int compare(T o1, T o2)</code><br><code>a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.</code></p>
+<p><strong>list.sort()中，默认是按照自然顺序（升序）来排序的，如果传入comparator参数，当compare方法返回的值大于0（o1&gt;o2），它就会交换o1和o2的位置</strong></p>
+<h3 id="遍历Map"><a href="#遍历Map" class="headerlink" title="遍历Map"></a>遍历Map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Map.Entry&lt;Integer,String&gt;&gt; iterable=map.entrySet().iterator();</span><br><span class="line">while(iterable.hasNext())&#123;</span><br><span class="line">    Map.Entry&lt;Integer,String&gt;entry=iterable.next();</span><br><span class="line">    System.out.println(entry.getKey()+&quot;-&gt;&quot;+entry.getValue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(Map.Entry&lt;Integer,String&gt; entry:map.entrySet())&#123;</span><br><span class="line">    System.out.println(entry.getKey()+&quot;-&gt;&quot;+entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/其他/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/其他/" itemprop="url">MySQL（持续更新）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/其他/" class="leancloud_visitors" data-flag-title="MySQL（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">^ 串的开始</span><br><span class="line">$ 串的结束</span><br><span class="line">\ 原义字符，八进制字符</span><br><span class="line">&quot;abc&quot; 匹配包含aaabcccc abc123</span><br><span class="line">* 前的子表达式匹配0-多次（ac*可以匹配acccc或a）</span><br><span class="line">+ 前的子表达式匹配1-多次（ac+可以匹配ac，acccc）</span><br><span class="line">? 前的子表达式匹配0次或1次（ac?可以匹配ac，a）</span><br><span class="line"></span><br><span class="line">&#123;n&#125; n是非负整数，表示匹配n次（ab&#123;2&#125;可以匹配abb）</span><br><span class="line">&#123;n,&#125; 匹配至少n次（ab&#123;2,&#125;，可以匹配abb，abbb）</span><br><span class="line">&#123;n,m&#125; 匹配n-m次（ab&#123;2,5&#125;，可以匹配abb，abbbbb）</span><br><span class="line"></span><br><span class="line">| 或</span><br><span class="line">. 任何符号</span><br><span class="line"></span><br><span class="line">[abc] a或b或c</span><br><span class="line">[^abc] 没有a，b，c</span><br><span class="line">[a-z] 存在一个a到z之间的字符</span><br><span class="line">[0-9] 存在一个0到9之间的字符</span><br><span class="line">[^a-z] 不存在a到z之间的字符</span><br><span class="line">^[a-z] 以a-z开头</span><br><span class="line"></span><br><span class="line">\d 一个数字</span><br><span class="line">\D 非数字</span><br><span class="line">\w 等价于[0-9a-zA-Z]</span><br><span class="line">\W 等价于[^0-9a-zA-Z]</span><br><span class="line">\f 换页</span><br><span class="line">\n 换行</span><br><span class="line">\r 回车</span><br><span class="line">\s 任何空白字符（空格，制表等）</span><br><span class="line">\S 任何非空白字符</span><br><span class="line">\t 制表</span><br><span class="line"></span><br><span class="line">贪婪匹配： 对于aabab，a.*b 会匹配aabab</span><br><span class="line">懒惰匹配： 对于aabab，a.*?B会匹配aab</span><br><span class="line">（只要加上问号就可以取消贪婪匹配）</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/redis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -521,7 +841,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/java多线程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/java基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -540,7 +860,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/01/java多线程/" itemprop="url">Java多线程（持续更新）</a></h1>
+                <a class="post-title-link" href="/2019/09/01/java基础/" itemprop="url">Java基础（持续更新）</a></h1>
         
 
         <div class="post-meta">
@@ -592,7 +912,7 @@
 
           
           
-             <span id="/2019/09/01/java多线程/" class="leancloud_visitors" data-flag-title="Java多线程（持续更新）">
+             <span id="/2019/09/01/java基础/" class="leancloud_visitors" data-flag-title="Java基础（持续更新）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -625,187 +945,156 @@
       
         
           
-            <h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><h2 id="为什么引入多线程？"><a href="#为什么引入多线程？" class="headerlink" title="为什么引入多线程？"></a>为什么引入多线程？</h2><p>进程创建和切换的开销大，引入线程是提高效率</p>
-<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
-<li>新建New</li>
-<li>运行Runnable：包括Running和Ready</li>
-<li>无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致<ul>
-<li>无Timeout参数的Object.wait()方法</li>
-<li>无Timeout参数的Thread.join()方法</li>
+            <h1 id="java基础"><a href="#java基础" class="headerlink" title="java基础"></a>java基础</h1><h3 id="关于继承的杂七杂八"><a href="#关于继承的杂七杂八" class="headerlink" title="关于继承的杂七杂八"></a>关于继承的杂七杂八</h3><ul>
+<li>子类重写父类方法，修饰符必须比父类范围大，private&lt;default&lt;protected&lt;public</li>
+<li>super()和this()都必须放在构造函数的第一行，因此不能共存</li>
+<li><strong>父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错</strong>，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，<strong>子类会默认会在自己的构造器的第一行加上super()</strong></li>
+<li>继承的执行顺序：父类静态块-&gt;子类静态块-&gt;父类非静态块-&gt;子类非静态块-&gt;父类构造函数-&gt;子类构造函数</li>
+</ul>
+<h3 id="关于基本类型的杂七杂八"><a href="#关于基本类型的杂七杂八" class="headerlink" title="关于基本类型的杂七杂八"></a>关于基本类型的杂七杂八</h3><ul>
+<li>高精度向低精度转型会报错，反之不会（即可以double a = 12）</li>
+<li>布尔型只能用布尔变量保存</li>
+<li>不同的包装类型使用==判断的时候会报错</li>
+</ul>
+<h3 id="关于main方法的杂七杂八"><a href="#关于main方法的杂七杂八" class="headerlink" title="关于main方法的杂七杂八"></a>关于main方法的杂七杂八</h3><ul>
+<li>main方法有一个本类的成员，该成员可以访问类的静态域和私有域，如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">incr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        x++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Main main = <span class="keyword">new</span> Main ();</span><br><span class="line">        System.out.println(main.x); <span class="comment">// 0</span></span><br><span class="line">        main.incr();</span><br><span class="line">        System.out.println(main.x); <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="String可以被继承吗"><a href="#String可以被继承吗" class="headerlink" title="String可以被继承吗"></a>String可以被继承吗</h3><p>String的修饰符是 <code>public final</code> ，不可以被继承</p>
+<h3 id="判断String是否相等"><a href="#判断String是否相等" class="headerlink" title="判断String是否相等"></a>判断String是否相等</h3><p><strong>指向常量池的话，只要值相等，则一定相等，指向堆的话，如果指向的不是堆中的同一对象，则不相等</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;aaa&quot;;</span><br><span class="line">String b = &quot;aa&quot; + &quot;a&quot;;</span><br><span class="line">String c = &quot;aaa&quot;;</span><br><span class="line">String d = new String(&quot;aaa&quot;);</span><br><span class="line">System.out.println(a == b); // true</span><br><span class="line">System.out.println(c == d); // false</span><br></pre></td></tr></table></figure>
+<h3 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a>==和equals</h3><p>==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同<br>equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的</p>
+<h3 id="两个对象的hashCode-相同，则equals-也一定为true吗"><a href="#两个对象的hashCode-相同，则equals-也一定为true吗" class="headerlink" title="两个对象的hashCode()相同，则equals()也一定为true吗"></a>两个对象的hashCode()相同，则equals()也一定为true吗</h3><p>不对，哈希值相同，equals不一定为true</p>
+<h3 id="final作用"><a href="#final作用" class="headerlink" title="final作用"></a>final作用</h3><p>修饰类则为最终类，不能被继承<br>修饰方法不能被重写<br>修饰的变量为常量，必须初始化，初始化后不能被修改</p>
+<h3 id="重载，重写"><a href="#重载，重写" class="headerlink" title="重载，重写"></a>重载，重写</h3><p>重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！<br>重载(overloading) 是在一个类里面，方法名字相同，<strong>而参数不同</strong>。<strong>返回类型可以相同也可以不同</strong>。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
+<li>继承关系</li>
+<li>子类重写父类方法</li>
+<li>父类引用指向子类（向上转型</li>
+</ul>
+<p>成员变量：编译看父类，运行看父类<br>成员方法：编译看父类，运行看子类（动态绑定）<br>静态方法：编译看父类，运行看父类</p>
+<h3 id="java-中的-Math-round-1-5-等于多少？"><a href="#java-中的-Math-round-1-5-等于多少？" class="headerlink" title="java 中的 Math.round(-1.5) 等于多少？"></a>java 中的 Math.round(-1.5) 等于多少？</h3><p>等于 -1，正数与负数相反</p>
+<h3 id="抽象类，接口"><a href="#抽象类，接口" class="headerlink" title="抽象类，接口"></a>抽象类，接口</h3><p>抽象类和接口的区别：</p>
+<ul>
+<li>抽象类本质是一个类，其方法和域可以<strong>有类所拥有的修饰符</strong>，而接口域默认是<strong>static final</strong>，方法默认是<strong>abstract public</strong>且不可修改，方法<strong>可以加static修饰符</strong>，但这个时候它是接口方法，<strong>必须要有实体</strong></li>
+<li>抽象类只能<strong>单继承</strong>，接口可以<strong>多实现</strong></li>
+<li><p>他们<strong>均不可以实例化</strong>，它们均<strong>不可以加上final修饰类</strong></p>
+</li>
+<li><p>设计思想：</p>
+<ul>
+<li>抽象类是子类需要某些属性和具体的特殊行为，所以才需要继承抽象类</li>
+<li>接口是一种行为的规范</li>
 </ul>
 </li>
-<li>限期等待Timed Waiting：一定时间后由系统自动唤醒<ul>
-<li>设置了Timeout参数的Object.wait()方法</li>
-<li>设置了Timeout参数的Thread.join()方法</li>
-<li>Thread.sleep()方法</li>
+<li>实现上来说：<ul>
+<li>抽象类的实现使用extends，不能有多继承</li>
+<li>接口的实现使用implements，可以有多实现</li>
 </ul>
 </li>
-<li>阻塞Blocked：阻塞与等待的区别是：阻塞在等待获取一个排他锁，是被动发生，等待则是等待一段时间或者唤醒动作的发生，主动行为</li>
-<li>结束Terminated</li>
+<li>实例化：<ul>
+<li>均不可以实例化，均不可以加上final修饰类</li>
 </ul>
-<h2 id="sleep和wait等区别"><a href="#sleep和wait等区别" class="headerlink" title="sleep和wait等区别"></a>sleep和wait等区别</h2><ul>
-<li>sleep是Thread类的静态方法，wait是Object类的实例方法</li>
-<li>Thread.sleep()不会导致锁的改变，可以简单认为和锁相关的方法都定义在Object类中</li>
-<li>调用wait后，需要别的线程调用notify/notifyAll才能重新获得CPU执行时间</li>
-</ul>
-<p>sleep和yield不会释放锁，yield让步，让线程从运行状态转为就绪状态<br>wait会释放锁</p>
-<h2 id="object-wait-机制"><a href="#object-wait-机制" class="headerlink" title="object.wait()机制"></a>object.wait()机制</h2><blockquote>
-<p>This method should only be called by a thread that is the owner of this object’s monitor</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    <span class="keyword">while</span> (&lt;condition does not hold&gt;)</span><br><span class="line">        obj.wait();</span><br><span class="line">    ... <span class="comment">// Perform action appropriate to condition</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在某一线程中调用obj的wait方法，前提是该线程必须持有obj的监视器（monitor，可以理解为锁），调用后，该线程会释放此监视器的所有权并等待，直到另一个线程调用notify或notifyAll方法通知等待该obj监视器的线程唤醒，然后线程等待，直到它可以重新获得监视器所有权并继续执行</p>
-<p>线程以三种方式之一成为对象监视器的所有者：</p>
-<ul>
-<li>通过执行该对象的同步实例方法</li>
-<li>通过执行在对象上同步的synchronized语句的主体</li>
-<li>对于Class类型的对象，通过执行该类的同步静态方法</li>
-</ul>
-<h2 id="为什么wait，notify，notifyAll被定义在Object类里"><a href="#为什么wait，notify，notifyAll被定义在Object类里" class="headerlink" title="为什么wait，notify，notifyAll被定义在Object类里"></a>为什么wait，notify，notifyAll被定义在Object类里</h2><p><strong>Java每个对象都有一个monitor</strong>（可以理解为锁），并且wait，notify等方法用于等待对象的监视器或者通知其他的线程对象的监视器可用，即<strong>这些方法都是与监视器有关的</strong>，线程类没有可供对象使用的锁或同步器，所以这些方法是Object类的方法</p>
-<h2 id="为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用"><a href="#为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用" class="headerlink" title="为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用"></a>为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用</h2><p>这些方法都需要通过对象的监视器（锁）实现对应的功能，因此需要同步方法或者同步块得到对象的监视器（锁）</p>
-<h2 id="synchronized实现原理"><a href="#synchronized实现原理" class="headerlink" title="synchronized实现原理"></a>synchronized实现原理</h2><p>当一个线程试图访问同步代码块时，他首先必须得到锁，退出或抛出异常时必须释放锁。那么锁到底存在哪里呢？锁里面会存储什么信息呢？</p>
-<p><strong>JVM基于进入和退出Monitor对象来实现同步，代码块同步是使用monitorenter和monitorexit实现，线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor的所有权，即尝试获得对象的锁</strong></p>
-<h2 id="synchronized对象锁与类锁"><a href="#synchronized对象锁与类锁" class="headerlink" title="synchronized对象锁与类锁"></a>synchronized对象锁与类锁</h2><p>synchronized修饰静态方法获取的是类锁(类的字节码文件对象)，synchronized修饰普通方法或代码块获取的是对象锁。</p>
-<p>它俩是不冲突的，也就是说：获取了类锁的线程和获取了对象锁的线程是不冲突的！</p>
-<h2 id="synchronized的优化"><a href="#synchronized的优化" class="headerlink" title="synchronized的优化"></a>synchronized的优化</h2><p>JDK 1.6后增加了如下优化：自旋锁，锁消除，锁粗化，轻量级锁，偏向锁<br>首先对synchronizd加锁的对象先加偏向锁，当有其他线程来竞争，就升级为轻量级锁，这个轻量级锁通常是自旋锁，当自旋次数超过限制数，轻量级锁就再升级为重量级锁<br>性能上和Lock锁相差不大</p>
-<p>使用Lock的理由只有它的特性如：多个Condition，多个读线程同时访问共享资源</p>
-<h2 id="Callable与Future"><a href="#Callable与Future" class="headerlink" title="Callable与Future"></a>Callable与Future</h2><p>泛型接口Callable有一个 <code>V call();</code> 方法，可以返回值，这是它与Runnable的区别<br>对于一个任务需要多线程计算结果，可以使用Callable，使用Future来接收这个多线程计算的结果，FutureTask是Future接口的一个实现，同时也是Runnable接口的实现</p>
-<p>用法如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Callable&lt;Integer&gt; myComputation = ...; <span class="comment">// 线程执行计算任务</span></span><br><span class="line">FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;&gt;(myComputation);</span><br><span class="line">Thread t = <span class="keyword">new</span> Thread(task);</span><br><span class="line">t.start();</span><br><span class="line">...</span><br><span class="line">Integer result = task.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多线程执行任务</span></span><br><span class="line">Callable&lt;Integer&gt; task = ...;</span><br><span class="line">ExecutorService executor = Executors.newCachedThreadPool();</span><br><span class="line">Future&lt;Integer&gt; result = executor.submit(task);</span><br><span class="line"><span class="comment">// 输出 result.get()就是该多线程任务的结果</span></span><br></pre></td></tr></table></figure>
-<h2 id="同步器"><a href="#同步器" class="headerlink" title="同步器"></a>同步器</h2><h3 id="倒计时门栓"><a href="#倒计时门栓" class="headerlink" title="倒计时门栓"></a>倒计时门栓</h3><p>CountDownLatch类让一个线程集等待直到计数变为0，倒计时门栓是一次性的，<strong>一旦计数为0，就不能重用</strong></p>
-<p>门栓两个方法：await()和countDown()</p>
-<p>举例来说，假定一个线程集需要一些初始的数据来完成工作，工作器线程被启动并在门外等待。另一个线程准备数据，设置一个计数值为1的门栓，当数据准备好后，<strong>调用countDown</strong>，所有工作器线程就可以继续运行了。然后设置第二个门栓检查什么时候所有工作器线程完成工作，门栓计数为工作器线程个数</p>
-<p>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 摘自java3y公众号</span></span><br><span class="line"><span class="comment">// 3y现在去做实习生了，其他的员工还没下班，3y不好意思先走，等其他的员工都走光了，3y再走</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"现在6点下班了....."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3y线程启动</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 这里调用的是await()不是wait()</span></span><br><span class="line">                    countDownLatch.await();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"...其他的5个员工走光了，3y终于可以走了"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 其他员工线程启动</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    System.out.println(<span class="string">"员工xxxx下班了"</span>);</span><br><span class="line">                    countDownLatch.countDown();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="障栅"><a href="#障栅" class="headerlink" title="障栅"></a>障栅</h3><p>CyclicBarrier类实现一个集结点称为障栅，<strong>可以被重用</strong>。考虑大量线程运行在一次计算的不同部分的情形，当所有部分准备好时，需要把结果组合在一起，当一个线程完成它的部分任务后，我们让它运行到障栅处，一旦所有线程都到达这个障栅，障栅就撤销，线程可以继续运行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CyclicBarrier(int parties, Runnable barrierAction) 所有等待的线程会继续执行，同时barrierAction也会开始执行</span></span><br><span class="line"><span class="comment">// CyclicBarrier(int parties) 应该是所有等待的线程一起执行后面的动作</span></span><br><span class="line">CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(nthreads);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    doWork();</span><br><span class="line">    barrier.await();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="CyclicBarrier和CountDownLatch区别"><a href="#CyclicBarrier和CountDownLatch区别" class="headerlink" title="CyclicBarrier和CountDownLatch区别"></a>CyclicBarrier和CountDownLatch区别</h3><ul>
-<li>CyclicBarrier的某个线程运行到某个点上，该线程就暂停运行，直到所有线程都到达这个点，才一起重新运行；CountDownLatch某线程运行到某个点上，只是让某个数值-1，该线程继续运行</li>
-<li>CyclicBarrier只能通过传入参数来让某一个线程唤起，而CountDownLatch可以通过给多个线程调用await()方法来实现唤起多个任务</li>
-<li>CyclicBarrier可重用，CountDownLatch不可重用</li>
-</ul>
-<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>Semaphore(信号量)实际上就是可以控制同时访问的线程个数，它维护了一组”许可证”</p>
-<ul>
-<li>当调用acquire()方法时，会消费一个许可证。如果没有许可证了，会阻塞起来</li>
-<li>当调用release()方法时，会添加一个许可证。</li>
-<li>这些”许可证”的个数其实就是一个count变量</li>
-</ul>
-<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>如果你的代码在多线程和单线程环境下执行得到的结构永远一样，那么代码就是线程安全的</p>
-<p>线程安全级别</p>
-<ul>
-<li>不可变</li>
-<li>绝对线程安全：不管任何环境，都不需要额外同步措施</li>
-<li>相对线程安全：通常意义上的线程安全，像vector等</li>
-<li>线程非安全</li>
-</ul>
-<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称</p>
-<ul>
-<li>是一个可以给我们<strong>实现锁的框架</strong>，实现了AQS的常见的有ReentrantLock,CountDownLatch</li>
-<li>acquire()方法调用了<strong>tryAcquire()</strong>，release()方法调用了<strong>tryRelease()</strong>，需要继承AQS的实现类去实现</li>
-<li>内部实现的关键：<strong>先进先出的阻塞等待队列CLH</strong>，<strong>state状态</strong></li>
-<li>拥有两种线程模式：<strong>独占和共享</strong></li>
-<li>对象每上一次锁，state就通过<strong>CAS操作</strong>加1</li>
-<li>当有线程持有了锁，另外一个线程竞争不到锁，就让它进入CLH队列，该队列每个结点有标识该线程状态的waitStatus</li>
-</ul>
-<h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值（B）。 如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作</p>
-<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><ul>
-<li>支持公平和非公平模式，公平模式下会去看FIFO队列线程是否是在队头（AQS的队列），而非公平模式下是没有的</li>
-<li>state的变量高16位是读锁，低16位是写锁</li>
-<li>写锁可以降级为读锁，读锁不能升级为写锁</li>
-<li>写锁是互斥的，读锁是共享的</li>
-</ul>
-<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>线程池可以看做是线程的集合。在没有任务时线程处于空闲状态，当请求到来：线程池给这个请求分配一个空闲的线程，任务完成后回到线程池中等待下次任务(而不是销毁)。这样就实现了线程的重用</p>
-<p>为什么使用线程池</p>
-<ul>
-<li>降低资源消耗，通过重复利用已创建的线程降低线程创建和销毁造成的消耗</li>
-<li>提高响应速度，当任务到达时，任务可以不需要等到线程创建就能立即执行</li>
-<li>提高线程的可管理性，线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。但是要做到合理的利用线程池，必须对其原理了如指掌</li>
-</ul>
-<h2 id="线程池的用法"><a href="#线程池的用法" class="headerlink" title="线程池的用法"></a>线程池的用法</h2><p><code>ExecutorService executor = Executors.newCachedThreadPool();</code></p>
-<p>一共有以下5种池：</p>
-<ul>
-<li>newCachedThreadPool：必要时创建，空闲线程保留60s</li>
-<li>newFixedThreadPool：包含固定数量，空闲线程保留</li>
-<li>newSingleThreadExecutor：只有一个线程的池</li>
-<li>newScheduledThreadPool：用于预定执行而构建的固定线程池</li>
-<li><p>newSingleThreadScheduledExecutor：用于预定执行而构建的单线程池</p>
 </li>
-<li><p>调用Executors类的静态方法newCachedThreadPool或newFixedThreadPool，得到ExecutorService对象</p>
+<li>构造函数：<ul>
+<li>抽象类可以写构造函数</li>
+<li>接口不能有</li>
+</ul>
 </li>
-<li>调用submit提交Runnable或Callable对象</li>
-<li>如果想要取消一个任务或提交Callable对象，要保存好submit方法返回的Future对象</li>
-<li>当不再提交任何任务时，调用 <code>executor.shutdown()</code></li>
+<li>方法访问修饰符：<ul>
+<li>抽象类的方法修饰符可以任意</li>
+<li>接口的方法默认是 <strong>public abstract</strong>且不可修改</li>
+<li>接口的方法可以加上static，这个时候必须要有实体</li>
 </ul>
-<p>前三种线程池实质是ThreadPoolExecutor对象，后两种线程池是ScheduledThreadPoolExecutor对象，后两种线程池可以提供预定执行（延后和定期执行）</p>
-<p><img src="https://i.imgur.com/aMswcG1.png" alt=""></p>
-<ul>
-<li>Executor接口只有一个execute()方法，是执行Runnable的任务</li>
-<li>ExecutorService主要方法是shutdown()和submit()，submit()内部调用了execute()</li>
-<li>AbstractExecutorService抽象类实现了submit,invokeAll,invokeAny方法</li>
-<li>ThreadPoolExecutor就是Executors那三个生成线程池方法返回的实际对象</li>
-</ul>
-<p>JDK 1.7新增ForkJoinPool线程池，采用了工作窃取算法</p>
-<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>构造方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                              TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                              ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                              RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">                                  ... &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>corePoolSize：线程池的基本线程数（队列没满时，线程的最大并发数）</li>
-<li>maximumPoolSize：线程池允许创建的最大线程数（队列满后能够达到的最大并发数）</li>
-<li>keepAliveTime：线程活动保持时间。线程池的工作线程空闲后，保持活动的时间</li>
-<li>workQueue：任务队列。用于保存等待执行的任务的阻塞队列</li>
-<li>threadFactory：创建线程的工厂，可以通过线程工厂为每个创建出来的线程设置更有意义的名字</li>
-<li>handler：饱和策略。当队列和线程池都满了，说明处于饱和，默认情况抛出异常。JDK 1.5提供4种策略<ul>
-<li>AbortPolicy：抛出异常</li>
-<li>CallerRunsPolicy：只用调用者所在线程来运行任务</li>
-<li>DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务</li>
-<li>DiscardPolicy：不处理，丢弃掉</li>
+</li>
+<li>属性访问修饰符：<ul>
+<li>抽象类的属性可以有任何修饰符</li>
+<li>接口的属性默认是 <strong>public static final</strong> 且不可修改</li>
 </ul>
 </li>
 </ul>
-<p>它们的关系如下：</p>
+<p><strong>接口类只能声明方法和常量</strong></p>
 <ul>
-<li><strong>创建线程池后，默认情况下线程池并没有任何线程，等待有任务来的时候才创建线程（除非调用prestartAllCoreThreads()或prestartCoreThread()方法）</strong></li>
-<li><strong>当线程池中线程数小于corePoolSize，新提交任务创建一个新线程执行任务并加入到线程池，即使此时线程池中存在空闲线程</strong></li>
-<li><strong>当线程池中线程数达到corePoolSize，新提交任务被放入workQueue中，等待线程池中任务调度执行</strong></li>
-<li><strong>如果队列满，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程去执行任务，如果使用无界的任务队列，这个参数就没什么效果</strong></li>
-<li><strong>如果提交任务数超过maximumPoolSize，任务提交给handler处理</strong></li>
-<li><strong>当线程池中线程数超过corePoolSize，超过的这部分超时时，就回收它们</strong></li>
+<li>在接口类中定义<code>int a = 123;</code>是允许的，但是实际a的类型是<code>public static final int</code></li>
+<li>接口类定义<code>int value()</code>也是允许的，但它实际类型是<code>abstract public int</code></li>
+<li>接口类可以定义静态方法</li>
 </ul>
-<h2 id="如果你提交任务时，线程池队列已满，这时会发生什么"><a href="#如果你提交任务时，线程池队列已满，这时会发生什么" class="headerlink" title="如果你提交任务时，线程池队列已满，这时会发生什么"></a>如果你提交任务时，线程池队列已满，这时会发生什么</h2><ul>
-<li>如果使用的是无界队列LinkedBlockingQueue，可以继续添加任务到阻塞队列中等待执行</li>
-<li>如果使用的是有界队列ArrayBlockingQueue，任务首先会添加到ArrayBlockingQueue，满了则根据maximumPoolSize增加线程数量，如果增加了还是处理不来，就使用拒绝策略，默认是AbortPolicy（抛出异常）</li>
-</ul>
-<h2 id="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"><a href="#高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？" class="headerlink" title="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"></a>高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</h2><ul>
-<li>高并发，任务执行时间短的业务，线程池线程数可以设置为CPU核数+1，减少线程上下文的切换</li>
-<li>并发不高，任务执行时间长的业务：<ul>
-<li>如果业务时间集中在IO操作，IO不占用CPU，所以不要让所有的CPU闲下来，可以加大线程池中的线程数目，让CPU处理更多的业务</li>
-<li>假如是业务时间长集中在计算操作上，也就是计算密集型任务，这个就没办法了，和（1）一样吧，线程池中的线程数设置得少一些，减少线程上下文的切换</li>
-</ul>
-</li>
-<li>并发高、业务执行时间长，解决这种类型任务的关键不在于线程池而在于整体架构的设计，看看这些业务里面某些数据是否能做缓存是第一步，增加服务器是第二步，业务执行时间长的问题，也可能需要分析一下，看看能不能使用中间件对任务进行拆分和解耦</li>
-</ul>
-<h2 id="Thread-sleep-0-的作用是什么"><a href="#Thread-sleep-0-的作用是什么" class="headerlink" title="Thread.sleep(0)的作用是什么"></a>Thread.sleep(0)的作用是什么</h2><p>手动触发一次OS分配时间片的操作，平衡CPU控制权，让低优先级线程也能获取CPU控制权</p>
-<h2 id="一个最简单的死锁例子"><a href="#一个最简单的死锁例子" class="headerlink" title="一个最简单的死锁例子"></a>一个最简单的死锁例子</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Object obj1 = <span class="keyword">new</span> Object();</span><br><span class="line">    Object obj2 = <span class="keyword">new</span> Object();</span><br><span class="line">    Runnable r1 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj1锁..."</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (obj1) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj1锁!"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj2锁..."</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (obj2) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj2锁!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    Runnable r2 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj2锁..."</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (obj2) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj2锁!"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj1锁..."</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (obj1) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj1锁!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">new</span> Thread(r1).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(r2).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h2><p>使用CAS有个缺点就是ABA问题，ABA问题描述如下：</p>
-<ul>
-<li>有一个变量count=10，三个线程A,B,C</li>
-<li>线程A和线程C同时读到count变量，所以线程A和线程C的内存值和预期值都为10,</li>
-<li>此时线程A使用CAS将count修改为100</li>
-<li>修改完后，线程B进来了，读取到count的值为100（内存值和预期值都是100），将count修改为10</li>
-<li>线程C拿到执行权，发现内存值是10，预期值也是10，将count修改为11</li>
-</ul>
-<p>这样 线程C无法得知线程A和线程B修改过count的值，是有风险的</p>
-<h3 id="解决ABA问题"><a href="#解决ABA问题" class="headerlink" title="解决ABA问题"></a>解决ABA问题</h3><p>可以使用JDK提供的AtomicStampedReference和AtomicMarkableReference类</p>
-<p>简单来说就是给这个对象提供一个版本，并且这个版本如果被修改了，这个版本号是自动更新的<br>多了这个版本号比较，就不会存在ABA的问题了</p>
-<h2 id="LongAdder性能"><a href="#LongAdder性能" class="headerlink" title="LongAdder性能"></a>LongAdder性能</h2><p>LongAdder性能要比AtomicLong好，它减少乐观锁的重试次数</p>
-<h2 id="单例模式的线程安全问题"><a href="#单例模式的线程安全问题" class="headerlink" title="单例模式的线程安全问题"></a>单例模式的线程安全问题</h2><p>单例模式分为饿汉式和懒汉式</p>
-<ul>
-<li>懒汉式指单例实例在第一次使用时被创建</li>
-<li>饿汉式单例实例在类加载时进行创建（放在堆中，浪费内存）</li>
-</ul>
+<h3 id="Java类初始化顺序"><a href="#Java类初始化顺序" class="headerlink" title="Java类初始化顺序"></a>Java类初始化顺序</h3><p>父类静态代码块，父类静态成员字段（两者并列优先级） -&gt; 子类静态代码块，子类静态成员字段 -&gt; 父类普通代码块，父类普通成员字段 -&gt; 父类构造函数 -&gt; 子类普通代码块，子类普通成员 -&gt; 子类构造函数</p>
+<h3 id="写一个认为最好的单例模式"><a href="#写一个认为最好的单例模式" class="headerlink" title="写一个认为最好的单例模式"></a>写一个认为最好的单例模式</h3><p>饿汉，懒汉</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在类装载时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample2</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample2 instance = <span class="keyword">new</span> SingletonExample2();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在第一次使用时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample1</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample1 instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingletonExample1();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>饿汉式是线程安全的，单例对象static修饰，懒汉式是线程不安全的，当然也可以在懒汉式的工厂方法中添加synchronized关键字，但是这样是不推荐的，同一时间段只允许一个线程访问，极大限制CPU资源，性能极差</p>
-<h2 id="线程类的构造方法、静态块是被哪个线程调用的"><a href="#线程类的构造方法、静态块是被哪个线程调用的" class="headerlink" title="线程类的构造方法、静态块是被哪个线程调用的"></a>线程类的构造方法、静态块是被哪个线程调用的</h2><p>线程类的构造方法、静态块是被new这个线程类所在的线程所调用的，而run方法里面的代码才是被线程自身所调用的</p>
-<h2 id="同步方法和同步块，哪个是更好的选择"><a href="#同步方法和同步块，哪个是更好的选择" class="headerlink" title="同步方法和同步块，哪个是更好的选择"></a>同步方法和同步块，哪个是更好的选择</h2><p>同步块，这意味着同步块之外的代码是异步执行的，这比同步整个方法更提升代码的效率，同步范围越小越好</p>
-<h2 id="写一个生产者消费者模式"><a href="#写一个生产者消费者模式" class="headerlink" title="写一个生产者消费者模式"></a>写一个生产者消费者模式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerAndConsumer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FULL = <span class="number">10</span>; <span class="comment">// 队列容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object LOCK = <span class="keyword">new</span> Object(); <span class="comment">// 锁对象</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProducerAndConsumer pac = <span class="keyword">new</span> ProducerAndConsumer();</span><br><span class="line">        ExecutorService es = Executors.newCachedThreadPool();</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (LOCK) &#123;</span><br><span class="line">                    <span class="keyword">while</span> (count == FULL) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            LOCK.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    count++;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"生产者生产，目前总共有"</span> + count);</span><br><span class="line">                    LOCK.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (LOCK) &#123;</span><br><span class="line">                    <span class="keyword">while</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            LOCK.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    count--;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"消费者消费，目前总共有"</span> + count);</span><br><span class="line">                    LOCK.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>双检锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="B树和B-树是解决什么样的问题的，怎样演化过来，之间区别"><a href="#B树和B-树是解决什么样的问题的，怎样演化过来，之间区别" class="headerlink" title="B树和B+树是解决什么样的问题的，怎样演化过来，之间区别"></a>B树和B+树是解决什么样的问题的，怎样演化过来，之间区别</h3><p>B树：平衡多叉查找树，减少遍历高度，它每个节点既放了key也放了value<br>B+树：每个节点只放key值，value值放在叶子节点，叶子节点的value值增加指向相邻节点的指针</p>
+<h3 id="String-a-“Hello”相关问题"><a href="#String-a-“Hello”相关问题" class="headerlink" title="String a = “Hello”相关问题"></a>String a = “Hello”相关问题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String a = <span class="string">"ab"</span>;</span><br><span class="line">    String b = <span class="string">"a"</span> + <span class="string">"b"</span>;</span><br><span class="line">    System.out.println(a == b);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    上面结果是返回true的，首先String a = "ab"的全过程是这样的：</span></span><br><span class="line"><span class="comment">       它会首先创建"ab"常量存放到常量池，然后该字面量对应的java.lang.String对象会存放在堆中，它在一次运行中只有一份，不会被重复创建</span></span><br><span class="line"><span class="comment">    然后String b = "a" + "b"的时候，经过优化后实质上是String b = "ab"</span></span><br><span class="line"><span class="comment">    在常量池找到是否有对应常量，有的话就令b指向该常量对应的String对象，所以判断的时候，a==b是返回true的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String c = <span class="keyword">new</span> String(<span class="string">"ab"</span>);</span><br><span class="line">    String d = <span class="keyword">new</span> String(<span class="string">"a"</span> + <span class="string">"b"</span>);</span><br><span class="line">    System.out.println(c == d);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    这里返回的结果是false，因为c指向的String对象与d指向的String对象不是同一个对象，虽然它们同样都指向常量池的"ab"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="int-a-1-是原子操作"><a href="#int-a-1-是原子操作" class="headerlink" title="int a = 1 是原子操作"></a>int a = 1 是原子操作</h3><h3 id="可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"><a href="#可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决" class="headerlink" title="可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"></a>可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决</h3><p>for循环中直接删除ArrayList的特定元素是错的，不同的for循环会发生不同的错误，泛型for会抛出ConcurrentModificationException错误（跟iterator迭代调用remove方法报的错是一致的），普通for想要删除集合中<strong>重复且连续的元素，只能删除第一个</strong>，因为remove(Object)方法调用fastRemove方法，执行System.arraycopy方法，导致删除元素时涉及到数组元素的移动，将后一个元素移动到当前位置，导致下一次遍历的时候，这个移动到当前位置的元素不会被遍历到，所以不会被删除</p>
+<h3 id="hashCode-和equals"><a href="#hashCode-和equals" class="headerlink" title="hashCode()和equals()"></a>hashCode()和equals()</h3><h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>hashCode()方法和equals()方法的作用其实一样，在Java里都是用来对比两个对象是否相等一致</p>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>重写的equals（）里一般比较的比较全面比较复杂，这样效率就比较低，而利用hashCode()进行对比，则只要生成一个hash值进行比较就可以了，效率很高</p>
+<h4 id="hashCode-效率高那还需要equals-干什么"><a href="#hashCode-效率高那还需要equals-干什么" class="headerlink" title="hashCode()效率高那还需要equals()干什么"></a>hashCode()效率高那还需要equals()干什么</h4><p>因为hashCode()并不是完全可靠，有时候不同的对象他们生成的hashcode也会一样</p>
+<h4 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h4><p>对于需要大量并且快速的对比的话如果都用equals()去做显然效率太低，所以解决方式是，每当需要对比的时候，首先用hashCode()去对比，如果hashCode()不一样，则表示这两个对象肯定不相等（也就是不必再用equals()去再对比了）,如果hashCode()相同，此时再对比他们的equals()，如果equals()也相同，则表示这两个对象是真的相同了，这样既能大大提高了效率也保证了对比的绝对正确性</p>
+<h3 id="泛型通配符"><a href="#泛型通配符" class="headerlink" title="泛型通配符"></a>泛型通配符</h3><p>常用的T,E,K,V,?，只是编码时约定俗成的东西</p>
+<ul>
+<li>?：不确定的java类型</li>
+<li>T：type，具体的一个Java类型</li>
+<li>K V：key value</li>
+<li>E：element</li>
+</ul>
+<p>上边界限定通配符： <code>List&lt;? extends Father&gt;</code> ，表示它的类型是Father类型的<strong>某种</strong>子类，它不关心是什么子类，但是只知道是Father的子类，因为具体类型确定不了，所以不能够往其中添加元素（所有参数为泛型类型的方法都不能使用），但是可以读取元素<br>下边界限定通配符： <code>List&lt;? super Son&gt;</code> ，表示它的类型是Son的<strong>某种</strong>父类，虽然不知道具体父类是什么，但还是可以往其中添加Son及其子元素，但是不能读取这些元素<br>无边界通配符： <code>List&lt;?&gt;</code> 它的类型是某种类型，但不知道具体类型，不能添加元素</p>
+<p>综上：</p>
+<ul>
+<li><code>List&lt;? extends Father&gt;</code>：不能添加元素(只能添加null)，可以读取元素(调用的方法为具体子类自身的方法)</li>
+<li><code>List&lt;? super Son&gt;</code>：不能读取元素，可以添加元素，可以添加Son及其子类</li>
+<li><code>List&lt;?&gt;</code>：不能读取也不能添加</li>
+</ul>
+<h3 id="Unicdoe和UTF-8"><a href="#Unicdoe和UTF-8" class="headerlink" title="Unicdoe和UTF-8"></a>Unicdoe和UTF-8</h3><p>Unicode是<strong>字符集</strong>：为每一个字符分配一个唯一的ID（码位）（在内存中保存时用的是Unicode）<br>UTF-8是<strong>编码规则</strong>：将码位转换为字节序列的规则（在硬盘存储和网络传输中，常用变长编码方式UTF-8）<br>它把Unicode的字符集编码为1 ~ 4个字节的序列<br>汉字在UTF-8占用3字节，在Unicode占用2字节（所以char类型可以保存汉字）</p>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul>
+<li>成员内部类<strong>可以被权限修饰符(eg. <code>public,private</code> 等)所修饰</strong></li>
+<li>成员内部类<strong>可以访问外部类的所有成员,（包括 <code>private</code> ）成员</strong>（只要名字没有被覆盖，直接使用外部类的方法成员的名字即可）</li>
+<li>成员内部类是<strong>默认包含了一个指向外部类对象的引用</strong></li>
+<li>如同使用 <code>this</code> 一样，<strong>当成员名或方法名发生覆盖时，可以使用外部类的名字加.this指定访问外部类成员</strong>。如： <code>Outer.this.name</code></li>
+<li>成员内部类<strong>不可以定义 <code>static</code> 成员</strong></li>
+<li><strong>成员内部类创建语法</strong>：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Outer outer=<span class="keyword">new</span> Outer();</span><br><span class="line">Outer.Inner inner=outer.new Inner();</span><br></pre></td></tr></table></figure>
+<h3 id="OR-NOT-AND优先级"><a href="#OR-NOT-AND优先级" class="headerlink" title="OR NOT AND优先级"></a>OR NOT AND优先级</h3><p>优先级：not&gt;and&gt;or</p>
+<h3 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h3><p><img src="https://i.imgur.com/hIFsPrY.png" alt=""></p>
+<h3 id="Collection和Collections区别"><a href="#Collection和Collections区别" class="headerlink" title="Collection和Collections区别"></a>Collection和Collections区别</h3><p>Collection是一个集合接口，提供对集合进行基本操作的通用接口方法，其直接继承接口有List，Queue和Set<br>Collections是集合类的一个工具类，提供一系列静态方法，用于对集合元素进行排序，搜索以及线程安全等操作</p>
+<h3 id="三个具体Map的用处"><a href="#三个具体Map的用处" class="headerlink" title="三个具体Map的用处"></a>三个具体Map的用处</h3><p>如果只需要在Map中插入，删除和定位，则HashMap是最好选择<br>如果需要一个有序的key集合进行遍历，则使用TreeMap会更好，TreeMap默认使用自然顺序，可以传入Comparator实现排序<br>如果需要一个LRU算法的Map，则使用LinkedHashMap，它基于LRU算法，插入的时候会根据插入顺序形成链表，遍历的时候从表头输出到表尾，get方法会导致LinkedHashMap的顺序发生变化，get到的算法会重新插入到队尾</p>
+<h3 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h3><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
+<p><strong>派生于Error或RuntimeException类的所有异常称为非受查异常，所有其他异常称为受查异常，一个方法必须声明所有可能抛出的受查异常，非受查异常要么不可控制（Error），要么避免发生（RuntimeException）</strong></p>
+<p>RuntimeException：</p>
+<ul>
+<li>错误的类型转换</li>
+<li>数组访问越界</li>
+<li>访问null指针</li>
+</ul>
+<p><strong>对于受查异常，子类可以选择抛出父类throws的异常，也可以不抛出，但不能抛出父类没有throws的异常</strong><br><strong>对于非受查异常，子类可以任意抛出</strong></p>
+<p>（线程的run方法不能抛出异常，只能try catch处理）</p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>byte,boolean是1字节<br>short,char是2字节<br>int,float是4字节<br>long,double是8字节</p>
+<h3 id="lang和util"><a href="#lang和util" class="headerlink" title="lang和util"></a>lang和util</h3><p>lang是基本包，不需要import，它主要有包装类，枚举类，线程相关的类，串相关的类，ThreadLocal，Object，Comparable，Iterable，System，Math，异常类，反射类等</p>
+<p>util是工具包，有锁，线程，集合类等类</p>
+<h3 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h3><p><strong>字母，下划线或美元符号开头</strong></p>
+<h3 id="protected和default"><a href="#protected和default" class="headerlink" title="protected和default"></a>protected和default</h3><ul>
+<li>同一包都可以访问proteceted和default</li>
+<li>不同包的子孙不能访问default，不同包的子孙可以访问protected</li>
+</ul>
+<h3 id="LinkedList-for循环问题"><a href="#LinkedList-for循环问题" class="headerlink" title="LinkedList for循环问题"></a>LinkedList for循环问题</h3><p>for循环每次遍历都是从第一个节点开始的，性能很差，最好用iterator</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>一个对象数据，在反序列化过程中，如果序列化串中的serialVersionUID与当前对象值不同，则反序列化失败，否则成功</p>
+<p>如果serialVersionUID没有显式生成，系统就会自动生成一个。生成的输入有：类名、类及其属性修饰符、接口及接口顺序、属性、静态初始化、构造器。任何一项的改变都会导致serialVersionUID变化</p>
+<p><strong>如果我们保持了serialVersionUID的一致，则在反序列化时，对于新增的字段会填入默认值null（int的默认值0）,对于减少的字段则直接忽略</strong></p>
+<p><strong>如果父类序列化了，子类会继承父类的序列化，子类无需添加序列化接口（子类对父类的属性和自身的属性都会被序列化</strong><br><strong>如果父类没有序列化，子类序列化了，子类中的属性能正常序列化，但父类的属性会丢失，不能序列化</strong></p>
+<h3 id="Main-null-staticMethod"><a href="#Main-null-staticMethod" class="headerlink" title="((Main)null).staticMethod()"></a>((Main)null).staticMethod()</h3><p>这种调用是可以的，null会被强制转换为Main类型（而不是Main实例），然后调用Main类型的静态方法即可<br>当调用的是实例方法，则会报空指针异常</p>
+<h3 id="clone方法"><a href="#clone方法" class="headerlink" title="clone方法"></a>clone方法</h3><p>Object的clone方法是浅拷贝，对于引用对象，指向的仍然是同一个对象</p>
+<h3 id="hashCode与equals"><a href="#hashCode与equals" class="headerlink" title="hashCode与equals"></a>hashCode与equals</h3><p>hashCode()方法和equals()方法的作用其实一样，在Java里都是用来对比两个对象是否相等一致</p>
+<p>重写equals要考虑得比较全面复杂，效率会低，而hashCode()只需要比较hash值，效率会高<br>hashCode不完全可靠，有时候不同对象也会有相同的hashCode</p>
+<ul>
+<li>equals相等，hashCode一定相等，反之不一定</li>
+</ul>
+<p>需要对比的时候，首先使用hashCode，如果相等再使用equals，这样效率会高</p>
+<ul>
+<li>只要重写equals，就必须重写hashCode</li>
+<li>Set存储的对象必须重写equals和hashCode（Set存储不重复的对象，依据hashCode和equals判断）</li>
+<li>自定义对象作为Map的键，则必须重写hashCode和equals</li>
+</ul>
+
           
         
       
@@ -1174,20 +1463,23 @@
 </strong>而将key的哈希值的高位也做了运算<strong>（哈希值低位与高位做了异或运算，使得在做&amp;运算时，低位实际上是高低位的结合），</strong>这就增加了随机性，减少碰撞冲突的可能性**</p>
 <h4 id="我用LinkedList代替数组结构可以么-为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？"><a href="#我用LinkedList代替数组结构可以么-为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？" class="headerlink" title="我用LinkedList代替数组结构可以么?为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？"></a>我用LinkedList代替数组结构可以么?为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？</h4><p>可以，因为LinkedList效率没有数组高，通过哈希函数计算出位置后，需要随机访问该位置，LinkedList不支持随机访问</p>
 <p>ArrayList虽然支持随机访问，但是ArrayList的扩容机制不是自己定义的，它内部的扩容机制是1.5倍扩容，HashMap数组扩容刚好是2的次幂，在做取模运算的效率高</p>
-<h4 id="get-put过程"><a href="#get-put过程" class="headerlink" title="get/put过程"></a>get/put过程</h4><ol>
-<li>put主要调用putVal方法，先计算哈希值并传入给putVal方法</li>
+<h4 id="get-put过程（请把每个字都记住）"><a href="#get-put过程（请把每个字都记住）" class="headerlink" title="get/put过程（请把每个字都记住）"></a>get/put过程（请把每个字都记住）</h4><ol>
+<li>put主要调用putVal方法，先计算哈希值（哈希的高16位与低16位相异或作为低16位，高16位是原来的高16位）并传入给putVal方法</li>
 <li>putVal方法先判断table是否为null或者table的容量是否为0，如果是则使用resize函数初始化它</li>
-<li>然后再判断是否碰撞，没有碰撞就直接放入bucket</li>
-<li>如果碰撞，就顺着链表或红黑树查找并插入</li>
-<li>如果是链表，插入后判断链表长度是否大于等于8，是的话就转为红黑树</li>
-<li>如果节点已存在就更新value并返回旧value</li>
+<li>然后再判断是否碰撞，没有碰撞就创建新的结点（newNode函数），直接放入bucket</li>
+<li>如果碰撞，首先判断桶中元素的hash值与待插入元素是否相同，相同再判断key是否相等（==判断或key.equals判断，只要有个返回true则返回true），相等则更新该key对应的value，并返回旧的value <code>if (p.hash == hash &amp;&amp; ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</code></li>
+<li>当桶中key不相等时，就开始沿next域往下寻找，如果是红黑树就按红黑树方式查找，如果是链表就按照链表方式寻找</li>
+<li>如果判断存在该key（第4点的判断方法），则更新新值返回旧值</li>
+<li>如果找到末尾都没找到相等的key，就在末尾处插入该key的结点，然后判断结点个数是否大于8，大于8就转为红黑树</li>
 <li>如果表长度大于容量*装载因子，则调用resize扩容</li>
+<li>它还有afterNodeAccess和afterNodeInsertion方法，在HashMap中是空方法，主要用在LinkedHashMap访问结点后的更新链表</li>
 </ol>
 <p>&nbsp;</p>
 <ol>
 <li>get主要调用getNode方法，先计算哈希值传入给getNode方法</li>
 <li>getNode方法通过对哈希值取模计算出位置，如果直接命中则直接返回，如果桶为null或者table为null则返回null</li>
 <li>否则顺着链表或红黑树去查找，直到找到就返回</li>
+<li>命中的判定方法同put的方法 <code>if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</code></li>
 </ol>
 <h4 id="HashMap红黑树连珠炮"><a href="#HashMap红黑树连珠炮" class="headerlink" title="HashMap红黑树连珠炮"></a>HashMap红黑树连珠炮</h4><h5 id="Java-8的HashMap的更改"><a href="#Java-8的HashMap的更改" class="headerlink" title="Java 8的HashMap的更改"></a>Java 8的HashMap的更改</h5><ul>
 <li>数组+链表结构改为数组+链表+红黑树</li>
@@ -1334,7 +1626,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/java基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -1353,7 +1645,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/01/java基础/" itemprop="url">Java基础（持续更新）</a></h1>
+                <a class="post-title-link" href="/2019/09/01/Linux/" itemprop="url">Linux（持续更新）</a></h1>
         
 
         <div class="post-meta">
@@ -1405,7 +1697,7 @@
 
           
           
-             <span id="/2019/09/01/java基础/" class="leancloud_visitors" data-flag-title="Java基础（持续更新）">
+             <span id="/2019/09/01/Linux/" class="leancloud_visitors" data-flag-title="Linux（持续更新）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1438,121 +1730,80 @@
       
         
           
-            <h1 id="java基础"><a href="#java基础" class="headerlink" title="java基础"></a>java基础</h1><h3 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a>==和equals</h3><p>==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同<br>equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的</p>
-<h3 id="两个对象的hashCode-相同，则equals-也一定为true吗"><a href="#两个对象的hashCode-相同，则equals-也一定为true吗" class="headerlink" title="两个对象的hashCode()相同，则equals()也一定为true吗"></a>两个对象的hashCode()相同，则equals()也一定为true吗</h3><p>不对，哈希值相同，equals不一定为true</p>
-<h3 id="final作用"><a href="#final作用" class="headerlink" title="final作用"></a>final作用</h3><p>修饰类则为最终类，不能被继承<br>修饰方法不能被重写<br>修饰的变量为常量，必须初始化，初始化后不能被修改</p>
-<h3 id="重载，重写"><a href="#重载，重写" class="headerlink" title="重载，重写"></a>重载，重写</h3><p>重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！<br>重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。</p>
-<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
-<li>继承关系</li>
-<li>子类重写父类方法</li>
-<li>父类引用指向子类（向上转型</li>
+            <h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h2><ul>
+<li>cat：第一行开始显示，显示所有内容</li>
+<li>tac：从最后一行倒序显示所有内容</li>
+<li>more：根据窗口大小一页一页显示内容</li>
+<li>less：和more相似，但可以往前翻页，可以搜索字符</li>
+<li>head：只显示头几行</li>
+<li>tail：只显示最后几行</li>
+<li>nl：类型于cat -n，显示时输出行号</li>
 </ul>
-<p>成员变量：编译看父类，运行看父类<br>成员方法：编译看父类，运行看子类（动态绑定）<br>静态方法：编译看父类，运行看父类</p>
-<h3 id="java-中的-Math-round-1-5-等于多少？"><a href="#java-中的-Math-round-1-5-等于多少？" class="headerlink" title="java 中的 Math.round(-1.5) 等于多少？"></a>java 中的 Math.round(-1.5) 等于多少？</h3><p>等于 -1，正数与负数相反</p>
-<h3 id="抽象类，接口"><a href="#抽象类，接口" class="headerlink" title="抽象类，接口"></a>抽象类，接口</h3><p>抽象类和接口的区别：</p>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p>对于ext4的文件系统，主要有2部分组成：小部分保存文件的inode信息，大部分保存block<br>检索时，目录中只设置文件名和指向相应索引结点的指针，inode保存指向对于block的指针和一些文件信息（如访问计数，类型，长度，存取时间等）</p>
 <ul>
-<li>抽象类本质是一个类，其方法和域可以<strong>有类所拥有的修饰符</strong>，而接口域默认是<strong>static final</strong>，方法默认是<strong>abstract public</strong>且不可修改，方法<strong>可以加static修饰符</strong>，但这个时候它是接口方法，<strong>必须要有实体</strong></li>
-<li>抽象类只能<strong>单继承</strong>，接口可以<strong>多实现</strong></li>
-<li><p>他们<strong>均不可以实例化</strong>，它们均<strong>不可以加上final修饰类</strong></p>
-</li>
-<li><p>设计思想：</p>
+<li>ln：命令默认产生硬链接，ln -s创建软链接</li>
+</ul>
+<p>软链接和硬链接在原理上最主要的不同在于：硬链接不会建立自己的 inode 索引和 block（数据块），而是<strong>直接指向源文件的 inode 信息和 block</strong>，所以硬链接和源文件的 inode 号是一致的；而<strong>软链接会真正建立自己的 inode 索引和 block</strong>，所以软链接和源文件的 inode 号是不一致的，而且<strong>在软链接的 block 中，写的不是真正的数据，而仅仅是源文件的文件名及 inode 号</strong></p>
+<p>软链接</p>
 <ul>
-<li>抽象类是子类需要某些属性和具体的特殊行为，所以才需要继承抽象类</li>
-<li>接口是一种行为的规范</li>
+<li>软链接是存放另一个文件的路径的形式存在</li>
+<li>软链接可以跨文件系统，硬链接不可以</li>
+<li>软链接可以对目录链接</li>
+<li>l标识，权限777，真正权限取决源文件</li>
+<li>删除源文件软链接只是找不到了目标文件，它的引用计数和源文件一致</li>
 </ul>
-</li>
-<li>实现上来说：<ul>
-<li>抽象类的实现使用extends，不能有多继承</li>
-<li>接口的实现使用implements，可以有多实现</li>
-</ul>
-</li>
-<li>实例化：<ul>
-<li>均不可以实例化，均不可以加上final修饰类</li>
-</ul>
-</li>
-<li>构造函数：<ul>
-<li>抽象类可以写构造函数</li>
-<li>接口不能有</li>
-</ul>
-</li>
-<li>方法访问修饰符：<ul>
-<li>抽象类的方法修饰符可以任意</li>
-<li>接口的方法默认是 <strong>public abstract</strong>且不可修改</li>
-<li>接口的方法可以加上static，这个时候必须要有实体</li>
-</ul>
-</li>
-<li>属性访问修饰符：<ul>
-<li>抽象类的属性可以有任何修饰符</li>
-<li>接口的属性默认是 <strong>public static final</strong> 且不可修改</li>
-</ul>
-</li>
-</ul>
-<p><strong>接口类只能声明方法和常量</strong></p>
+<p>硬链接</p>
 <ul>
-<li>在接口类中定义<code>int a = 123;</code>是允许的，但是实际a的类型是<code>public static final int</code></li>
-<li>接口类定义<code>int value()</code>也是允许的，但它实际类型是<code>abstract public int</code></li>
-<li>接口类可以定义静态方法</li>
+<li>硬链接以文件副本形式存在</li>
+<li>只有在同一文件系统才能创建</li>
+<li>不允许给目录链接</li>
+<li>删除一个硬链接文件不影响其他有相同inode号的文件</li>
+<li>硬链接是一种引用关系，一个源文件建立1个硬链接，引用计数加1，删除一个文件（硬链接文件或者源文件），引用计数减1，当引用计数为0时，真正删除文件</li>
 </ul>
-<h3 id="Java类初始化顺序"><a href="#Java类初始化顺序" class="headerlink" title="Java类初始化顺序"></a>Java类初始化顺序</h3><p>父类静态代码块，父类静态成员字段（两者并列优先级） -&gt; 子类静态代码块，子类静态成员字段 -&gt; 父类普通代码块，父类普通成员字段 -&gt; 父类构造函数 -&gt; 子类普通代码块，子类普通成员 -&gt; 子类构造函数</p>
-<h3 id="写一个认为最好的单例模式"><a href="#写一个认为最好的单例模式" class="headerlink" title="写一个认为最好的单例模式"></a>写一个认为最好的单例模式</h3><p>饿汉，懒汉</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在类装载时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample2</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample2 instance = <span class="keyword">new</span> SingletonExample2();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在第一次使用时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample1</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample1 instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingletonExample1();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>双检锁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> == instance) &#123;</span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="B树和B-树是解决什么样的问题的，怎样演化过来，之间区别"><a href="#B树和B-树是解决什么样的问题的，怎样演化过来，之间区别" class="headerlink" title="B树和B+树是解决什么样的问题的，怎样演化过来，之间区别"></a>B树和B+树是解决什么样的问题的，怎样演化过来，之间区别</h3><p>B树：平衡多叉查找树，减少遍历高度，它每个节点既放了key也放了value<br>B+树：每个节点只放key值，value值放在叶子节点，叶子节点的value值增加指向相邻节点的指针</p>
-<h3 id="String-a-“Hello”相关问题"><a href="#String-a-“Hello”相关问题" class="headerlink" title="String a = “Hello”相关问题"></a>String a = “Hello”相关问题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    String a = <span class="string">"ab"</span>;</span><br><span class="line">    String b = <span class="string">"a"</span> + <span class="string">"b"</span>;</span><br><span class="line">    System.out.println(a == b);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    上面结果是返回true的，首先String a = "ab"的全过程是这样的：</span></span><br><span class="line"><span class="comment">       它会首先创建"ab"常量存放到常量池，然后该字面量对应的java.lang.String对象会存放在堆中，它在一次运行中只有一份，不会被重复创建</span></span><br><span class="line"><span class="comment">    然后String b = "a" + "b"的时候，经过优化后实质上是String b = "ab"</span></span><br><span class="line"><span class="comment">    在常量池找到是否有对应常量，有的话就令b指向该常量对应的String对象，所以判断的时候，a==b是返回true的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    String c = <span class="keyword">new</span> String(<span class="string">"ab"</span>);</span><br><span class="line">    String d = <span class="keyword">new</span> String(<span class="string">"a"</span> + <span class="string">"b"</span>);</span><br><span class="line">    System.out.println(c == d);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    这里返回的结果是false，因为c指向的String对象与d指向的String对象不是同一个对象，虽然它们同样都指向常量池的"ab"</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="int-a-1-是原子操作"><a href="#int-a-1-是原子操作" class="headerlink" title="int a = 1 是原子操作"></a>int a = 1 是原子操作</h3><h3 id="可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"><a href="#可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决" class="headerlink" title="可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"></a>可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决</h3><p>for循环中直接删除ArrayList的特定元素是错的，不同的for循环会发生不同的错误，泛型for会抛出ConcurrentModificationException错误（跟iterator迭代调用remove方法报的错是一致的），普通for想要删除集合中<strong>重复且连续的元素，只能删除第一个</strong>，因为remove(Object)方法调用fastRemove方法，执行System.arraycopy方法，导致删除元素时涉及到数组元素的移动，将后一个元素移动到当前位置，导致下一次遍历的时候，这个移动到当前位置的元素不会被遍历到，所以不会被删除</p>
-<h3 id="hashCode-和equals"><a href="#hashCode-和equals" class="headerlink" title="hashCode()和equals()"></a>hashCode()和equals()</h3><h4 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h4><p>hashCode()方法和equals()方法的作用其实一样，在Java里都是用来对比两个对象是否相等一致</p>
-<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>重写的equals（）里一般比较的比较全面比较复杂，这样效率就比较低，而利用hashCode()进行对比，则只要生成一个hash值进行比较就可以了，效率很高</p>
-<h4 id="hashCode-效率高那还需要equals-干什么"><a href="#hashCode-效率高那还需要equals-干什么" class="headerlink" title="hashCode()效率高那还需要equals()干什么"></a>hashCode()效率高那还需要equals()干什么</h4><p>因为hashCode()并不是完全可靠，有时候不同的对象他们生成的hashcode也会一样</p>
-<h4 id="使用规则"><a href="#使用规则" class="headerlink" title="使用规则"></a>使用规则</h4><p>对于需要大量并且快速的对比的话如果都用equals()去做显然效率太低，所以解决方式是，每当需要对比的时候，首先用hashCode()去对比，如果hashCode()不一样，则表示这两个对象肯定不相等（也就是不必再用equals()去再对比了）,如果hashCode()相同，此时再对比他们的equals()，如果equals()也相同，则表示这两个对象是真的相同了，这样既能大大提高了效率也保证了对比的绝对正确性</p>
-<h3 id="泛型通配符"><a href="#泛型通配符" class="headerlink" title="泛型通配符"></a>泛型通配符</h3><p>常用的T,E,K,V,?，只是编码时约定俗成的东西</p>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><p>对于 <code>- rw- rw- r-- 1 cat cat 0 Aug 9 21:27 CAT1</code> 的文件</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">d</th>
+<th style="text-align:left">rw-</th>
+<th style="text-align:left">rw-</th>
+<th style="text-align:left">r–</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">cat</th>
+<th style="text-align:left">cat</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">Aug 9 21:27</th>
+<th style="text-align:left">CAT 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">目录文件</td>
+<td style="text-align:left">用户权限</td>
+<td style="text-align:left">组权限</td>
+<td style="text-align:left">其他用户权限</td>
+<td style="text-align:left">文件链接数</td>
+<td style="text-align:left">用户ID</td>
+<td style="text-align:left">组ID</td>
+<td style="text-align:left">文件大小</td>
+<td style="text-align:left">文件创建日期时间</td>
+<td style="text-align:left">文件名</td>
+</tr>
+</tbody>
+</table>
+<p>Linux中，每个文件权限都有可读(r)，可写(w)，可执行(x)三种权限，对于权限数值为：<strong>4,2,1</strong></p>
+<p>文件类型</p>
 <ul>
-<li>?：不确定的java类型</li>
-<li>T：type，具体的一个Java类型</li>
-<li>K V：key value</li>
-<li>E：element</li>
+<li>-：一般文件（硬链接）</li>
+<li>l：符号文件（软链接）</li>
+<li>d：目录文件</li>
+<li>c：字符设备文件</li>
+<li>p：命名管道</li>
+<li>s：套接字</li>
+<li>b：块设备特殊文件</li>
 </ul>
-<p>上边界限定通配符： <code>List&lt;? extends Father&gt;</code> ，表示它的类型是Father类型的<strong>某种</strong>子类，它不关心是什么子类，但是只知道是Father的子类，因为具体类型确定不了，所以不能够往其中添加元素（所有参数为泛型类型的方法都不能使用），但是可以读取元素<br>下边界限定通配符： <code>List&lt;? super Son&gt;</code> ，表示它的类型是Son的<strong>某种</strong>父类，虽然不知道具体父类是什么，但还是可以往其中添加Son及其子元素，但是不能读取这些元素<br>无边界通配符： <code>List&lt;?&gt;</code> 它的类型是某种类型，但不知道具体类型，不能添加元素</p>
-<p>综上：</p>
-<ul>
-<li><code>List&lt;? extends Father&gt;</code>：不能添加元素(只能添加null)，可以读取元素(调用的方法为具体子类自身的方法)</li>
-<li><code>List&lt;? super Son&gt;</code>：不能读取元素，可以添加元素，可以添加Son及其子类</li>
-<li><code>List&lt;?&gt;</code>：不能读取也不能添加</li>
-</ul>
-<h3 id="Unicdoe和UTF-8"><a href="#Unicdoe和UTF-8" class="headerlink" title="Unicdoe和UTF-8"></a>Unicdoe和UTF-8</h3><p>Unicode是<strong>字符集</strong>：为每一个字符分配一个唯一的ID（码位）（在内存中保存时用的是Unicode）<br>UTF-8是<strong>编码规则</strong>：将码位转换为字节序列的规则（在硬盘存储和网络传输中，常用变长编码方式UTF-8）<br>它把Unicode的字符集编码为1 ~ 4个字节的序列<br>汉字在UTF-8和Unicode中都是占用3字节</p>
-<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul>
-<li>成员内部类<strong>可以被权限修饰符(eg. <code>public,private</code> 等)所修饰</strong></li>
-<li>成员内部类<strong>可以访问外部类的所有成员,（包括 <code>private</code> ）成员</strong>（只要名字没有被覆盖，直接使用外部类的方法成员的名字即可）</li>
-<li>成员内部类是<strong>默认包含了一个指向外部类对象的引用</strong></li>
-<li>如同使用 <code>this</code> 一样，<strong>当成员名或方法名发生覆盖时，可以使用外部类的名字加.this指定访问外部类成员</strong>。如： <code>Outer.this.name</code></li>
-<li>成员内部类<strong>不可以定义 <code>static</code> 成员</strong></li>
-<li><strong>成员内部类创建语法</strong>：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Outer outer=<span class="keyword">new</span> Outer();</span><br><span class="line">Outer.Inner inner=outer.new Inner();</span><br></pre></td></tr></table></figure>
-<h3 id="OR-NOT-AND优先级"><a href="#OR-NOT-AND优先级" class="headerlink" title="OR NOT AND优先级"></a>OR NOT AND优先级</h3><p>优先级：not&gt;and&gt;or</p>
-<h3 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h3><p><img src="https://i.imgur.com/hIFsPrY.png" alt=""></p>
-<h3 id="Collection和Collections区别"><a href="#Collection和Collections区别" class="headerlink" title="Collection和Collections区别"></a>Collection和Collections区别</h3><p>Collection是一个集合接口，提供对集合进行基本操作的通用接口方法，其直接继承接口有List，Queue和Set<br>Collections是集合类的一个工具类，提供一系列静态方法，用于对集合元素进行排序，搜索以及线程安全等操作</p>
-<h3 id="三个具体Map的用处"><a href="#三个具体Map的用处" class="headerlink" title="三个具体Map的用处"></a>三个具体Map的用处</h3><p>如果只需要在Map中插入，删除和定位，则HashMap是最好选择<br>如果需要一个有序的key集合进行遍历，则使用TreeMap会更好，TreeMap默认使用自然顺序，可以传入Comparator实现排序<br>如果需要一个LRU算法的Map，则使用LinkedHashMap，它基于LRU算法，插入的时候会根据插入顺序形成链表，遍历的时候从表头输出到表尾，get方法会导致LinkedHashMap的顺序发生变化，get到的算法会重新插入到队尾</p>
-<h3 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h3><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
-<p><strong>派生于Error或RuntimeException类的所有异常称为非受查异常，所有其他异常称为受查异常，一个方法必须声明所有可能抛出的受查异常，非受查异常要么不可控制（Error），要么避免发生（RuntimeException）</strong></p>
-<p>RuntimeException：</p>
-<ul>
-<li>错误的类型转换</li>
-<li>数组访问越界</li>
-<li>访问null指针</li>
-</ul>
-<p><strong>对于受查异常，子类可以选择抛出父类throws的异常，也可以不抛出，但不能抛出父类没有throws的异常</strong><br><strong>对于非受查异常，子类可以任意抛出</strong></p>
-<p>（线程的run方法不能抛出异常，只能try catch处理）</p>
-<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>byte,boolean是1字节<br>short,char是2字节<br>int,float是4字节<br>long,double是8字节</p>
-<h3 id="lang和util"><a href="#lang和util" class="headerlink" title="lang和util"></a>lang和util</h3><p>lang是基本包，不需要import，它主要有包装类，枚举类，线程相关的类，串相关的类，ThreadLocal，Object，Comparable，Iterable，System，Math，异常类，反射类等</p>
-<p>util是工具包，有锁，线程，集合类等类</p>
-<h3 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h3><p><strong>字母，下划线或美元符号开头</strong></p>
-<h3 id="protected和default"><a href="#protected和default" class="headerlink" title="protected和default"></a>protected和default</h3><ul>
-<li>同一包都可以访问proteceted和default</li>
-<li>不同包的子孙不能访问default，不同包的子孙可以访问protected</li>
-</ul>
-<h3 id="LinkedList-for循环问题"><a href="#LinkedList-for循环问题" class="headerlink" title="LinkedList for循环问题"></a>LinkedList for循环问题</h3><p>for循环每次遍历都是从第一个节点开始的，性能很差，最好用iterator</p>
-
+<p><code>chmod</code> 可以如下方式执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">chmod [-cfvR] mode file</span><br><span class="line"></span><br><span class="line">mode格式如下：</span><br><span class="line">[ugoa...][[+-=][rwx]...][,...]</span><br><span class="line">u表示文件拥有者，g表示组，o表示其他用户，a表示这三者都是</span><br><span class="line">+表示增加权限，-表示取消权限，=表示唯一设定权限</span><br><span class="line"></span><br><span class="line">-c：若该文件权限确实已经更改，才显示其更改动作</span><br><span class="line">-f：若该文件权限无法被更改也不显示错误信息</span><br><span class="line">-v：显示权限变更的详细资料</span><br><span class="line">-R：递归更改其所有子目录的文件</span><br><span class="line"></span><br><span class="line">也可以使用数字</span><br><span class="line">chmod 777 file</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1972,7 +2223,7 @@
 </ul>
 <p>HashMap继承自父类AbstractMap，该抽象父类实现了一些常用的Map默认方法，唯一的抽象方法是entrySet()要求子类去具体实现<br>HashMap实现接口Serializable，Cloneable，Map&lt;K,V&gt;</p>
 <h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p>观察它的属性：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// 默认初始容量16</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;        <span class="comment">// 最大容量2^30</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;     <span class="comment">// 默认装填因子0.75</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;             <span class="comment">// 桶中链表个数大于8时，桶中链表会转换为树形结构（每次往桶添加元素都会判断桶的节点个数是否大于该值）</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;           <span class="comment">// 桶中树形转换成链表的桶节点个数</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;         <span class="comment">// 当容量大于等于64时才触发链表转红黑树</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;                        <span class="comment">// Node数组存储元素，长度为2的次幂</span></span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;             <span class="comment">// 具体元素存放集</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;                                 <span class="comment">// 存放的元素个数，数组+链表</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;                             <span class="comment">// 扩容和更改map的计数器</span></span><br><span class="line"><span class="keyword">int</span> threshold;                                      <span class="comment">// 数组临界值 = 容量 * 装载因子，当size&gt;threshold，就调用resize()方法扩容（扩大2倍）</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor;                             <span class="comment">// 装载因子，默认0.75，构造器可以修改</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>; <span class="comment">// 默认初始容量16</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>;        <span class="comment">// 最大容量2^30</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;     <span class="comment">// 默认装填因子0.75</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;             <span class="comment">// 桶中链表个数大于8时，桶中链表会转换为树形结构（每次往桶添加元素都会判断桶的节点个数是否大于该值）</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;           <span class="comment">// 桶中树形转换成链表的桶节点个数</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;         <span class="comment">// 当桶的容量大于等于64时（桶容量不包含链表）才触发链表转红黑树</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;                        <span class="comment">// Node数组存储元素，长度为2的次幂</span></span><br><span class="line"><span class="keyword">transient</span> Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;             <span class="comment">// 具体元素存放集</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size;                                 <span class="comment">// 存放的元素个数，数组+链表</span></span><br><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> modCount;                             <span class="comment">// 扩容和更改map的计数器</span></span><br><span class="line"><span class="keyword">int</span> threshold;                                      <span class="comment">// 数组临界值 = 容量 * 装载因子，当size&gt;threshold，就调用resize()方法扩容（扩大2倍）</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">float</span> loadFactor;                             <span class="comment">// 装载因子，默认0.75，构造器可以修改</span></span><br></pre></td></tr></table></figure>
 <h4 id="内部类Node-lt-K-V-gt"><a href="#内部类Node-lt-K-V-gt" class="headerlink" title="内部类Node&lt;K,V&gt;"></a>内部类Node&lt;K,V&gt;</h4><p>内部类主要有的属性是</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    Node(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.hash = hash;</span><br><span class="line">        <span class="keyword">this</span>.key = key;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> K <span class="title">getKey</span><span class="params">()</span>        </span>&#123; <span class="keyword">return</span> key; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">getValue</span><span class="params">()</span>      </span>&#123; <span class="keyword">return</span> value; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> key + <span class="string">"="</span> + value; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> V <span class="title">setValue</span><span class="params">(V newValue)</span> </span>&#123;</span><br><span class="line">        V oldValue = value;</span><br><span class="line">        value = newValue;</span><br><span class="line">        <span class="keyword">return</span> oldValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">this</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o <span class="keyword">instanceof</span> Map.Entry) &#123;</span><br><span class="line">            Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;</span><br><span class="line">            <span class="keyword">if</span> (Objects.equals(key, e.getKey()) &amp;&amp;</span><br><span class="line">                Objects.equals(value, e.getValue()))</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>Node实现了Map.Entry接口</strong><br>Java散列表是通过数组+链表实现的，next就是链表的next指针</p>
@@ -2031,7 +2282,7 @@
 <p><img src="https://i.imgur.com/zXlFqcO.jpg" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The head (eldest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The tail (youngest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br></pre></td></tr></table></figure>
 <p>它的每个Node&lt;K,V&gt;都多了一个before和after指针，用来指向按插入顺序先后的前后节点</p>
-<p><strong>get方法会导致LinkedHashMap的顺序发生变化</strong>，它的顺序是这样的：<strong>最常用的将其放在链表的最后，不常用的放在链表的最前，和LRU算法很类似</strong></p>
+<p><strong>如果设置了accessOrder参数，即使用 <code>LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 这个构造器（注意它的第二个参数是float不是double），put和get方法会导致LinkedHashMap的顺序发生变化</strong>，它的顺序是这样的：<strong>最常用的将其放在链表的最后，不常用的放在链表的最前，和LRU算法很类似</strong>（get方法通过重写来判断accessOrder，put方法通过其父类HashMap调用afterNodeAccess和afterNodeInsertion来重新设置结点，HashMap本身的这两个方法是空方法，实际调用的是LinkedHashMap的方法）</p>
 <h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>看了下注释 大概就是：</p>
 <ul>
 <li>底层是红黑树，实现NavigableMap接口，可以根据key<strong>自然排序</strong>，可以传递Comparator实现Map的排序</li>
@@ -2248,670 +2499,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/redis基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/05/redis基础/" itemprop="url">Redis基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:04:30+08:00">
-                2019-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/中间件/" itemprop="url" rel="index">
-                    <span itemprop="name">中间件</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/05/redis基础/" class="leancloud_visitors" data-flag-title="Redis基础">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Redis基础"><a href="#Redis基础" class="headerlink" title="Redis基础"></a>Redis基础</h1><blockquote>
-<p>参考：<br>1.<a href="https://www.jianshu.com/p/56999f2b8e3b" target="_blank" rel="noopener">https://www.jianshu.com/p/56999f2b8e3b</a><br>2.<a href="https://www.runoob.com/redis/redis-lists.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-lists.html</a><br>3.<a href="http://how2j.cn/k/redis/redis-download-install/1367.html" target="_blank" rel="noopener">http://how2j.cn/k/redis/redis-download-install/1367.html</a><br>4.<a href="https://www.cnblogs.com/EasonJim/p/7803067.html" target="_blank" rel="noopener">https://www.cnblogs.com/EasonJim/p/7803067.html</a><br>5.<a href="https://blog.csdn.net/f641385712/article/details/84679456" target="_blank" rel="noopener">https://blog.csdn.net/f641385712/article/details/84679456</a><br>6.<a href="https://blog.csdn.net/wwrzyy/article/details/85089463" target="_blank" rel="noopener">https://blog.csdn.net/wwrzyy/article/details/85089463</a></p>
-</blockquote>
-<p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源代码地址</a></p>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Redis的引入"><a href="#Redis的引入" class="headerlink" title="Redis的引入"></a>Redis的引入</h3><p>在我们日常的Java Web开发中，无不都是使用数据库来进行数据的存储，由于一般的系统任务中通常不会存在高并发的情况，所以这样看起来并没有什么问题，可是一旦涉及大数据量的需求，比如一些商品抢购的情景，或者是主页访问量瞬间较大的时候，单一使用数据库来保存数据的系统会因为面向磁盘，磁盘读/写速度比较慢的问题而存在严重的性能弊端，一瞬间成千上万的请求到来，需要系统在极短的时间内完成成千上万次的读/写操作，这个时候往往不是数据库能够承受的，极其容易造成数据库系统瘫痪，最终导致服务宕机的严重生产问题</p>
-<p>为了克服上述的问题，Java Web项目通常会引入NoSQL技术，这是一种基于内存的数据库，并且提供一定的持久化功能。<br><strong>Redis</strong>和<strong>MongoDB</strong>是当前使用最广泛的NoSQL，而就Redis技术而言，它的性能十分优越，可以<strong>支持每秒十几万此的读/写操作</strong>，其性能远超数据库，并且还支持<strong>集群、分布式、主从同步等</strong>配置，原则上可以无限扩展，让更多的数据存储在内存中，更让人欣慰的是它还<strong>支持一定的事务能力</strong>，这保证了高并发的场景下数据的安全和一致性</p>
-<h3 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h3><p>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。<br>换句话说，Redis就像是一个HashMap，不过不是在JVM中运行，而是以一个独立进程的形式运行。<br>一般说来，会被当作缓存使用。 因为它比数据库(mysql)快，所以常用的数据，可以考虑放在这里，这样就提高了性能。</p>
-<h3 id="Redis在Java-Web的应用"><a href="#Redis在Java-Web的应用" class="headerlink" title="Redis在Java Web的应用"></a>Redis在Java Web的应用</h3><ul>
-<li>存储<strong>缓存</strong>用的数据</li>
-<li>需要高速读/写的场合<strong>使用它快速读/写</strong></li>
-</ul>
-<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>如果日常数据库访问中，读操作比写操作要大得多，使用数据库时需要<strong>去磁盘把对应数据索引取出来</strong>，这是一个相对较慢的过程</p>
-<p>如果我们把数据放在Redis中，也就是直接放在内存中，让服务端<strong>直接去读取内存中的数据</strong>，这样速度明显会快上不少，并且会极大减小数据库的压力，但是使用内存进行数据存储开销也是比较大的，限于成本的原因，一般<strong>只是使用Redis存储一些常用和主要的数据</strong>，比如用户登录的信息等</p>
-<p>一般使用Redis进行存储时，我们需要从以下几个方面来考虑：</p>
-<ul>
-<li>业务数据常用吗？命中率如何？如果命中率低，就没有必要写入缓存</li>
-<li>该业务数据是读操作多，还是写操作多？如果写操作多，频繁需要写入数据库，也没有必要使用缓存</li>
-<li>业务数据大小如何？如果要存储几百兆字节的文件，会给缓存带来很大压力，这样也没有必要</li>
-</ul>
-<p><img src="https://i.imgur.com/RcRKPCL.png" alt=""></p>
-<p>对于写操作，要分别写入数据库和Redis，所以对写次数远大于读次数的情况，就没有必要使用Redis</p>
-<h4 id="快速读-写"><a href="#快速读-写" class="headerlink" title="快速读/写"></a>快速读/写</h4><p>在如今的互联网中，越来越多的存在高并发的情况，比如天猫双11、抢红包、抢演唱会门票等，这些场合都是在某一个瞬间或者是某一个短暂的时刻有成千上万的请求到达服务器，如果单纯的使用数据库来进行处理，就算不崩，也会很慢的，轻则造成用户体验极差用户量流失，重则数据库瘫痪，服务宕机，而这样的场合都是不允许的！</p>
-<ul>
-<li>当一个请求到达服务器，只是把业务数据在Redis上进行读写，而没有对数据库进行任何操作，这样就能大大提高读写的速度，从而满足高速响应的需求</li>
-<li>在一个请求操作完Redis的读/写后，会去判断该高速读/写业务是否结束，如果结束，就触发事件将Redis的缓存的数据以批量的形式一次性写入数据库，从而完成持久化的工作</li>
-</ul>
-<p><img src="https://i.imgur.com/DI2b1PX.png" alt=""></p>
-<h2 id="运行Redis"><a href="#运行Redis" class="headerlink" title="运行Redis"></a>运行Redis</h2><p><a href="https://github.com/microsoftarchive/redis/releases" target="_blank" rel="noopener">Windows的Redis安装</a></p>
-<p>在命令行参数运行redis-server.exe和redis-cli.exe即可，Linux也类似，略</p>
-<h2 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h2><p>Redis 的配置文件位于 Redis 安装目录下，文件名为 redis.conf(Windows 名为 redis.windows.conf)<br>可以通过 CONFIG 命令查看或设置配置项<br><code>CONFIG GET *</code> 获取所有配置项<br><code>CONFIG SET CONFIG_SETTING_NAME NEW_CONFIG_VALUE</code> 命令可以修改配置</p>
-<p>配置文件参数如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">配置项</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">daemonize no</td>
-<td style="text-align:left">Redis 默认不是以守护进程的方式运行，可以通过该配置项修改，使用 yes 启用守护进程（Windows 不支持守护线程的配置为 no ）</td>
-</tr>
-<tr>
-<td style="text-align:left">pidfile /var/run/redis.pid</td>
-<td style="text-align:left">当 Redis 以守护进程方式运行时，Redis 默认会把 pid 写入 /var/run/redis.pid 文件，可以通过 pidfile 指定</td>
-</tr>
-<tr>
-<td style="text-align:left">port 6379</td>
-<td style="text-align:left">指定 Redis 监听端口，默认端口为 6379</td>
-</tr>
-<tr>
-<td style="text-align:left">bind 127.0.0.1</td>
-<td style="text-align:left">绑定的主机地址</td>
-</tr>
-<tr>
-<td style="text-align:left">timeout 300</td>
-<td style="text-align:left">当客户端闲置多长时间后关闭连接，如果指定为 0，表示关闭该功能</td>
-</tr>
-<tr>
-<td style="text-align:left">loglevel notice</td>
-<td style="text-align:left">指定日志记录级别，Redis 总共支持四个级别：debug、verbose、notice、warning，默认为 notice</td>
-</tr>
-<tr>
-<td style="text-align:left">logfile stdout</td>
-<td style="text-align:left">日志记录方式，默认为标准输出，如果配置 Redis 为守护进程方式运行，而这里又配置为日志记录方式为标准输出，则日志将会发送给 /dev/null</td>
-</tr>
-<tr>
-<td style="text-align:left">databases 16</td>
-<td style="text-align:left">设置数据库的数量，默认数据库为0，可以使用SELECT 命令在连接上指定数据库id</td>
-</tr>
-<tr>
-<td style="text-align:left">save &lt;seconds&gt; &lt;changes&gt;  Redis 默认配置文件中提供了三个条件： save 900 1 save 300 10 save 60 10000 分别表示 900 秒（15 分钟）内有 1 个更改，300 秒（5 分钟）内有 10 个更改以及 60 秒内有 10000 个更改。</td>
-<td style="text-align:left">指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</td>
-</tr>
-<tr>
-<td style="text-align:left">rdbcompression yes</td>
-<td style="text-align:left">指定存储至本地数据库时是否压缩数据，默认为 yes，Redis 采用 LZF 压缩，如果为了节省 CPU 时间，可以关闭该选项，但会导致数据库文件变的巨大</td>
-</tr>
-<tr>
-<td style="text-align:left">dbfilename dump.rdb</td>
-<td style="text-align:left">指定本地数据库文件名，默认值为 dump.rdb</td>
-</tr>
-<tr>
-<td style="text-align:left">dir ./</td>
-<td style="text-align:left">指定本地数据库存放目录</td>
-</tr>
-<tr>
-<td style="text-align:left">slaveof &lt;masterip&gt; &lt;masterport&gt;</td>
-<td style="text-align:left">设置当本机为 slav 服务时，设置 master 服务的 IP 地址及端口，在 Redis 启动时，它会自动从 master 进行数据同步</td>
-</tr>
-<tr>
-<td style="text-align:left">masterauth &lt;master-password&gt;</td>
-<td style="text-align:left">当 master 服务设置了密码保护时，slav 服务连接 master 的密码</td>
-</tr>
-<tr>
-<td style="text-align:left">requirepass foobared</td>
-<td style="text-align:left">设置 Redis 连接密码，如果配置了连接密码，客户端在连接 Redis 时需要通过 AUTH &lt;password&gt; 命令提供密码，默认关闭</td>
-</tr>
-<tr>
-<td style="text-align:left">maxclients 128</td>
-<td style="text-align:left">设置同一时间最大客户端连接数，默认无限制，Redis 可以同时打开的客户端连接数为 Redis 进程可以打开的最大文件描述符数，如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis 会关闭新的连接并向客户端返回 max number of clients reached 错误信息</td>
-</tr>
-<tr>
-<td style="text-align:left">maxmemory &lt;bytes&gt;</td>
-<td style="text-align:left">指定 Redis 最大内存限制，Redis 在启动时会把数据加载到内存中，达到最大内存后，Redis 会先尝试清除已到期或即将到期的 Key，当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis 新的 vm 机制，会把 Key 存放内存，Value 会存放在 swap 区</td>
-</tr>
-<tr>
-<td style="text-align:left">appendonly no</td>
-<td style="text-align:left">指定是否在每次更新操作后进行日志记录，Redis 在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为 redis 本身同步数据文件是按上面 save 条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为 no</td>
-</tr>
-<tr>
-<td style="text-align:left">appendfilename appendonly.aof</td>
-<td style="text-align:left">指定更新日志文件名，默认为 appendonly.aof</td>
-</tr>
-<tr>
-<td style="text-align:left">appendfsync everysec</td>
-<td style="text-align:left">指定更新日志条件，共有 3 个可选值：no：表示等操作系统进行数据缓存同步到磁盘（快），always：表示每次更新操作后手动调用 fsync() 将数据写到磁盘（慢，安全），everysec：表示每秒同步一次（折中，默认值）</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-enabled no</td>
-<td style="text-align:left">指定是否启用虚拟内存机制，默认值为 no，简单的介绍一下，VM 机制将数据分页存放，由 Redis 将访问量较少的页即冷数据 swap 到磁盘上，访问多的页面由磁盘自动换出到内存中</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-swap-file /tmp/redis.swap</td>
-<td style="text-align:left">虚拟内存文件路径，默认值为 /tmp/redis.swap，不可多个 Redis 实例共享</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-max-memory 0</td>
-<td style="text-align:left">将所有大于 vm-max-memory 的数据存入虚拟内存，无论 vm-max-memory 设置多小，所有索引数据都是内存存储的(Redis 的索引数据 就是 keys)，也就是说，当 vm-max-memory 设置为 0 的时候，其实是所有 value 都存在于磁盘。默认值为 0</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-page-size 32</td>
-<td style="text-align:left">Redis swap 文件分成了很多的 page，一个对象可以保存在多个 page 上面，但一个 page 上不能被多个对象共享，vm-page-size 是要根据存储的 数据大小来设定的，作者建议如果存储很多小对象，page 大小最好设置为 32 或者 64bytes；如果存储很大大对象，则可以使用更大的 page，如果不确定，就使用默认值</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-pages 134217728</td>
-<td style="text-align:left">设置 swap 文件中的 page 数量，由于页表（一种表示页面空闲或使用的 bitmap）是在放在内存中的，在磁盘上每 8 个 pages 将消耗 1byte 的内存</td>
-</tr>
-<tr>
-<td style="text-align:left">vm-max-threads 4</td>
-<td style="text-align:left">设置访问swap文件的线程数,最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为4</td>
-</tr>
-<tr>
-<td style="text-align:left">glueoutputbuf yes</td>
-<td style="text-align:left">设置在向客户端应答时，是否把较小的包合并为一个包发送，默认为开启</td>
-</tr>
-<tr>
-<td style="text-align:left">hash-max-zipmap-entries 64；hash-max-zipmap-value 512</td>
-<td style="text-align:left">指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法</td>
-</tr>
-<tr>
-<td style="text-align:left">activerehashing yes</td>
-<td style="text-align:left">指定是否激活重置哈希，默认为开启</td>
-</tr>
-<tr>
-<td style="text-align:left">include /path/to/local.conf</td>
-<td style="text-align:left">指定包含其它的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各个实例又拥有自己的特定配置文件</td>
-</tr>
-</tbody>
-</table>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Redis支持5种数据类型，分别为：String，List，Hash，Set，Sorted Set</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">类型</th>
-<th style="text-align:left">简介</th>
-<th style="text-align:left">特性</th>
-<th style="text-align:left">场景</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">String</td>
-<td style="text-align:left">二进制安全</td>
-<td style="text-align:left">可以包含任何数据,比如jpg图片或者序列化的对象,一个键最大能存储512M</td>
-<td style="text-align:left">—</td>
-</tr>
-<tr>
-<td style="text-align:left">Hash</td>
-<td style="text-align:left">键值对集合,即编程语言中的Map类型</td>
-<td style="text-align:left">适合存储对象,并且可以像数据库中update一个属性一样只修改某一项属性值</td>
-<td style="text-align:left">存储、读取、修改用户属性</td>
-</tr>
-<tr>
-<td style="text-align:left">List</td>
-<td style="text-align:left">链表(双向链表)</td>
-<td style="text-align:left">增删快,提供了操作某一段元素的API</td>
-<td style="text-align:left">1,最新消息排行等功能(比如朋友圈的时间线) 2,消息队列</td>
-</tr>
-<tr>
-<td style="text-align:left">Set</td>
-<td style="text-align:left">哈希表实现,元素不重复</td>
-<td style="text-align:left">1、添加、删除,查找的复杂度都是O(1) 2、为集合提供了求交集、并集、差集等操作</td>
-<td style="text-align:left">1、共同好友 2、利用唯一性,统计访问网站的所有独立ip 3、好友推荐时,根据tag求交集,大于某个阈值就可以推荐</td>
-</tr>
-<tr>
-<td style="text-align:left">Sorted Set</td>
-<td style="text-align:left">将Set中的元素增加一个权重参数score,元素按score有序排列</td>
-<td style="text-align:left">数据插入集合时,已经进行天然排序</td>
-<td style="text-align:left">1、排行榜 2、带权重的消息队列</td>
-</tr>
-</tbody>
-</table>
-<p>Sorted Set的用法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 1 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 2 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 4 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZRANGE runoobkey 0 10 WITHSCORES</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;mysql&quot;</span><br><span class="line">6) &quot;4&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="Redis-HyperLogLog"><a href="#Redis-HyperLogLog" class="headerlink" title="Redis HyperLogLog"></a>Redis HyperLogLog</h3><p>Redis 在 2.8.9 版本添加了 HyperLogLog 结构。</p>
-<p>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。</p>
-<p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。</p>
-<p>但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;redis&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;mongodb&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;mysql&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFCOUNT runoobkey</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
-<h2 id="Redis命令"><a href="#Redis命令" class="headerlink" title="Redis命令"></a>Redis命令</h2><p><code>redis-cli -h host -p port -a password</code> 连接远程服务</p>
-<p>中文乱码的话 <code>redis-cli.exe --raw</code>启动</p>
-<p><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener">官方命令手册</a><br><a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">redis命令参考</a><br><a href="https://www.runoob.com/redis/redis-commands.html" target="_blank" rel="noopener">菜鸟教程的redis命令</a></p>
-<h3 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h3><p>Redis支持发布订阅，发送者发送消息，订阅者接收消息，使用PUBLISH可以指定频道发布消息，SUBSCRIBE可以订阅频道，详情见手册</p>
-<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>Redis事务可以一次执行多个命令， 并且带有以下三个重要的保证：</p>
-<ul>
-<li>批量操作在发送 EXEC 命令前被放入队列缓存</li>
-<li>收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行</li>
-<li>在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中</li>
-</ul>
-<p>一个事务从开始到执行会经历以下三个阶段：</p>
-<ul>
-<li>开始事务</li>
-<li>命令入队</li>
-<li>执行事务</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; SET book-name &quot;Mastering C++ in 21 days&quot;</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; GET book-name</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD tag &quot;C++&quot; &quot;Programming&quot; &quot;Mastering Series&quot;</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SMEMBERS tag</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) &quot;Mastering C++ in 21 days&quot;</span><br><span class="line">3) (integer) 3</span><br><span class="line">4) 1) &quot;Mastering Series&quot;</span><br><span class="line">   2) &quot;C++&quot;</span><br><span class="line">   3) &quot;Programming&quot;</span><br></pre></td></tr></table></figure>
-<p>单个 Redis 命令的执行是原子性的，但 Redis 没有在事务上增加任何维持原子性的机制，所以 Redis 事务的执行并不是原子性的</p>
-<p>事务可以理解为一个打包的批量执行脚本，但批量指令并非原子化的操作，中间某条指令的失败不会导致前面已做指令的回滚，也不会造成后续的指令不做</p>
-<blockquote>
-<p>It’s important to note that even when a command fails, all the other commands in the queue are processed – Redis will not stop the processing of commands.</p>
-</blockquote>
-<h3 id="Redis-数据备份与恢复"><a href="#Redis-数据备份与恢复" class="headerlink" title="Redis 数据备份与恢复"></a>Redis 数据备份与恢复</h3><p><code>SAVA</code>命令会在redis安装目录创建dump.rdb文件<br>把备份文件移动到redis安装目录并启动服务即可恢复数据，<code>CONFIG GET dir</code>获取redis目录<br><code>BGSAVE</code>也是创建Redis备份文件（异步）</p>
-<h3 id="Redis安全"><a href="#Redis安全" class="headerlink" title="Redis安全"></a>Redis安全</h3><p>可以通过Redis的配置文件设置密码参数，这样客户端连接Redis就要密码验证</p>
-<p><code>CONFIG get requirepass</code>查看是否设置密码验证<br><code>CONFIG set requirepass &quot;youpass&quot;</code>设置密码<br><code>AUTH password</code>使用password连接Redis</p>
-<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>Redis还有LUA脚本命令，连接命令，服务器命令，测试性能命令等，包括执行LUA脚本，后台异步保存当前数据库的数据到磁盘，同步保存数据到硬盘，关闭客户端连接等，详情见文档</p>
-<h2 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h2><p>POM添加依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>创建Jedis对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br></pre></td></tr></table></figure>
-<p>然后就可以用Java方法来操纵Redis了</p>
-<h3 id="使用Redis连接池"><a href="#使用Redis连接池" class="headerlink" title="使用Redis连接池"></a>使用Redis连接池</h3><p>跟数据库连接池相同，Java Redis也提供了类redis.clients.jedis.JedisPool来管理我们的Redis连接池对象，并且我们可以使用redis.clients.jedis.JedisPoolConfig来对连接池进行配置，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">JedisPool pool;</span><br><span class="line">Jedis jedis;</span><br><span class="line">JedisPoolConfig poolConfig = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line"><span class="comment">// 最大空闲数</span></span><br><span class="line">poolConfig.setMaxIdle(<span class="number">50</span>);</span><br><span class="line"><span class="comment">// 最大连接数</span></span><br><span class="line">poolConfig.setMaxTotal(<span class="number">100</span>);</span><br><span class="line"><span class="comment">// 最大等待毫秒数</span></span><br><span class="line">poolConfig.setMaxWaitMillis(<span class="number">20000</span>);</span><br><span class="line"><span class="comment">// 使用配置创建连接池</span></span><br><span class="line">pool = <span class="keyword">new</span> JedisPool(poolConfig, <span class="string">"localhost"</span>);</span><br><span class="line"><span class="comment">// 从连接池中获取单个连接</span></span><br><span class="line">jedis = pool.getResource();</span><br><span class="line"><span class="comment">// 如果需要密码</span></span><br><span class="line"><span class="comment">//jedis.auth("password");</span></span><br></pre></td></tr></table></figure>
-<h2 id="Redis-Spring集成"><a href="#Redis-Spring集成" class="headerlink" title="Redis Spring集成"></a>Redis Spring集成</h2><p>Redis 只能支持六种数据类型（string/hash/list/set/zset/hyperloglog）的操作，但在 Java 中我们却通常以类对象为主，所以在需要 Redis 存储的五中数据类型与 Java 对象之间进行转换，如果自己编写一些工具类，比如一个角色对象的转换，还是比较容易的，但是涉及到许多对象的时候，这其中无论工作量还是工作难度都是很大的，所以总体来说，就操作对象而言，使用 Redis 还是挺难的，好在 Spring 对这些进行了封装和支持。</p>
-<p>上面所说的Redis无法操作对象的问题，无法在基础类型和Java对象之间方便的转换，但在Spring中，<strong>这些问题都可以通过使用RedisTemplate得到解决</strong></p>
-<ol>
-<li>先引入jar包</li>
-</ol>
-<blockquote>
-<p>Spring Data Redis 2.x binaries require JDK level 8.0 and above and Spring Framework 5.0.7.RELEASE and above.</p>
-</blockquote>
-<p><strong>spring-data-redis 2.0以上需要jdk8和spring5以上</strong>，因为我的Spring版本是4.x，所以我使用的spring-data-redis版本如下，同时为了兼容，我把jedis也降级为2.x</p>
-<p>（2.x的spring-data-redis与spring 4不兼容，3.x的jedis与1.x的spring-data-redis不兼容，我人晕了…）<br>最终可以兼容的spring-data-redis与jedis版本如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.22.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>使用Spring配置JedisPoolConfig对象</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"redis.clients.jedis.JedisPoolConfig"</span> <span class="attr">id</span>=<span class="string">"jedisPoolConfig"</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大空闲数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdle"</span> <span class="attr">value</span>=<span class="string">"50"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大连接数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxTotal"</span> <span class="attr">value</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大等待时间--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxWaitMillis"</span> <span class="attr">value</span>=<span class="string">"20000"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>为连接池配置工厂模型</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisConnFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hostName"</span> <span class="attr">value</span>=<span class="string">"localhost"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"port"</span> <span class="attr">value</span>=<span class="string">"6379"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"poolConfig"</span> <span class="attr">ref</span>=<span class="string">"jedisPoolConfig"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>配置RedisTemplate</li>
-</ol>
-<p>普通的连接根本没有办法直接将对象直接存入 Redis 内存中，我们需要替代的方案：将对象序列化（可以简单的理解为继承Serializable接口）。我们可以把对象序列化之后存入Redis缓存中，然后在取出的时候又通过转换器，将序列化之后的对象反序列化回对象，这样就完成了我们的要求</p>
-<p>RedisTemplate可以帮助我们完成这份工作，它会找到对应的序列化器去转换Redis的键值</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.core.RedisTemplate"</span> <span class="attr">p:connection-factory-ref</span>=<span class="string">"jedisConnFactory"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>编写测试的POJO类</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter setter toString()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>编写测试类，获取redisTemplate对象</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(BlockJUnit4ClassRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSpringJedis</span> <span class="keyword">extends</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"><span class="comment">// UnitTestBase可以见我Spring相关的博客</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestSpringJedis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"classpath:spring-data-redis.xml"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        RedisTemplate redisTemplate = <span class="keyword">super</span>.getBean(<span class="string">"redisTemplate"</span>);</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">"aha"</span>);</span><br><span class="line">        student.setAge(<span class="number">22</span>);</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">"student"</span>, student);</span><br><span class="line">        Student student1 = (Student) redisTemplate.opsForValue().get(<span class="string">"student"</span>);</span><br><span class="line">        System.out.println(student1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h3><p>Spring封装了RedisTemplate对象来进行对Redis的各种操作，它支持所有的Redis原生的api。RedisTemplate位于spring-data-redis包下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redisTemplate.opsForValue();<span class="comment">//操作字符串</span></span><br><span class="line">redisTemplate.opsForHash();<span class="comment">//操作hash</span></span><br><span class="line">redisTemplate.opsForList();<span class="comment">//操作list</span></span><br><span class="line">redisTemplate.opsForSet();<span class="comment">//操作set</span></span><br><span class="line">redisTemplate.opsForZSet();<span class="comment">//操作有序set</span></span><br></pre></td></tr></table></figure>
-<p>StringRedisTemplate与RedisTemplate的区别：</p>
-<ul>
-<li>两者的关系是StringRedisTemplate继承RedisTemplate。</li>
-<li>两者的数据是不共通的；也就是说StringRedisTemplate只能管理StringRedisTemplate里面的数据，RedisTemplate只能管理RedisTemplate中的数据。</li>
-<li>SDR默认采用的序列化策略有两种，一种是String的序列化策略，一种是JDK的序列化策略。<ul>
-<li>StringRedisTemplate默认采用的是String的序列化策略，保存的key和value都是采用此策略序列化保存的。</li>
-<li>RedisTemplate默认采用的是JDK的序列化策略，保存的key和value都是采用此策略序列化保存的。</li>
-</ul>
-</li>
-</ul>
-<h3 id="RedisTemplate的序列化问题"><a href="#RedisTemplate的序列化问题" class="headerlink" title="RedisTemplate的序列化问题"></a>RedisTemplate的序列化问题</h3><p>RedisTemplate可以帮助我们序列化对象，但使用默认的配置，会发现序列化对象在redis-cli中查找不到，如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    RedisTemplate&lt;String, String&gt; redisTemplate = <span class="keyword">super</span>.getBean(<span class="string">"redisTemplate"</span>);</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"myspringredis"</span>, <span class="string">"Hello World From Spring"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"myspringredis"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>会发现可以正常输出，但只要在redis-cli上<code>GET myspringredis</code>，发现输出的是null，使用<code>keys *</code>查看，发现有一个类似的<code>\xac\xed\x00\x05t\x00\rmyspringredis</code><br>网上查阅资料发现，原来是序列化的问题，RedisTemplate会默认使用JdkSerializationRedisSerializer，这个序列化器会导致上述问题的出现，它的优点和缺点如下：</p>
-<ul>
-<li>它要求存储的对象都必须实现java.io.Serializable接口，他存储二进制数据，对开发者不友好</li>
-<li>因为他存储的为二进制。但是有时候，我们的Redis会在一个项目的多个project中共用，这样如果同一个可以缓存的对象在不同的project中要使用两个不同的key来分别缓存，既麻烦，又浪费</li>
-<li>序列化后的结果非常庞大，是JSON格式的5倍左右，这样就会消耗redis服务器的大量内存</li>
-<li>优点是反序列化时不需要提供（传入）类型信息(class)</li>
-</ul>
-<p>要解决上述问题，可以使用StringRedisSerializer，它是StringRedisTemplate默认的序列化方法，如下所示配置RedisTemplate</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"stringRedisSerializer"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.StringRedisSerializer"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.core.RedisTemplate"</span> <span class="attr">p:connection-factory-ref</span>=<span class="string">"jedisConnFactory"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"valueSerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"keySerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashValueSerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashKeySerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这样，序列化对象在redis-cli就可以成功找到了</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/线程安全与锁优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/03/线程安全与锁优化/" itemprop="url">线程安全与锁优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-03T20:09:34+08:00">
-                2019-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/08/03/线程安全与锁优化/" class="leancloud_visitors" data-flag-title="线程安全与锁优化">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="线程安全与锁优化"><a href="#线程安全与锁优化" class="headerlink" title="线程安全与锁优化"></a>线程安全与锁优化</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p><strong>当多个线程访问一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替运行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获得正确的结果，那这个对象是线程安全的</strong></p>
-<p>这个定义比较严谨，它要求线程安全的代码必须具备一个特征：代码本身封装了所有必要的正确性保障手段（如互斥同步等），令调用者无须关心多线程的问题，更无须自己采取任何措施来保证多线程的正确调用</p>
-<h3 id="Java语言中的线程安全"><a href="#Java语言中的线程安全" class="headerlink" title="Java语言中的线程安全"></a>Java语言中的线程安全</h3><p>我们把Java语言中各种操作共享的数据分为以下5类：不可变，绝对线程安全，相对线程安全，线程兼容和线程对立</p>
-<h4 id="不可变"><a href="#不可变" class="headerlink" title="不可变"></a>不可变</h4><p>不可变的对象一定是线程安全的，如果共享数据是一个基本数据类型，那么只要在定义时使用final关键字修饰就可以保证它是不可变的。<strong>如果共享数据是一个对象，那就需要保证对象的行为不会对其状态产生影响才行</strong>。保证对象行为不影响自己的状态的途径有很多种，其中最简单的就是把对象中带有状态的变量都声明为final，如Integer，它通过将内部状态变量value定义为final来保障状态不变</p>
-<p>Java API中符合不可变要求的类型，除了String，还有枚举类型，Number的部分子类，如Long和Double等数值包装类型，BigInteger和BigDecimal等大数据类型</p>
-<h4 id="绝对线程安全"><a href="#绝对线程安全" class="headerlink" title="绝对线程安全"></a>绝对线程安全</h4><p>绝对的线程安全完全满足上面给出的线程安全的定义，不管运行环境如下，调用者都不需要进行额外的同步措施，在Java中标注自己是线程安全的类，大多数都不是绝对的线程安全</p>
-<h4 id="相对线程安全"><a href="#相对线程安全" class="headerlink" title="相对线程安全"></a>相对线程安全</h4><p>相对的线程安全就是我们通常意义上所讲的线程安全，它需要保证对这个对象单独的操作是线程安全的，我们在调用的时候不需要做额外的保障措施，但是对一些特定顺序的连续调用，就可能需要在调用端使用额外的同步手段来保证调用的正确性</p>
-<p>Java中大部分线程安全类都属于这种类型，如Vector，HashTable，Collections的synchronizedCollection()方法保证的集合等</p>
-<h4 id="线程兼容"><a href="#线程兼容" class="headerlink" title="线程兼容"></a>线程兼容</h4><p>线程兼容是指对象本身并不是线程安全的，但是可以通过在调用端正确使用同步手段来保证对象在并发的环境中可以安全地使用，我们平常说一个类不是线程安全的，绝大多数指的就是这一种情况</p>
-<p>Java中大部分类都属于线程兼容，如ArrayList和HashMap等</p>
-<h4 id="线程对立"><a href="#线程对立" class="headerlink" title="线程对立"></a>线程对立</h4><p>线程对立指无论调用端是否采用同步措施，都无法在多线程环境中并发使用的代码</p>
-<h3 id="线程安全的实现方法"><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h3><h4 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h4><p><strong>同步指多个线程并发访问共享数据时，保证共享数据在同一时刻只被一个线程使用</strong>（信号量机制下可以被一些使用）。互斥是实现同步的一种手段，临界区(Critical Section)，互斥量(Mutex)和信号量(Semaphore)都是主要的互斥实现方式，互斥是因，同步是果，互斥是方法，同步是目的</p>
-<p><strong>Java中最基本的互斥同步手段是synchronized关键字，编译后会在同步块前后形成monitorenter和monitorexit字节码指令，这两个字节码指令都需要一个reference类型的参数来指明要锁定和解锁的对象。如果程序中synchronized明确指定了对象参数，那就是这个对象的reference；如果没有明确指定，那就根据synchronized修饰的是实例方法还是类方法，去取对应的对象实例或Class对象来作为锁对象</strong></p>
-<p><strong>在执行monitorenter指令时，首先尝试获取对象的锁。如果这个对象没被锁定，或者当前线程已经拥有那个对象的锁，把锁计数器加1，相应地，执行monitorexit指令时把锁计数器减1，当计数器为0，锁就被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到对象锁被另外一个线程释放为止</strong></p>
-<p>synchronized同步块对同一条线程是可重入的，不会自己把自己锁死，其次，同步块在已进入线程执行完之前，会阻塞后面其他线程的进入。<strong>Java的线程是映射到OS的原生线程上的，如果要阻塞或唤醒一个线程，都需要OS来帮忙完成，这就需要从用户态转换到核心态中，因此需要耗费很多的处理器时间</strong>。对于代码简单的同步块（如synchronized修饰的getter和setter），状态转换消耗的时间可能比用户代码执行的时间还要长。所以synchronized关键字是Java语言的一个重量级的操作。在确实有必要的情况下才使用它，虚拟机本身也会进行一些优化，譬如在通知OS阻塞线程前加入一段自旋等待过程，避免频繁进入到核心态中</p>
-<p>除了synchronized关键字，我们还可以使用java.util.concurrent的重入锁ReentrantLock来实现同步，基本用法上它们是类似的，只是代码写法上有些出入，一个表现为API层面的互斥锁（lock()和unlock()配合try/finally语句块完成），另一个表现为原生语法层面的互斥锁</p>
-<p>不过，相比synchronized，ReentrantLock增加了一些高级功能：等待可中断，可实现公平锁，以及锁可以绑定多个条件</p>
-<ul>
-<li>等待可中断指当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情</li>
-<li>公平锁指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁，synchronized的锁是非公平的，默认情况下ReentrantLock也是非公平的，但可以通过带布尔值的构造函数要求公平锁</li>
-<li>锁绑定多个条件指一个ReentrantLock对象可以同时绑定多个Condition对象，而在synchronized中，锁对象的wait()和notify()或notifyAll()可以实现一个隐含的条件，如果要和多于一个条件关联，就不得不额外添加一个锁，而ReentrantLock只需要多次调用newCondition()方法即可</li>
-</ul>
-<h4 id="非阻塞同步"><a href="#非阻塞同步" class="headerlink" title="非阻塞同步"></a>非阻塞同步</h4><p>互斥同步最主要的问题是进行线程阻塞和唤醒所带来的性能问题，因此这种同步称为阻塞同步。从处理问题方式上来说，<strong>互斥同步属于一种悲观的并发策略</strong>，总是认为只要不去做正确的同步措施，那就肯定会出现问题，无论共享数据是否真的出现竞争，它都要进行加锁，用户态核心态转换，维护锁计数器和检查是否有被阻塞的线程需要唤醒等操作</p>
-<p>随着硬件发展，我们有了另外一种选择：<strong>基于冲突检测的乐观并发策略，通俗来说，就是先进行操作，如果没有其他线程争用共享数据，那操作就成功了；如果共享数据有争用，产生了冲突，那就再采取其他补偿措施</strong>（比如不断重试，直到成功），这种乐观的并发策略的许多实现都不需要把线程挂起，因此这种同步操作称为非阻塞同步</p>
-<p>我们需要操作和冲突检测这两个步骤具备原子性，只能靠硬件来完成它们的原子性，硬件保证一个从语义上来说需要多次操作的行为只通过一条处理器指令就能完成，这类指令常用的有：</p>
-<ul>
-<li>测试并设置（Test-and-Set）</li>
-<li>获取并增加（Fetch-and-Increment）</li>
-<li>交换（Swap）</li>
-<li>比较并交换（Compare-and-Swap，下文称CAS）</li>
-<li>加载链接/条件存储（Load-Linked/Store-Conditional，下文称LL/SC）</li>
-</ul>
-<p>CAS指令需要3个操作数，分别是内存位置（V），旧的预期值（A）和新值（B）。CAS指令执行时，当且仅当V符合旧预期值A时，处理器用新值B更新V的值，否则它就不执行更新，但是无论是否更新了V的值，都会返回V的旧值，上述的处理过程就像一个原子操作</p>
-<p>JDK 1.5后提供CAS操作，该操作由sun.misc.Unsafe类的compareAndSwapInt()和compareAndSwapLong()等几个方法包装提供，Unsafe类只能通过其他Java API来间接使用，如concurrent包的整数原子类（AtomicInteger），其中的compareAndSet()和getAndIncrement()等方法都用了Unsafe类的CAS操作</p>
-<p>CAS操作常见的漏洞是”ABA”问题，即如果一个变量V初次读取的时候是A值，并且准备赋值时它仍然为A值，那也不能说明它就没有被改变过，因为它可能先被改成了B，再被改回A</p>
-<h4 id="无同步方案"><a href="#无同步方案" class="headerlink" title="无同步方案"></a>无同步方案</h4><p>要保证线程安全，不一定需要同步，同步只是保证共享数据争用时的正确性的手段，如果一个方法本来就不涉及共享数据，那它自然就无须任何同步措施去保证正确性，因此会有一些代码天生就是线程安全的，主要介绍其中两类</p>
-<p>可重入代码：也叫纯代码，可以在代码执行的任何时刻中断它，转而去执行其他代码，而在控制权返回后，原来的程序不会出现任何错误。可冲入代码都是线程安全的。可重入代码有一些共同特征，如不依赖存储在堆上的数据和公用的系统资源，用到的状态量都由参数传入，不调用非可重入的方法等。如果一个方法，它的返回结果是可以预测的，只要输入相同的数据，都能返回相同的结果，那它就满足可重入性的要求，当然也是线程安全的</p>
-<p>线程本地存储：如果一段代码所需要的数据必须与其他代码共享，那就看看这些共享数据的代码是否能保证在同一个线程中执行，如果能保证，我们就可以把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题<br>符合这种特点的应用并不少见，大部分使用消息队列的架构模式都会将产品的消费过程尽量在一个线程中消费完，其中最重要的一个应用实例就是经典Web交互模型中的”一个请求对应一个服务器线程”的处理方式，这种处理方式广泛应用使得很多Web服务端应用都可以使用线程本地存储来解决线程安全问题</p>
-<p>Java语言中，一个变量要被多线程访问，可以使用volatile关键字声明它是易变得，<strong>如果一个变量要被某个线程独享，可以通过java.lang.ThreadLocal类来实现线程本地存储的功能。每一个线程的Thread对象都有一个ThreadLocalMap对象，这个对象存储了一组以ThreadLocal.threadLocalHashCode为键，以本地线程变量为值得K-V值对，ThreadLocal对象就是当前线程的ThreadLocalMap的访问入口，每一个ThreadLocal对象都包含了一个独一无二的threadLocalHashCode值，使用这个值就可以在线程K-V值中找回对应的本地线程变量</strong></p>
-<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><h3 id="自旋锁与自适应自旋"><a href="#自旋锁与自适应自旋" class="headerlink" title="自旋锁与自适应自旋"></a>自旋锁与自适应自旋</h3><p><strong>互斥同步对性能最大的影响是阻塞的实现，挂起线程和恢复线程的操作都需要转入内核态完成，这些操作给系统的并发性能带来很大的压力，且许多应用上，共享数据的锁定状态只会持续很短的一段时间，为了这段时间去挂起和恢复线程并不值得。</strong><br><strong>如果物理机器上有一个以上的处理器，能让两个或以上的线程同时并行执行，我们就可以让后面请求锁的那个线程稍等一下，但不放弃处理器的执行时间，看看持有锁的线程是否很快就释放锁。为了让线程等待，我们只需让线程执行一个忙循环（自旋），这项技术就是所谓的自旋锁</strong></p>
-<p>JDK 1.6引入自适应的自旋锁，自适应意味自旋的时间不再固定，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100个循环。另外，如果对于某个锁，自旋很少成功过，那在以后要获取这个锁时将可能省略掉自旋过程，以避免浪费处理器资源。有了自适应自旋，随着程序运行和性能监控信息的不断完善，虚拟机对程序锁的状况预测越来越准确</p>
-<h3 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h3><p><strong>锁消除指虚拟机即时编译器在运行时，对一些代码上要求同步，但是被检测到不可能存在共享数据竞争的锁进行消除</strong>，锁消除的主要判定依据来源于逃逸分析的数据支持，如果判断在一段代码上，堆上所有数据都不会逃逸出去从而被其他线程访问到，那就可以把它们当做栈上的数据对待，认为它们是线程私有的，同步加锁自然就无须进行（很多同步措施都不是程序员自己想要加入的，而是Java方法本身就有）</p>
-<h3 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h3><p>原则上我们编写代码的时候，总是推荐把同步块的作用范围限制得尽量小，只在共享数据的实际作用域才进行同步，这样是为了使得需要同步的操作数量尽可能变小，如果存在锁竞争，那等待锁的线程也能尽快得到锁</p>
-<p>大部分情况下，上面的原则是正确的，但是如果一系列连续操作都对同一个对象反复加锁和解锁，甚至加锁操作出现在循环体内，那即使没有线程竞争，频繁地进行互斥同步操作也会导致不必要的性能损耗</p>
-<p><strong>如果虚拟机探测到有这样一串零碎的操作都对同一个对象加锁，就会把加锁同步的范围扩展到整个操作序列的外部，这样只需要加锁一次即可，这个就是锁粗化</strong></p>
-<h3 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><p>轻量级锁是JDK 1.6之中加入的新型锁机制，传统的锁机制是重量级锁，轻量级锁并不是用来代替重量级锁的，<strong>它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用OS互斥量产生的性能消耗</strong></p>
-<p>要理解轻量级锁，必须要从HotSpot虚拟机的对象（对象头部分）的内存布局开始介绍。HotSpot虚拟机的对象头分为两部分信息，第一部分用于存储对象自身的运行时数据，如哈希吗，GC分带年龄等，这部分数据长度在32位和64位虚拟机中分别为32bit和64bit，官方称它为”Mark Word”，它是实现轻量级锁和偏向锁的关键。另外一部分用于存储指向方法区对象类型数据的指针，如果是数组对象的话，还会有一个额外的部分用于存储数组长度</p>
-<p><img src="https://i.imgur.com/2PmPvzi.png" alt=""></p>
-<p>在代码进入同步块的时候，如果此同步对象没有被锁定，虚拟机首先将在当前线程的栈帧中建立一个名为锁记录的空间，用于存储锁对象目前的Mark Word的拷贝，然后，虚拟机将使用CAS操作尝试将对象的Mark Word更新为指向Lock Record的指针，如果这个操作成功了，那么这个线程就拥有了该对象的锁，并且对象的Mark Word的锁标志位转变为”00”，代表此对象处于轻量级锁定状态，如下图所示：</p>
-<p><img src="https://i.imgur.com/x5UHNDT.png" alt=""></p>
-<p>如果这个更新操作失败了，虚拟机首先检查对象的Mark Word是否指向当前线程的栈帧，如果只说明当前线程已经拥有这个锁，那就可以直接进入同步块继续执行，否则说明这个锁对象已经被其他线程抢占了。如果有两条以上的线程争用同一个锁，那轻量级锁就不再有效，要膨胀为重量级锁，锁标志状态值变为”10”，Mark Word中存储的就是指向重量级锁的指针，后面等待锁的线程也要进入阻塞状态</p>
-<p>轻量级锁的加锁和解锁过程都是通过CAS操作来完成的</p>
-<p>轻量级锁能提升程序同步性能的依据是”对于绝大部分的锁，在整个同步周期都不存在竞争”，这是一个经验数据，<strong>如果没有竞争，轻量级锁使用CAS操作避免了使用互斥量的开销，但如果存在锁竞争，除了互斥量的开销外，还额外发送了CAS操作，因此有竞争的情况下，轻量级锁会比传统的重量级锁更慢</strong></p>
-<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p><strong>偏向锁的目的是消除在无竞争情况下的同步原语，进一步提高程序的运行性能，如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不做了</strong></p>
-<p>偏向锁的偏，就是偏心的偏，它的意思是这个锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁没有被其他线程获取，则持有偏向锁的线程永远不需要再进行同步</p>
-<p>当锁对象第一次被线程获取的时候，虚拟机会把对象头的标志位设为”01”，即偏向模式，同时CAS操作把获取这个锁的线程的ID记录在对象的Mark Word中，如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关的同步块时，虚拟机都可以不再进行任何同步操作</p>
-<p>当有另外一个线程去尝试获取这个锁，偏向模式就结束，根据锁对象目前是否处于被锁定的状态，撤销偏向后恢复到未锁定或轻量级锁定的状态，后续同步操作就如上面的轻量级锁那样执行</p>
-<p><img src="https://i.imgur.com/dlLRtnV.png" alt=""></p>
-<p>偏向锁可以提高带有同步但无竞争的程序性能，同样是一个带有效益权衡性质的优化</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2968,7 +2555,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2990,7 +2577,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

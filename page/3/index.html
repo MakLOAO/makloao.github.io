@@ -369,6 +369,670 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/redis基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/05/redis基础/" itemprop="url">Redis基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-05T11:04:30+08:00">
+                2019-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/中间件/" itemprop="url" rel="index">
+                    <span itemprop="name">中间件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/05/redis基础/" class="leancloud_visitors" data-flag-title="Redis基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Redis基础"><a href="#Redis基础" class="headerlink" title="Redis基础"></a>Redis基础</h1><blockquote>
+<p>参考：<br>1.<a href="https://www.jianshu.com/p/56999f2b8e3b" target="_blank" rel="noopener">https://www.jianshu.com/p/56999f2b8e3b</a><br>2.<a href="https://www.runoob.com/redis/redis-lists.html" target="_blank" rel="noopener">https://www.runoob.com/redis/redis-lists.html</a><br>3.<a href="http://how2j.cn/k/redis/redis-download-install/1367.html" target="_blank" rel="noopener">http://how2j.cn/k/redis/redis-download-install/1367.html</a><br>4.<a href="https://www.cnblogs.com/EasonJim/p/7803067.html" target="_blank" rel="noopener">https://www.cnblogs.com/EasonJim/p/7803067.html</a><br>5.<a href="https://blog.csdn.net/f641385712/article/details/84679456" target="_blank" rel="noopener">https://blog.csdn.net/f641385712/article/details/84679456</a><br>6.<a href="https://blog.csdn.net/wwrzyy/article/details/85089463" target="_blank" rel="noopener">https://blog.csdn.net/wwrzyy/article/details/85089463</a></p>
+</blockquote>
+<p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源代码地址</a></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Redis的引入"><a href="#Redis的引入" class="headerlink" title="Redis的引入"></a>Redis的引入</h3><p>在我们日常的Java Web开发中，无不都是使用数据库来进行数据的存储，由于一般的系统任务中通常不会存在高并发的情况，所以这样看起来并没有什么问题，可是一旦涉及大数据量的需求，比如一些商品抢购的情景，或者是主页访问量瞬间较大的时候，单一使用数据库来保存数据的系统会因为面向磁盘，磁盘读/写速度比较慢的问题而存在严重的性能弊端，一瞬间成千上万的请求到来，需要系统在极短的时间内完成成千上万次的读/写操作，这个时候往往不是数据库能够承受的，极其容易造成数据库系统瘫痪，最终导致服务宕机的严重生产问题</p>
+<p>为了克服上述的问题，Java Web项目通常会引入NoSQL技术，这是一种基于内存的数据库，并且提供一定的持久化功能。<br><strong>Redis</strong>和<strong>MongoDB</strong>是当前使用最广泛的NoSQL，而就Redis技术而言，它的性能十分优越，可以<strong>支持每秒十几万此的读/写操作</strong>，其性能远超数据库，并且还支持<strong>集群、分布式、主从同步等</strong>配置，原则上可以无限扩展，让更多的数据存储在内存中，更让人欣慰的是它还<strong>支持一定的事务能力</strong>，这保证了高并发的场景下数据的安全和一致性</p>
+<h3 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h3><p>Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。<br>换句话说，Redis就像是一个HashMap，不过不是在JVM中运行，而是以一个独立进程的形式运行。<br>一般说来，会被当作缓存使用。 因为它比数据库(mysql)快，所以常用的数据，可以考虑放在这里，这样就提高了性能。</p>
+<h3 id="Redis在Java-Web的应用"><a href="#Redis在Java-Web的应用" class="headerlink" title="Redis在Java Web的应用"></a>Redis在Java Web的应用</h3><ul>
+<li>存储<strong>缓存</strong>用的数据</li>
+<li>需要高速读/写的场合<strong>使用它快速读/写</strong></li>
+</ul>
+<h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><p>如果日常数据库访问中，读操作比写操作要大得多，使用数据库时需要<strong>去磁盘把对应数据索引取出来</strong>，这是一个相对较慢的过程</p>
+<p>如果我们把数据放在Redis中，也就是直接放在内存中，让服务端<strong>直接去读取内存中的数据</strong>，这样速度明显会快上不少，并且会极大减小数据库的压力，但是使用内存进行数据存储开销也是比较大的，限于成本的原因，一般<strong>只是使用Redis存储一些常用和主要的数据</strong>，比如用户登录的信息等</p>
+<p>一般使用Redis进行存储时，我们需要从以下几个方面来考虑：</p>
+<ul>
+<li>业务数据常用吗？命中率如何？如果命中率低，就没有必要写入缓存</li>
+<li>该业务数据是读操作多，还是写操作多？如果写操作多，频繁需要写入数据库，也没有必要使用缓存</li>
+<li>业务数据大小如何？如果要存储几百兆字节的文件，会给缓存带来很大压力，这样也没有必要</li>
+</ul>
+<p><img src="https://i.imgur.com/RcRKPCL.png" alt=""></p>
+<p>对于写操作，要分别写入数据库和Redis，所以对写次数远大于读次数的情况，就没有必要使用Redis</p>
+<h4 id="快速读-写"><a href="#快速读-写" class="headerlink" title="快速读/写"></a>快速读/写</h4><p>在如今的互联网中，越来越多的存在高并发的情况，比如天猫双11、抢红包、抢演唱会门票等，这些场合都是在某一个瞬间或者是某一个短暂的时刻有成千上万的请求到达服务器，如果单纯的使用数据库来进行处理，就算不崩，也会很慢的，轻则造成用户体验极差用户量流失，重则数据库瘫痪，服务宕机，而这样的场合都是不允许的！</p>
+<ul>
+<li>当一个请求到达服务器，只是把业务数据在Redis上进行读写，而没有对数据库进行任何操作，这样就能大大提高读写的速度，从而满足高速响应的需求</li>
+<li>在一个请求操作完Redis的读/写后，会去判断该高速读/写业务是否结束，如果结束，就触发事件将Redis的缓存的数据以批量的形式一次性写入数据库，从而完成持久化的工作</li>
+</ul>
+<p><img src="https://i.imgur.com/DI2b1PX.png" alt=""></p>
+<h2 id="运行Redis"><a href="#运行Redis" class="headerlink" title="运行Redis"></a>运行Redis</h2><p><a href="https://github.com/microsoftarchive/redis/releases" target="_blank" rel="noopener">Windows的Redis安装</a></p>
+<p>在命令行参数运行redis-server.exe和redis-cli.exe即可，Linux也类似，略</p>
+<h2 id="配置Redis"><a href="#配置Redis" class="headerlink" title="配置Redis"></a>配置Redis</h2><p>Redis 的配置文件位于 Redis 安装目录下，文件名为 redis.conf(Windows 名为 redis.windows.conf)<br>可以通过 CONFIG 命令查看或设置配置项<br><code>CONFIG GET *</code> 获取所有配置项<br><code>CONFIG SET CONFIG_SETTING_NAME NEW_CONFIG_VALUE</code> 命令可以修改配置</p>
+<p>配置文件参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">配置项</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">daemonize no</td>
+<td style="text-align:left">Redis 默认不是以守护进程的方式运行，可以通过该配置项修改，使用 yes 启用守护进程（Windows 不支持守护线程的配置为 no ）</td>
+</tr>
+<tr>
+<td style="text-align:left">pidfile /var/run/redis.pid</td>
+<td style="text-align:left">当 Redis 以守护进程方式运行时，Redis 默认会把 pid 写入 /var/run/redis.pid 文件，可以通过 pidfile 指定</td>
+</tr>
+<tr>
+<td style="text-align:left">port 6379</td>
+<td style="text-align:left">指定 Redis 监听端口，默认端口为 6379</td>
+</tr>
+<tr>
+<td style="text-align:left">bind 127.0.0.1</td>
+<td style="text-align:left">绑定的主机地址</td>
+</tr>
+<tr>
+<td style="text-align:left">timeout 300</td>
+<td style="text-align:left">当客户端闲置多长时间后关闭连接，如果指定为 0，表示关闭该功能</td>
+</tr>
+<tr>
+<td style="text-align:left">loglevel notice</td>
+<td style="text-align:left">指定日志记录级别，Redis 总共支持四个级别：debug、verbose、notice、warning，默认为 notice</td>
+</tr>
+<tr>
+<td style="text-align:left">logfile stdout</td>
+<td style="text-align:left">日志记录方式，默认为标准输出，如果配置 Redis 为守护进程方式运行，而这里又配置为日志记录方式为标准输出，则日志将会发送给 /dev/null</td>
+</tr>
+<tr>
+<td style="text-align:left">databases 16</td>
+<td style="text-align:left">设置数据库的数量，默认数据库为0，可以使用SELECT 命令在连接上指定数据库id</td>
+</tr>
+<tr>
+<td style="text-align:left">save &lt;seconds&gt; &lt;changes&gt;  Redis 默认配置文件中提供了三个条件： save 900 1 save 300 10 save 60 10000 分别表示 900 秒（15 分钟）内有 1 个更改，300 秒（5 分钟）内有 10 个更改以及 60 秒内有 10000 个更改。</td>
+<td style="text-align:left">指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</td>
+</tr>
+<tr>
+<td style="text-align:left">rdbcompression yes</td>
+<td style="text-align:left">指定存储至本地数据库时是否压缩数据，默认为 yes，Redis 采用 LZF 压缩，如果为了节省 CPU 时间，可以关闭该选项，但会导致数据库文件变的巨大</td>
+</tr>
+<tr>
+<td style="text-align:left">dbfilename dump.rdb</td>
+<td style="text-align:left">指定本地数据库文件名，默认值为 dump.rdb</td>
+</tr>
+<tr>
+<td style="text-align:left">dir ./</td>
+<td style="text-align:left">指定本地数据库存放目录</td>
+</tr>
+<tr>
+<td style="text-align:left">slaveof &lt;masterip&gt; &lt;masterport&gt;</td>
+<td style="text-align:left">设置当本机为 slav 服务时，设置 master 服务的 IP 地址及端口，在 Redis 启动时，它会自动从 master 进行数据同步</td>
+</tr>
+<tr>
+<td style="text-align:left">masterauth &lt;master-password&gt;</td>
+<td style="text-align:left">当 master 服务设置了密码保护时，slav 服务连接 master 的密码</td>
+</tr>
+<tr>
+<td style="text-align:left">requirepass foobared</td>
+<td style="text-align:left">设置 Redis 连接密码，如果配置了连接密码，客户端在连接 Redis 时需要通过 AUTH &lt;password&gt; 命令提供密码，默认关闭</td>
+</tr>
+<tr>
+<td style="text-align:left">maxclients 128</td>
+<td style="text-align:left">设置同一时间最大客户端连接数，默认无限制，Redis 可以同时打开的客户端连接数为 Redis 进程可以打开的最大文件描述符数，如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis 会关闭新的连接并向客户端返回 max number of clients reached 错误信息</td>
+</tr>
+<tr>
+<td style="text-align:left">maxmemory &lt;bytes&gt;</td>
+<td style="text-align:left">指定 Redis 最大内存限制，Redis 在启动时会把数据加载到内存中，达到最大内存后，Redis 会先尝试清除已到期或即将到期的 Key，当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis 新的 vm 机制，会把 Key 存放内存，Value 会存放在 swap 区</td>
+</tr>
+<tr>
+<td style="text-align:left">appendonly no</td>
+<td style="text-align:left">指定是否在每次更新操作后进行日志记录，Redis 在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为 redis 本身同步数据文件是按上面 save 条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为 no</td>
+</tr>
+<tr>
+<td style="text-align:left">appendfilename appendonly.aof</td>
+<td style="text-align:left">指定更新日志文件名，默认为 appendonly.aof</td>
+</tr>
+<tr>
+<td style="text-align:left">appendfsync everysec</td>
+<td style="text-align:left">指定更新日志条件，共有 3 个可选值：no：表示等操作系统进行数据缓存同步到磁盘（快），always：表示每次更新操作后手动调用 fsync() 将数据写到磁盘（慢，安全），everysec：表示每秒同步一次（折中，默认值）</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-enabled no</td>
+<td style="text-align:left">指定是否启用虚拟内存机制，默认值为 no，简单的介绍一下，VM 机制将数据分页存放，由 Redis 将访问量较少的页即冷数据 swap 到磁盘上，访问多的页面由磁盘自动换出到内存中</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-swap-file /tmp/redis.swap</td>
+<td style="text-align:left">虚拟内存文件路径，默认值为 /tmp/redis.swap，不可多个 Redis 实例共享</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-max-memory 0</td>
+<td style="text-align:left">将所有大于 vm-max-memory 的数据存入虚拟内存，无论 vm-max-memory 设置多小，所有索引数据都是内存存储的(Redis 的索引数据 就是 keys)，也就是说，当 vm-max-memory 设置为 0 的时候，其实是所有 value 都存在于磁盘。默认值为 0</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-page-size 32</td>
+<td style="text-align:left">Redis swap 文件分成了很多的 page，一个对象可以保存在多个 page 上面，但一个 page 上不能被多个对象共享，vm-page-size 是要根据存储的 数据大小来设定的，作者建议如果存储很多小对象，page 大小最好设置为 32 或者 64bytes；如果存储很大大对象，则可以使用更大的 page，如果不确定，就使用默认值</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-pages 134217728</td>
+<td style="text-align:left">设置 swap 文件中的 page 数量，由于页表（一种表示页面空闲或使用的 bitmap）是在放在内存中的，在磁盘上每 8 个 pages 将消耗 1byte 的内存</td>
+</tr>
+<tr>
+<td style="text-align:left">vm-max-threads 4</td>
+<td style="text-align:left">设置访问swap文件的线程数,最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为4</td>
+</tr>
+<tr>
+<td style="text-align:left">glueoutputbuf yes</td>
+<td style="text-align:left">设置在向客户端应答时，是否把较小的包合并为一个包发送，默认为开启</td>
+</tr>
+<tr>
+<td style="text-align:left">hash-max-zipmap-entries 64；hash-max-zipmap-value 512</td>
+<td style="text-align:left">指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法</td>
+</tr>
+<tr>
+<td style="text-align:left">activerehashing yes</td>
+<td style="text-align:left">指定是否激活重置哈希，默认为开启</td>
+</tr>
+<tr>
+<td style="text-align:left">include /path/to/local.conf</td>
+<td style="text-align:left">指定包含其它的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各个实例又拥有自己的特定配置文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Redis支持5种数据类型，分别为：String，List，Hash，Set，Sorted Set</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">简介</th>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">String</td>
+<td style="text-align:left">二进制安全</td>
+<td style="text-align:left">可以包含任何数据,比如jpg图片或者序列化的对象,一个键最大能存储512M</td>
+<td style="text-align:left">—</td>
+</tr>
+<tr>
+<td style="text-align:left">Hash</td>
+<td style="text-align:left">键值对集合,即编程语言中的Map类型</td>
+<td style="text-align:left">适合存储对象,并且可以像数据库中update一个属性一样只修改某一项属性值</td>
+<td style="text-align:left">存储、读取、修改用户属性</td>
+</tr>
+<tr>
+<td style="text-align:left">List</td>
+<td style="text-align:left">链表(双向链表)</td>
+<td style="text-align:left">增删快,提供了操作某一段元素的API</td>
+<td style="text-align:left">1,最新消息排行等功能(比如朋友圈的时间线) 2,消息队列</td>
+</tr>
+<tr>
+<td style="text-align:left">Set</td>
+<td style="text-align:left">哈希表实现,元素不重复</td>
+<td style="text-align:left">1、添加、删除,查找的复杂度都是O(1) 2、为集合提供了求交集、并集、差集等操作</td>
+<td style="text-align:left">1、共同好友 2、利用唯一性,统计访问网站的所有独立ip 3、好友推荐时,根据tag求交集,大于某个阈值就可以推荐</td>
+</tr>
+<tr>
+<td style="text-align:left">Sorted Set</td>
+<td style="text-align:left">将Set中的元素增加一个权重参数score,元素按score有序排列</td>
+<td style="text-align:left">数据插入集合时,已经进行天然排序</td>
+<td style="text-align:left">1、排行榜 2、带权重的消息队列</td>
+</tr>
+</tbody>
+</table>
+<p>Sorted Set的用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 1 redis</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 2 mongodb</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 3 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZADD runoobkey 4 mysql</span><br><span class="line">(integer) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; ZRANGE runoobkey 0 10 WITHSCORES</span><br><span class="line"></span><br><span class="line">1) &quot;redis&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;mongodb&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;mysql&quot;</span><br><span class="line">6) &quot;4&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="Redis-HyperLogLog"><a href="#Redis-HyperLogLog" class="headerlink" title="Redis HyperLogLog"></a>Redis HyperLogLog</h3><p>Redis 在 2.8.9 版本添加了 HyperLogLog 结构。</p>
+<p>Redis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是，在输入元素的数量或者体积非常非常大时，计算基数所需的空间总是固定 的、并且是很小的。</p>
+<p>在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基 数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。</p>
+<p>但是，因为 HyperLogLog 只会根据输入元素来计算基数，而不会储存输入元素本身，所以 HyperLogLog 不能像集合那样，返回输入的各个元素。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;redis&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;mongodb&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFADD runoobkey &quot;mysql&quot;</span><br><span class="line">1) (integer) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; PFCOUNT runoobkey</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+<h2 id="Redis命令"><a href="#Redis命令" class="headerlink" title="Redis命令"></a>Redis命令</h2><p><code>redis-cli -h host -p port -a password</code> 连接远程服务</p>
+<p>中文乱码的话 <code>redis-cli.exe --raw</code>启动</p>
+<p><a href="http://www.redis.cn/commands.html" target="_blank" rel="noopener">官方命令手册</a><br><a href="http://redisdoc.com/index.html" target="_blank" rel="noopener">redis命令参考</a><br><a href="https://www.runoob.com/redis/redis-commands.html" target="_blank" rel="noopener">菜鸟教程的redis命令</a></p>
+<h3 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h3><p>Redis支持发布订阅，发送者发送消息，订阅者接收消息，使用PUBLISH可以指定频道发布消息，SUBSCRIBE可以订阅频道，详情见手册</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>Redis事务可以一次执行多个命令， 并且带有以下三个重要的保证：</p>
+<ul>
+<li>批量操作在发送 EXEC 命令前被放入队列缓存</li>
+<li>收到 EXEC 命令后进入事务执行，事务中任意命令执行失败，其余的命令依然被执行</li>
+<li>在事务执行过程，其他客户端提交的命令请求不会插入到事务执行命令序列中</li>
+</ul>
+<p>一个事务从开始到执行会经历以下三个阶段：</p>
+<ul>
+<li>开始事务</li>
+<li>命令入队</li>
+<li>执行事务</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; SET book-name &quot;Mastering C++ in 21 days&quot;</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; GET book-name</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SADD tag &quot;C++&quot; &quot;Programming&quot; &quot;Mastering Series&quot;</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; SMEMBERS tag</span><br><span class="line">QUEUED</span><br><span class="line">redis 127.0.0.1:6379&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) &quot;Mastering C++ in 21 days&quot;</span><br><span class="line">3) (integer) 3</span><br><span class="line">4) 1) &quot;Mastering Series&quot;</span><br><span class="line">   2) &quot;C++&quot;</span><br><span class="line">   3) &quot;Programming&quot;</span><br></pre></td></tr></table></figure>
+<p>单个 Redis 命令的执行是原子性的，但 Redis 没有在事务上增加任何维持原子性的机制，所以 Redis 事务的执行并不是原子性的</p>
+<p>事务可以理解为一个打包的批量执行脚本，但批量指令并非原子化的操作，中间某条指令的失败不会导致前面已做指令的回滚，也不会造成后续的指令不做</p>
+<blockquote>
+<p>It’s important to note that even when a command fails, all the other commands in the queue are processed – Redis will not stop the processing of commands.</p>
+</blockquote>
+<h3 id="Redis-数据备份与恢复"><a href="#Redis-数据备份与恢复" class="headerlink" title="Redis 数据备份与恢复"></a>Redis 数据备份与恢复</h3><p><code>SAVA</code>命令会在redis安装目录创建dump.rdb文件<br>把备份文件移动到redis安装目录并启动服务即可恢复数据，<code>CONFIG GET dir</code>获取redis目录<br><code>BGSAVE</code>也是创建Redis备份文件（异步）</p>
+<h3 id="Redis安全"><a href="#Redis安全" class="headerlink" title="Redis安全"></a>Redis安全</h3><p>可以通过Redis的配置文件设置密码参数，这样客户端连接Redis就要密码验证</p>
+<p><code>CONFIG get requirepass</code>查看是否设置密码验证<br><code>CONFIG set requirepass &quot;youpass&quot;</code>设置密码<br><code>AUTH password</code>使用password连接Redis</p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><p>Redis还有LUA脚本命令，连接命令，服务器命令，测试性能命令等，包括执行LUA脚本，后台异步保存当前数据库的数据到磁盘，同步保存数据到硬盘，关闭客户端连接等，详情见文档</p>
+<h2 id="Jedis"><a href="#Jedis" class="headerlink" title="Jedis"></a>Jedis</h2><p>POM添加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>创建Jedis对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = <span class="keyword">new</span> Jedis(<span class="string">"localhost"</span>);</span><br></pre></td></tr></table></figure>
+<p>然后就可以用Java方法来操纵Redis了</p>
+<h3 id="使用Redis连接池"><a href="#使用Redis连接池" class="headerlink" title="使用Redis连接池"></a>使用Redis连接池</h3><p>跟数据库连接池相同，Java Redis也提供了类redis.clients.jedis.JedisPool来管理我们的Redis连接池对象，并且我们可以使用redis.clients.jedis.JedisPoolConfig来对连接池进行配置，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">JedisPool pool;</span><br><span class="line">Jedis jedis;</span><br><span class="line">JedisPoolConfig poolConfig = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line"><span class="comment">// 最大空闲数</span></span><br><span class="line">poolConfig.setMaxIdle(<span class="number">50</span>);</span><br><span class="line"><span class="comment">// 最大连接数</span></span><br><span class="line">poolConfig.setMaxTotal(<span class="number">100</span>);</span><br><span class="line"><span class="comment">// 最大等待毫秒数</span></span><br><span class="line">poolConfig.setMaxWaitMillis(<span class="number">20000</span>);</span><br><span class="line"><span class="comment">// 使用配置创建连接池</span></span><br><span class="line">pool = <span class="keyword">new</span> JedisPool(poolConfig, <span class="string">"localhost"</span>);</span><br><span class="line"><span class="comment">// 从连接池中获取单个连接</span></span><br><span class="line">jedis = pool.getResource();</span><br><span class="line"><span class="comment">// 如果需要密码</span></span><br><span class="line"><span class="comment">//jedis.auth("password");</span></span><br></pre></td></tr></table></figure>
+<h2 id="Redis-Spring集成"><a href="#Redis-Spring集成" class="headerlink" title="Redis Spring集成"></a>Redis Spring集成</h2><p>Redis 只能支持六种数据类型（string/hash/list/set/zset/hyperloglog）的操作，但在 Java 中我们却通常以类对象为主，所以在需要 Redis 存储的五中数据类型与 Java 对象之间进行转换，如果自己编写一些工具类，比如一个角色对象的转换，还是比较容易的，但是涉及到许多对象的时候，这其中无论工作量还是工作难度都是很大的，所以总体来说，就操作对象而言，使用 Redis 还是挺难的，好在 Spring 对这些进行了封装和支持。</p>
+<p>上面所说的Redis无法操作对象的问题，无法在基础类型和Java对象之间方便的转换，但在Spring中，<strong>这些问题都可以通过使用RedisTemplate得到解决</strong></p>
+<ol>
+<li>先引入jar包</li>
+</ol>
+<blockquote>
+<p>Spring Data Redis 2.x binaries require JDK level 8.0 and above and Spring Framework 5.0.7.RELEASE and above.</p>
+</blockquote>
+<p><strong>spring-data-redis 2.0以上需要jdk8和spring5以上</strong>，因为我的Spring版本是4.x，所以我使用的spring-data-redis版本如下，同时为了兼容，我把jedis也降级为2.x</p>
+<p>（2.x的spring-data-redis与spring 4不兼容，3.x的jedis与1.x的spring-data-redis不兼容，我人晕了…）<br>最终可以兼容的spring-data-redis与jedis版本如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.8.22.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用Spring配置JedisPoolConfig对象</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"redis.clients.jedis.JedisPoolConfig"</span> <span class="attr">id</span>=<span class="string">"jedisPoolConfig"</span> &gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大空闲数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdle"</span> <span class="attr">value</span>=<span class="string">"50"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大连接数--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxTotal"</span> <span class="attr">value</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大等待时间--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxWaitMillis"</span> <span class="attr">value</span>=<span class="string">"20000"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>为连接池配置工厂模型</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisConnFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hostName"</span> <span class="attr">value</span>=<span class="string">"localhost"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"port"</span> <span class="attr">value</span>=<span class="string">"6379"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"poolConfig"</span> <span class="attr">ref</span>=<span class="string">"jedisPoolConfig"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>配置RedisTemplate</li>
+</ol>
+<p>普通的连接根本没有办法直接将对象直接存入 Redis 内存中，我们需要替代的方案：将对象序列化（可以简单的理解为继承Serializable接口）。我们可以把对象序列化之后存入Redis缓存中，然后在取出的时候又通过转换器，将序列化之后的对象反序列化回对象，这样就完成了我们的要求</p>
+<p>RedisTemplate可以帮助我们完成这份工作，它会找到对应的序列化器去转换Redis的键值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.core.RedisTemplate"</span> <span class="attr">p:connection-factory-ref</span>=<span class="string">"jedisConnFactory"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>编写测试的POJO类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter setter toString()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>编写测试类，获取redisTemplate对象</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(BlockJUnit4ClassRunner.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestSpringJedis</span> <span class="keyword">extends</span> <span class="title">UnitTestBase</span> </span>&#123;</span><br><span class="line"><span class="comment">// UnitTestBase可以见我Spring相关的博客</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestSpringJedis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(<span class="string">"classpath:spring-data-redis.xml"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        RedisTemplate redisTemplate = <span class="keyword">super</span>.getBean(<span class="string">"redisTemplate"</span>);</span><br><span class="line">        Student student = <span class="keyword">new</span> Student();</span><br><span class="line">        student.setName(<span class="string">"aha"</span>);</span><br><span class="line">        student.setAge(<span class="number">22</span>);</span><br><span class="line">        redisTemplate.opsForValue().set(<span class="string">"student"</span>, student);</span><br><span class="line">        Student student1 = (Student) redisTemplate.opsForValue().get(<span class="string">"student"</span>);</span><br><span class="line">        System.out.println(student1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="RedisTemplate"><a href="#RedisTemplate" class="headerlink" title="RedisTemplate"></a>RedisTemplate</h3><p>Spring封装了RedisTemplate对象来进行对Redis的各种操作，它支持所有的Redis原生的api。RedisTemplate位于spring-data-redis包下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">redisTemplate.opsForValue();<span class="comment">//操作字符串</span></span><br><span class="line">redisTemplate.opsForHash();<span class="comment">//操作hash</span></span><br><span class="line">redisTemplate.opsForList();<span class="comment">//操作list</span></span><br><span class="line">redisTemplate.opsForSet();<span class="comment">//操作set</span></span><br><span class="line">redisTemplate.opsForZSet();<span class="comment">//操作有序set</span></span><br></pre></td></tr></table></figure>
+<p>StringRedisTemplate与RedisTemplate的区别：</p>
+<ul>
+<li>两者的关系是StringRedisTemplate继承RedisTemplate。</li>
+<li>两者的数据是不共通的；也就是说StringRedisTemplate只能管理StringRedisTemplate里面的数据，RedisTemplate只能管理RedisTemplate中的数据。</li>
+<li>SDR默认采用的序列化策略有两种，一种是String的序列化策略，一种是JDK的序列化策略。<ul>
+<li>StringRedisTemplate默认采用的是String的序列化策略，保存的key和value都是采用此策略序列化保存的。</li>
+<li>RedisTemplate默认采用的是JDK的序列化策略，保存的key和value都是采用此策略序列化保存的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="RedisTemplate的序列化问题"><a href="#RedisTemplate的序列化问题" class="headerlink" title="RedisTemplate的序列化问题"></a>RedisTemplate的序列化问题</h3><p>RedisTemplate可以帮助我们序列化对象，但使用默认的配置，会发现序列化对象在redis-cli中查找不到，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    RedisTemplate&lt;String, String&gt; redisTemplate = <span class="keyword">super</span>.getBean(<span class="string">"redisTemplate"</span>);</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"myspringredis"</span>, <span class="string">"Hello World From Spring"</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">"myspringredis"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>会发现可以正常输出，但只要在redis-cli上<code>GET myspringredis</code>，发现输出的是null，使用<code>keys *</code>查看，发现有一个类似的<code>\xac\xed\x00\x05t\x00\rmyspringredis</code><br>网上查阅资料发现，原来是序列化的问题，RedisTemplate会默认使用JdkSerializationRedisSerializer，这个序列化器会导致上述问题的出现，它的优点和缺点如下：</p>
+<ul>
+<li>它要求存储的对象都必须实现java.io.Serializable接口，他存储二进制数据，对开发者不友好</li>
+<li>因为他存储的为二进制。但是有时候，我们的Redis会在一个项目的多个project中共用，这样如果同一个可以缓存的对象在不同的project中要使用两个不同的key来分别缓存，既麻烦，又浪费</li>
+<li>序列化后的结果非常庞大，是JSON格式的5倍左右，这样就会消耗redis服务器的大量内存</li>
+<li>优点是反序列化时不需要提供（传入）类型信息(class)</li>
+</ul>
+<p>要解决上述问题，可以使用StringRedisSerializer，它是StringRedisTemplate默认的序列化方法，如下所示配置RedisTemplate</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"stringRedisSerializer"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.serializer.StringRedisSerializer"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisTemplate"</span> <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.core.RedisTemplate"</span> <span class="attr">p:connection-factory-ref</span>=<span class="string">"jedisConnFactory"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"valueSerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"keySerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashValueSerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hashKeySerializer"</span> <span class="attr">ref</span>=<span class="string">"stringRedisSerializer"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样，序列化对象在redis-cli就可以成功找到了</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/线程安全与锁优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/03/线程安全与锁优化/" itemprop="url">线程安全与锁优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-03T20:09:34+08:00">
+                2019-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/03/线程安全与锁优化/" class="leancloud_visitors" data-flag-title="线程安全与锁优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="线程安全与锁优化"><a href="#线程安全与锁优化" class="headerlink" title="线程安全与锁优化"></a>线程安全与锁优化</h1><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p><strong>当多个线程访问一个对象时，如果不用考虑这些线程在运行时环境下的调度和交替运行，也不需要进行额外的同步，或者在调用方进行任何其他的协调操作，调用这个对象的行为都可以获得正确的结果，那这个对象是线程安全的</strong></p>
+<p>这个定义比较严谨，它要求线程安全的代码必须具备一个特征：代码本身封装了所有必要的正确性保障手段（如互斥同步等），令调用者无须关心多线程的问题，更无须自己采取任何措施来保证多线程的正确调用</p>
+<h3 id="Java语言中的线程安全"><a href="#Java语言中的线程安全" class="headerlink" title="Java语言中的线程安全"></a>Java语言中的线程安全</h3><p>我们把Java语言中各种操作共享的数据分为以下5类：不可变，绝对线程安全，相对线程安全，线程兼容和线程对立</p>
+<h4 id="不可变"><a href="#不可变" class="headerlink" title="不可变"></a>不可变</h4><p>不可变的对象一定是线程安全的，如果共享数据是一个基本数据类型，那么只要在定义时使用final关键字修饰就可以保证它是不可变的。<strong>如果共享数据是一个对象，那就需要保证对象的行为不会对其状态产生影响才行</strong>。保证对象行为不影响自己的状态的途径有很多种，其中最简单的就是把对象中带有状态的变量都声明为final，如Integer，它通过将内部状态变量value定义为final来保障状态不变</p>
+<p>Java API中符合不可变要求的类型，除了String，还有枚举类型，Number的部分子类，如Long和Double等数值包装类型，BigInteger和BigDecimal等大数据类型</p>
+<h4 id="绝对线程安全"><a href="#绝对线程安全" class="headerlink" title="绝对线程安全"></a>绝对线程安全</h4><p>绝对的线程安全完全满足上面给出的线程安全的定义，不管运行环境如下，调用者都不需要进行额外的同步措施，在Java中标注自己是线程安全的类，大多数都不是绝对的线程安全</p>
+<h4 id="相对线程安全"><a href="#相对线程安全" class="headerlink" title="相对线程安全"></a>相对线程安全</h4><p>相对的线程安全就是我们通常意义上所讲的线程安全，它需要保证对这个对象单独的操作是线程安全的，我们在调用的时候不需要做额外的保障措施，但是对一些特定顺序的连续调用，就可能需要在调用端使用额外的同步手段来保证调用的正确性</p>
+<p>Java中大部分线程安全类都属于这种类型，如Vector，HashTable，Collections的synchronizedCollection()方法保证的集合等</p>
+<h4 id="线程兼容"><a href="#线程兼容" class="headerlink" title="线程兼容"></a>线程兼容</h4><p>线程兼容是指对象本身并不是线程安全的，但是可以通过在调用端正确使用同步手段来保证对象在并发的环境中可以安全地使用，我们平常说一个类不是线程安全的，绝大多数指的就是这一种情况</p>
+<p>Java中大部分类都属于线程兼容，如ArrayList和HashMap等</p>
+<h4 id="线程对立"><a href="#线程对立" class="headerlink" title="线程对立"></a>线程对立</h4><p>线程对立指无论调用端是否采用同步措施，都无法在多线程环境中并发使用的代码</p>
+<h3 id="线程安全的实现方法"><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h3><h4 id="互斥同步"><a href="#互斥同步" class="headerlink" title="互斥同步"></a>互斥同步</h4><p><strong>同步指多个线程并发访问共享数据时，保证共享数据在同一时刻只被一个线程使用</strong>（信号量机制下可以被一些使用）。互斥是实现同步的一种手段，临界区(Critical Section)，互斥量(Mutex)和信号量(Semaphore)都是主要的互斥实现方式，互斥是因，同步是果，互斥是方法，同步是目的</p>
+<p><strong>Java中最基本的互斥同步手段是synchronized关键字，编译后会在同步块前后形成monitorenter和monitorexit字节码指令，这两个字节码指令都需要一个reference类型的参数来指明要锁定和解锁的对象。如果程序中synchronized明确指定了对象参数，那就是这个对象的reference；如果没有明确指定，那就根据synchronized修饰的是实例方法还是类方法，去取对应的对象实例或Class对象来作为锁对象</strong></p>
+<p><strong>在执行monitorenter指令时，首先尝试获取对象的锁。如果这个对象没被锁定，或者当前线程已经拥有那个对象的锁，把锁计数器加1，相应地，执行monitorexit指令时把锁计数器减1，当计数器为0，锁就被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到对象锁被另外一个线程释放为止</strong></p>
+<p>synchronized同步块对同一条线程是可重入的，不会自己把自己锁死，其次，同步块在已进入线程执行完之前，会阻塞后面其他线程的进入。<strong>Java的线程是映射到OS的原生线程上的，如果要阻塞或唤醒一个线程，都需要OS来帮忙完成，这就需要从用户态转换到核心态中，因此需要耗费很多的处理器时间</strong>。对于代码简单的同步块（如synchronized修饰的getter和setter），状态转换消耗的时间可能比用户代码执行的时间还要长。所以synchronized关键字是Java语言的一个重量级的操作。在确实有必要的情况下才使用它，虚拟机本身也会进行一些优化，譬如在通知OS阻塞线程前加入一段自旋等待过程，避免频繁进入到核心态中</p>
+<p>除了synchronized关键字，我们还可以使用java.util.concurrent的重入锁ReentrantLock来实现同步，基本用法上它们是类似的，只是代码写法上有些出入，一个表现为API层面的互斥锁（lock()和unlock()配合try/finally语句块完成），另一个表现为原生语法层面的互斥锁</p>
+<p>不过，相比synchronized，ReentrantLock增加了一些高级功能：等待可中断，可实现公平锁，以及锁可以绑定多个条件</p>
+<ul>
+<li>等待可中断指当持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情</li>
+<li>公平锁指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁，synchronized的锁是非公平的，默认情况下ReentrantLock也是非公平的，但可以通过带布尔值的构造函数要求公平锁</li>
+<li>锁绑定多个条件指一个ReentrantLock对象可以同时绑定多个Condition对象，而在synchronized中，锁对象的wait()和notify()或notifyAll()可以实现一个隐含的条件，如果要和多于一个条件关联，就不得不额外添加一个锁，而ReentrantLock只需要多次调用newCondition()方法即可</li>
+</ul>
+<h4 id="非阻塞同步"><a href="#非阻塞同步" class="headerlink" title="非阻塞同步"></a>非阻塞同步</h4><p>互斥同步最主要的问题是进行线程阻塞和唤醒所带来的性能问题，因此这种同步称为阻塞同步。从处理问题方式上来说，<strong>互斥同步属于一种悲观的并发策略</strong>，总是认为只要不去做正确的同步措施，那就肯定会出现问题，无论共享数据是否真的出现竞争，它都要进行加锁，用户态核心态转换，维护锁计数器和检查是否有被阻塞的线程需要唤醒等操作</p>
+<p>随着硬件发展，我们有了另外一种选择：<strong>基于冲突检测的乐观并发策略，通俗来说，就是先进行操作，如果没有其他线程争用共享数据，那操作就成功了；如果共享数据有争用，产生了冲突，那就再采取其他补偿措施</strong>（比如不断重试，直到成功），这种乐观的并发策略的许多实现都不需要把线程挂起，因此这种同步操作称为非阻塞同步</p>
+<p>我们需要操作和冲突检测这两个步骤具备原子性，只能靠硬件来完成它们的原子性，硬件保证一个从语义上来说需要多次操作的行为只通过一条处理器指令就能完成，这类指令常用的有：</p>
+<ul>
+<li>测试并设置（Test-and-Set）</li>
+<li>获取并增加（Fetch-and-Increment）</li>
+<li>交换（Swap）</li>
+<li>比较并交换（Compare-and-Swap，下文称CAS）</li>
+<li>加载链接/条件存储（Load-Linked/Store-Conditional，下文称LL/SC）</li>
+</ul>
+<p>CAS指令需要3个操作数，分别是内存位置（V），旧的预期值（A）和新值（B）。CAS指令执行时，当且仅当V符合旧预期值A时，处理器用新值B更新V的值，否则它就不执行更新，但是无论是否更新了V的值，都会返回V的旧值，上述的处理过程就像一个原子操作</p>
+<p>JDK 1.5后提供CAS操作，该操作由sun.misc.Unsafe类的compareAndSwapInt()和compareAndSwapLong()等几个方法包装提供，Unsafe类只能通过其他Java API来间接使用，如concurrent包的整数原子类（AtomicInteger），其中的compareAndSet()和getAndIncrement()等方法都用了Unsafe类的CAS操作</p>
+<p>CAS操作常见的漏洞是”ABA”问题，即如果一个变量V初次读取的时候是A值，并且准备赋值时它仍然为A值，那也不能说明它就没有被改变过，因为它可能先被改成了B，再被改回A</p>
+<h4 id="无同步方案"><a href="#无同步方案" class="headerlink" title="无同步方案"></a>无同步方案</h4><p>要保证线程安全，不一定需要同步，同步只是保证共享数据争用时的正确性的手段，如果一个方法本来就不涉及共享数据，那它自然就无须任何同步措施去保证正确性，因此会有一些代码天生就是线程安全的，主要介绍其中两类</p>
+<p>可重入代码：也叫纯代码，可以在代码执行的任何时刻中断它，转而去执行其他代码，而在控制权返回后，原来的程序不会出现任何错误。可冲入代码都是线程安全的。可重入代码有一些共同特征，如不依赖存储在堆上的数据和公用的系统资源，用到的状态量都由参数传入，不调用非可重入的方法等。如果一个方法，它的返回结果是可以预测的，只要输入相同的数据，都能返回相同的结果，那它就满足可重入性的要求，当然也是线程安全的</p>
+<p>线程本地存储：如果一段代码所需要的数据必须与其他代码共享，那就看看这些共享数据的代码是否能保证在同一个线程中执行，如果能保证，我们就可以把共享数据的可见范围限制在同一个线程之内，这样，无须同步也能保证线程之间不出现数据争用的问题<br>符合这种特点的应用并不少见，大部分使用消息队列的架构模式都会将产品的消费过程尽量在一个线程中消费完，其中最重要的一个应用实例就是经典Web交互模型中的”一个请求对应一个服务器线程”的处理方式，这种处理方式广泛应用使得很多Web服务端应用都可以使用线程本地存储来解决线程安全问题</p>
+<p>Java语言中，一个变量要被多线程访问，可以使用volatile关键字声明它是易变得，<strong>如果一个变量要被某个线程独享，可以通过java.lang.ThreadLocal类来实现线程本地存储的功能。每一个线程的Thread对象都有一个ThreadLocalMap对象，这个对象存储了一组以ThreadLocal.threadLocalHashCode为键，以本地线程变量为值得K-V值对，ThreadLocal对象就是当前线程的ThreadLocalMap的访问入口，每一个ThreadLocal对象都包含了一个独一无二的threadLocalHashCode值，使用这个值就可以在线程K-V值中找回对应的本地线程变量</strong></p>
+<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><h3 id="自旋锁与自适应自旋"><a href="#自旋锁与自适应自旋" class="headerlink" title="自旋锁与自适应自旋"></a>自旋锁与自适应自旋</h3><p><strong>互斥同步对性能最大的影响是阻塞的实现，挂起线程和恢复线程的操作都需要转入内核态完成，这些操作给系统的并发性能带来很大的压力，且许多应用上，共享数据的锁定状态只会持续很短的一段时间，为了这段时间去挂起和恢复线程并不值得。</strong><br><strong>如果物理机器上有一个以上的处理器，能让两个或以上的线程同时并行执行，我们就可以让后面请求锁的那个线程稍等一下，但不放弃处理器的执行时间，看看持有锁的线程是否很快就释放锁。为了让线程等待，我们只需让线程执行一个忙循环（自旋），这项技术就是所谓的自旋锁</strong></p>
+<p>JDK 1.6引入自适应的自旋锁，自适应意味自旋的时间不再固定，而是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定。如果在同一个锁对象上，自旋等待刚刚成功获得过锁，并且持有锁的线程正在运行中，那么虚拟机就会认为这次自旋也很有可能再次成功，进而它将允许自旋等待持续相对更长的时间，比如100个循环。另外，如果对于某个锁，自旋很少成功过，那在以后要获取这个锁时将可能省略掉自旋过程，以避免浪费处理器资源。有了自适应自旋，随着程序运行和性能监控信息的不断完善，虚拟机对程序锁的状况预测越来越准确</p>
+<h3 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h3><p><strong>锁消除指虚拟机即时编译器在运行时，对一些代码上要求同步，但是被检测到不可能存在共享数据竞争的锁进行消除</strong>，锁消除的主要判定依据来源于逃逸分析的数据支持，如果判断在一段代码上，堆上所有数据都不会逃逸出去从而被其他线程访问到，那就可以把它们当做栈上的数据对待，认为它们是线程私有的，同步加锁自然就无须进行（很多同步措施都不是程序员自己想要加入的，而是Java方法本身就有）</p>
+<h3 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h3><p>原则上我们编写代码的时候，总是推荐把同步块的作用范围限制得尽量小，只在共享数据的实际作用域才进行同步，这样是为了使得需要同步的操作数量尽可能变小，如果存在锁竞争，那等待锁的线程也能尽快得到锁</p>
+<p>大部分情况下，上面的原则是正确的，但是如果一系列连续操作都对同一个对象反复加锁和解锁，甚至加锁操作出现在循环体内，那即使没有线程竞争，频繁地进行互斥同步操作也会导致不必要的性能损耗</p>
+<p><strong>如果虚拟机探测到有这样一串零碎的操作都对同一个对象加锁，就会把加锁同步的范围扩展到整个操作序列的外部，这样只需要加锁一次即可，这个就是锁粗化</strong></p>
+<h3 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h3><p>轻量级锁是JDK 1.6之中加入的新型锁机制，传统的锁机制是重量级锁，轻量级锁并不是用来代替重量级锁的，<strong>它的本意是在没有多线程竞争的前提下，减少传统的重量级锁使用OS互斥量产生的性能消耗</strong></p>
+<p>要理解轻量级锁，必须要从HotSpot虚拟机的对象（对象头部分）的内存布局开始介绍。HotSpot虚拟机的对象头分为两部分信息，第一部分用于存储对象自身的运行时数据，如哈希吗，GC分带年龄等，这部分数据长度在32位和64位虚拟机中分别为32bit和64bit，官方称它为”Mark Word”，它是实现轻量级锁和偏向锁的关键。另外一部分用于存储指向方法区对象类型数据的指针，如果是数组对象的话，还会有一个额外的部分用于存储数组长度</p>
+<p><img src="https://i.imgur.com/2PmPvzi.png" alt=""></p>
+<p>在代码进入同步块的时候，如果此同步对象没有被锁定，虚拟机首先将在当前线程的栈帧中建立一个名为锁记录的空间，用于存储锁对象目前的Mark Word的拷贝，然后，虚拟机将使用CAS操作尝试将对象的Mark Word更新为指向Lock Record的指针，如果这个操作成功了，那么这个线程就拥有了该对象的锁，并且对象的Mark Word的锁标志位转变为”00”，代表此对象处于轻量级锁定状态，如下图所示：</p>
+<p><img src="https://i.imgur.com/x5UHNDT.png" alt=""></p>
+<p>如果这个更新操作失败了，虚拟机首先检查对象的Mark Word是否指向当前线程的栈帧，如果只说明当前线程已经拥有这个锁，那就可以直接进入同步块继续执行，否则说明这个锁对象已经被其他线程抢占了。如果有两条以上的线程争用同一个锁，那轻量级锁就不再有效，要膨胀为重量级锁，锁标志状态值变为”10”，Mark Word中存储的就是指向重量级锁的指针，后面等待锁的线程也要进入阻塞状态</p>
+<p>轻量级锁的加锁和解锁过程都是通过CAS操作来完成的</p>
+<p>轻量级锁能提升程序同步性能的依据是”对于绝大部分的锁，在整个同步周期都不存在竞争”，这是一个经验数据，<strong>如果没有竞争，轻量级锁使用CAS操作避免了使用互斥量的开销，但如果存在锁竞争，除了互斥量的开销外，还额外发送了CAS操作，因此有竞争的情况下，轻量级锁会比传统的重量级锁更慢</strong></p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p><strong>偏向锁的目的是消除在无竞争情况下的同步原语，进一步提高程序的运行性能，如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不做了</strong></p>
+<p>偏向锁的偏，就是偏心的偏，它的意思是这个锁会偏向于第一个获得它的线程，如果在接下来的执行过程中，该锁没有被其他线程获取，则持有偏向锁的线程永远不需要再进行同步</p>
+<p>当锁对象第一次被线程获取的时候，虚拟机会把对象头的标志位设为”01”，即偏向模式，同时CAS操作把获取这个锁的线程的ID记录在对象的Mark Word中，如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关的同步块时，虚拟机都可以不再进行任何同步操作</p>
+<p>当有另外一个线程去尝试获取这个锁，偏向模式就结束，根据锁对象目前是否处于被锁定的状态，撤销偏向后恢复到未锁定或轻量级锁定的状态，后续同步操作就如上面的轻量级锁那样执行</p>
+<p><img src="https://i.imgur.com/dlLRtnV.png" alt=""></p>
+<p>偏向锁可以提高带有同步但无竞争的程序性能，同样是一个带有效益权衡性质的优化</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/03/Java内存模型与线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2532,420 +3196,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/23/Java并发基础4-执行器和同步器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/23/Java并发基础4-执行器和同步器/" itemprop="url">Java并发基础4-执行器和同步器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T11:42:34+08:00">
-                2019-07-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/23/Java并发基础4-执行器和同步器/" class="leancloud_visitors" data-flag-title="Java并发基础4-执行器和同步器">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java并发基础4-执行器和同步器"><a href="#Java并发基础4-执行器和同步器" class="headerlink" title="Java并发基础4-执行器和同步器"></a>Java并发基础4-执行器和同步器</h1><h2 id="执行器"><a href="#执行器" class="headerlink" title="执行器"></a>执行器</h2><p>构建一个新线程是有一定代价的，因为涉及与OS的交互。如果程序创建大量生命周期很短的线程，应该使用线程池，一个线程池中包含许多准备运行的空闲线程。将Runnable对象交给线程池，就会有一个线程调用run方法。当run方法退出时，线程不会死亡，而是在池中准备为下一个请求提供服务<br>另一个使用线程池的理由是减少并发线程的数目。创建大量线程会大大降低性能甚至使虚拟机崩溃。如果有一个会创建许多线程的算法，应该使用一个线程数”固定的”线程池限制并发线程的数目</p>
-<p>执行器(Executor)类有许多静态工厂方法来构建线程池</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">static ExecutorService newCachedThreadPool</td>
-<td style="text-align:left">必要时创建新线程；空闲线程保留60秒</td>
-</tr>
-<tr>
-<td style="text-align:left">static ExecutorService newFixedThreadPool</td>
-<td style="text-align:left">包含固定数量的线程；空闲线程会一直保留</td>
-</tr>
-<tr>
-<td style="text-align:left">static ExecutorService newSingleThreadExecutor</td>
-<td style="text-align:left">只有一个线程的”池”，该线程顺序执行每一个提交的任务</td>
-</tr>
-<tr>
-<td style="text-align:left">static ScheduledExecutorService newScheduledThreadPool</td>
-<td style="text-align:left">用于预定执行而构建的固定线程池，替代java.util.Timer</td>
-</tr>
-<tr>
-<td style="text-align:left">static ScheduledExecutorService newSingleThreadScheduledExecutor</td>
-<td style="text-align:left">用于预定执行而构建的单线程”池”</td>
-</tr>
-</tbody>
-</table>
-<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>newCachedThreadPool方法构建一个线程池，对每个任务如果有空闲线程可用则立即执行，如果没有空闲线程可用，则创建一个新线程；newFixedThreadPool方法构建一个具有固定大小的线程池，如果提交任务数多于空闲线程数，就把得不到服务的任务放置在队列中；newSingleThreadExecutor是一个大小为1的线程池，由一个线程执行提交的任务，一个接着一个；这三个方法都返回实现了ExecutorService接口的ThreadPoolExecutor对象</p>
-<p>可以使用下面方法之一将一个Runnable对象或Callable对象提交给ExecutorService</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;?&gt; submit(Runnable task);</span><br><span class="line"><span class="function">Future&lt;T&gt; <span class="title">submit</span><span class="params">(Runnable task, T result)</span></span>;</span><br><span class="line"><span class="function">Future&lt;T&gt; <span class="title">submit</span><span class="params">(Callable&lt;T&gt; task)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>调用submit方法会返回一个Future对象，可以用来查询该任务的状态<br>第一个submit返回的Future对象可以调用isDone，cancel和isCancelled方法，但get方法在完成时只会简单返回null<br>第二个submit也提交一个Runnable，并且Future的get方法在完成时返回指定的result对象<br>第三个submit提交一个Callable，返回的Future对象将在计算结果准备好的时候得到它</p>
-<p>用完一个线程池后，调用shutdown方法，该方法会启动该池的关闭序列。被关闭的执行器不再接受新的任务，所有任务完成后，线程池中的线程死亡。shutdownNow方法会取消尚未开始的所有任务并试图中断正在运行的线程</p>
-<p>使用连接池应该做的事：</p>
-<ol>
-<li>调用Executors类的静态方法newCachedThreadPool或newFixedThreadPool，得到ExecutorService对象</li>
-<li>调用submit提交Runnable或Callable对象</li>
-<li>如果想要取消一个任务或提交Callable对象，要保存好submit方法返回的Future对象</li>
-<li>当不再提交任何任务时，调用shutdown</li>
-</ol>
-<h3 id="预定执行"><a href="#预定执行" class="headerlink" title="预定执行"></a>预定执行</h3><p>ScheduledExecutorService接口具有为预定执行或重复执行任务而设计的方法，它是一种允许使用线程池机制的java.util.Timer的泛化。Executors类的newScheduledThreadPool和newSingleThreadScheduledExecutor方法返回实现了ScheduledExecutorService接口的对象</p>
-<p>ScheduledExecutorService接口继承自ExecutorService接口，且多增加了可以预定Runnable或Callable在初始的延迟后只运行一次，也可以预定一个Runnable对象周期性运行的方法，详见API</p>
-<p><img src="https://i.imgur.com/ON5Twnv.png" alt=""></p>
-<h3 id="ExecutorService"><a href="#ExecutorService" class="headerlink" title="ExecutorService"></a>ExecutorService</h3><p>执行器服务作为线程池使用可以提交任务效率，除此之外，使用执行器可以控制一组相关任务<br>如可以在执行器中使用shutdownNow方法取消所有任务，也可以用使用invokeAny方法提供一个Callable对象的集合，并返回某个已经完成的任务的结果（任意结果，但只有一个，用于搜索问题的任何一种解决方案）<br>invokeAll方法提供一个Callable对象的集合，返回一个Future的List对象，代表所有任务的解决方案</p>
-<p>ExecutorService的API如下</p>
-<p><img src="https://i.imgur.com/9IhepW0.png" alt=""></p>
-<h3 id="Fork-Join框架"><a href="#Fork-Join框架" class="headerlink" title="Fork-Join框架"></a>Fork-Join框架</h3><p>某些应用可能对每个处理器内核分别使用一个线程，来完成计算密集型任务。java se 7新引入fork-join框架，假设一个处理任务，可以自然地分解为子任务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (problemSize &lt; threshold)</span><br><span class="line">    solve problem directly</span><br><span class="line">else &#123;</span><br><span class="line">    break proble into subproblems</span><br><span class="line">    recursively solve each subproblem</span><br><span class="line">    combine the results</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>例如图像处理，可以变换上半部分和下半部分，这些操作可以并行运行（如果有足够多的空闲处理器）<br>一个更简单的例子是数组处理，统计一个数组有多少个元素满足某个特定的属性，可以将数组一分为二，分别对这部分进行统计，结果相加<br>提供一个扩展RecursiveTask&lt;T&gt;的类（计算会生成类型T的结果），或者提供一个扩展RecursiveAction的类（不生成任何结果），再覆盖compute方法来生成并调用子任务，然后合并结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword">extends</span> <span class="title">RecursiveTask</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Integer <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (to - from &lt; THRESHOLD) &#123;</span><br><span class="line">            solve problem directly</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (from + to) / <span class="number">2</span>;</span><br><span class="line">            Counter first = <span class="keyword">new</span> Counter(values, from, mid, filter);</span><br><span class="line">            Counter second = <span class="keyword">new</span> Counter(values, mid, to, filter);</span><br><span class="line">            invokeAll(first, second);</span><br><span class="line">            <span class="keyword">return</span> first.join() + second.join();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后台中，fork-join框架使用一种有效的智能方法来平衡可用线程的工作负载，这种方法称为工作密取，每个工作线程都有一个双端队列来完成任务，一个工作线程将子任务压入其双端队列队头，一个工作线程空闲时，它会从另一个双端队列队尾密取一个任务</p>
-<h2 id="同步器"><a href="#同步器" class="headerlink" title="同步器"></a>同步器</h2><h3 id="倒计时门栓"><a href="#倒计时门栓" class="headerlink" title="倒计时门栓"></a>倒计时门栓</h3><p>CountDownLatch类让一个线程集等待直到计数变为0，倒计时门栓是一次性的，一旦计数为0，就不能重用</p>
-<p>举例来说，假定一个线程集需要一些初始的数据来完成工作，工作器线程被启动并在门外等待。另一个线程准备数据，设置一个计数值为1的门栓，当数据准备好后，调用countDown，所有工作器线程就可以继续运行了。然后设置第二个门栓检查什么时候所有工作器线程完成工作，门栓计数为工作器线程个数</p>
-<h3 id="障栅"><a href="#障栅" class="headerlink" title="障栅"></a>障栅</h3><p>CyclicBarrier类实现一个集结点称为障栅。考虑大量线程运行在一次计算的不同部分的情形，当所有部分准备好时，需要把结果组合在一起，当一个线程完成它的部分任务后，我们让它运行到障栅处，一旦所有线程都到达这个障栅，障栅就撤销，线程可以继续运行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(nthreads);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    doWork();</span><br><span class="line">    barrier.await();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果任何一个在障栅上等待的线程离开障栅（调用它本身的await导致超时，或者被中断），所有其他线程会的await方法抛出BrokenBarrierException异常</p>
-<p>可以提供一个可选的障栅动作，当所有线程到达障栅时会执行这一动作</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Runnable barrierAction = ...</span><br><span class="line">CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(nthreads, barrierAction);</span><br></pre></td></tr></table></figure>
-<p>障栅是循环的，可以被重用，Phaser类可以允许改变不同阶段中参与线程的个数</p>
-<h3 id="交换器"><a href="#交换器" class="headerlink" title="交换器"></a>交换器</h3><p>两个线程在同一数据缓冲区的两个实例上工作时，可以使用交换器Exchanger</p>
-<h3 id="同步队列"><a href="#同步队列" class="headerlink" title="同步队列"></a>同步队列</h3><p>是一种生产者消费者线程配对的机制，一个线程调用SynchronousQueue的put方法时，它会阻塞到另一个线程调用take方法位置，反之亦然，与Exchanger不同的是它的数据是单向的，从生产者到消费者，它实现了BlockingQueue接口，但它依然不是一个队列，它的size方法总是返回0</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/Java并发基础3-阻塞队列与线程安全的集合/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/19/Java并发基础3-阻塞队列与线程安全的集合/" itemprop="url">Java并发基础3-阻塞队列与线程安全的集合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-19T10:35:34+08:00">
-                2019-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/19/Java并发基础3-阻塞队列与线程安全的集合/" class="leancloud_visitors" data-flag-title="Java并发基础3-阻塞队列与线程安全的集合">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java并发基础3-阻塞队列与线程安全的集合"><a href="#Java并发基础3-阻塞队列与线程安全的集合" class="headerlink" title="Java并发基础3-阻塞队列与线程安全的集合"></a>Java并发基础3-阻塞队列与线程安全的集合</h1><h2 id="阻塞队列BlockingQueue"><a href="#阻塞队列BlockingQueue" class="headerlink" title="阻塞队列BlockingQueue"></a>阻塞队列BlockingQueue</h2><p>许多线程问题都可以通过一个或多个队列安全形式化，生产者线程向队列插入元素，消费者线程取出它们，使用队列可以安全从一个线程向另一个线程传递数据。如银行转账，转账线程将转账指令对象插入一个队列中，而不是直接访问银行对象，另一个线程从队列取出指令执行转账，只有该线程可以访问该银行对象的内部，因此不需要同步</p>
-<p>当试图往满队列添加元素或从空队列取元素时，阻塞队列会导致线程阻塞，阻塞队列方法如下：</p>
-<p><img src="https://i.imgur.com/p6lD3s3.png" alt=""></p>
-<p>有三类方法，取决于队满队空时的响应方式。如果将队列当做线程管理工具来使用，就要用到put和take；如果要抛出异常，就要用add，remove和element；offer，poll，peek在队满或队空时不会完成任务，而是给出一个错误提示但不抛出异常</p>
-<p>offer与poll方法可以带超时参数<code>boolean success = q.offer(x, 100, TimeUtil.MILLISECONDS);</code>，若超时还没插入则返回false</p>
-<p>java.util.concurrent包提供了阻塞队列的几个变种：<br>默认情况下，LinkedBlockingQueue的容量是没有上边界的，但也可以选择指定其最大容量，LinkedBlockingDeque是双端队列<br>ArrayBlockingQueue在构造时需要指定容量，有一个可选的参数来指定是否需要公平性（公平性指等待最长时间的线程会优先得到处理），公平性会降低性能<br>PriorityBlockingQueue是一个带优先级的队列（不是先进先出），元素会按照他们的优先级顺序被移出，该队列没有上限，队空时取元素会阻塞<br>DelayQueue包含实现Delayed接口的对象<code>Class DelayQueue&lt;E extends Delayed&gt;</code>，实现Delayed接口要实现<code>long getDelay(TimeUnit unit)</code>方法，getDelay方法返回对象的残留延迟，负值表示延迟已经结束，元素只有延迟用完的情况下才能从DelayQueue移除。还必须实现compareTo方法（Delayed接口基础自Comparable<delayed>）<br>LinkedTransferQueue类实现了TransferQueue接口，可以允许生产者线程等待，直到消费者准备就绪可以接收一个元素，生产者调用<code>q.transfer(item);</code>，会阻塞，直到另一个线程将元素(item)删除</delayed></p>
-<p>主要在生产者线程中往队列插入元素，消费者线程从队列取元素，不需要关心线程的同步问题，队列本身已经提供了同步机制</p>
-<h2 id="线程安全的集合"><a href="#线程安全的集合" class="headerlink" title="线程安全的集合"></a>线程安全的集合</h2><p>如果多线程要并发修改一个数据结构，如散列表，那么很容易会破坏这个数据结构。可以提供锁来保护共享数据结构，但是Java类库也有提供线程安全的集合实现</p>
-<h3 id="高效的映射，集合队列"><a href="#高效的映射，集合队列" class="headerlink" title="高效的映射，集合队列"></a>高效的映射，集合队列</h3><p>ConcurrentHashMap,ConcurrentSkipListMap,ConcurrentSkipListSet,ConcurrentLinkedQueue都是java.util.concurrent包提供的映射，有序集合队列的高效实现</p>
-<h3 id="映射条目的原子更新"><a href="#映射条目的原子更新" class="headerlink" title="映射条目的原子更新"></a>映射条目的原子更新</h3><p>下面代码不是线程安全的，即使map是线程安全的map</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Long oldValue = map.get(word);</span><br><span class="line">Long newValue = oldValue == <span class="keyword">null</span> ? <span class="number">1</span> : oldValue + <span class="number">1</span>;</span><br><span class="line">map.put(word, newValue);</span><br></pre></td></tr></table></figure>
-<p>可能会有另一个线程同时更新同一个计数</p>
-<p>线程安全的数据结构指如果多个线程修改，内部的结构也不会破坏，不会造成链接丢失，循环等问题</p>
-<p>可以使用replace方法更新，它会以原子方式用一个新值替换原值，前提是之前没有其他线程把原值替换成其他值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    oldValue = map.get(word);</span><br><span class="line">    newValue = oldValue == <span class="keyword">null</span> ? <span class="number">1</span> : oldValue + <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">while</span> (!map.replace(word, oldValue, newValue);</span><br></pre></td></tr></table></figure>
-<p>也可以使用ConcurrentHashMap&lt;String, AtomicLong&gt;或ConcurrentHashMap&lt;String, LongAdder&gt;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map.putIfAbsent(word, <span class="keyword">new</span> LongAdder());</span><br><span class="line">map.get(word).increment();</span><br></pre></td></tr></table></figure>
-<p>Java8也提供了原子更新的方法compute，它提供一个键和计算新值的函数，这个函数接收键和相关联的值（没有则为null），它会计算新值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.compute(word, (k, v) -&gt; v == <span class="keyword">null</span> ? <span class="number">1</span> : v + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<p>另外还有computeIfPresent和computeIfAbsent方法</p>
-<h3 id="并发散列映射的批操作"><a href="#并发散列映射的批操作" class="headerlink" title="并发散列映射的批操作"></a>并发散列映射的批操作</h3><p>即使其他线程在处理映射，这些操作也能安全执行，有三种不同的批操作</p>
-<ul>
-<li>搜索：为每个键或值提供一个函数，直到函数生成一个非null的结果。然后搜索终止，返回这个函数的结果</li>
-<li>归约：组合所有键或值，要使用所提供的一个累加函数</li>
-<li>forEach：为所有键或值提供一个函数</li>
-</ul>
-<p>每个操作有4个版本</p>
-<ul>
-<li>operationKeys：处理键</li>
-<li>operationValues：处理值</li>
-<li>operation：处理键和值</li>
-<li>operationEntries：处理Map.Entry对象</li>
-</ul>
-<p>上述操作需要指定一个参数化阈值，如果映射包含元素多于这个阈值，就会并行完成批操作。如果希望批操作在一个线程中运行，可以使用阈值Long.MAX_VALUE，如果希望用尽可能多的线程运行批操作，可以使用阈值1</p>
-<p>同步search方法API如下：</p>
-<p><img src="https://i.imgur.com/inGfgCW.png" alt=""></p>
-<p>对于函数参数，只需要提供lambda函数即可 (k,v) -&gt; {}</p>
-<h3 id="并发集视图"><a href="#并发集视图" class="headerlink" title="并发集视图"></a>并发集视图</h3><p>如果想得到大的线程安全的集而不是映射，但没有ConcurrentHashSet类，可以使用ConcurrentHashMap的静态方法newKeySet，它会生成一个Set<k>（实际上是ConcurrentHashMap&lt;K, Boolean&gt;的一个包装器，所有值为Boolean.TRUE）</k></p>
-<h2 id="Callable与Future"><a href="#Callable与Future" class="headerlink" title="Callable与Future"></a>Callable与Future</h2><p>Runnable封装一个异步运行的任务，可以把它想象成一个没有参数和返回值的异步方法。而Callable可以有返回值，Callable接口只有一个方法call</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Callable</span>&lt;<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">V <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Future保存异步计算的结果，可以启动一个计算，把Future对象交给某个线程，Future对象的所有者在结果计算好后就可以获得它</p>
-<p><img src="https://i.imgur.com/2gt55Fa.png" alt=""></p>
-<p>get方法调用被阻塞，直到计算完成（或超时抛出异常），如果计算还在进行，isDone方法返回false，cancel方法取消计算，参数表示如果计算处于运行中，则被中断</p>
-<p>使用FutureTask包装器将Callable转换成Future和Runnable<br>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Callable&lt;Integer&gt; myComputation = ...;</span><br><span class="line">FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;&gt;(myComputation);</span><br><span class="line">Thread t = <span class="keyword">new</span> Thread(task);</span><br><span class="line">t.start();</span><br><span class="line">...</span><br><span class="line">Integer result = task.get();</span><br></pre></td></tr></table></figure>
-<!-- TODO: 把书里的总结完，然后看https://github.com/Snailclimb/JavaGuide#%E5%9F%BA%E7%A1%80下面的多线程（或者分开写），http://how2j.cn/k/thread/thread-start/353.html#nowhere这里的多线程有视频 -->
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3002,7 +3252,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3024,7 +3274,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

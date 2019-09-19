@@ -137,7 +137,7 @@
 <meta property="og:image" content="https://i.imgur.com/Lem8bhI.png">
 <meta property="og:image" content="https://i.imgur.com/ZbfltHM.png">
 <meta property="og:image" content="https://i.imgur.com/YyrGzlW.png">
-<meta property="og:updated_time" content="2019-08-16T11:21:23.099Z">
+<meta property="og:updated_time" content="2019-09-16T09:57:09.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL基本语句">
 <meta name="twitter:description" content="MySQL基本语句数据库相关创建数据库1CREATE DATABASE 数据库名; 删除数据库1DROP DATABASE 数据库名; 选择数据库1USE 数据库名; 数据类型数值类型  时间和日期类型  字符串类型  表相关创建表通用语法 1CREATE TABLE table_name (column_name column_type); 例子 1234567CREATE TABLE IF N">
@@ -513,6 +513,13 @@
 <p>通用语法</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> expression1, expression2, ... expression_n</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">tables</span></span><br><span class="line">[<span class="keyword">WHERE</span> conditions]</span><br><span class="line"><span class="keyword">UNION</span> [ALL | <span class="keyword">DISTINCT</span>]</span><br><span class="line"><span class="keyword">SELECT</span> expression1, expression2, ... expression_n</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">tables</span></span><br><span class="line">[<span class="keyword">WHERE</span> conditions];</span><br></pre></td></tr></table></figure>
 <p>DISTINCT表示删除结果集中重复的数据，ALL表示包含重复数据</p>
+<ul>
+<li>对于联合查询的多张表的列数必须保持一致</li>
+<li>推荐：对于每一列的字段类型也要保持一致</li>
+<li>对于多个select语句的查询，列名可能不同，要以第一个select语句的列名为准</li>
+<li>如果多个select语句查询到相同的记录，就会把重复的记录合并为一条记录</li>
+<li>如果不想将相同的查询结果去重，直接在union后加all，当然，这种效率会高一点</li>
+</ul>
 <h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>ORDER BY可以对结果排序</p>
 <p>通用语法</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> field1, field2,...fieldN <span class="keyword">FROM</span> table_name1, table_name2...</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> field1 [<span class="keyword">ASC</span> [<span class="keyword">DESC</span>][默认 <span class="keyword">ASC</span>]], [field2...] [<span class="keyword">ASC</span> [<span class="keyword">DESC</span>][默认 <span class="keyword">ASC</span>]]</span><br></pre></td></tr></table></figure>
@@ -687,7 +694,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -709,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

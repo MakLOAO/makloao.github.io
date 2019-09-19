@@ -123,20 +123,20 @@
 
 
 
-<meta name="description" content="java基础==和equals==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的 两个对象的hashCode()相同，则equals()也一定为true吗不对，哈希值相同，equals不一定为true final">
+<meta name="description" content="java基础关于继承的杂七杂八 子类重写父类方法，修饰符必须比父类范围大，private&amp;lt;default&amp;lt;protected&amp;lt;public super()和this()都必须放在构造函数的第一行，因此不能共存 父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，子类会默认会在自己的构造器的第">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java基础（持续更新）">
 <meta property="og:url" content="http://yoursite.com/2019/09/01/java基础/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="java基础==和equals==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的 两个对象的hashCode()相同，则equals()也一定为true吗不对，哈希值相同，equals不一定为true final">
+<meta property="og:description" content="java基础关于继承的杂七杂八 子类重写父类方法，修饰符必须比父类范围大，private&amp;lt;default&amp;lt;protected&amp;lt;public super()和this()都必须放在构造函数的第一行，因此不能共存 父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，子类会默认会在自己的构造器的第">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/hIFsPrY.png">
 <meta property="og:image" content="https://i.imgur.com/9f9x6ng.png">
-<meta property="og:updated_time" content="2019-09-08T15:46:37.623Z">
+<meta property="og:updated_time" content="2019-09-18T14:40:23.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础（持续更新）">
-<meta name="twitter:description" content="java基础==和equals==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的 两个对象的hashCode()相同，则equals()也一定为true吗不对，哈希值相同，equals不一定为true final">
+<meta name="twitter:description" content="java基础关于继承的杂七杂八 子类重写父类方法，修饰符必须比父类范围大，private&amp;lt;default&amp;lt;protected&amp;lt;public super()和this()都必须放在构造函数的第一行，因此不能共存 父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，子类会默认会在自己的构造器的第">
 <meta name="twitter:image" content="https://i.imgur.com/hIFsPrY.png">
 
 
@@ -473,10 +473,28 @@
       
 
       
-        <h1 id="java基础"><a href="#java基础" class="headerlink" title="java基础"></a>java基础</h1><h3 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a>==和equals</h3><p>==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同<br>equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的</p>
+        <h1 id="java基础"><a href="#java基础" class="headerlink" title="java基础"></a>java基础</h1><h3 id="关于继承的杂七杂八"><a href="#关于继承的杂七杂八" class="headerlink" title="关于继承的杂七杂八"></a>关于继承的杂七杂八</h3><ul>
+<li>子类重写父类方法，修饰符必须比父类范围大，private&lt;default&lt;protected&lt;public</li>
+<li>super()和this()都必须放在构造函数的第一行，因此不能共存</li>
+<li><strong>父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错</strong>，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，<strong>子类会默认会在自己的构造器的第一行加上super()</strong></li>
+<li>继承的执行顺序：父类静态块-&gt;子类静态块-&gt;父类非静态块-&gt;子类非静态块-&gt;父类构造函数-&gt;子类构造函数</li>
+</ul>
+<h3 id="关于基本类型的杂七杂八"><a href="#关于基本类型的杂七杂八" class="headerlink" title="关于基本类型的杂七杂八"></a>关于基本类型的杂七杂八</h3><ul>
+<li>高精度向低精度转型会报错，反之不会（即可以double a = 12）</li>
+<li>布尔型只能用布尔变量保存</li>
+<li>不同的包装类型使用==判断的时候会报错</li>
+</ul>
+<h3 id="关于main方法的杂七杂八"><a href="#关于main方法的杂七杂八" class="headerlink" title="关于main方法的杂七杂八"></a>关于main方法的杂七杂八</h3><ul>
+<li>main方法有一个本类的成员，该成员可以访问类的静态域和私有域，如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> x;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">incr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        x++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Main main = <span class="keyword">new</span> Main ();</span><br><span class="line">        System.out.println(main.x); <span class="comment">// 0</span></span><br><span class="line">        main.incr();</span><br><span class="line">        System.out.println(main.x); <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="String可以被继承吗"><a href="#String可以被继承吗" class="headerlink" title="String可以被继承吗"></a>String可以被继承吗</h3><p>String的修饰符是 <code>public final</code> ，不可以被继承</p>
+<h3 id="判断String是否相等"><a href="#判断String是否相等" class="headerlink" title="判断String是否相等"></a>判断String是否相等</h3><p><strong>指向常量池的话，只要值相等，则一定相等，指向堆的话，如果指向的不是堆中的同一对象，则不相等</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String a = &quot;aaa&quot;;</span><br><span class="line">String b = &quot;aa&quot; + &quot;a&quot;;</span><br><span class="line">String c = &quot;aaa&quot;;</span><br><span class="line">String d = new String(&quot;aaa&quot;);</span><br><span class="line">System.out.println(a == b); // true</span><br><span class="line">System.out.println(c == d); // false</span><br></pre></td></tr></table></figure>
+<h3 id="和equals"><a href="#和equals" class="headerlink" title="==和equals"></a>==和equals</h3><p>==：对于基本类型，比较的值是否相同；对于引用类型，比较的是引用是否相同<br>equals：equals本质上是==，只不过String，Integer等重写了equals方法，把它变成值比较，Object类的equals方法就是直接使用==的</p>
 <h3 id="两个对象的hashCode-相同，则equals-也一定为true吗"><a href="#两个对象的hashCode-相同，则equals-也一定为true吗" class="headerlink" title="两个对象的hashCode()相同，则equals()也一定为true吗"></a>两个对象的hashCode()相同，则equals()也一定为true吗</h3><p>不对，哈希值相同，equals不一定为true</p>
 <h3 id="final作用"><a href="#final作用" class="headerlink" title="final作用"></a>final作用</h3><p>修饰类则为最终类，不能被继承<br>修饰方法不能被重写<br>修饰的变量为常量，必须初始化，初始化后不能被修改</p>
-<h3 id="重载，重写"><a href="#重载，重写" class="headerlink" title="重载，重写"></a>重载，重写</h3><p>重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！<br>重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。</p>
+<h3 id="重载，重写"><a href="#重载，重写" class="headerlink" title="重载，重写"></a>重载，重写</h3><p>重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写！<br>重载(overloading) 是在一个类里面，方法名字相同，<strong>而参数不同</strong>。<strong>返回类型可以相同也可以不同</strong>。</p>
 <h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><ul>
 <li>继承关系</li>
 <li>子类重写父类方法</li>
@@ -554,7 +572,7 @@
 <li><code>List&lt;? super Son&gt;</code>：不能读取元素，可以添加元素，可以添加Son及其子类</li>
 <li><code>List&lt;?&gt;</code>：不能读取也不能添加</li>
 </ul>
-<h3 id="Unicdoe和UTF-8"><a href="#Unicdoe和UTF-8" class="headerlink" title="Unicdoe和UTF-8"></a>Unicdoe和UTF-8</h3><p>Unicode是<strong>字符集</strong>：为每一个字符分配一个唯一的ID（码位）（在内存中保存时用的是Unicode）<br>UTF-8是<strong>编码规则</strong>：将码位转换为字节序列的规则（在硬盘存储和网络传输中，常用变长编码方式UTF-8）<br>它把Unicode的字符集编码为1 ~ 4个字节的序列<br>汉字在UTF-8和Unicode中都是占用3字节</p>
+<h3 id="Unicdoe和UTF-8"><a href="#Unicdoe和UTF-8" class="headerlink" title="Unicdoe和UTF-8"></a>Unicdoe和UTF-8</h3><p>Unicode是<strong>字符集</strong>：为每一个字符分配一个唯一的ID（码位）（在内存中保存时用的是Unicode）<br>UTF-8是<strong>编码规则</strong>：将码位转换为字节序列的规则（在硬盘存储和网络传输中，常用变长编码方式UTF-8）<br>它把Unicode的字符集编码为1 ~ 4个字节的序列<br>汉字在UTF-8占用3字节，在Unicode占用2字节（所以char类型可以保存汉字）</p>
 <h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul>
 <li>成员内部类<strong>可以被权限修饰符(eg. <code>public,private</code> 等)所修饰</strong></li>
 <li>成员内部类<strong>可以访问外部类的所有成员,（包括 <code>private</code> ）成员</strong>（只要名字没有被覆盖，直接使用外部类的方法成员的名字即可）</li>
@@ -587,6 +605,23 @@
 <li>不同包的子孙不能访问default，不同包的子孙可以访问protected</li>
 </ul>
 <h3 id="LinkedList-for循环问题"><a href="#LinkedList-for循环问题" class="headerlink" title="LinkedList for循环问题"></a>LinkedList for循环问题</h3><p>for循环每次遍历都是从第一个节点开始的，性能很差，最好用iterator</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><p>一个对象数据，在反序列化过程中，如果序列化串中的serialVersionUID与当前对象值不同，则反序列化失败，否则成功</p>
+<p>如果serialVersionUID没有显式生成，系统就会自动生成一个。生成的输入有：类名、类及其属性修饰符、接口及接口顺序、属性、静态初始化、构造器。任何一项的改变都会导致serialVersionUID变化</p>
+<p><strong>如果我们保持了serialVersionUID的一致，则在反序列化时，对于新增的字段会填入默认值null（int的默认值0）,对于减少的字段则直接忽略</strong></p>
+<p><strong>如果父类序列化了，子类会继承父类的序列化，子类无需添加序列化接口（子类对父类的属性和自身的属性都会被序列化</strong><br><strong>如果父类没有序列化，子类序列化了，子类中的属性能正常序列化，但父类的属性会丢失，不能序列化</strong></p>
+<h3 id="Main-null-staticMethod"><a href="#Main-null-staticMethod" class="headerlink" title="((Main)null).staticMethod()"></a>((Main)null).staticMethod()</h3><p>这种调用是可以的，null会被强制转换为Main类型（而不是Main实例），然后调用Main类型的静态方法即可<br>当调用的是实例方法，则会报空指针异常</p>
+<h3 id="clone方法"><a href="#clone方法" class="headerlink" title="clone方法"></a>clone方法</h3><p>Object的clone方法是浅拷贝，对于引用对象，指向的仍然是同一个对象</p>
+<h3 id="hashCode与equals"><a href="#hashCode与equals" class="headerlink" title="hashCode与equals"></a>hashCode与equals</h3><p>hashCode()方法和equals()方法的作用其实一样，在Java里都是用来对比两个对象是否相等一致</p>
+<p>重写equals要考虑得比较全面复杂，效率会低，而hashCode()只需要比较hash值，效率会高<br>hashCode不完全可靠，有时候不同对象也会有相同的hashCode</p>
+<ul>
+<li>equals相等，hashCode一定相等，反之不一定</li>
+</ul>
+<p>需要对比的时候，首先使用hashCode，如果相等再使用equals，这样效率会高</p>
+<ul>
+<li>只要重写equals，就必须重写hashCode</li>
+<li>Set存储的对象必须重写equals和hashCode（Set存储不重复的对象，依据hashCode和equals判断）</li>
+<li>自定义对象作为Map的键，则必须重写hashCode和equals</li>
+</ul>
 
       
     </div>
@@ -632,8 +667,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" rel="next" title="Java并发基础5-AQS,Atomic与ThreadLocal">
-                <i class="fa fa-chevron-left"></i> Java并发基础5-AQS,Atomic与ThreadLocal
+              <a href="/2019/09/01/algs/" rel="next" title="algs（持续更新）">
+                <i class="fa fa-chevron-left"></i> algs（持续更新）
               </a>
             
           </div>
@@ -642,8 +677,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/01/Java集合类/" rel="prev" title="Java集合（持续更新）">
-                Java集合（持续更新） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/01/redis/" rel="prev" title="Redis（持续更新）">
+                Redis（持续更新） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -733,7 +768,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -755,7 +790,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -810,7 +845,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java基础"><span class="nav-number">1.</span> <span class="nav-text">java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#和equals"><span class="nav-number">1.0.1.</span> <span class="nav-text">==和equals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个对象的hashCode-相同，则equals-也一定为true吗"><span class="nav-number">1.0.2.</span> <span class="nav-text">两个对象的hashCode()相同，则equals()也一定为true吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final作用"><span class="nav-number">1.0.3.</span> <span class="nav-text">final作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载，重写"><span class="nav-number">1.0.4.</span> <span class="nav-text">重载，重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">1.0.5.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-中的-Math-round-1-5-等于多少？"><span class="nav-number">1.0.6.</span> <span class="nav-text">java 中的 Math.round(-1.5) 等于多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类，接口"><span class="nav-number">1.0.7.</span> <span class="nav-text">抽象类，接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java类初始化顺序"><span class="nav-number">1.0.8.</span> <span class="nav-text">Java类初始化顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个认为最好的单例模式"><span class="nav-number">1.0.9.</span> <span class="nav-text">写一个认为最好的单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B树和B-树是解决什么样的问题的，怎样演化过来，之间区别"><span class="nav-number">1.0.10.</span> <span class="nav-text">B树和B+树是解决什么样的问题的，怎样演化过来，之间区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-a-“Hello”相关问题"><span class="nav-number">1.0.11.</span> <span class="nav-text">String a = “Hello”相关问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-a-1-是原子操作"><span class="nav-number">1.0.12.</span> <span class="nav-text">int a = 1 是原子操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"><span class="nav-number">1.0.13.</span> <span class="nav-text">可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashCode-和equals"><span class="nav-number">1.0.14.</span> <span class="nav-text">hashCode()和equals()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#是什么"><span class="nav-number">1.0.14.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别"><span class="nav-number">1.0.14.2.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashCode-效率高那还需要equals-干什么"><span class="nav-number">1.0.14.3.</span> <span class="nav-text">hashCode()效率高那还需要equals()干什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用规则"><span class="nav-number">1.0.14.4.</span> <span class="nav-text">使用规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型通配符"><span class="nav-number">1.0.15.</span> <span class="nav-text">泛型通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicdoe和UTF-8"><span class="nav-number">1.0.16.</span> <span class="nav-text">Unicdoe和UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类"><span class="nav-number">1.0.17.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OR-NOT-AND优先级"><span class="nav-number">1.0.18.</span> <span class="nav-text">OR NOT AND优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java容器"><span class="nav-number">1.0.19.</span> <span class="nav-text">Java容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection和Collections区别"><span class="nav-number">1.0.20.</span> <span class="nav-text">Collection和Collections区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个具体Map的用处"><span class="nav-number">1.0.21.</span> <span class="nav-text">三个具体Map的用处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java异常"><span class="nav-number">1.0.22.</span> <span class="nav-text">Java异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.0.23.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lang和util"><span class="nav-number">1.0.24.</span> <span class="nav-text">lang和util</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量命名规则"><span class="nav-number">1.0.25.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protected和default"><span class="nav-number">1.0.26.</span> <span class="nav-text">protected和default</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList-for循环问题"><span class="nav-number">1.0.27.</span> <span class="nav-text">LinkedList for循环问题</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java基础"><span class="nav-number">1.</span> <span class="nav-text">java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于继承的杂七杂八"><span class="nav-number">1.0.1.</span> <span class="nav-text">关于继承的杂七杂八</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于基本类型的杂七杂八"><span class="nav-number">1.0.2.</span> <span class="nav-text">关于基本类型的杂七杂八</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于main方法的杂七杂八"><span class="nav-number">1.0.3.</span> <span class="nav-text">关于main方法的杂七杂八</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String可以被继承吗"><span class="nav-number">1.0.4.</span> <span class="nav-text">String可以被继承吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断String是否相等"><span class="nav-number">1.0.5.</span> <span class="nav-text">判断String是否相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和equals"><span class="nav-number">1.0.6.</span> <span class="nav-text">==和equals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个对象的hashCode-相同，则equals-也一定为true吗"><span class="nav-number">1.0.7.</span> <span class="nav-text">两个对象的hashCode()相同，则equals()也一定为true吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#final作用"><span class="nav-number">1.0.8.</span> <span class="nav-text">final作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载，重写"><span class="nav-number">1.0.9.</span> <span class="nav-text">重载，重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">1.0.10.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-中的-Math-round-1-5-等于多少？"><span class="nav-number">1.0.11.</span> <span class="nav-text">java 中的 Math.round(-1.5) 等于多少？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象类，接口"><span class="nav-number">1.0.12.</span> <span class="nav-text">抽象类，接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java类初始化顺序"><span class="nav-number">1.0.13.</span> <span class="nav-text">Java类初始化顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写一个认为最好的单例模式"><span class="nav-number">1.0.14.</span> <span class="nav-text">写一个认为最好的单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B树和B-树是解决什么样的问题的，怎样演化过来，之间区别"><span class="nav-number">1.0.15.</span> <span class="nav-text">B树和B+树是解决什么样的问题的，怎样演化过来，之间区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-a-“Hello”相关问题"><span class="nav-number">1.0.16.</span> <span class="nav-text">String a = “Hello”相关问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int-a-1-是原子操作"><span class="nav-number">1.0.17.</span> <span class="nav-text">int a = 1 是原子操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决"><span class="nav-number">1.0.18.</span> <span class="nav-text">可以用for循环直接删除ArrayList的特定元素吗？可能会出现什么问题？怎样解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashCode-和equals"><span class="nav-number">1.0.19.</span> <span class="nav-text">hashCode()和equals()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#是什么"><span class="nav-number">1.0.19.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区别"><span class="nav-number">1.0.19.2.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashCode-效率高那还需要equals-干什么"><span class="nav-number">1.0.19.3.</span> <span class="nav-text">hashCode()效率高那还需要equals()干什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用规则"><span class="nav-number">1.0.19.4.</span> <span class="nav-text">使用规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型通配符"><span class="nav-number">1.0.20.</span> <span class="nav-text">泛型通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unicdoe和UTF-8"><span class="nav-number">1.0.21.</span> <span class="nav-text">Unicdoe和UTF-8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类"><span class="nav-number">1.0.22.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OR-NOT-AND优先级"><span class="nav-number">1.0.23.</span> <span class="nav-text">OR NOT AND优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java容器"><span class="nav-number">1.0.24.</span> <span class="nav-text">Java容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection和Collections区别"><span class="nav-number">1.0.25.</span> <span class="nav-text">Collection和Collections区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个具体Map的用处"><span class="nav-number">1.0.26.</span> <span class="nav-text">三个具体Map的用处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java异常"><span class="nav-number">1.0.27.</span> <span class="nav-text">Java异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.0.28.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lang和util"><span class="nav-number">1.0.29.</span> <span class="nav-text">lang和util</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量命名规则"><span class="nav-number">1.0.30.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protected和default"><span class="nav-number">1.0.31.</span> <span class="nav-text">protected和default</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList-for循环问题"><span class="nav-number">1.0.32.</span> <span class="nav-text">LinkedList for循环问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化"><span class="nav-number">1.0.33.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Main-null-staticMethod"><span class="nav-number">1.0.34.</span> <span class="nav-text">((Main)null).staticMethod()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone方法"><span class="nav-number">1.0.35.</span> <span class="nav-text">clone方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashCode与equals"><span class="nav-number">1.0.36.</span> <span class="nav-text">hashCode与equals</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

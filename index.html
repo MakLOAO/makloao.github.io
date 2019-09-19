@@ -882,6 +882,613 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/spring/" itemprop="url">Spring（持续更新）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/spring/" class="leancloud_visitors" data-flag-title="Spring（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="什么是Spring"><a href="#什么是Spring" class="headerlink" title="什么是Spring"></a>什么是Spring</h2><p>是Java企业级应用的开源框架，使用JavaBean来完成以前EJB完成的事</p>
+<h2 id="Spring框架好处"><a href="#Spring框架好处" class="headerlink" title="Spring框架好处"></a>Spring框架好处</h2><ul>
+<li>轻量</li>
+<li>控制反转</li>
+<li>面向切面的编程</li>
+<li>容器</li>
+<li>MVC框架</li>
+<li>事务管理</li>
+<li>异常处理</li>
+</ul>
+<h2 id="IOC和AOP理解"><a href="#IOC和AOP理解" class="headerlink" title="IOC和AOP理解"></a>IOC和AOP理解</h2><p>IOC：控制反转，是一种设计思想，指应用程序本身不负责依赖对象的创建和维护，而是由外部容器负责创建和维护</p>
+<p>IOC底层基于Java反射</p>
+<p>IOC容器就像一个工厂，我们创建一个对象，只需要配置好配置文件/注解即可，不用考虑对象是如何被创建出来的，这样可以降低开发难度，增加项目可维护性</p>
+<p>DI：依赖注入，是IOC的一种实现方式，指IOC容器在运行期间，动态地将某种依赖关系注入到对象中。注入方式有设值注入（getter，setter）和构造注入（通过构造器注入）</p>
+<p>AOP：能够将那些与业务无关，却为业务模块所共同调用的逻辑与责任（如事务处理，日志管理，权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并提高可拓展性和可维护性</p>
+<p>AOP基于<strong>动态代理</strong>，如果要代理的对象实现了某个接口，那么Spring AOP就会使用 JDK Proxy 去创建代理对象，而对于没有实现接口的对象，就无法使用JDK Proxy，这时候就会去使用 CGLib 生成一个被代理对象的子类来作为代理</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/iaIdQfEric9TwBuibJ4N5OTyAvJibFj8b7zhPn9m0PpOfqr7exaXPcBL5qJJDiaFibZxVprZjicTJxialjXKjicQrxnOcEA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<h2 id="Spring-AOP和AspectJ-AOP的区别"><a href="#Spring-AOP和AspectJ-AOP的区别" class="headerlink" title="Spring AOP和AspectJ AOP的区别"></a>Spring AOP和AspectJ AOP的区别</h2><ul>
+<li>Spring AOP是运行时织入，AspectJ是编译时织入（在编译阶段生成AOP代理类）</li>
+<li>Spring AOP基于代理，AspectJ基于字节码操作</li>
+<li>AspectJ相比Spring AOP功能更强大（AOP仅支持方法级编织，AspectJ还可以编织字段，构造函数等），性能更好（编译时织入的性能更好）</li>
+</ul>
+<h2 id="bean作用域"><a href="#bean作用域" class="headerlink" title="bean作用域"></a>bean作用域</h2><ul>
+<li>singleton：单例，唯一bean实例，默认就是singleton</li>
+<li>prototype：每次请求都会创建一个新的bean实例</li>
+<li>request：每一次HTTP请求都会创建一个新的bean，该bean仅在当前HTTP Request内有效</li>
+<li>session：每一此HTTP请求都会创建一个新的bean，该bean仅在当前HTTP session内有效</li>
+<li>global-session：全局session作用于，仅用在protlet，spring 5已经取消</li>
+</ul>
+<h2 id="Spring中的单例bean的线程安全问题"><a href="#Spring中的单例bean的线程安全问题" class="headerlink" title="Spring中的单例bean的线程安全问题"></a>Spring中的单例bean的线程安全问题</h2><p><strong>单例bean</strong>存在线程问题，主要是因为当多个线程操作同一个对象的时候，对这个对象的<strong>非静态成员变量</strong>的<strong>写操作</strong>存在线程安全问题</p>
+<p>两种解决办法：</p>
+<ul>
+<li>Bean对象中尽量避免定义可变的成员变量</li>
+<li>类中定义一个ThreadLocal成员变量，将需要的可变成员变量保存在ThreadLocal中</li>
+</ul>
+<h2 id="Spring-Bean生命周期"><a href="#Spring-Bean生命周期" class="headerlink" title="Spring Bean生命周期"></a>Spring Bean生命周期</h2><ul>
+<li>Bean容器找到配置文件中的Spring Bean的定义</li>
+<li>Bean容器利用反射创建一个Bean的实例</li>
+<li>对于属性值利用 set()方法 设置</li>
+<li>检查Aware相关接口并设置相关依赖，如Bean实现了 BeanNameAware 接口，调用setBeanName()方法，传入Bean的名字</li>
+<li>BeanPostProcessor的前置处理</li>
+<li>检查是否有InitializingBean以决定是否调用afterPropertiesSet方法</li>
+<li>检查是否配置自定义的init-method方法，有则执行指定方法</li>
+<li>BeanPostProcessor的后置处理</li>
+<li>使用</li>
+<li>销毁时，检查是否实现DisposableBean接口，有则调用destroy()方法</li>
+<li>检查是否配置自定义的destroy-method方法，有则执行指定方法</li>
+</ul>
+<h2 id="对于Spring-MVC的了解"><a href="#对于Spring-MVC的了解" class="headerlink" title="对于Spring MVC的了解"></a>对于Spring MVC的了解</h2><p>要了解一个东西，首先得知道它能干什么，MVC框架能做的事情如下：</p>
+<ul>
+<li>将URL映射到java类或java类的方法</li>
+<li>封装用户提交的数据</li>
+<li>处理请求-调用相关的业务处理-封装响应的数据</li>
+<li>将响应的数据进行渲染，jsp，html，freemarker等</li>
+</ul>
+<p>SpringMVC是一个轻量级的，基于请求响应的mvc框架</p>
+<p>Spring MVC可以把我们的后端项目分为Service层（处理业务），Dao层（数据库操作），Entity层（实体类），Controller层（控制层，返回数据给前台页面）</p>
+<p>简单原理如下：</p>
+<p><img src="https://i.imgur.com/s5wswV6.png" alt=""></p>
+<ol>
+<li>用户访问浏览器，发送request请求url</li>
+<li>前端控制器（DispatcherServlet)接收用户请求和响应，并根据请求信息调用HandlerMapping，解析请求对应的Handler（即Controller）</li>
+<li>解析到对应的Handler后，开始由HandlerAdapter适配器去处理</li>
+<li>HandlerAdapter会根据Handler来调用真正的处理器处理请求，并处理相应业务逻辑</li>
+<li>处理器处理完业务后，返回一个ModelAndView对象，Model是返回的数据对象，View是逻辑上的View</li>
+<li>DispatcherServlet把返回的Model传给View（视图渲染）</li>
+<li>把View返回给请求者</li>
+</ol>
+<h2 id="Spring框架中用到了哪些设计模式"><a href="#Spring框架中用到了哪些设计模式" class="headerlink" title="Spring框架中用到了哪些设计模式"></a>Spring框架中用到了哪些设计模式</h2><ul>
+<li>工厂设计模式：Spring使用工厂模式通过BeanFactory,ApplicationContext创建bean对象</li>
+<li>代理设计模式：Spring AOP功能的实现</li>
+<li>单例设计模式：Spring中的Bean默认都是单例的</li>
+<li>模板方法模式：jdbcTemplate等以Template结尾的类，都使用了模板模式</li>
+<li>包装器设计模式：需要连接多个数据库，不同的客户每次访问中根据需要会去访问不同的数据库。这种模式可以让我们根据客户的需求能够动态切换不同的数据源</li>
+<li>观察者模式：Spring事件驱动模型就是观察者模式的一个应用</li>
+<li>适配器模式：Spring AOP的增强或通知使用了适配器模式，spring MVC也是用到适配器模式适配Controller</li>
+<li>策略模式：针对不同的底层资源，Spring 将会提供不同的 Resource 实现类，不同的实现类负责不同的资源访问逻辑</li>
+</ul>
+<h2 id="BeanFactory和ApplicationContext区别"><a href="#BeanFactory和ApplicationContext区别" class="headerlink" title="BeanFactory和ApplicationContext区别"></a>BeanFactory和ApplicationContext区别</h2><ul>
+<li>ApplicationContext继承自BeanFactory，提供了比BeanFactory更多的功能，如AOP，访问资源（ResourceLoader），载入多个有继承关系的上下文，国际化等</li>
+<li>BeanFactory提供getBean()方法，还有一些判断bean作用域的方法，常称它为IoC容器，ApplicationContext称为应用上下文</li>
+<li>BeanFactory采用延迟加载形式来注入Bean，只有在使用到某个Bean时才加载，ApplicationContext则在容器启动时一次性创建所有Bean</li>
+<li>它们都支持BeanPostProcessor，但BeanFactory需要手动注册，而ApplicationContext则是自动注册</li>
+</ul>
+<h2 id="Component-和-Bean-的区别是什么"><a href="#Component-和-Bean-的区别是什么" class="headerlink" title="@Component 和 @Bean 的区别是什么"></a>@Component 和 @Bean 的区别是什么</h2><ul>
+<li>@Component作用于类，@Bean作用于方法<br>等其他（目前看不懂）</li>
+</ul>
+<h2 id="将一个类声明为spring的bean的注解有哪些"><a href="#将一个类声明为spring的bean的注解有哪些" class="headerlink" title="将一个类声明为spring的bean的注解有哪些"></a>将一个类声明为spring的bean的注解有哪些</h2><p>@Autowired注解自动装配bean，要把类标识为可用于@Autowired注解自动装配的bean的类，需要用以下注解实现：</p>
+<ul>
+<li>@Component</li>
+<li>@Repository：对应Dao层</li>
+<li>@Service：对应服务层</li>
+<li>@Controller：对应MVC控制层，接收用户请求并调用Service层返回数据给前端页面</li>
+</ul>
+<p>@Autowired不能用于静态变量</p>
+<h2 id="Spring事务隔离级别"><a href="#Spring事务隔离级别" class="headerlink" title="Spring事务隔离级别"></a>Spring事务隔离级别</h2><ul>
+<li>TransactionDefinition.ISOLATION_DEFAULT：使用后端数据库默认的隔离级别</li>
+<li>TransactionDefinition.ISOLATION_READ_UNCOMMITTED</li>
+<li>TransactionDefinition.ISOLATION_READ_COMMITTED</li>
+<li>TransactionDefinition.ISOLATION_REPEATABLE_READ</li>
+<li>TransactionDefinition.ISOLATION_SERIALIZABLE</li>
+</ul>
+<h2 id="Mybatis的通配符"><a href="#Mybatis的通配符" class="headerlink" title="Mybatis的通配符"></a>Mybatis的通配符</h2><p>#{}表示一个占位符号，它会在接收到参数后加上引号，<strong>#{}可以防止SQL注入</strong><br>${}表示拼接SQL串，它不会自动加上引号，不能防止SQL注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">假如传入参数为1</span><br><span class="line">#&#123;&#125;: SELECT * FROM t_user WHERE uid = #&#123;uid&#125;</span><br><span class="line">$&#123;&#125;: SELECT * FROM t_user WHERE uid = &apos;$&#123;uid&#125;&apos;</span><br><span class="line">转换为：</span><br><span class="line">#&#123;&#125;: SELECT * FROM t_user WHERE uid = ?</span><br><span class="line">$&#123;&#125;: SELECT * FROM t_user WHERE uid = &apos;1&apos;</span><br><span class="line">最后：</span><br><span class="line">#&#123;&#125;: SELECT * FROM t_user WHERE uid = &apos;1&apos;</span><br><span class="line">$&#123;&#125;: SELECT * FROM t_user WHERE uid = &apos;1&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"allUserInfo"</span> <span class="attr">parameterType</span>=<span class="string">"java.util.HashMap"</span> <span class="attr">resultMap</span>=<span class="string">"userInfo1"</span>&gt;</span></span><br><span class="line">&lt;![CDATA[</span><br><span class="line">SELECT newsEdit,newsId, newstitle FROM shoppingGuide WHERE 1=1 AND newsday &gt; #&#123;startTime&#125; AND newsday &lt;= #&#123;endTime&#125;</span><br><span class="line">]]&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"etidName!=''"</span>&gt;</span></span><br><span class="line">AND newsEdit=#&#123;etidName&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>CDATA防止XML转义</p>
+<h2 id="面向切面编程"><a href="#面向切面编程" class="headerlink" title="面向切面编程"></a>面向切面编程</h2><h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>使用方法：关键是切面，切入点和通知的理解和声明</p>
+<p>首先有一个类的某个方法需要被通知，则它就是切入点，把该类注册为bean，然后需要一个切面类，里面是一些通知方法，也注册为bean，然后关键就是XML的配置了，如下：先定义一个config，然后里面是一个切面标签，ref就是该切面类，然后再往里就是切入点，匹配的是Biz结尾的类的任何方法，然后匹配到该方法时，就执行下面定义的各种通知</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">"myAspectAOP"</span> <span class="attr">ref</span>=<span class="string">"myAspect"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"myPointcut"</span> <span class="attr">expression</span>=<span class="string">"execution(* com.mkl.*Biz.*(..))"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"before"</span> <span class="attr">pointcut-ref</span>=<span class="string">"myPointcut"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">method</span>=<span class="string">"after"</span> <span class="attr">pointcut-ref</span>=<span class="string">"myPointcut"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="AspectJ"><a href="#AspectJ" class="headerlink" title="AspectJ"></a>AspectJ</h3><p>AspectJ基于注解，它的使用方法如下：</p>
+<p>XML中配置：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后定义一个切面和切入点和通知</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspectJ</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 可以自定义一个注解，然后方法使用该注解，通过该注解的value传递参数</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"pointcut() &amp;&amp; @annotation(moocMethod)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeWithAnnotation</span><span class="params">(MoocMethod moocMethod)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeforeWithParam: "</span> + moocMethod.value());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果方法有参数，可以把参数通过args传递给通知</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"pointcut() &amp;&amp; args(arg)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeWithParam</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeforeWithParam: "</span> + arg);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"within(com.mkl.*)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bizPointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(* com.mkl.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="comment">// @Before("com.mkl.aop.aspectj.MoocAspect.pointcut()")</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Before"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@AfterReturning</span>(pointcut = <span class="string">"com.mkl.MyAspectJ.pointcut()"</span>, returning = <span class="string">"returnValue"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterReturning : "</span> + returnValue);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(pointcut = <span class="string">"com.mkl.MyAspectJ.pointcut()"</span>, throwing = <span class="string">"e"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(RuntimeException e)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterThrowing： "</span> + e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"pointcut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"After"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"pointcut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">around</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Around 1"</span>);</span><br><span class="line">        Object obj = pjp.proceed();</span><br><span class="line">        System.out.println(<span class="string">"Around 2"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Around："</span> + obj);</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后当检测到有对应方法执行的时候，就会执行对应的通知</p>
+<p>注意，<strong>不是切入点的方法调用是切入点的方法时，通知不会执行</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/java多线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/01/java多线程/" itemprop="url">Java多线程（持续更新）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/java多线程/" class="leancloud_visitors" data-flag-title="Java多线程（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><h2 id="为什么引入多线程？"><a href="#为什么引入多线程？" class="headerlink" title="为什么引入多线程？"></a>为什么引入多线程？</h2><p>进程创建和切换的开销大，引入线程是提高效率</p>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
+<li>新建New</li>
+<li>运行Runnable：包括Running和Ready</li>
+<li>无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致<ul>
+<li>无Timeout参数的Object.wait()方法</li>
+<li>无Timeout参数的Thread.join()方法</li>
+</ul>
+</li>
+<li>限期等待Timed Waiting：一定时间后由系统自动唤醒<ul>
+<li>设置了Timeout参数的Object.wait()方法</li>
+<li>设置了Timeout参数的Thread.join()方法</li>
+<li>Thread.sleep()方法</li>
+</ul>
+</li>
+<li>阻塞Blocked：阻塞与等待的区别是：阻塞在等待获取一个排他锁，是被动发生，等待则是等待一段时间或者唤醒动作的发生，主动行为</li>
+<li>结束Terminated</li>
+</ul>
+<h2 id="sleep和wait等区别"><a href="#sleep和wait等区别" class="headerlink" title="sleep和wait等区别"></a>sleep和wait等区别</h2><ul>
+<li>sleep是Thread类的静态方法，wait是Object类的实例方法</li>
+<li>Thread.sleep()不会导致锁的改变，可以简单认为和锁相关的方法都定义在Object类中</li>
+<li>调用wait后，需要别的线程调用notify/notifyAll才能重新获得CPU执行时间</li>
+</ul>
+<p>sleep和yield不会释放锁，yield让步，让线程从运行状态转为就绪状态<br>wait会释放锁</p>
+<h2 id="object-wait-机制"><a href="#object-wait-机制" class="headerlink" title="object.wait()机制"></a>object.wait()机制</h2><blockquote>
+<p>This method should only be called by a thread that is the owner of this object’s monitor</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (obj) &#123;</span><br><span class="line">    <span class="keyword">while</span> (&lt;condition does not hold&gt;)</span><br><span class="line">        obj.wait();</span><br><span class="line">    ... <span class="comment">// Perform action appropriate to condition</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在某一线程中调用obj的wait方法，前提是该线程必须持有obj的监视器（monitor，可以理解为锁），调用后，该线程会释放此监视器的所有权并等待，直到另一个线程调用notify或notifyAll方法通知等待该obj监视器的线程唤醒，然后线程等待，直到它可以重新获得监视器所有权并继续执行</p>
+<p>线程以三种方式之一成为对象监视器的所有者：</p>
+<ul>
+<li>通过执行该对象的同步实例方法</li>
+<li>通过执行在对象上同步的synchronized语句的主体</li>
+<li>对于Class类型的对象，通过执行该类的同步静态方法</li>
+</ul>
+<h2 id="为什么wait，notify，notifyAll被定义在Object类里"><a href="#为什么wait，notify，notifyAll被定义在Object类里" class="headerlink" title="为什么wait，notify，notifyAll被定义在Object类里"></a>为什么wait，notify，notifyAll被定义在Object类里</h2><p><strong>Java每个对象都有一个monitor</strong>（可以理解为锁），并且wait，notify等方法用于等待对象的监视器或者通知其他的线程对象的监视器可用，即<strong>这些方法都是与监视器有关的</strong>，线程类没有可供对象使用的锁或同步器，所以这些方法是Object类的方法</p>
+<h2 id="为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用"><a href="#为什么wait-notify-和notifyAll-必须在同步方法或者同步块中被调用" class="headerlink" title="为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用"></a>为什么wait(), notify()和notifyAll()必须在同步方法或者同步块中被调用</h2><p>这些方法都需要通过对象的监视器（锁）实现对应的功能，因此需要同步方法或者同步块得到对象的监视器（锁）</p>
+<h2 id="synchronized实现原理"><a href="#synchronized实现原理" class="headerlink" title="synchronized实现原理"></a>synchronized实现原理</h2><p>当一个线程试图访问同步代码块时，他首先必须得到锁，退出或抛出异常时必须释放锁。那么锁到底存在哪里呢？锁里面会存储什么信息呢？</p>
+<p><strong>JVM基于进入和退出Monitor对象来实现同步，代码块同步是使用monitorenter和monitorexit实现，线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor的所有权，即尝试获得对象的锁</strong></p>
+<h2 id="synchronized对象锁与类锁"><a href="#synchronized对象锁与类锁" class="headerlink" title="synchronized对象锁与类锁"></a>synchronized对象锁与类锁</h2><p>synchronized修饰静态方法获取的是类锁(类的字节码文件对象)，synchronized修饰普通方法或代码块获取的是对象锁。</p>
+<p>它俩是不冲突的，也就是说：获取了类锁的线程和获取了对象锁的线程是不冲突的！</p>
+<h2 id="synchronized的优化"><a href="#synchronized的优化" class="headerlink" title="synchronized的优化"></a>synchronized的优化</h2><p>JDK 1.6后增加了如下优化：自旋锁，锁消除，锁粗化，轻量级锁，偏向锁<br>首先对synchronizd加锁的对象先加偏向锁，当有其他线程来竞争，就升级为轻量级锁，这个轻量级锁通常是自旋锁，当自旋次数超过限制数，轻量级锁就再升级为重量级锁<br>性能上和Lock锁相差不大</p>
+<p>使用Lock的理由只有它的特性如：多个Condition，多个读线程同时访问共享资源</p>
+<h2 id="synchronized与Lock的区别"><a href="#synchronized与Lock的区别" class="headerlink" title="synchronized与Lock的区别"></a>synchronized与Lock的区别</h2><ul>
+<li>synchronized是java内置关键字，Lock是java类</li>
+<li>synchronized无法判断是否获取锁的状态，Lock可以判断是否获取到锁</li>
+<li>synchronized会自动释放锁（运行完或异常），Lock需要在finally释放锁</li>
+<li>synchronized得不到锁的线程会一直等待下去，Lock则不一定</li>
+<li>synchronized可重入，非公平，Lock可重入，可判断，可公平</li>
+</ul>
+<h2 id="Callable与Future"><a href="#Callable与Future" class="headerlink" title="Callable与Future"></a>Callable与Future</h2><p>泛型接口Callable有一个 <code>V call();</code> 方法，可以返回值，这是它与Runnable的区别<br>对于一个任务需要多线程计算结果，可以使用Callable，使用Future来接收这个多线程计算的结果，FutureTask是Future接口的一个实现，同时也是Runnable接口的实现</p>
+<p>用法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Callable&lt;Integer&gt; myComputation = ...; <span class="comment">// 线程执行计算任务</span></span><br><span class="line">FutureTask&lt;Integer&gt; task = <span class="keyword">new</span> FutureTask&lt;&gt;(myComputation);</span><br><span class="line">Thread t = <span class="keyword">new</span> Thread(task);</span><br><span class="line">t.start();</span><br><span class="line">...</span><br><span class="line">Integer result = task.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多线程执行任务</span></span><br><span class="line">Callable&lt;Integer&gt; task = ...;</span><br><span class="line">ExecutorService executor = Executors.newCachedThreadPool();</span><br><span class="line">Future&lt;Integer&gt; result = executor.submit(task);</span><br><span class="line"><span class="comment">// 输出 result.get()就是该多线程任务的结果</span></span><br></pre></td></tr></table></figure>
+<h2 id="同步器"><a href="#同步器" class="headerlink" title="同步器"></a>同步器</h2><h3 id="倒计时门栓"><a href="#倒计时门栓" class="headerlink" title="倒计时门栓"></a>倒计时门栓</h3><p>CountDownLatch类让一个线程集等待直到计数变为0，倒计时门栓是一次性的，<strong>一旦计数为0，就不能重用</strong></p>
+<p>门栓两个方法：await()和countDown()</p>
+<p>举例来说，假定一个线程集需要一些初始的数据来完成工作，工作器线程被启动并在门外等待。另一个线程准备数据，设置一个计数值为1的门栓，当数据准备好后，<strong>调用countDown</strong>，所有工作器线程就可以继续运行了。然后设置第二个门栓检查什么时候所有工作器线程完成工作，门栓计数为工作器线程个数</p>
+<p>e.g.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 摘自java3y公众号</span></span><br><span class="line"><span class="comment">// 3y现在去做实习生了，其他的员工还没下班，3y不好意思先走，等其他的员工都走光了，3y再走</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"现在6点下班了....."</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3y线程启动</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 这里调用的是await()不是wait()</span></span><br><span class="line">                    countDownLatch.await();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"...其他的5个员工走光了，3y终于可以走了"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 其他员工线程启动</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    System.out.println(<span class="string">"员工xxxx下班了"</span>);</span><br><span class="line">                    countDownLatch.countDown();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="障栅"><a href="#障栅" class="headerlink" title="障栅"></a>障栅</h3><p>CyclicBarrier类实现一个集结点称为障栅，<strong>可以被重用</strong>。考虑大量线程运行在一次计算的不同部分的情形，当所有部分准备好时，需要把结果组合在一起，当一个线程完成它的部分任务后，我们让它运行到障栅处，一旦所有线程都到达这个障栅，障栅就撤销，线程可以继续运行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CyclicBarrier(int parties, Runnable barrierAction) 所有等待的线程会继续执行，同时barrierAction也会开始执行</span></span><br><span class="line"><span class="comment">// CyclicBarrier(int parties) 应该是所有等待的线程一起执行后面的动作</span></span><br><span class="line">CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(nthreads);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    doWork();</span><br><span class="line">    barrier.await();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CyclicBarrier和CountDownLatch区别"><a href="#CyclicBarrier和CountDownLatch区别" class="headerlink" title="CyclicBarrier和CountDownLatch区别"></a>CyclicBarrier和CountDownLatch区别</h3><ul>
+<li>CyclicBarrier的某个线程运行到某个点上，该线程就暂停运行，直到所有线程都到达这个点，才一起重新运行；CountDownLatch某线程运行到某个点上，只是让某个数值-1，该线程继续运行</li>
+<li>CyclicBarrier只能通过传入参数来让某一个线程唤起，而CountDownLatch可以通过给多个线程调用await()方法来实现唤起多个任务</li>
+<li>CyclicBarrier可重用，CountDownLatch不可重用</li>
+</ul>
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>Semaphore(信号量)实际上就是可以控制同时访问的线程个数，它维护了一组”许可证”</p>
+<ul>
+<li>当调用acquire()方法时，会消费一个许可证。如果没有许可证了，会阻塞起来</li>
+<li>当调用release()方法时，会添加一个许可证。</li>
+<li>这些”许可证”的个数其实就是一个count变量</li>
+</ul>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>如果你的代码在多线程和单线程环境下执行得到的结构永远一样，那么代码就是线程安全的</p>
+<p>线程安全级别</p>
+<ul>
+<li>不可变</li>
+<li>绝对线程安全：不管任何环境，都不需要额外同步措施</li>
+<li>相对线程安全：通常意义上的线程安全，像vector等</li>
+<li>线程非安全</li>
+</ul>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称</p>
+<ul>
+<li>是一个可以给我们<strong>实现锁的框架</strong>，实现了AQS的常见的有ReentrantLock,CountDownLatch</li>
+<li>acquire()方法调用了<strong>tryAcquire()</strong>，release()方法调用了<strong>tryRelease()</strong>，需要继承AQS的实现类去实现</li>
+<li>内部实现的关键：<strong>先进先出的阻塞等待队列CLH</strong>，<strong>state状态</strong></li>
+<li>拥有两种线程模式：<strong>独占和共享</strong></li>
+<li>对象每上一次锁，state就通过<strong>CAS操作</strong>加1</li>
+<li>当有线程持有了锁，另外一个线程竞争不到锁，就让它进入CLH队列，该队列每个结点有标识该线程状态的waitStatus</li>
+</ul>
+<h2 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h2><p>CAS 操作包含三个操作数 —— 内存位置（V）、预期原值（A）和新值（B）。 如果内存位置的值与预期原值相匹配，那么处理器会自动将该位置值更新为新值。否则，处理器不做任何操作</p>
+<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><ul>
+<li>支持公平和非公平模式，公平模式下会去看FIFO队列线程是否是在队头（AQS的队列），而非公平模式下是没有的</li>
+<li>state的变量高16位是读锁，低16位是写锁</li>
+<li>写锁可以降级为读锁，读锁不能升级为写锁</li>
+<li>写锁是互斥的，读锁是共享的</li>
+</ul>
+<h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>线程池可以看做是线程的集合。在没有任务时线程处于空闲状态，当请求到来：线程池给这个请求分配一个空闲的线程，任务完成后回到线程池中等待下次任务(而不是销毁)。这样就实现了线程的重用</p>
+<p>为什么使用线程池</p>
+<ul>
+<li>降低资源消耗，通过重复利用已创建的线程降低线程创建和销毁造成的消耗</li>
+<li>提高响应速度，当任务到达时，任务可以不需要等到线程创建就能立即执行</li>
+<li>提高线程的可管理性，线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。但是要做到合理的利用线程池，必须对其原理了如指掌</li>
+</ul>
+<h2 id="线程池的用法"><a href="#线程池的用法" class="headerlink" title="线程池的用法"></a>线程池的用法</h2><p><code>ExecutorService executor = Executors.newCachedThreadPool();</code></p>
+<p>一共有以下5种池：</p>
+<ul>
+<li>newCachedThreadPool：必要时创建，空闲线程保留60s</li>
+<li>newFixedThreadPool：包含固定数量，空闲线程保留</li>
+<li>newSingleThreadExecutor：只有一个线程的池</li>
+<li>newScheduledThreadPool：用于预定执行而构建的固定线程池</li>
+<li><p>newSingleThreadScheduledExecutor：用于预定执行而构建的单线程池</p>
+</li>
+<li><p>调用Executors类的静态方法newCachedThreadPool或newFixedThreadPool，得到ExecutorService对象</p>
+</li>
+<li>调用submit提交Runnable或Callable对象</li>
+<li>如果想要取消一个任务或提交Callable对象，要保存好submit方法返回的Future对象</li>
+<li>当不再提交任何任务时，调用 <code>executor.shutdown()</code></li>
+</ul>
+<p>前三种线程池实质是ThreadPoolExecutor对象，后两种线程池是ScheduledThreadPoolExecutor对象，后两种线程池可以提供预定执行（延后和定期执行）</p>
+<p><img src="https://i.imgur.com/aMswcG1.png" alt=""></p>
+<ul>
+<li>Executor接口只有一个execute()方法，是执行Runnable的任务</li>
+<li>ExecutorService主要方法是shutdown()和submit()，submit()内部调用了execute()</li>
+<li>AbstractExecutorService抽象类实现了submit,invokeAll,invokeAny方法</li>
+<li>ThreadPoolExecutor就是Executors那三个生成线程池方法返回的实际对象</li>
+</ul>
+<p>JDK 1.7新增ForkJoinPool线程池，采用了工作窃取算法</p>
+<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                              TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                              BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                              ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                              RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">                                  ... &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>corePoolSize：线程池的基本线程数（队列没满时，线程的最大并发数）</li>
+<li>maximumPoolSize：线程池允许创建的最大线程数（队列满后能够达到的最大并发数）</li>
+<li>keepAliveTime：线程活动保持时间。线程池的工作线程空闲后，保持活动的时间</li>
+<li>workQueue：任务队列。用于保存等待执行的任务的阻塞队列</li>
+<li>threadFactory：创建线程的工厂，可以通过线程工厂为每个创建出来的线程设置更有意义的名字</li>
+<li>handler：饱和策略。当队列和线程池都满了，说明处于饱和，默认情况抛出异常。JDK 1.5提供4种策略<ul>
+<li>AbortPolicy：抛出异常</li>
+<li>CallerRunsPolicy：只用调用者所在线程来运行任务</li>
+<li>DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务</li>
+<li>DiscardPolicy：不处理，丢弃掉</li>
+</ul>
+</li>
+</ul>
+<p>它们的关系如下：</p>
+<ul>
+<li><strong>创建线程池后，默认情况下线程池并没有任何线程，等待有任务来的时候才创建线程（除非调用prestartAllCoreThreads()或prestartCoreThread()方法）</strong></li>
+<li><strong>当线程池中线程数小于corePoolSize，新提交任务创建一个新线程执行任务并加入到线程池，即使此时线程池中存在空闲线程</strong></li>
+<li><strong>当线程池中线程数达到corePoolSize，新提交任务被放入workQueue中，等待线程池中任务调度执行</strong></li>
+<li><strong>如果队列满，并且已创建的线程数小于最大线程数，则线程池会再创建新的线程去执行任务，如果使用无界的任务队列，这个参数就没什么效果</strong></li>
+<li><strong>如果提交任务数超过maximumPoolSize，任务提交给handler处理</strong></li>
+<li><strong>当线程池中线程数超过corePoolSize，超过的这部分超时时，就回收它们</strong></li>
+</ul>
+<h2 id="如果你提交任务时，线程池队列已满，这时会发生什么"><a href="#如果你提交任务时，线程池队列已满，这时会发生什么" class="headerlink" title="如果你提交任务时，线程池队列已满，这时会发生什么"></a>如果你提交任务时，线程池队列已满，这时会发生什么</h2><ul>
+<li>如果使用的是无界队列LinkedBlockingQueue，可以继续添加任务到阻塞队列中等待执行</li>
+<li>如果使用的是有界队列ArrayBlockingQueue，任务首先会添加到ArrayBlockingQueue，满了则根据maximumPoolSize增加线程数量，如果增加了还是处理不来，就使用拒绝策略，默认是AbortPolicy（抛出异常）</li>
+</ul>
+<h2 id="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"><a href="#高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？" class="headerlink" title="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"></a>高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</h2><ul>
+<li>高并发，任务执行时间短的业务，线程池线程数可以设置为CPU核数+1，减少线程上下文的切换</li>
+<li>并发不高，任务执行时间长的业务：<ul>
+<li>如果业务时间集中在IO操作，IO不占用CPU，所以不要让所有的CPU闲下来，可以加大线程池中的线程数目，让CPU处理更多的业务</li>
+<li>假如是业务时间长集中在计算操作上，也就是计算密集型任务，这个就没办法了，和（1）一样吧，线程池中的线程数设置得少一些，减少线程上下文的切换</li>
+</ul>
+</li>
+<li>并发高、业务执行时间长，解决这种类型任务的关键不在于线程池而在于整体架构的设计，看看这些业务里面某些数据是否能做缓存是第一步，增加服务器是第二步，业务执行时间长的问题，也可能需要分析一下，看看能不能使用中间件对任务进行拆分和解耦</li>
+</ul>
+<h2 id="Thread-sleep-0-的作用是什么"><a href="#Thread-sleep-0-的作用是什么" class="headerlink" title="Thread.sleep(0)的作用是什么"></a>Thread.sleep(0)的作用是什么</h2><p>手动触发一次OS分配时间片的操作，平衡CPU控制权，让低优先级线程也能获取CPU控制权</p>
+<h2 id="一个最简单的死锁例子"><a href="#一个最简单的死锁例子" class="headerlink" title="一个最简单的死锁例子"></a>一个最简单的死锁例子</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Object obj1 = <span class="keyword">new</span> Object();</span><br><span class="line">    Object obj2 = <span class="keyword">new</span> Object();</span><br><span class="line">    Runnable r1 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj1锁..."</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (obj1) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj1锁!"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj2锁..."</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (obj2) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj2锁!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    Runnable r2 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj2锁..."</span>);</span><br><span class="line">            <span class="keyword">synchronized</span> (obj2) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj2锁!"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"尝试获取obj1锁..."</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (obj1) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"成功获取obj1锁!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">new</span> Thread(r1).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(r2).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h2><p>使用CAS有个缺点就是ABA问题，ABA问题描述如下：</p>
+<ul>
+<li>有一个变量count=10，三个线程A,B,C</li>
+<li>线程A和线程C同时读到count变量，所以线程A和线程C的内存值和预期值都为10,</li>
+<li>此时线程A使用CAS将count修改为100</li>
+<li>修改完后，线程B进来了，读取到count的值为100（内存值和预期值都是100），将count修改为10</li>
+<li>线程C拿到执行权，发现内存值是10，预期值也是10，将count修改为11</li>
+</ul>
+<p>这样 线程C无法得知线程A和线程B修改过count的值，是有风险的</p>
+<h3 id="解决ABA问题"><a href="#解决ABA问题" class="headerlink" title="解决ABA问题"></a>解决ABA问题</h3><p>可以使用JDK提供的AtomicStampedReference和AtomicMarkableReference类</p>
+<p>简单来说就是给这个对象提供一个版本，并且这个版本如果被修改了，这个版本号是自动更新的<br>多了这个版本号比较，就不会存在ABA的问题了</p>
+<h2 id="LongAdder性能"><a href="#LongAdder性能" class="headerlink" title="LongAdder性能"></a>LongAdder性能</h2><p>LongAdder性能要比AtomicLong好，它减少乐观锁的重试次数</p>
+<h2 id="单例模式的线程安全问题"><a href="#单例模式的线程安全问题" class="headerlink" title="单例模式的线程安全问题"></a>单例模式的线程安全问题</h2><p>单例模式分为饿汉式和懒汉式</p>
+<ul>
+<li>懒汉式指单例实例在第一次使用时被创建</li>
+<li>饿汉式单例实例在类加载时进行创建（放在堆中，浪费内存）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在类装载时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample2</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample2 instance = <span class="keyword">new</span> SingletonExample2();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample2 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉模式</span></span><br><span class="line"><span class="comment"> * 单例实例在第一次使用时进行创建</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonExample1</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 单例对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> SingletonExample1 instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 静态的工厂方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingletonExample1 <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> SingletonExample1();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>饿汉式是线程安全的，单例对象static修饰，懒汉式是线程不安全的，当然也可以在懒汉式的工厂方法中添加synchronized关键字，但是这样是不推荐的，同一时间段只允许一个线程访问，极大限制CPU资源，性能极差</p>
+<h2 id="线程类的构造方法、静态块是被哪个线程调用的"><a href="#线程类的构造方法、静态块是被哪个线程调用的" class="headerlink" title="线程类的构造方法、静态块是被哪个线程调用的"></a>线程类的构造方法、静态块是被哪个线程调用的</h2><p>线程类的构造方法、静态块是被new这个线程类所在的线程所调用的，而run方法里面的代码才是被线程自身所调用的</p>
+<h2 id="同步方法和同步块，哪个是更好的选择"><a href="#同步方法和同步块，哪个是更好的选择" class="headerlink" title="同步方法和同步块，哪个是更好的选择"></a>同步方法和同步块，哪个是更好的选择</h2><p>同步块，这意味着同步块之外的代码是异步执行的，这比同步整个方法更提升代码的效率，同步范围越小越好</p>
+<h2 id="写一个生产者消费者模式"><a href="#写一个生产者消费者模式" class="headerlink" title="写一个生产者消费者模式"></a>写一个生产者消费者模式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProducerAndConsumer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> FULL = <span class="number">10</span>; <span class="comment">// 队列容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object LOCK = <span class="keyword">new</span> Object(); <span class="comment">// 锁对象</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ProducerAndConsumer pac = <span class="keyword">new</span> ProducerAndConsumer();</span><br><span class="line">        ExecutorService es = Executors.newCachedThreadPool();</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Producer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.submit(pac.new Consumer());</span><br><span class="line">        es.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (LOCK) &#123;</span><br><span class="line">                    <span class="keyword">while</span> (count == FULL) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            LOCK.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    count++;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"生产者生产，目前总共有"</span> + count);</span><br><span class="line">                    LOCK.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (LOCK) &#123;</span><br><span class="line">                    <span class="keyword">while</span> (count == <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            LOCK.wait();</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                            e.printStackTrace();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    count--;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"消费者消费，目前总共有"</span> + count);</span><br><span class="line">                    LOCK.notifyAll();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Network/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1036,7 +1643,7 @@
 <p>&nbsp;</p>
 <p>子网划分与子网掩码</p>
 <p>在IP地址增加一个子网号字段，使2级IP地址变为3级IP地址，这种做法称为子网划分，从主机号借用若干比特作为子网号，IP地址={&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}</p>
-<p>子网掩码和IP地址按位与，即可得到网络号</p>
+<p>子网掩码和IP地址按位与，即可得到网络号，剩余的是主机号</p>
 <h3 id="ARP地址解析协议工作原理"><a href="#ARP地址解析协议工作原理" class="headerlink" title="ARP地址解析协议工作原理"></a>ARP地址解析协议工作原理</h3><ol>
 <li>首先，每个主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址之间的对应关系。</li>
 <li>当源主机要发送数据时，首先检查ARP列表中是否有对应IP地址的目的主机的MAC地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送ARP请求报，该数据报包括的内容有：源主机IP地址，源主机MAC地址，目的主机的IP地址，目的MAC地址是FF-FF-FF-FF-FF-FF。</li>
@@ -1179,11 +1786,39 @@
 </ul>
 <p>HTTPS缺点：</p>
 <ul>
-<li>多次握手，页面加载时间延长</li>
-<li>缓存不如HTTP高效，增加数据开销</li>
-<li>SSL证书需要钱</li>
-<li>SSL的安全算法消耗服务器CPU资源</li>
+<li>HTTP明文传输，HTTPS使用TLS/SSL加密</li>
+<li>HTTP端口80，HTTPS端口443</li>
+<li>HTTPS需要到CA申请证书，需要交费</li>
 </ul>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p>它主要在HTTP和TCP层之间多了一层SSL，SSL工作流程在下面的权威证书颁发机构</p>
+<h4 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h4><p>HTTP的传输都是明文传输，不做任何加密，可能会被窃取甚至篡改<br>然后出现的是<strong>对称加密方式</strong>，约定一个随机生成的密钥，信息发送方使用密钥加密，接收方使用同样的密钥解密，常见的对称加密方式：AES,DES,IDEA,PBE,RC5,RC6等，但这样仍然不安全，第一次通信的时候，密钥和约定加密方式是明文传输的，如果被拦截，后续的加密内容仍然可以被窃取</p>
+<h4 id="没有权威的非对称加密"><a href="#没有权威的非对称加密" class="headerlink" title="没有权威的非对称加密"></a>没有权威的非对称加密</h4><p>这个时候，就出现了非对称加密，它包含一个公钥和一个私钥，明文可以用公钥加密，私钥解密，反之也可以。通信过程中，B首先把自己的公钥key1发送给A，A收到该公钥后，自己生成一个用于对称加密的密钥key2，使用key1加密，发送给B，B利用自己非对称加密的私钥来解开公钥key1的加密，获得key2的内容，然后两方就可以使用key2进行对称加密通信了（B的公钥私钥只用于对对称加密的key加密）<br>常见的非对称加密：RSA,SSH,HTTPS,TLS,电子证书等</p>
+<p>但是这样仍然不是安全的，因为中间的拦截可以截取到B的公钥后，自己生成另一对公钥私钥，把自己的公钥发送给A，A接收到中间人的公钥，加密对称加密的key，这样该key仍然能够被中间人所得知</p>
+<h4 id="权威证书颁发机构"><a href="#权威证书颁发机构" class="headerlink" title="权威证书颁发机构"></a>权威证书颁发机构</h4><p>流程如下：</p>
+<ol>
+<li>服务端的B，首先把自己的公钥key1发送给证书颁发机构，向其申请证书</li>
+<li>证书颁发机构自己有一对公钥私钥，它利用自己的私钥来加密key1，然后通过服务器网址等信息生成一个证书签名（证书签名是利用服务器的信息生成，无法被篡改），证书签名同样经过机构的私钥加密，该证书发回给服务端B（<strong>证书由服务器公钥，证书主题，数字签名等内容组成</strong>）<ul>
+<li>证书三个作用：</li>
+<li>身份授权：确保浏览器访问的网站是经过CA验证的可信任网站</li>
+<li>分发公钥：证书包含服务器的公钥，SSL握手时通过certificate消息传给客户端</li>
+<li>验证证书合法性： 客户端收到证书后需要验证其合法性</li>
+</ul>
+</li>
+<li>当A向B请求通信，B就把自己申请的证书发给A</li>
+<li>A收到证书后，需要验证其真伪，<strong>各大浏览器和OS已经维护了所有权威证书机构的名称和公钥</strong>，A只要知道是哪个机构颁发的证书，就可以从本地找到对应机构的公钥，解密出证书签名</li>
+<li>然后A按照同样的签名规则，自己也生成一个证书签名，如果两个签名一致，则证书是有效的</li>
+<li>验证成功后，A就可以利用机构公钥，解密出服务端B的公钥key1了</li>
+<li>然后A生成自己的对称加密密钥key2，利用服务端的key1加密key2发送给服务端B即可，后面就可以用这个对称加密密钥key2来进行加密通信了</li>
+</ol>
+<h4 id="HTTPS验证流程"><a href="#HTTPS验证流程" class="headerlink" title="HTTPS验证流程"></a>HTTPS验证流程</h4><ol>
+<li>客户端发起一个HTTP请求，连接到服务端的443端口，该请求包含客户端支持的加密协议和版本</li>
+<li>服务端选择合适的加密协议，返回证书，证书里面有服务器的公钥（证书由服务端信息组成，无法伪造）</li>
+<li>客户端验证证书合法性（是否过期，是否来自想要的服务器）</li>
+<li>客户端生成对称加密密钥（随机码），通过证书的公钥加密，发送给服务端</li>
+<li>服务端使用私钥解密，获取对称加密密钥，使用对称加密密钥加密数据</li>
+<li>客户端解密数据，SSL开始通信</li>
+</ol>
+<h4 id="为什么后面数据传输要使用对称加密"><a href="#为什么后面数据传输要使用对称加密" class="headerlink" title="为什么后面数据传输要使用对称加密"></a>为什么后面数据传输要使用对称加密</h4><p>非对称加密及其消耗CPU资源，只能用作对称密钥交换或者CA签名，不适合用来应用层内容传输的加解密</p>
 <h3 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h3><ul>
 <li>1XX：信息状态码<ul>
 <li>100：继续，初始的请求已经接受，请客户端继续发送剩余部分</li>
@@ -1253,6 +1888,7 @@
 </ul>
 </li>
 </ul>
+<h3 id="私有IP地址"><a href="#私有IP地址" class="headerlink" title="私有IP地址"></a>私有IP地址</h3><p>A类地址：10.0.0.0–10.255.255.255<br>B类地址：172.16.0.0–172.31.255.255<br>C类地址：192.168.0.0–192.168.255.255</p>
 
           
         
@@ -1575,7 +2211,7 @@
 <h3 id="超键，候选键，主键，外键的概念"><a href="#超键，候选键，主键，外键的概念" class="headerlink" title="超键，候选键，主键，外键的概念"></a>超键，候选键，主键，外键的概念</h3><p>超键：<strong>关系中唯一标识元组的属性集</strong>称为关系模式的超键，<strong>超键包含候选键和主键</strong><br>候选键：最小超键，<strong>没有冗余元素的超键</strong><br>主键：数据库表中对储存数据对象予以<strong>唯一和完整标识</strong>的<strong>数据列或属性的组合</strong>。一个数据列只能有一个主键，且主键的取值不能为null<br>外键：<strong>在一个表中存在的另一个表的主键称为此表的外键</strong></p>
 <p>e.g. 邮寄地址（城市名，街道名，邮政编码，单位名，收件人）</p>
 <ul>
-<li>超键：{城市名，街道名}，{街道名，邮政编码}，{街道名，街道名，邮政编码}，{街道名，街道名，邮政编码，单位名}等唯一标识元组的属性集</li>
+<li>超键：{城市名，街道名}，{街道名，邮政编码}，{城市名，街道名，邮政编码}，{城市名，街道名，邮政编码，单位名}等唯一标识元组的属性集</li>
 <li>候选键：{城市名，街道名}和{街道名，邮政编码}</li>
 <li>如果选取{城市名，街道名}作为唯一标识实体的属性，那么它就是主键</li>
 </ul>
@@ -1643,6 +2279,7 @@
 <li>[charlist]：字符列中任何单一字符</li>
 <li>[^charlist]或[!charlist]：不在字符列中的任何单一字符</li>
 </ul>
+<h3 id="SQL语句没有时插入有则更新"><a href="#SQL语句没有时插入有则更新" class="headerlink" title="SQL语句没有时插入有则更新"></a>SQL语句没有时插入有则更新</h3><p><code>INSERT INTO 表名(字段) VALUES ON DUPLICATE KEY UPDATE 字段名=值</code></p>
 
           
         
@@ -1920,7 +2557,22 @@
 <h2 id="31-整数中1出现的次数NumberOf1Between1AndN-Solution"><a href="#31-整数中1出现的次数NumberOf1Between1AndN-Solution" class="headerlink" title="31.整数中1出现的次数NumberOf1Between1AndN_Solution"></a>31.整数中1出现的次数NumberOf1Between1AndN_Solution</h2><h3 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h3><p>求出1 ~ 13的整数中1出现的次数,并算出100 ~ 1300的整数中1出现的次数？为此他特别数了一下1 ~ 13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。</p>
 <h3 id="解题思路-30"><a href="#解题思路-30" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>从每一位出现1的次数去考虑</strong>，个位出现1次数受高位影响，十位出现1次数可能受个位和自己本身和高位的影响，百位出现1次数可能受低位，自身，高位影响，找出规律<br>百位出现1的次数受高位和低位和自身的影响（这里的百位可以类比任何一位）<br><strong>如果百位为0</strong>，百位出现1的次数受高位影响，如12013，共有100-199，1100-1199，2100-2199，3100-3199，。。。，10100-10199，11100-11199，12&times;100，<strong>即高位数字&times;当前位数</strong><br><strong>如果百位为1</strong>，百位出现1的次数受低位和高位影响，如12113，共有上面所说的1200个再加上12100-12113，<strong>即共有高位&times;位数+低位+1个</strong><br><strong>如果百位大于1</strong>，百位出现1的次数受高位影响，如12313，共有100-199，。。。，11100-11199，12100-12199，<strong>共有(高位+1)&times;位数</strong></p>
 <p>使用一个变量v记录当前位数，然后高位 <code>high = n / (v * 10)</code>，当前位 <code>now = n / v % 10</code>，低位 <code>low = n - n / v * v</code>，然后根据now的值计算每一位count即可，每次迭代结束v指向下一位 <code>v = v * 10</code>，当<code>v &gt; n</code>，迭代结束</p>
-<h2 id="32-把数组排成最小的数PrintMinNumber"><a href="#32-把数组排成最小的数PrintMinNumber" class="headerlink" title="32.把数组排成最小的数PrintMinNumber"></a>32.把数组排成最小的数PrintMinNumber</h2>
+<h2 id="32-把数组排成最小的数PrintMinNumber"><a href="#32-把数组排成最小的数PrintMinNumber" class="headerlink" title="32.把数组排成最小的数PrintMinNumber"></a>32.把数组排成最小的数PrintMinNumber</h2><h3 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h3><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<h3 id="解题思路-31"><a href="#解题思路-31" class="headerlink" title="解题思路"></a>解题思路</h3><p>先把它们都放到一个List里，然后实现一个自定义Comparator进行排序，排序依据如下：如果ab&gt;ba，则a&gt;b，如果ab&lt;ba，则a&lt;b，如果ab=ba，则a=b，如： <code>a=3,b=32,ab=332,ba=323，因为ab&gt;ba，所以a&gt;b，a放在b后面</code>，因此，自定义的comparator可以这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer o1, Integer o2)</span> </span>&#123;</span><br><span class="line">    String ab = o1 + <span class="string">""</span> + o2;</span><br><span class="line">    String ba = o1 + <span class="string">""</span> + o2;</span><br><span class="line">    <span class="keyword">return</span> ab.compareTo(ba);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>排序完后把该List的值依次输出的StringBuilder并返回即可</p>
+<h2 id="33-丑数GetUglyNumber-Solution"><a href="#33-丑数GetUglyNumber-Solution" class="headerlink" title="33.丑数GetUglyNumber_Solution"></a>33.丑数GetUglyNumber_Solution</h2><h3 id="题目描述-29"><a href="#题目描述-29" class="headerlink" title="题目描述"></a>题目描述</h3><p>把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p>
+<h3 id="解题思路-32"><a href="#解题思路-32" class="headerlink" title="解题思路"></a>解题思路</h3><p>如果p是丑数，那么<strong>p=2^x &times; 3^y &times; 5^z</strong><br>对于任何丑数p：<br>（一）那么2&times;p,3&times;p,5&times;p都是丑数，<strong>即一个丑数由另一个丑数&times;2或&times;3或&times;5而得</strong>，并且2&times;p&lt;3&times;p&lt;5&times;p<br>（二）如果p&lt;q, 那么2<em>p&lt;2</em>q,3<em>p&lt;3</em>q,5<em>p&lt;5</em>q<br>一个丑数一定由另一个丑数乘以2或者乘以3或者乘以5得到，那么我们从1开始乘以2,3,5，就得到2,3,5三个丑数，<br>在从这三个丑数出发乘以2,3,5就得到4,6,10,6,9,15,10,15,25九个丑数，</p>
+<p><strong>维护3个指针和1个丑数数组，丑数数组初始化1个元素，为1，这3个指针指向丑数数组的值，默认值都为0（即指向1），使用3个变量分别代表丑数数组中这3个指针指向的对应值乘以2，3，5后的值，把该值插入到丑数数组，然后对应指针+1</strong></p>
+<h2 id="34-第一个只出现一次的数字FirstNotRepeatingChar"><a href="#34-第一个只出现一次的数字FirstNotRepeatingChar" class="headerlink" title="34.第一个只出现一次的数字FirstNotRepeatingChar"></a>34.第一个只出现一次的数字FirstNotRepeatingChar</h2><h3 id="题目描述-30"><a href="#题目描述-30" class="headerlink" title="题目描述"></a>题目描述</h3><p>在一个字符串(0&lt;=字符串长度&lt;=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.</p>
+<h3 id="解题思路-33"><a href="#解题思路-33" class="headerlink" title="解题思路"></a>解题思路</h3><p>哈希法，可以使用LinkedHashMap（如果使用它，要遍历它，使用iterator或Map.Entry），如果不使用它的话，可以直接HashMap，然后在str.charAt(i++)作为key，找到第一个value为1的，就返回该key</p>
+<h2 id="35-数组中的逆序对InversePairs"><a href="#35-数组中的逆序对InversePairs" class="headerlink" title="35.数组中的逆序对InversePairs"></a>35.数组中的逆序对InversePairs</h2><h3 id="题目描述-31"><a href="#题目描述-31" class="headerlink" title="题目描述"></a>题目描述</h3><p>在数组中的两个数字，如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。输入一个数组,求出这个数组中的逆序对的总数P。并将P对1000000007取模的结果输出。 即输出P%1000000007</p>
+<p>输入描述：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">题目保证输入的数组中没有的相同的数字</span><br><span class="line"></span><br><span class="line">数据范围：</span><br><span class="line"></span><br><span class="line">	对于%50的数据,size&lt;=10^4</span><br><span class="line"></span><br><span class="line">	对于%75的数据,size&lt;=10^5</span><br><span class="line"></span><br><span class="line">	对于%100的数据,size&lt;=2*10^5</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">1,2,3,4,5,6,7,0</span><br><span class="line">输出</span><br><span class="line">7</span><br></pre></td></tr></table></figure>
+<h3 id="解题思路-34"><a href="#解题思路-34" class="headerlink" title="解题思路"></a>解题思路</h3><p>使用归并的思路，对数组 <code>1,2,3,4,5,6,7,0</code> ，先比较 <code>12,34,56,70</code> 找出逆序对，然后把该逆序对交换顺序，然后回到外层递归继续判断 <code>1234,5607</code><br>查找逆序对的算法：两个数组使用一个指针指向末尾，比较两个值的大小，如果第一个子数组的值大于第二个数组的值，则构成逆序对，且逆序对为第二个子数组中剩余的数字个数<br>每一次比较的时候，我们都把较大的数字从后面往前复制到一个辅助数组中，确保辅助数组（记为copy）中的数字是递增排序的，在把较大的数字复制到辅助数组之后，把对应的指针向前移动一位，接下来进行下一轮比较</p>
+
           
         
       
@@ -2235,6 +2887,7 @@
 <li>如果虚拟机<strong>在扩展栈时无法申请到足够的内存空间</strong>，则抛出OutOfMemoryError异常</li>
 </ul>
 <h2 id="内存泄露和内存溢出"><a href="#内存泄露和内存溢出" class="headerlink" title="内存泄露和内存溢出"></a>内存泄露和内存溢出</h2><p>内存溢出out of memory：程序申请内存时，没有足够的内存空间供其使用，出现OOM<br>内存泄露memory leak：程序在申请内存后，无法释放已申请的内存空间（<strong>ThreadLocalMap的生命周期跟Thread是一样的，如果没有手动删除对应key就会导致内存泄漏，所以必须手动remove()</strong>）</p>
+<h2 id="永久代与方法区"><a href="#永久代与方法区" class="headerlink" title="永久代与方法区"></a>永久代与方法区</h2><p>永久代是JDK 7之前的概念，是JVM规范里运行时数据区的一个组成部分，主要存储class，运行时常量池，字段，方法，代码，JIT代码等，它的具体实现一般为永久代，在JDK 8之后取消永久代，而使用metaspace来实现，它与永久代的区别是：它不是在堆内存中的，而是在本地内存中，-XX:MaxMetaspaceSize可以设置元空间大小</p>
 
           
         
@@ -2487,423 +3140,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Java常用API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/Java常用API/" itemprop="url">Java常用API（持续更新）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
-                2019-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面经/" itemprop="url" rel="index">
-                    <span itemprop="name">面经</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/09/01/Java常用API/" class="leancloud_visitors" data-flag-title="Java常用API（持续更新）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java常用API"><a href="#Java常用API" class="headerlink" title="Java常用API"></a>Java常用API</h1><p>主要是一些常用的，容易忘的，像String的equals，substring这些就不写了</p>
-<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><ul>
-<li>indexOf(char)：返回指定字符的索引</li>
-<li>charAt(int)：返回指定索引的字符</li>
-<li>replace(oldChar, newChar)：字符串替换</li>
-<li>trim()：去掉字符串两端空白</li>
-<li>split(regex)：分隔字符串</li>
-<li>getBytes()：返回字符串的byte类型数组</li>
-<li>toCharArray()：返回字符串的字符数组（新的，不是内置的那个）</li>
-<li>static valueOf(double[or float int long Object])：参数转换为String</li>
-</ul>
-<h2 id="集合类"><a href="#集合类" class="headerlink" title="集合类"></a>集合类</h2><p><strong>要对List排序，使用 <code>Collections.sort(list)</code> ！！！</strong><br><strong>要对数组排序，使用 <code>Arrays.sort(array)</code> ！！！</strong></p>
-<p>List转换为数组： <code>ArrayList的toArray方法（实例方法）</code><br>数组转换为List： <code>Arrays.asList()</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/spring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/spring/" itemprop="url">Spring（持续更新）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
-                2019-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/面经/" itemprop="url" rel="index">
-                    <span itemprop="name">面经</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/09/01/spring/" class="leancloud_visitors" data-flag-title="Spring（持续更新）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="什么是Spring"><a href="#什么是Spring" class="headerlink" title="什么是Spring"></a>什么是Spring</h2><p>是Java企业级应用的开源框架，使用JavaBean来完成以前EJB完成的事</p>
-<h2 id="Spring框架好处"><a href="#Spring框架好处" class="headerlink" title="Spring框架好处"></a>Spring框架好处</h2><ul>
-<li>轻量</li>
-<li>控制反转</li>
-<li>面向切面的编程</li>
-<li>容器</li>
-<li>MVC框架</li>
-<li>事务管理</li>
-<li>异常处理</li>
-</ul>
-<h2 id="IOC和AOP理解"><a href="#IOC和AOP理解" class="headerlink" title="IOC和AOP理解"></a>IOC和AOP理解</h2><p>IOC：控制反转，是一种设计思想，指应用程序本身不负责依赖对象的创建和维护，而是由外部容器负责创建和维护</p>
-<p>IOC容器就像一个工厂，我们创建一个对象，只需要配置好配置文件/注解即可，不用考虑对象是如何被创建出来的，这样可以降低开发难度，增加项目可维护性</p>
-<p>DI：依赖注入，是IOC的一种实现方式，指IOC容器在运行期间，动态地将某种依赖关系注入到对象中。注入方式有设值注入（getter，setter）和构造注入（通过构造器注入）</p>
-<p>AOP：能够将那些与业务无关，却为业务模块所共同调用的逻辑与责任（如事务处理，日志管理，权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并提高可拓展性和可维护性</p>
-<p>AOP基于<strong>动态代理</strong>，如果要代理的对象实现了某个接口，那么Spring AOP就会使用 JDK Proxy 去创建代理对象，而对于没有实现接口的对象，就无法使用JDK Proxy，这时候就会去使用 CGLib 生成一个被代理对象的子类来作为代理</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/iaIdQfEric9TwBuibJ4N5OTyAvJibFj8b7zhPn9m0PpOfqr7exaXPcBL5qJJDiaFibZxVprZjicTJxialjXKjicQrxnOcEA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
-<h2 id="Spring-AOP和AspectJ-AOP的区别"><a href="#Spring-AOP和AspectJ-AOP的区别" class="headerlink" title="Spring AOP和AspectJ AOP的区别"></a>Spring AOP和AspectJ AOP的区别</h2><ul>
-<li>Spring AOP是运行时织入，AspectJ是编译时织入（在编译阶段生成AOP代理类）</li>
-<li>Spring AOP基于代理，AspectJ基于字节码操作</li>
-<li>AspectJ相比Spring AOP功能更强大（AOP仅支持方法级编织，AspectJ还可以编织字段，构造函数等），性能更好（编译时织入的性能更好）</li>
-</ul>
-<h2 id="bean作用域"><a href="#bean作用域" class="headerlink" title="bean作用域"></a>bean作用域</h2><ul>
-<li>singleton：单例，唯一bean实例，默认就是singleton</li>
-<li>prototype：每次请求都会创建一个新的bean实例</li>
-<li>request：每一次HTTP请求都会创建一个新的bean，该bean仅在当前HTTP Request内有效</li>
-<li>session：每一此HTTP请求都会创建一个新的bean，该bean仅在当前HTTP session内有效</li>
-<li>global-session：全局session作用于，仅用在protlet，spring 5已经取消</li>
-</ul>
-<h2 id="Spring中的单例bean的线程安全问题"><a href="#Spring中的单例bean的线程安全问题" class="headerlink" title="Spring中的单例bean的线程安全问题"></a>Spring中的单例bean的线程安全问题</h2><p><strong>单例bean</strong>存在线程问题，主要是因为当多个线程操作同一个对象的时候，对这个对象的<strong>非静态成员变量</strong>的<strong>写操作</strong>存在线程安全问题</p>
-<p>两种解决办法：</p>
-<ul>
-<li>Bean对象中尽量避免定义可变的成员变量</li>
-<li>类中定义一个ThreadLocal成员变量，将需要的可变成员变量保存在ThreadLocal中</li>
-</ul>
-<h2 id="Spring-Bean生命周期"><a href="#Spring-Bean生命周期" class="headerlink" title="Spring Bean生命周期"></a>Spring Bean生命周期</h2><ul>
-<li>Bean容器找到配置文件中的Spring Bean的定义</li>
-<li>Bean容器利用反射创建一个Bean的实例</li>
-<li>对于属性值利用 set()方法 设置</li>
-<li>检查Aware相关接口并设置相关依赖，如Bean实现了 BeanNameAware 接口，调用setBeanName()方法，传入Bean的名字</li>
-<li>BeanPostProcessor的前置处理</li>
-<li>检查是否有InitializingBean以决定是否调用afterPropertiesSet方法</li>
-<li>检查是否配置自定义的init-method方法，有则执行指定方法</li>
-<li>BeanPostProcessor的后置处理</li>
-<li>使用</li>
-<li>销毁时，检查是否实现DisposableBean接口，有则调用destroy()方法</li>
-<li>检查是否配置自定义的destroy-method方法，有则执行指定方法</li>
-</ul>
-<h2 id="对于Spring-MVC的了解"><a href="#对于Spring-MVC的了解" class="headerlink" title="对于Spring MVC的了解"></a>对于Spring MVC的了解</h2><p>要了解一个东西，首先得知道它能干什么，MVC框架能做的事情如下：</p>
-<ul>
-<li>将URL映射到java类或java类的方法</li>
-<li>封装用户提交的数据</li>
-<li>处理请求-调用相关的业务处理-封装响应的数据</li>
-<li>将响应的数据进行渲染，jsp，html，freemarker等</li>
-</ul>
-<p>SpringMVC是一个轻量级的，基于请求响应的mvc框架</p>
-<p>Spring MVC可以把我们的后端项目分为Service层（处理业务），Dao层（数据库操作），Entity层（实体类），Controller层（控制层，返回数据给前台页面）</p>
-<p>简单原理如下：</p>
-<p><img src="https://i.imgur.com/s5wswV6.png" alt=""></p>
-<ol>
-<li>用户访问浏览器，发送request请求url</li>
-<li>前端控制器（DispatcherServlet)接收用户请求和响应，并根据请求信息调用HandlerMapping，解析请求对应的Handler（即Controller）</li>
-<li>解析到对应的Handler后，开始由HandlerAdapter适配器去处理</li>
-<li>HandlerAdapter会根据Handler来调用真正的处理器处理请求，并处理相应业务逻辑</li>
-<li>处理器处理完业务后，返回一个ModelAndView对象，Model是返回的数据对象，View是逻辑上的View</li>
-<li>DispatcherServlet把返回的Model传给View（视图渲染）</li>
-<li>把View返回给请求者</li>
-</ol>
-<h2 id="Spring框架中用到了哪些设计模式"><a href="#Spring框架中用到了哪些设计模式" class="headerlink" title="Spring框架中用到了哪些设计模式"></a>Spring框架中用到了哪些设计模式</h2><ul>
-<li>工厂设计模式：Spring使用工厂模式通过BeanFactory,ApplicationContext创建bean对象</li>
-<li>代理设计模式：Spring AOP功能的实现</li>
-<li>单例设计模式：Spring中的Bean默认都是单例的</li>
-<li>模板方法模式：jdbcTemplate等以Template结尾的类，都使用了模板模式</li>
-<li>包装器设计模式：需要连接多个数据库，不同的客户每次访问中根据需要会去访问不同的数据库。这种模式可以让我们根据客户的需求能够动态切换不同的数据源</li>
-<li>观察者模式：Spring事件驱动模型就是观察者模式的一个应用</li>
-<li>适配器模式：Spring AOP的增强或通知使用了适配器模式，spring MVC也是用到适配器模式适配Controller</li>
-<li>策略模式：针对不同的底层资源，Spring 将会提供不同的 Resource 实现类，不同的实现类负责不同的资源访问逻辑</li>
-</ul>
-<h2 id="BeanFactory和ApplicationContext区别"><a href="#BeanFactory和ApplicationContext区别" class="headerlink" title="BeanFactory和ApplicationContext区别"></a>BeanFactory和ApplicationContext区别</h2><ul>
-<li>ApplicationContext继承自BeanFactory，提供了比BeanFactory更多的功能，如AOP，访问资源（ResourceLoader），载入多个有继承关系的上下文，国际化等</li>
-<li>BeanFactory提供getBean()方法，还有一些判断bean作用域的方法，常称它为IoC容器，ApplicationContext称为应用上下文</li>
-<li>BeanFactory采用延迟加载形式来注入Bean，只有在使用到某个Bean时才加载，ApplicationContext则在容器启动时一次性创建所有Bean</li>
-<li>它们都支持BeanPostProcessor，但BeanFactory需要手动注册，而ApplicationContext则是自动注册</li>
-</ul>
-<h2 id="Component-和-Bean-的区别是什么"><a href="#Component-和-Bean-的区别是什么" class="headerlink" title="@Component 和 @Bean 的区别是什么"></a>@Component 和 @Bean 的区别是什么</h2><ul>
-<li>@Component作用于类，@Bean作用于方法<br>等其他（目前看不懂）</li>
-</ul>
-<h2 id="将一个类声明为spring的bean的注解有哪些"><a href="#将一个类声明为spring的bean的注解有哪些" class="headerlink" title="将一个类声明为spring的bean的注解有哪些"></a>将一个类声明为spring的bean的注解有哪些</h2><p>@Autowired注解自动装配bean，要把类标识为可用于@Autowired注解自动装配的bean的类，需要用以下注解实现：</p>
-<ul>
-<li>@Component</li>
-<li>@Repository：对应Dao层</li>
-<li>@Service：对应服务层</li>
-<li>@Controller：对应MVC控制层，接收用户请求并调用Service层返回数据给前端页面</li>
-</ul>
-<h2 id="Spring事务隔离级别"><a href="#Spring事务隔离级别" class="headerlink" title="Spring事务隔离级别"></a>Spring事务隔离级别</h2><ul>
-<li>TransactionDefinition.ISOLATION_DEFAULT：使用后端数据库默认的隔离级别</li>
-<li>TransactionDefinition.ISOLATION_READ_UNCOMMITTED</li>
-<li>TransactionDefinition.ISOLATION_READ_COMMITTED</li>
-<li>TransactionDefinition.ISOLATION_REPEATABLE_READ</li>
-<li>TransactionDefinition.ISOLATION_SERIALIZABLE</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2960,7 +3196,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2982,7 +3218,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

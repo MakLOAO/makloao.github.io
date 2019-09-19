@@ -131,7 +131,7 @@
 <meta property="og:site_name" content="MakaL-0-">
 <meta property="og:description" content="Java常用API主要是一些常用的，容易忘的，像String的equals，substring这些就不写了 String indexOf(char)：返回指定字符的索引 charAt(int)：返回指定索引的字符 replace(oldChar, newChar)：字符串替换 trim()：去掉字符串两端空白 split(regex)：分隔字符串 getBytes()：返回字符串的byte类型数组">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-06T14:56:20.242Z">
+<meta property="og:updated_time" content="2019-09-16T08:32:09.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java常用API（持续更新）">
 <meta name="twitter:description" content="Java常用API主要是一些常用的，容易忘的，像String的equals，substring这些就不写了 String indexOf(char)：返回指定字符的索引 charAt(int)：返回指定索引的字符 replace(oldChar, newChar)：字符串替换 trim()：去掉字符串两端空白 split(regex)：分隔字符串 getBytes()：返回字符串的byte类型数组">
@@ -482,8 +482,11 @@
 <li>static valueOf(double[or float int long Object])：参数转换为String</li>
 </ul>
 <h2 id="集合类"><a href="#集合类" class="headerlink" title="集合类"></a>集合类</h2><p><strong>要对List排序，使用 <code>Collections.sort(list)</code> ！！！</strong><br><strong>要对数组排序，使用 <code>Arrays.sort(array)</code> ！！！</strong></p>
-<p>List转换为数组： <code>ArrayList的toArray方法（实例方法）</code><br>数组转换为List： <code>Arrays.asList()</code></p>
-
+<p>List转换为数组： <code>ArrayList的toArray方法（实例方法）</code><br>数组转换为List：<br>对于引用类型的数组： <code>new ArrayList&lt;&gt;(Arrays.asList())</code><br>对于基本类型的数组： 写个for循环一个一个手动添加进去吧。。</p>
+<p>排序的Comparator中的compare方法：</p>
+<p><code>int compare(T o1, T o2)</code><br><code>a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.</code></p>
+<p><strong>list.sort()中，默认是按照自然顺序（升序）来排序的，如果传入comparator参数，当compare方法返回的值大于0（o1&gt;o2），它就会交换o1和o2的位置</strong></p>
+<h3 id="遍历Map"><a href="#遍历Map" class="headerlink" title="遍历Map"></a>遍历Map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;Map.Entry&lt;Integer,String&gt;&gt; iterable=map.entrySet().iterator();</span><br><span class="line">while(iterable.hasNext())&#123;</span><br><span class="line">    Map.Entry&lt;Integer,String&gt;entry=iterable.next();</span><br><span class="line">    System.out.println(entry.getKey()+&quot;-&gt;&quot;+entry.getValue());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(Map.Entry&lt;Integer,String&gt; entry:map.entrySet())&#123;</span><br><span class="line">    System.out.println(entry.getKey()+&quot;-&gt;&quot;+entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -528,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/01/spring/" rel="next" title="Spring（持续更新）">
-                <i class="fa fa-chevron-left"></i> Spring（持续更新）
+              <a href="/2019/09/01/其他/" rel="next" title="MySQL（持续更新）">
+                <i class="fa fa-chevron-left"></i> MySQL（持续更新）
               </a>
             
           </div>
@@ -629,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">96</span>
+                  <span class="site-state-item-count">98</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -651,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">207</span>
+                  <span class="site-state-item-count">209</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -706,7 +709,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java常用API"><span class="nav-number">1.</span> <span class="nav-text">Java常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合类"><span class="nav-number">1.2.</span> <span class="nav-text">集合类</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java常用API"><span class="nav-number">1.</span> <span class="nav-text">Java常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">1.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合类"><span class="nav-number">1.2.</span> <span class="nav-text">集合类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历Map"><span class="nav-number">1.2.1.</span> <span class="nav-text">遍历Map</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
