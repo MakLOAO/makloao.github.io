@@ -123,17 +123,17 @@
 
 
 
-<meta name="description" content="Beautifully struggle every day">
+<meta name="description" content="设计模式（持续更新）单例模式它的定义介绍 双检锁 1234567891011121314public class Singleton&amp;#123;    private static volatile Singleton single;    private Singleton()&amp;#123;&amp;#125;        public static Singleton getSingle() &amp;#12">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MakaL-0-">
 <meta property="og:url" content="http://yoursite.com/2019/09/08/设计模式/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="Beautifully struggle every day">
+<meta property="og:description" content="设计模式（持续更新）单例模式它的定义介绍 双检锁 1234567891011121314public class Singleton&amp;#123;    private static volatile Singleton single;    private Singleton()&amp;#123;&amp;#125;        public static Singleton getSingle() &amp;#12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-08T14:59:12.229Z">
+<meta property="og:updated_time" content="2019-09-20T01:23:25.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MakaL-0-">
-<meta name="twitter:description" content="Beautifully struggle every day">
+<meta name="twitter:description" content="设计模式（持续更新）单例模式它的定义介绍 双检锁 1234567891011121314public class Singleton&amp;#123;    private static volatile Singleton single;    private Singleton()&amp;#123;&amp;#125;        public static Singleton getSingle() &amp;#12">
 
 
 
@@ -447,7 +447,9 @@
       
 
       
-        
+        <h1 id="设计模式（持续更新）"><a href="#设计模式（持续更新）" class="headerlink" title="设计模式（持续更新）"></a>设计模式（持续更新）</h1><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>它的定义介绍</p>
+<p>双检锁</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton single;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(single == <span class="keyword">null</span>) &#123; <span class="comment">// 第一次检查是防止已有单例的情况下进入同步块增加开销</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (single == <span class="keyword">null</span>) <span class="comment">// 第二次是防止两个线程同时进入同步块，第一个返回一个new Singleton()后，第二个线程也创建一个新的Singleton()</span></span><br><span class="line">                    single = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -552,8 +554,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -641,6 +652,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式（持续更新）"><span class="nav-number">1.</span> <span class="nav-text">设计模式（持续更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式"><span class="nav-number">1.1.</span> <span class="nav-text">单例模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

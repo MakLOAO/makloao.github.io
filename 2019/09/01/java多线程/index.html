@@ -123,19 +123,19 @@
 
 
 
-<meta name="description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready 无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法   限期等待Timed Waiting：一定时间后由系统">
+<meta name="description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready（yield方法线程不会改变状态，仍然是Runnable） 无限等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多线程（持续更新）">
 <meta property="og:url" content="http://yoursite.com/2019/09/01/java多线程/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready 无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法   限期等待Timed Waiting：一定时间后由系统">
+<meta property="og:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready（yield方法线程不会改变状态，仍然是Runnable） 无限等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/aMswcG1.png">
-<meta property="og:updated_time" content="2019-09-17T03:12:00.793Z">
+<meta property="og:updated_time" content="2019-09-20T01:05:34.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程（持续更新）">
-<meta name="twitter:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready 无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法   限期等待Timed Waiting：一定时间后由系统">
+<meta name="twitter:description" content="java多线程为什么引入多线程？进程创建和切换的开销大，引入线程是提高效率 线程状态 新建New 运行Runnable：包括Running和Ready（yield方法线程不会改变状态，仍然是Runnable） 无限等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致 无Timeout参数的Object.wait()方法 无Timeout参数的Thread.join()方法">
 <meta name="twitter:image" content="https://i.imgur.com/aMswcG1.png">
 
 
@@ -475,8 +475,8 @@
         <h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><h2 id="为什么引入多线程？"><a href="#为什么引入多线程？" class="headerlink" title="为什么引入多线程？"></a>为什么引入多线程？</h2><p>进程创建和切换的开销大，引入线程是提高效率</p>
 <h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><ul>
 <li>新建New</li>
-<li>运行Runnable：包括Running和Ready</li>
-<li>无线等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致<ul>
+<li>运行Runnable：包括Running和Ready（yield方法线程不会改变状态，仍然是Runnable）</li>
+<li>无限等待Waiting：不会分配CPU时间，需要被其他线程显式唤醒，如下方法会导致<ul>
 <li>无Timeout参数的Object.wait()方法</li>
 <li>无Timeout参数的Thread.join()方法</li>
 </ul>
@@ -495,7 +495,7 @@
 <li>Thread.sleep()不会导致锁的改变，可以简单认为和锁相关的方法都定义在Object类中</li>
 <li>调用wait后，需要别的线程调用notify/notifyAll才能重新获得CPU执行时间</li>
 </ul>
-<p>sleep和yield不会释放锁，yield让步，让线程从运行状态转为就绪状态<br>wait会释放锁</p>
+<p><strong>sleep和yield不会释放锁</strong>，yield让步，让线程从运行状态转为就绪状态<br><strong>wait会释放锁</strong></p>
 <h2 id="object-wait-机制"><a href="#object-wait-机制" class="headerlink" title="object.wait()机制"></a>object.wait()机制</h2><blockquote>
 <p>This method should only be called by a thread that is the owner of this object’s monitor</p>
 </blockquote>
