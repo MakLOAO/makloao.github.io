@@ -137,7 +137,7 @@
 <meta property="og:image" content="https://i.imgur.com/oaK89Y2.png">
 <meta property="og:image" content="https://i.imgur.com/XcZahS0.png">
 <meta property="og:image" content="https://i.imgur.com/bGPZAqg.jpg">
-<meta property="og:updated_time" content="2019-09-17T09:22:51.706Z">
+<meta property="og:updated_time" content="2019-09-24T15:01:06.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM（持续更新）">
 <meta name="twitter:description" content="JVMJVM组成类加载器（ClassLoader）运行时数据区（Runtime Data Area）执行引擎（Execution Engine）本地库接口（Native Interface） 程序在执行之前先要把java代码转换成字节码（class文件），jvm首先需要把字节码通过一定的方式 类加载器（ClassLoader） 把文件加载到内存中 运行时数据区（Runtime Data Area）">
@@ -633,7 +633,8 @@
 <p>锁粗化：<br>一串零碎的操作都对同一个对象加锁，则把加锁的范围扩展到整个操作序列的外部（如循环体内一直加锁，直接把加锁操作放到循环体之外）</p>
 <p>轻量级锁：<br>无竞争的情况下使用CAS操作避免互斥量的开销</p>
 <p>偏向锁：<br>无竞争的情况下把整个同步都消除</p>
-<h2 id="导致OOM异常"><a href="#导致OOM异常" class="headerlink" title="导致OOM异常"></a>导致OOM异常</h2><ul>
+<h2 id="导致OOM异常"><a href="#导致OOM异常" class="headerlink" title="导致OOM异常"></a>导致OOM异常</h2><p>-XX:+HeapDumpOnOutOfMemory</p>
+<ul>
 <li>堆溢出</li>
 <li>方法区溢出，常量池溢出</li>
 <li>栈中如果线程请求的栈深度大于虚拟机所允许的最大深度，将抛出StackOverflowError异常</li>
