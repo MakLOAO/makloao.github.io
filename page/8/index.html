@@ -369,6 +369,259 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/虚拟存储器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/10/虚拟存储器/" itemprop="url">虚拟存储器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T20:13:18+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/10/虚拟存储器/" class="leancloud_visitors" data-flag-title="虚拟存储器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="虚拟存储器"><a href="#虚拟存储器" class="headerlink" title="虚拟存储器"></a>虚拟存储器</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>虚拟存储器的引入：常规存储器管理方式特征：一次性（全部装入），驻留性（驻留在内存不换出）</p>
+<p><strong>局部性原理</strong>：</p>
+<ul>
+<li>时间局部性：如循环执行，某条指令被执行，不久以后可能会再次执行，数据被访问，不久后可能会再次被访问，原因是程序中存在大量循环操作</li>
+<li>空间局部性：如顺序执行，一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也将被访问，即程序在一段时间内所访问的地址可能集中在一定范围之内</li>
+</ul>
+<p>虚拟存储器的定义：<strong>具有请求调入功能和置换功能，能从逻辑上对内存容量进行扩充的一种存储系统</strong><br>实质：时间换空间，但时间牺牲不大</p>
+<p>虚拟存储器特征：离散性（部分装入），多次性（局部装入，多次装入），对换性，虚拟性</p>
+<h2 id="虚拟存储器的实现方式"><a href="#虚拟存储器的实现方式" class="headerlink" title="虚拟存储器的实现方式"></a>虚拟存储器的实现方式</h2><p>虚拟存储器的实现，全都建立在离散分配存储管理方式的基础上</p>
+<p>需要动态重定位</p>
+<p>目前的虚拟存储器都是采用分页请求系统和分段请求系统的方式实现的，分页请求系统就是在分页系统的基础上增加了请求调页功能和页面置换功能，分段请求系统在分段系统的基础上加入了请求调段功能和分段置换功能</p>
+<ul>
+<li>分页请求系统<ul>
+<li>以页为单位转换</li>
+<li>需硬件：<ul>
+<li>请求分页的页表机制</li>
+<li>缺页中断</li>
+<li>地址变换机构</li>
+</ul>
+</li>
+<li>需实现请求分页机制的软件</li>
+</ul>
+</li>
+<li>请求分段系统<ul>
+<li>以段为单位转换<ul>
+<li>请求分段的段表结构</li>
+<li>缺段中断</li>
+<li>地址变换机构</li>
+</ul>
+</li>
+<li>需实现请求分段机制的软件</li>
+</ul>
+</li>
+</ul>
+<h2 id="请求分页存储管理方式"><a href="#请求分页存储管理方式" class="headerlink" title="请求分页存储管理方式"></a>请求分页存储管理方式</h2><h3 id="请求分页的页表机制"><a href="#请求分页的页表机制" class="headerlink" title="请求分页的页表机制"></a>请求分页的页表机制</h3><p>在纯页表机制上增加若干项形成，主要作用还是将用户地址空间中的逻辑地址映射为内存空间中的物理地址，为了满足页面换出换进换出的需要，它增加了一些字段</p>
+<p><img src="https://i.imgur.com/EskQP0h.png" alt=""></p>
+<ul>
+<li>状态位P：仅有一位，指示该页是否已经调入内存</li>
+<li>访问字段A：记录本页在一段时间内被访问的次数或记录本页最近已有多长时间未被访问，作为置换算法换出页面时的参考</li>
+<li>修改位M：标识该页在调入内存后是否被修改过，由于内存每一页在外存上都有一份副本，因此置换该页时，如果未被修改，就不需要将该页写回到外存</li>
+</ul>
+<h3 id="缺页中断"><a href="#缺页中断" class="headerlink" title="缺页中断"></a>缺页中断</h3><p>请求分页系统中，每当所要访问的页面不在内存时，便产生一缺页中断，请求OS将所缺之页调入内存，它与一般中断相比有明显区别，主要表现如下：</p>
+<ul>
+<li>在指令执行期间产生和处理信号。通常CPU都是在一条指令执行完后才检查是否有中断请求到达。然而缺页中断在指令执行期间，若发现所要访问的指令或数据不在内存时，便立即产生和处理缺页中断信号，以便及时将所缺的页面调入内存</li>
+<li>一条指令在执行期间可能产生多次缺页中断。例如下图中，执行一条指令copy A to B，可能要产生6次缺页中断，因为指令本身跨了两个页面，A和B各自为一个数据块，它们也都跨了两个页面</li>
+</ul>
+<p><img src="https://i.imgur.com/aW7AfPZ.png" alt=""></p>
+<h3 id="地址变换机构"><a href="#地址变换机构" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p>在分页系统地址变换机构的基础上，为实现虚拟存储器，再增加了某些功能，比如产生和处理缺页中断，以及从内存中换出一页的功能等等</p>
+<p><img src="https://i.imgur.com/fGAbVRm.jpg" alt=""></p>
+<h3 id="请求分页的内存分配"><a href="#请求分页的内存分配" class="headerlink" title="请求分页的内存分配"></a>请求分页的内存分配</h3><p>为进程分配内存时涉及三个问题：第一，为保证进程能正常运行，所需要的最小物理块数的确定；第二，在为每个进程分配物理块时，应采取什么样的分配策略，即所分配的物理块是固定的，还是可变的；第三，为不同进程分配物理块数，是平均分配算法还是根据进程大小按比例分配</p>
+<h4 id="最小物理块数的确定"><a href="#最小物理块数的确定" class="headerlink" title="最小物理块数的确定"></a>最小物理块数的确定</h4><p>最小物理块数指保证进程正常运行所需的最小物理块数，取决于计算机硬件结构和指令格式，比如单地址指令且直接寻址的机器，最小物理块数为2，一块存放指令的页面，一块存放数据的页面，而对于单地址指令间接寻址，至少需要3个物理块，如果指令长度两个或多个字节，且指令本身可跨两个页面，源地址目标地址所涉及区域也跨两个页面，则要为每个进程分配6个物理块以装入6个页面</p>
+<h4 id="内存分配策略"><a href="#内存分配策略" class="headerlink" title="内存分配策略"></a>内存分配策略</h4><p>可采用固定和可变分配策略，置换时也可采取全局置换和局部置换，组合出下面三种适用的策略，全局置换指产生缺页都获得新物理块，如果没有空闲物理块，就从内存中选择一页调出，该页可能是系统中任何一个进程的，局部置换指换出的页面只能是该进程的页面，而不能是其他进程的</p>
+<ul>
+<li>固定分配局部置换：固定分配指为每个进程分配一组固定数目的物理块，在进程运行时间不再改变，局部置换指如果进程在运行中发现缺页，则只能从分配给该进程的n个页面中选一页换出，再调入一页，以保证分配给该进程内存空间不变，缺点是难以确定固定分配的页数，如果少，置换率高，如果多就浪费</li>
+<li>可变分配全局置换：可变分配指先为每个进程分配一定数目的物理块，在进程运行器件可根据情况适当增加或减少。可变分配全局置换这可能是最易于实现的一种物理块分配和置换策略，已用于若干个OS中。在采用这种策略时，凡产生缺页（中断）的进程，都将获得新的物理块，仅当空闲物理块队列中的物理块用完时，OS才能从内存中选择一页调出。被选择调出的页可能是系统中任何一个进程中的页，因此这个被选中的进程拥有的物理块会减少，这将导致其缺页率增加</li>
+<li>可变分配局部置换：当某进程发现缺页时，只允许从该进程在内存的页面中选择一页换出，这样不会影响到其它进程的运行，如果进程运行中频繁缺页中断，系统就为该进程分配若干附加的物理块，直到进程缺页率降到适当程度为止，反之如果缺页率比较低，就适当减少该进程物理块数</li>
+</ul>
+<h5 id="物理块分配算法"><a href="#物理块分配算法" class="headerlink" title="物理块分配算法"></a>物理块分配算法</h5><ul>
+<li>平均分配算法</li>
+<li>考虑优先权分配算法</li>
+</ul>
+<h3 id="页面调入策略"><a href="#页面调入策略" class="headerlink" title="页面调入策略"></a>页面调入策略</h3><p>问题：</p>
+<ul>
+<li>何时调入页面<ul>
+<li>预调页策略：将那些预计在不久后会被访问的页面预先调入内存</li>
+<li>请求调页策略：在进程需要访问页面不在内存的数据和程序时才提出请求，费系统开销</li>
+</ul>
+</li>
+<li>从何处调入页面<ul>
+<li>对换区，快</li>
+<li>文件区，慢，在缺少对换区空间时</li>
+<li>UNIX方式：未运行过的页面都从文件区调入，运行过但被换出的页面从对换区调入</li>
+</ul>
+</li>
+<li>页面调入过程：在上面地址变换机构的图的左半部分就是页面调入过程</li>
+</ul>
+<h3 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h3><h4 id="最佳置换算法OPT"><a href="#最佳置换算法OPT" class="headerlink" title="最佳置换算法OPT"></a>最佳置换算法OPT</h4><p>其所选择的被淘汰页面，将是以后永不使用的，或许是在<strong>最长时间内不再被访问的页面</strong>，因为人们目前无法预知，一个进程在内存的若干页面中哪一个是未来最长时间不再被访问的，因而该算法是无法实现的，用于评价其他算法</p>
+<p><img src="https://i.imgur.com/N2jBRuD.png" alt=""></p>
+<p>考虑先将7，0，1三个页面装入内存，当进程要访问页面2，就会产生缺页中断，这个时候就会把页面7淘汰，因为页面0是第5个被访问的页面，页面1是第14个被访问的页面，页面7是第18个被访问的页面，访问到页面3的时候，同理页面1被淘汰，以此类推</p>
+<h4 id="先进先出页面置换算法FIFO"><a href="#先进先出页面置换算法FIFO" class="headerlink" title="先进先出页面置换算法FIFO"></a>先进先出页面置换算法FIFO</h4><p>该算法总是淘汰最先进入内存的页面，即选择内存中驻留时间最久的页面淘汰，该算法实现只需要把 进程已调入内存的页面按先后次序链接成一个队列，并设置一个指针，称为替换指针，它总是指向最老的页面</p>
+<h4 id="最近最久未使用置换算法LRU"><a href="#最近最久未使用置换算法LRU" class="headerlink" title="最近最久未使用置换算法LRU"></a>最近最久未使用置换算法LRU</h4><p>根据页面调入内存后的使用情况做出决策，选择<strong>最近最久未使用的页面</strong>淘汰，每个页面一个访问字段，用来记录一个页面自上次被访问以来经历了多少时间t，当需要淘汰一个页面时，选择现有页面中t值最大的淘汰</p>
+<p>需要移位寄存器R=Rn-1Rn-2…R2R1R0的支持，当访问某物理块时，就将移位寄存器Rn-1置1，定时器每隔一段时间将寄存器右移一位，<strong>具有最小数值的寄存器所对应的页面就是最近最久未使用的页面</strong><br>或者需要栈的支持，当进程访问某页面，将该页面号从栈移出，压入栈顶，栈底就是最近最久未使用的页面号</p>
+<h4 id="Clock置换算法，页面缓冲算法等"><a href="#Clock置换算法，页面缓冲算法等" class="headerlink" title="Clock置换算法，页面缓冲算法等"></a>Clock置换算法，页面缓冲算法等</h4><p>考纲没说要考，再看下去我要挂科了</p>
+<h3 id="请求分页访问内存有效时间"><a href="#请求分页访问内存有效时间" class="headerlink" title="请求分页访问内存有效时间"></a>请求分页访问内存有效时间</h3><p>EAT=(1-p)<em>t+p</em>f<br>其中p为缺页率，t为内存访问时间，f为缺页中断时间</p>
+<h2 id="请求分段存储管理方式"><a href="#请求分段存储管理方式" class="headerlink" title="请求分段存储管理方式"></a>请求分段存储管理方式</h2><h3 id="请求分段的段表机制"><a href="#请求分段的段表机制" class="headerlink" title="请求分段的段表机制"></a>请求分段的段表机制</h3><p><img src="https://i.imgur.com/hp6kwQQ.png" alt=""></p>
+<ul>
+<li>存取方式：执行，只读，读/写</li>
+<li>存在位P：是否已调入内存</li>
+<li>增补位：本段在运行过程中是否做过动态增长</li>
+</ul>
+<h3 id="缺段中断机构"><a href="#缺段中断机构" class="headerlink" title="缺段中断机构"></a>缺段中断机构</h3><p><img src="https://i.imgur.com/DbhfGOj.png" alt=""></p>
+<p>与缺页中断的区别主要是有空区拼接，形成一个合适的空区</p>
+<h3 id="地址变换机构-1"><a href="#地址变换机构-1" class="headerlink" title="地址变换机构"></a>地址变换机构</h3><p><img src="https://i.imgur.com/6xN5oK5.png" alt=""></p>
+<h3 id="分段的共享与保护"><a href="#分段的共享与保护" class="headerlink" title="分段的共享与保护"></a>分段的共享与保护</h3><p>分段的优点是便于实现分段的共享与保护</p>
+<h4 id="共享段表"><a href="#共享段表" class="headerlink" title="共享段表"></a>共享段表</h4><p><img src="https://i.imgur.com/MHkyUus.png" alt=""></p>
+<h4 id="分段保护"><a href="#分段保护" class="headerlink" title="分段保护"></a>分段保护</h4><p>提供如下分段保护</p>
+<ul>
+<li>越界检查</li>
+<li>存取控制检查</li>
+<li>环保护机构</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/09/存储器管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2784,322 +3037,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript06-BOM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/26/JavaScript06-BOM/" itemprop="url">JavaSCript06-BOM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
-                2018-10-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/10/26/JavaScript06-BOM/" class="leancloud_visitors" data-flag-title="JavaSCript06-BOM">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript06-BOM"><a href="#JavaScript06-BOM" class="headerlink" title="JavaScript06-BOM"></a>JavaScript06-BOM</h1><p>BOM是浏览器对象模型，它提供了很多用于访问浏览器的功能。</p>
-<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h2><p>window对象表示浏览器的一个实例，它既是通过JavaScript访问浏览器的一个接口，又是ECMAScript规定的Global对象。这意味着在网页中定义的任何一个对象，变量和函数，都以window作为其Global对象，因此有权访问parseInt等方法。</p>
-<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>所有在全局作用域中声明的变量，函数都会变成window对象的属性和方法，但注意，定义全局变量与在window对象直接定义还是有一点差别：全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">29</span>;</span><br><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.age; <span class="comment">// return false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.color; <span class="comment">// return true</span></span><br></pre></td></tr></table></figure>
-<p>可以通过window对象查询变量是否存在</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newValue = oldValue; <span class="comment">// error,oldValue not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newValue = <span class="built_in">window</span>.oldValue; <span class="comment">// OK,newValue is undefined</span></span><br></pre></td></tr></table></figure>
-<h3 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h3><p>IE，Safari，Opera，Chrome提供了screenLeft，screenTop属性表示窗口相对于屏幕左边和上边的位置。Firefox提供了screenX和screenY属性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取窗口左边和上边的位置</span></span><br><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenLeft:<span class="built_in">window</span>.screenX;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> winodw.screenTop == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenTop:<span class="built_in">window</span>.screenY;</span><br></pre></td></tr></table></figure>
-<p>可以使用moveTo()和moveBy()将窗口精确移动到某个位置<br>moveTo()接收的是新位置的x和y坐标，而moveBy()接收的是在水平和锤石方向上移动的像素数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将窗口移动到屏幕左上角</span></span><br><span class="line"><span class="built_in">window</span>.moveTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将窗口向左移动50像素</span></span><br><span class="line"><span class="built_in">window</span>.moveBy(<span class="number">-50</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>需要注意这两个方法可能会被浏览器禁用</p>
-<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><p>IE9+,Firefox,Safari,Opera和Chrome提供4个属性：innerWidth,innerHeight,outerWidth,outerHeight。在Chrome中，outer和inner返回的是相同的值，都是viewport大小而非浏览器窗口大小。在Firefox中，outer返回的是浏览器窗口本身的尺寸，inner返回的是该容器中页面视图区的大小（减去边框宽度）。</p>
-<p>下面方法可以获得viewport大小</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth,</span><br><span class="line">    pageHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth != <span class="string">"number"</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>) &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>可以使用resizeTo()和resizeBy()方法来调整浏览器窗口大小。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调整到100*100</span></span><br><span class="line"><span class="built_in">window</span>.resizeTo(<span class="number">100</span>,<span class="number">100</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 调整到200*150</span></span><br><span class="line"><span class="built_in">window</span>.resizeBy(<span class="number">100</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
-<p>同样的，部分浏览器可能禁用这两个方法</p>
-<h3 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h3><p>使用window.open()方法既可以导航到一个特定的URL，也可以打开一个新的浏览器窗口。这个方法接收4个参数：要加载的URL，窗口目标，一个特性字符串以及一个表示新页面是否取代浏览器历史纪录中当前加载页面的布尔值。如果传递第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。看下面例子</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等同于&lt;a href="http://www.wrox.com" target="topFrame"&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"topFrame"</span>);</span><br></pre></td></tr></table></figure>
-<p>如果有topFrame的窗口，就会在该窗口加载URL，否则创建一个新窗口并命名为topFrame,第二个参数也可以是下列特殊名称:_self,_parent,_top或_blank。</p>
-<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>若第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的参数创建一个新窗口或新标签页。<br>第三个参数是一个逗号分隔的设置字符串，表示在新窗口中都显示哪些特性。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">设置</th>
-<th style="text-align:left">值</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">height</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口高度，不能小于100</td>
-</tr>
-<tr>
-<td style="text-align:left">left</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">窗口左坐标，不能小于0</td>
-</tr>
-<tr>
-<td style="text-align:left">location</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">显示地址栏，不同浏览器默认值不同</td>
-</tr>
-<tr>
-<td style="text-align:left">menubar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">默认no，显示菜单栏</td>
-</tr>
-<tr>
-<td style="text-align:left">resizable</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">是否可以通过拖动浏览器窗口边框改变其大小</td>
-</tr>
-<tr>
-<td style="text-align:left">scrollbars</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">内容在视口显示不下，是否运训滚动，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">status</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">状态栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">toolbar</td>
-<td style="text-align:left">yes or no</td>
-<td style="text-align:left">工具栏，默认no</td>
-</tr>
-<tr>
-<td style="text-align:left">top</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">上坐标</td>
-</tr>
-<tr>
-<td style="text-align:left">width</td>
-<td style="text-align:left">num</td>
-<td style="text-align:left">新窗口宽度</td>
-</tr>
-</tbody>
-</table>
-<p><code>window.open(&quot;http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,resizable=yes&quot;);</code></p>
-<p>通过window.open()新创建的窗口可以使用resizeTo或moveTo等方法，并且其有一个属性opener保存着打开它的原始窗口对象<br>chrome会在独立进程中运行每个标签页，当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。<strong>在chrome中，把新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，即告诉浏览器新创建的标签页不需要与打开它的标签页通信，因此可以在独立进程中运行。</strong></p>
-<h4 id="弹出窗口屏蔽程序"><a href="#弹出窗口屏蔽程序" class="headerlink" title="弹出窗口屏蔽程序"></a>弹出窗口屏蔽程序</h4><p>大多数浏览器都内置弹出窗口屏蔽程序，如下所示可以检测是否被屏蔽</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blocked = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wroxWin = <span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"_blank"</span>);</span><br><span class="line">	<span class="keyword">if</span>(wroxWin == <span class="literal">null</span>) &#123;</span><br><span class="line">		blocked = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (ex）&#123;</span><br><span class="line">	blocked = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (blocked) &#123;</span><br><span class="line">	alert(<span class="string">"The popup was blocked!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="间歇调用和超时调用"><a href="#间歇调用和超时调用" class="headerlink" title="间歇调用和超时调用"></a>间歇调用和超时调用</h3><p>JS是单线程语言，但它允许通过设置超时值和间歇时间来调度代码在特定时刻执行。</p>
-<h4 id="超时调用"><a href="#超时调用" class="headerlink" title="超时调用"></a>超时调用</h4><p>超时调用需要使用window对象的setTimeout()方法，它接收两个参数，要运行的代码和毫秒表示的时间（执行代码之前需要等待的毫秒数），第一个参数可以是包含JS代码的字符串，也可以是一个函数（更推荐用函数）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>注意上述代码经过1000ms不一定会执行，因为JS是一个单线程的解释器。调用setTimeout后，该方法会返回一个数值ID，表示超时调用。可以通过这个ID取消超时调用，如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> itmeoutId = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">clearTimeout(timeoutId);</span><br></pre></td></tr></table></figure>
-<h4 id="间歇调用"><a href="#间歇调用" class="headerlink" title="间歇调用"></a>间歇调用</h4><p>按照指定的时间间隔重复执行代码，调用的方法是setInterval()，调用方法与上面setTimeout差不多，只不过第二个参数为每次执行之前要等待的毫秒数，同样可以通过clearInterval()方法传入间歇调用ID取消间歇调用<br><strong>尽量不要使用间歇调用，因为后一个间歇调用可能在前一个间歇调用停止之前启动</strong><br>下面是一个用超时调用实现间歇调用的例子，不会出现上述问题</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> max = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incrementNumber</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; max) &#123;</span><br><span class="line">		setTimeout(incrementNumber, <span class="number">500</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		alert(<span class="string">"Done"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(incrementNumber, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><p>浏览器通过alert(),confirm()和prompt()方法可以调用系统对话框，<strong>注意系统对话框都是同步和拟态的，即显示这些对话框的时候代码回停止执行，直到关掉对话框</strong></p>
-<h4 id="alert"><a href="#alert" class="headerlink" title="alert()"></a>alert()</h4><p>alert()显示的对话框包括文本和一个OK按钮</p>
-<h4 id="confirm"><a href="#confirm" class="headerlink" title="confirm()"></a>confirm()</h4><p>confirm()除了文本和OK按钮，还有一个取消按钮，可以通过检查confirm()方法返回的布尔值来确定用户点了哪个按钮</p>
-<h4 id="prompt"><a href="#prompt" class="headerlink" title="prompt()"></a>prompt()</h4><p>prompt()方法除了显示OK和Cancel按钮，还会显示一个文本输入框，接收两个参数，要显示给用户的文本提示和和文本输入域的默认值（可以为空字符串）。如果点击OK，该方法返回输入域的值，点击Cancel或其他，该方法返回null</p>
-<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p>location提供了与当前窗口加载的文档有关的信息，它既是window对象的属性，也是document对象的属性，location对象有如下属性</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">属性名</th>
-<th style="text-align:left">例子</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">hash</td>
-<td style="text-align:left">“#contents”</td>
-<td style="text-align:left">返回URL中的hash（#号后跟0个或多个字符）</td>
-</tr>
-<tr>
-<td style="text-align:left">host</td>
-<td style="text-align:left">“<a href="http://www.wrox.com:80&quot;" target="_blank" rel="noopener">www.wrox.com:80&quot;</a></td>
-<td style="text-align:left">返回服务器名称和端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">hostname</td>
-<td style="text-align:left">“<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">返回不带端口号的服务器名称</td>
-</tr>
-<tr>
-<td style="text-align:left">href</td>
-<td style="text-align:left">“http:/<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
-<td style="text-align:left">完整URL，与location.toString()方法返回值一样</td>
-</tr>
-<tr>
-<td style="text-align:left">pathname</td>
-<td style="text-align:left">“/WileyCDA/“</td>
-<td style="text-align:left">URL中目录和文件名</td>
-</tr>
-<tr>
-<td style="text-align:left">port</td>
-<td style="text-align:left">“8080”</td>
-<td style="text-align:left">端口号</td>
-</tr>
-<tr>
-<td style="text-align:left">protocol</td>
-<td style="text-align:left">“http:”</td>
-<td style="text-align:left">页面协议</td>
-</tr>
-<tr>
-<td style="text-align:left">search</td>
-<td style="text-align:left">“?q=javascript”</td>
-<td style="text-align:left">URL的查询字符串，以问号开头</td>
-</tr>
-</tbody>
-</table>
-<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><p>一个查询字符串参数的例子，注意字符串参数是被编码过的，需要通过decodeURIComponent解码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span> ),</span><br><span class="line">		args = &#123;&#125;,</span><br><span class="line">		items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</span><br><span class="line">		item = <span class="literal">null</span>,</span><br><span class="line">		name = <span class="literal">null</span>,</span><br><span class="line">		value = <span class="literal">null</span>,</span><br><span class="line">		i = <span class="number">0</span>,</span><br><span class="line">		length = items.length;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">		item = items[i].split(<span class="string">"="</span>);</span><br><span class="line">		name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">		value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (name.length) &#123;</span><br><span class="line">			args[name] = value;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h3><p>可以通过修改上面的属性（直接赋值）来改变当前加载的页面，也可以通过<code>location.assign(&quot;http://www.wrox.com&quot;)</code>来改变，<strong>这样的改变会在浏览器的历史记录中生成一条新纪录，用户通过后退按钮都会导航到前一个页面，如果不想在历史记录中生成新纪录，则可以通过调用</strong><code>location.replace(&quot;http://www.wrox.com/&quot;)</code><br>reload()方法会重新加载当前页面，如果不传递参数，页面会以最有效的方式重新加载，有可能是从缓存中加载，如果强制从服务器加载，则传入参数true即可</p>
-<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h2><p>navigator对象主要用来检测客户端浏览器，其主要属性和方法可以参考<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp" target="_blank" rel="noopener">w3c的navigator对象</a></p>
-<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><p>对于非IE浏览器，可以使用plugins数组来达到检测插件的目的，该数组每一项都有下列属性</p>
-<ul>
-<li>name:插件的名字</li>
-<li>description:插件的描述</li>
-<li>filename:插件的文件名</li>
-<li>length:插件所处理的MIME类型数量</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	name = name.toLowerCase();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; navigator.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (navigator.plugins[i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"QucikTime"</span>));</span><br></pre></td></tr></table></figure>
-<h2 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h2><p>history对象保存用户的上网记录，无法得知具体的URL，但是可以通过<code>go()</code>方法来实现用户历史记录的任意跳转，这个方法接收一个参数，表示向后或向前的页面书的一个整数，也可以传入字符串参数，浏览器会跳转到历史纪录中包含该字符串的第一个位置，可能前进也可能后退。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-1</span>); <span class="comment">// 后退一页</span></span><br><span class="line"></span><br><span class="line">history.go(<span class="number">1</span>); <span class="comment">// 前进一页</span></span><br><span class="line"></span><br><span class="line">history(<span class="string">"wrox.com"</span>);</span><br></pre></td></tr></table></figure>
-<p>另外还可以用<code>history.back()</code>和<code>history.forward()</code>方法前进或后退<br>此外还有一个length属性表示历史纪录数量。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3156,7 +3093,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3178,7 +3115,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

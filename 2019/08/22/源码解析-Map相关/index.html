@@ -134,7 +134,7 @@
 <meta property="og:image" content="https://i.imgur.com/aYMLN3D.jpg">
 <meta property="og:image" content="https://i.imgur.com/OymSOi2.png">
 <meta property="og:image" content="https://i.imgur.com/zXlFqcO.jpg">
-<meta property="og:updated_time" content="2019-09-16T08:49:56.833Z">
+<meta property="og:updated_time" content="2019-09-26T16:29:04.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="源码解析-Map相关">
 <meta name="twitter:description" content="源码解析-Map相关 https://zhuanlan.zhihu.com/p/31805309  基于JDK8 红黑树在讲HashMap之前，先了解红黑树的基本概念： 红黑树是一棵自平衡的二叉查找树，除了符合二叉查找树的基本特性，它还符合如下特性：  节点是红色或黑色 根节点是黑色 每个叶子节点都是黑色的空节点（NIL节点） 每个红色节点的两个子结点都是黑色（从每个叶子到根的所有路径上不能有两个">
@@ -557,11 +557,19 @@
 <li>允许null，不同步</li>
 <li>如果传入容量参数不是2的整数次幂，会计算得出大于参数且最接近2的整次幂的数</li>
 </ul>
-<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>继承自HashMap，所以和HashMap大体上类似，增加了下面的的域</p>
+<h2 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h2><p>继承自HashMap，所以和HashMap大体上类似，增加了下面的的域，并且重写了get方法（下面有说）</p>
 <p><img src="https://i.imgur.com/zXlFqcO.jpg" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">HashMap</span>.<span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    Entry&lt;K,V&gt; before, after;</span><br><span class="line">    Entry(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; next) &#123;</span><br><span class="line">        <span class="keyword">super</span>(hash, key, value, next);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The head (eldest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; head;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * The tail (youngest) of the doubly linked list.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> LinkedHashMap.Entry&lt;K,V&gt; tail;</span><br></pre></td></tr></table></figure>
 <p>它的每个Node&lt;K,V&gt;都多了一个before和after指针，用来指向按插入顺序先后的前后节点</p>
-<p><strong>如果设置了accessOrder参数，即使用 <code>LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 这个构造器（注意它的第二个参数是float不是double），put和get方法会导致LinkedHashMap的顺序发生变化</strong>，它的顺序是这样的：<strong>最常用的将其放在链表的最后，不常用的放在链表的最前，和LRU算法很类似</strong>（get方法通过重写来判断accessOrder，put方法通过其父类HashMap调用afterNodeAccess和afterNodeInsertion来重新设置结点，HashMap本身的这两个方法是空方法，实际调用的是LinkedHashMap的方法）</p>
+<p><strong>如果设置了accessOrder参数，即使用 <code>LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)</code> 这个构造器（注意它的第二个参数是float不是double），则使用的是LRU算法，最近被用到的放在链表尾，最久没有被用到的放在链表头（get和put会更新链表状态）</strong>，如果accessOrder为false，则get不会改变状态，</p>
+<ul>
+<li>3个afterNodeXxx方法在HashMap中都是空方法，LinkedHashMap重写了它们</li>
+<li>当调用put方法，它没有重写put方法，实际调用的是父类的put，父类put调用的是putVal，putVal中如果存在key，则更新，然后调用afterNodeAccess，如果不存在key则插入，然后调用afterNodeInsertion，afterNodeAccess内部会判断accessOrder，因此如果为false，则更新后并不会改变链表状态，<strong>只有设置了accessOrder参数put更新时才会改变链表状态</strong></li>
+<li>调用get方法，它重写了get方法，首先调用父类的get，父类get调用getNode，获得结点后，判断accessOrder，如果为true，则调用afterNodeAccess（LRU算法），<strong>只有设置了accessOrder参数get才会改变链表状态</strong></li>
+<li>调用remove方法，没有重写，调用的是父类的remove，然后调用afterNodeRemoval，<strong>无论是否设置accessOrder参数，remove都会改变链表状态</strong></li>
+<li>调用containsKey方法，<strong>无论有没有设置accessOrder参数，containsKey都不会改变链表状态</strong></li>
+<li><strong>综上所述，LinkedHashMap在accessOrder为false的时候，本质上就是一个根据插入顺序排序的哈希链表，在accessOrder为true的时候，是根据LRU算法的哈希链表，containsKey无论如何都不会改变状态，它底层是通过调用HashMap的get方法实现的</strong></li>
+</ul>
 <h2 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h2><p>看了下注释 大概就是：</p>
 <ul>
 <li>底层是红黑树，实现NavigableMap接口，可以根据key<strong>自然排序</strong>，可以传递Comparator实现Map的排序</li>
@@ -730,7 +738,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -752,7 +760,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

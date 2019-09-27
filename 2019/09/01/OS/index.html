@@ -132,7 +132,7 @@
 <meta property="og:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/3xOqcwx.png">
-<meta property="og:updated_time" content="2019-09-06T13:47:12.061Z">
+<meta property="og:updated_time" content="2019-09-25T09:22:04.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OS（持续更新）">
 <meta name="twitter:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
@@ -486,6 +486,11 @@
 <p>挂起状态涉及中级调度，当内存中某个程序需要大的内存空间来执行，但这时内存没有空余空间了，OS就会根据调度算法把一些进程放到外存中</p>
 <h3 id="并发与并行"><a href="#并发与并行" class="headerlink" title="并发与并行"></a>并发与并行</h3><p>并发指多个时间同一时刻发生，并行指多个时间同一时间间隔发生<br>并发同一时刻只有一条指令执行，但多个进程指令快速轮流执行，使得宏观上具有多个进程同时执行的效果，但微观上并不是同时执行，并行无论宏观和微观都是同时执行<br>多处理器系统中可以存在并发和并行，而单处理器系统只能有并发</p>
 <h3 id="中断和轮询"><a href="#中断和轮询" class="headerlink" title="中断和轮询"></a>中断和轮询</h3><p>轮询：系统对I/O轮流询问一遍有无处理要求，询问后有要求的，则加以处理<br>中断：指CPU在正常运行程序的过程中，由于预先安排或发生了各种随机的内部或外部事件，使CPU中断正在运行的程序，而转到为响应的服务程序去处理</p>
+<h3 id="同步和异步，阻塞和非阻塞"><a href="#同步和异步，阻塞和非阻塞" class="headerlink" title="同步和异步，阻塞和非阻塞"></a>同步和异步，阻塞和非阻塞</h3><p>同步和异步：</p>
+<p>它们关注的是<strong>消息通信机制</strong><br>所谓同步，就是发出一个调用时，该进程就一直等待接收响应，直到调用返回，取得返回值<br>而异步则是调用在发出之后，调用者不需要等待响应，可以继续做其他事，或者主动挂起线程释放CPU</p>
+<p>阻塞和非阻塞：</p>
+<p>它们关注的是<strong>程序在等待调用结果（消息，返回值）时的状态</strong><br>阻塞：调用结果返回之前，调用者会被挂起，直到得到结果才继续<br>非阻塞：调用者调用后，不会处于阻塞状态，而是继续运行</p>
+<h3 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h3><p>当<strong>多个线程</strong>访问某段代码时，无论通过怎样的调用或者这些线程如何交替执行，<strong>在主程序不需要做任何的同步的情况下</strong>，多次执行的结果一致且是我们设想的正确结果，或者说和单线程环境执行的结果一致，那么这段代码就是线程安全的</p>
 <h3 id="临界区，解决冲突"><a href="#临界区，解决冲突" class="headerlink" title="临界区，解决冲突"></a>临界区，解决冲突</h3><p>互斥访问：两个进程不能同时进入同一组共享变量的临界区域<br>临界资源：各进程采取互斥访问方式实现共享的资源称为临界资源<br>临界区：每个进程中访问临界资源的<strong>那段代码</strong>称为临界区</p>
 <p>空闲让进：无进程处于临界区，表明临界资源空闲，允许一个请求进入临界区的进程进入自己的临界区<br>忙则等待：已有进程进入临界区，其他试图进入临界区的进程必须等待<br>有限等待：对要求访问临界资源的进程，应保证在有限时间内能进入自己的临界区，以免陷入死等状态<br>让权等待：当进程不能进入自己的临界区时，应立即释放处理机，防止进程陷入忙等状态</p>
 <h3 id="分段和分页"><a href="#分段和分页" class="headerlink" title="分段和分页"></a>分段和分页</h3><p>（仅仅是概念，对分页和分段还需要去了解访问内存次数，地址变换机构，快表）</p>
@@ -582,8 +587,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/01/Java常用API/" rel="next" title="Java常用API（持续更新）">
-                <i class="fa fa-chevron-left"></i> Java常用API（持续更新）
+              <a href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" rel="next" title="Java并发基础5-AQS,Atomic与ThreadLocal">
+                <i class="fa fa-chevron-left"></i> Java并发基础5-AQS,Atomic与ThreadLocal
               </a>
             
           </div>
@@ -592,8 +597,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/01/jvm/" rel="prev" title="JVM（持续更新）">
-                JVM（持续更新） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/01/Java集合类/" rel="prev" title="Java集合（持续更新）">
+                Java集合（持续更新） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -683,7 +688,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +710,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -760,7 +765,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">5.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">6.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">7.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">8.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">9.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">10.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">11.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">12.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">13.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">14.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">15.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">16.</span> <span class="nav-text">进程调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个互为存在的条件"><span class="nav-number">17.</span> <span class="nav-text">两个互为存在的条件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步，阻塞和非阻塞"><span class="nav-number">5.</span> <span class="nav-text">同步和异步，阻塞和非阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程安全"><span class="nav-number">6.</span> <span class="nav-text">什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">7.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">8.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">9.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">10.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">11.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">12.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">13.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">14.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">15.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">16.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">17.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">18.</span> <span class="nav-text">进程调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个互为存在的条件"><span class="nav-number">19.</span> <span class="nav-text">两个互为存在的条件</span></a></li></ol></div>
             
 
           </div>

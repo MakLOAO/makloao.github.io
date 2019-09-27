@@ -369,6 +369,322 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript06-BOM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/26/JavaScript06-BOM/" itemprop="url">JavaSCript06-BOM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-26T11:08:34+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/26/JavaScript06-BOM/" class="leancloud_visitors" data-flag-title="JavaSCript06-BOM">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript06-BOM"><a href="#JavaScript06-BOM" class="headerlink" title="JavaScript06-BOM"></a>JavaScript06-BOM</h1><p>BOM是浏览器对象模型，它提供了很多用于访问浏览器的功能。</p>
+<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h2><p>window对象表示浏览器的一个实例，它既是通过JavaScript访问浏览器的一个接口，又是ECMAScript规定的Global对象。这意味着在网页中定义的任何一个对象，变量和函数，都以window作为其Global对象，因此有权访问parseInt等方法。</p>
+<h3 id="全局作用域"><a href="#全局作用域" class="headerlink" title="全局作用域"></a>全局作用域</h3><p>所有在全局作用域中声明的变量，函数都会变成window对象的属性和方法，但注意，定义全局变量与在window对象直接定义还是有一点差别：全局变量不能通过delete操作符删除，而直接在window对象上定义的属性可以</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">29</span>;</span><br><span class="line"><span class="built_in">window</span>.color = <span class="string">"red"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.age; <span class="comment">// return false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> <span class="built_in">window</span>.color; <span class="comment">// return true</span></span><br></pre></td></tr></table></figure>
+<p>可以通过window对象查询变量是否存在</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newValue = oldValue; <span class="comment">// error,oldValue not defined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> newValue = <span class="built_in">window</span>.oldValue; <span class="comment">// OK,newValue is undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="窗口位置"><a href="#窗口位置" class="headerlink" title="窗口位置"></a>窗口位置</h3><p>IE，Safari，Opera，Chrome提供了screenLeft，screenTop属性表示窗口相对于屏幕左边和上边的位置。Firefox提供了screenX和screenY属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取窗口左边和上边的位置</span></span><br><span class="line"><span class="keyword">var</span> leftPos = (<span class="keyword">typeof</span> <span class="built_in">window</span>.screenLeft == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenLeft:<span class="built_in">window</span>.screenX;</span><br><span class="line"><span class="keyword">var</span> topPos = (<span class="keyword">typeof</span> winodw.screenTop == <span class="string">"number"</span>)?<span class="built_in">window</span>.screenTop:<span class="built_in">window</span>.screenY;</span><br></pre></td></tr></table></figure>
+<p>可以使用moveTo()和moveBy()将窗口精确移动到某个位置<br>moveTo()接收的是新位置的x和y坐标，而moveBy()接收的是在水平和锤石方向上移动的像素数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将窗口移动到屏幕左上角</span></span><br><span class="line"><span class="built_in">window</span>.moveTo(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将窗口向左移动50像素</span></span><br><span class="line"><span class="built_in">window</span>.moveBy(<span class="number">-50</span>,<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>需要注意这两个方法可能会被浏览器禁用</p>
+<h3 id="窗口大小"><a href="#窗口大小" class="headerlink" title="窗口大小"></a>窗口大小</h3><p>IE9+,Firefox,Safari,Opera和Chrome提供4个属性：innerWidth,innerHeight,outerWidth,outerHeight。在Chrome中，outer和inner返回的是相同的值，都是viewport大小而非浏览器窗口大小。在Firefox中，outer返回的是浏览器窗口本身的尺寸，inner返回的是该容器中页面视图区的大小（减去边框宽度）。</p>
+<p>下面方法可以获得viewport大小</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth = <span class="built_in">window</span>.innerWidth,</span><br><span class="line">    pageHeight = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth != <span class="string">"number"</span>) &#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">"CSS1Compat"</span>) &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		pageWidth = <span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight = <span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以使用resizeTo()和resizeBy()方法来调整浏览器窗口大小。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调整到100*100</span></span><br><span class="line"><span class="built_in">window</span>.resizeTo(<span class="number">100</span>,<span class="number">100</span>); </span><br><span class="line"></span><br><span class="line"><span class="comment">// 调整到200*150</span></span><br><span class="line"><span class="built_in">window</span>.resizeBy(<span class="number">100</span>,<span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<p>同样的，部分浏览器可能禁用这两个方法</p>
+<h3 id="导航和打开窗口"><a href="#导航和打开窗口" class="headerlink" title="导航和打开窗口"></a>导航和打开窗口</h3><p>使用window.open()方法既可以导航到一个特定的URL，也可以打开一个新的浏览器窗口。这个方法接收4个参数：要加载的URL，窗口目标，一个特性字符串以及一个表示新页面是否取代浏览器历史纪录中当前加载页面的布尔值。如果传递第二个参数，而且该参数是已有窗口或框架的名称，那么就会在具有该名称的窗口或框架中加载第一个参数指定的URL。看下面例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 等同于&lt;a href="http://www.wrox.com" target="topFrame"&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"topFrame"</span>);</span><br></pre></td></tr></table></figure>
+<p>如果有topFrame的窗口，就会在该窗口加载URL，否则创建一个新窗口并命名为topFrame,第二个参数也可以是下列特殊名称:_self,_parent,_top或_blank。</p>
+<h4 id="弹出窗口"><a href="#弹出窗口" class="headerlink" title="弹出窗口"></a>弹出窗口</h4><p>若第二个参数并不是一个已经存在的窗口或框架，那么该方法就会根据在第三个参数位置上传入的参数创建一个新窗口或新标签页。<br>第三个参数是一个逗号分隔的设置字符串，表示在新窗口中都显示哪些特性。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">设置</th>
+<th style="text-align:left">值</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">height</td>
+<td style="text-align:left">num</td>
+<td style="text-align:left">窗口高度，不能小于100</td>
+</tr>
+<tr>
+<td style="text-align:left">left</td>
+<td style="text-align:left">num</td>
+<td style="text-align:left">窗口左坐标，不能小于0</td>
+</tr>
+<tr>
+<td style="text-align:left">location</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">显示地址栏，不同浏览器默认值不同</td>
+</tr>
+<tr>
+<td style="text-align:left">menubar</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">默认no，显示菜单栏</td>
+</tr>
+<tr>
+<td style="text-align:left">resizable</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">是否可以通过拖动浏览器窗口边框改变其大小</td>
+</tr>
+<tr>
+<td style="text-align:left">scrollbars</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">内容在视口显示不下，是否运训滚动，默认no</td>
+</tr>
+<tr>
+<td style="text-align:left">status</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">状态栏，默认no</td>
+</tr>
+<tr>
+<td style="text-align:left">toolbar</td>
+<td style="text-align:left">yes or no</td>
+<td style="text-align:left">工具栏，默认no</td>
+</tr>
+<tr>
+<td style="text-align:left">top</td>
+<td style="text-align:left">num</td>
+<td style="text-align:left">上坐标</td>
+</tr>
+<tr>
+<td style="text-align:left">width</td>
+<td style="text-align:left">num</td>
+<td style="text-align:left">新窗口宽度</td>
+</tr>
+</tbody>
+</table>
+<p><code>window.open(&quot;http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,resizable=yes&quot;);</code></p>
+<p>通过window.open()新创建的窗口可以使用resizeTo或moveTo等方法，并且其有一个属性opener保存着打开它的原始窗口对象<br>chrome会在独立进程中运行每个标签页，当一个标签页打开另一个标签页时，如果两个window对象之间需要彼此通信，那么新标签页就不能运行在独立的进程中。<strong>在chrome中，把新创建的标签页的opener属性设置为null，即表示在单独的进程中运行新标签页，即告诉浏览器新创建的标签页不需要与打开它的标签页通信，因此可以在独立进程中运行。</strong></p>
+<h4 id="弹出窗口屏蔽程序"><a href="#弹出窗口屏蔽程序" class="headerlink" title="弹出窗口屏蔽程序"></a>弹出窗口屏蔽程序</h4><p>大多数浏览器都内置弹出窗口屏蔽程序，如下所示可以检测是否被屏蔽</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blocked = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> wroxWin = <span class="built_in">window</span>.open(<span class="string">"http://www.wrox.com"</span>, <span class="string">"_blank"</span>);</span><br><span class="line">	<span class="keyword">if</span>(wroxWin == <span class="literal">null</span>) &#123;</span><br><span class="line">		blocked = <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (ex）&#123;</span><br><span class="line">	blocked = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (blocked) &#123;</span><br><span class="line">	alert(<span class="string">"The popup was blocked!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="间歇调用和超时调用"><a href="#间歇调用和超时调用" class="headerlink" title="间歇调用和超时调用"></a>间歇调用和超时调用</h3><p>JS是单线程语言，但它允许通过设置超时值和间歇时间来调度代码在特定时刻执行。</p>
+<h4 id="超时调用"><a href="#超时调用" class="headerlink" title="超时调用"></a>超时调用</h4><p>超时调用需要使用window对象的setTimeout()方法，它接收两个参数，要运行的代码和毫秒表示的时间（执行代码之前需要等待的毫秒数），第一个参数可以是包含JS代码的字符串，也可以是一个函数（更推荐用函数）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>注意上述代码经过1000ms不一定会执行，因为JS是一个单线程的解释器。调用setTimeout后，该方法会返回一个数值ID，表示超时调用。可以通过这个ID取消超时调用，如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> itmeoutId = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="string">"Hello World!"</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">clearTimeout(timeoutId);</span><br></pre></td></tr></table></figure>
+<h4 id="间歇调用"><a href="#间歇调用" class="headerlink" title="间歇调用"></a>间歇调用</h4><p>按照指定的时间间隔重复执行代码，调用的方法是setInterval()，调用方法与上面setTimeout差不多，只不过第二个参数为每次执行之前要等待的毫秒数，同样可以通过clearInterval()方法传入间歇调用ID取消间歇调用<br><strong>尽量不要使用间歇调用，因为后一个间歇调用可能在前一个间歇调用停止之前启动</strong><br>下面是一个用超时调用实现间歇调用的例子，不会出现上述问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> max = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">incrementNumber</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (num &lt; max) &#123;</span><br><span class="line">		setTimeout(incrementNumber, <span class="number">500</span>);</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		alert(<span class="string">"Done"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(incrementNumber, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="系统对话框"><a href="#系统对话框" class="headerlink" title="系统对话框"></a>系统对话框</h3><p>浏览器通过alert(),confirm()和prompt()方法可以调用系统对话框，<strong>注意系统对话框都是同步和拟态的，即显示这些对话框的时候代码回停止执行，直到关掉对话框</strong></p>
+<h4 id="alert"><a href="#alert" class="headerlink" title="alert()"></a>alert()</h4><p>alert()显示的对话框包括文本和一个OK按钮</p>
+<h4 id="confirm"><a href="#confirm" class="headerlink" title="confirm()"></a>confirm()</h4><p>confirm()除了文本和OK按钮，还有一个取消按钮，可以通过检查confirm()方法返回的布尔值来确定用户点了哪个按钮</p>
+<h4 id="prompt"><a href="#prompt" class="headerlink" title="prompt()"></a>prompt()</h4><p>prompt()方法除了显示OK和Cancel按钮，还会显示一个文本输入框，接收两个参数，要显示给用户的文本提示和和文本输入域的默认值（可以为空字符串）。如果点击OK，该方法返回输入域的值，点击Cancel或其他，该方法返回null</p>
+<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p>location提供了与当前窗口加载的文档有关的信息，它既是window对象的属性，也是document对象的属性，location对象有如下属性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性名</th>
+<th style="text-align:left">例子</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">hash</td>
+<td style="text-align:left">“#contents”</td>
+<td style="text-align:left">返回URL中的hash（#号后跟0个或多个字符）</td>
+</tr>
+<tr>
+<td style="text-align:left">host</td>
+<td style="text-align:left">“<a href="http://www.wrox.com:80&quot;" target="_blank" rel="noopener">www.wrox.com:80&quot;</a></td>
+<td style="text-align:left">返回服务器名称和端口号</td>
+</tr>
+<tr>
+<td style="text-align:left">hostname</td>
+<td style="text-align:left">“<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
+<td style="text-align:left">返回不带端口号的服务器名称</td>
+</tr>
+<tr>
+<td style="text-align:left">href</td>
+<td style="text-align:left">“http:/<a href="http://www.wrox.com&quot;" target="_blank" rel="noopener">www.wrox.com&quot;</a></td>
+<td style="text-align:left">完整URL，与location.toString()方法返回值一样</td>
+</tr>
+<tr>
+<td style="text-align:left">pathname</td>
+<td style="text-align:left">“/WileyCDA/“</td>
+<td style="text-align:left">URL中目录和文件名</td>
+</tr>
+<tr>
+<td style="text-align:left">port</td>
+<td style="text-align:left">“8080”</td>
+<td style="text-align:left">端口号</td>
+</tr>
+<tr>
+<td style="text-align:left">protocol</td>
+<td style="text-align:left">“http:”</td>
+<td style="text-align:left">页面协议</td>
+</tr>
+<tr>
+<td style="text-align:left">search</td>
+<td style="text-align:left">“?q=javascript”</td>
+<td style="text-align:left">URL的查询字符串，以问号开头</td>
+</tr>
+</tbody>
+</table>
+<h3 id="查询字符串参数"><a href="#查询字符串参数" class="headerlink" title="查询字符串参数"></a>查询字符串参数</h3><p>一个查询字符串参数的例子，注意字符串参数是被编码过的，需要通过decodeURIComponent解码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryStringArgs</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> qs = (location.search.length &gt; <span class="number">0</span> ? location.search.substring(<span class="number">1</span>) : <span class="string">""</span> ),</span><br><span class="line">		args = &#123;&#125;,</span><br><span class="line">		items = qs.length ? qs.split(<span class="string">"&amp;"</span>) : [],</span><br><span class="line">		item = <span class="literal">null</span>,</span><br><span class="line">		name = <span class="literal">null</span>,</span><br><span class="line">		value = <span class="literal">null</span>,</span><br><span class="line">		i = <span class="number">0</span>,</span><br><span class="line">		length = items.length;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">		item = items[i].split(<span class="string">"="</span>);</span><br><span class="line">		name = <span class="built_in">decodeURIComponent</span>(item[<span class="number">0</span>]);</span><br><span class="line">		value = <span class="built_in">decodeURIComponent</span>(item[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (name.length) &#123;</span><br><span class="line">			args[name] = value;		</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="位置操作"><a href="#位置操作" class="headerlink" title="位置操作"></a>位置操作</h3><p>可以通过修改上面的属性（直接赋值）来改变当前加载的页面，也可以通过<code>location.assign(&quot;http://www.wrox.com&quot;)</code>来改变，<strong>这样的改变会在浏览器的历史记录中生成一条新纪录，用户通过后退按钮都会导航到前一个页面，如果不想在历史记录中生成新纪录，则可以通过调用</strong><code>location.replace(&quot;http://www.wrox.com/&quot;)</code><br>reload()方法会重新加载当前页面，如果不传递参数，页面会以最有效的方式重新加载，有可能是从缓存中加载，如果强制从服务器加载，则传入参数true即可</p>
+<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h2><p>navigator对象主要用来检测客户端浏览器，其主要属性和方法可以参考<a href="http://www.w3school.com.cn/jsref/dom_obj_navigator.asp" target="_blank" rel="noopener">w3c的navigator对象</a></p>
+<h3 id="检测插件"><a href="#检测插件" class="headerlink" title="检测插件"></a>检测插件</h3><p>对于非IE浏览器，可以使用plugins数组来达到检测插件的目的，该数组每一项都有下列属性</p>
+<ul>
+<li>name:插件的名字</li>
+<li>description:插件的描述</li>
+<li>filename:插件的文件名</li>
+<li>length:插件所处理的MIME类型数量</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPlugin</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	name = name.toLowerCase();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; navigator.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (navigator.plugins[i].name.toLowerCase().indexOf(name) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"Flash"</span>));</span><br><span class="line"></span><br><span class="line">alert(hasPlugin(<span class="string">"QucikTime"</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="history对象"><a href="#history对象" class="headerlink" title="history对象"></a>history对象</h2><p>history对象保存用户的上网记录，无法得知具体的URL，但是可以通过<code>go()</code>方法来实现用户历史记录的任意跳转，这个方法接收一个参数，表示向后或向前的页面书的一个整数，也可以传入字符串参数，浏览器会跳转到历史纪录中包含该字符串的第一个位置，可能前进也可能后退。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history.go(<span class="number">-1</span>); <span class="comment">// 后退一页</span></span><br><span class="line"></span><br><span class="line">history.go(<span class="number">1</span>); <span class="comment">// 前进一页</span></span><br><span class="line"></span><br><span class="line">history(<span class="string">"wrox.com"</span>);</span><br></pre></td></tr></table></figure>
+<p>另外还可以用<code>history.back()</code>和<code>history.forward()</code>方法前进或后退<br>此外还有一个length属性表示历史纪录数量。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/26/JavaScript05-函数表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2326,200 +2642,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet03-会话状态/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/Servlet03-会话状态/" itemprop="url">Servlet03-会话状态</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index">
-                    <span itemprop="name">Servlet</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/01/Servlet03-会话状态/" class="leancloud_visitors" data-flag-title="Servlet03-会话状态">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Servlet03-会话状态"><a href="#Servlet03-会话状态" class="headerlink" title="Servlet03-会话状态"></a>Servlet03-会话状态</h1><p>前言：这部分涉及到http cookie相关的知识，这里不再赘述</p>
-<h2 id="HttpSession"><a href="#HttpSession" class="headerlink" title="HttpSession"></a>HttpSession</h2><h3 id="一个HttpSession的例子"><a href="#一个HttpSession的例子" class="headerlink" title="一个HttpSession的例子"></a>一个HttpSession的例子</h3><p>代码摘自runoob，原网站为<br><a href="http://www.runoob.com/servlet/servlet-session-tracking.html" target="_blank" rel="noopener">runoob的Session教程</a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(<span class="string">"/SessionTrack"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionTrack</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 如果不存在 session 会话，则创建一个 session 对象</span></span><br><span class="line">        HttpSession session = request.getSession(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">// 获取 session 创建时间</span></span><br><span class="line">        Date createTime = <span class="keyword">new</span> Date(session.getCreationTime());</span><br><span class="line">        <span class="comment">// 获取该网页的最后一次访问时间</span></span><br><span class="line">        Date lastAccessTime = <span class="keyword">new</span> Date(session.getLastAccessedTime());</span><br><span class="line">         </span><br><span class="line">        <span class="comment">//设置日期输出的格式  </span></span><br><span class="line">        SimpleDateFormat df=<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);  </span><br><span class="line">    </span><br><span class="line">        String title = <span class="string">"Servlet Session 实例 - 菜鸟教程"</span>;</span><br><span class="line">        Integer visitCount = <span class="keyword">new</span> Integer(<span class="number">0</span>);</span><br><span class="line">        String visitCountKey = <span class="keyword">new</span> String(<span class="string">"visitCount"</span>);</span><br><span class="line">        String userIDKey = <span class="keyword">new</span> String(<span class="string">"userID"</span>);</span><br><span class="line">        String userID = <span class="keyword">new</span> String(<span class="string">"Runoob"</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 检查网页上是否有新的访问者</span></span><br><span class="line">        <span class="keyword">if</span> (session.isNew())&#123;</span><br><span class="line">            title = <span class="string">"Servlet Session 实例 - 菜鸟教程"</span>;</span><br><span class="line">             session.setAttribute(userIDKey, userID);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">             visitCount = (Integer)session.getAttribute(visitCountKey);</span><br><span class="line">             visitCount = visitCount + <span class="number">1</span>;</span><br><span class="line">             userID = (String)session.getAttribute(userIDKey);</span><br><span class="line">        &#125;</span><br><span class="line">        session.setAttribute(visitCountKey,  visitCount);</span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 设置响应内容类型</span></span><br><span class="line">        response.setContentType(<span class="string">"text/html;charset=UTF-8"</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line">    </span><br><span class="line">        String docType = <span class="string">"&lt;!DOCTYPE html&gt;\n"</span>;</span><br><span class="line">        out.println(docType +</span><br><span class="line">                <span class="string">"&lt;html&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;head&gt;&lt;title&gt;"</span> + title + <span class="string">"&lt;/title&gt;&lt;/head&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;body bgcolor=\"#f0f0f0\"&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;h1 align=\"center\"&gt;"</span> + title + <span class="string">"&lt;/h1&gt;\n"</span> +</span><br><span class="line">                 <span class="string">"&lt;h2 align=\"center\"&gt;Session 信息&lt;/h2&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;table border=\"1\" align=\"center\"&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr bgcolor=\"#949494\"&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;th&gt;Session 信息&lt;/th&gt;&lt;th&gt;值&lt;/th&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;id&lt;/td&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + session.getId() + <span class="string">"&lt;/td&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;创建时间&lt;/td&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> +  df.format(createTime) + </span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;最后访问时间&lt;/td&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + df.format(lastAccessTime) + </span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;用户 ID&lt;/td&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + userID + </span><br><span class="line">                <span class="string">"  &lt;/td&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;访问统计：&lt;/td&gt;\n"</span> +</span><br><span class="line">                <span class="string">"  &lt;td&gt;"</span> + visitCount + <span class="string">"&lt;/td&gt;&lt;/tr&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/table&gt;\n"</span> +</span><br><span class="line">                <span class="string">"&lt;/body&gt;&lt;/html&gt;"</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>配置好web.xml即可</p>
-<h3 id="对这段代码的解释以及补充"><a href="#对这段代码的解释以及补充" class="headerlink" title="对这段代码的解释以及补充"></a>对这段代码的解释以及补充</h3><h4 id="request-getSession-以及其重构方法request-getSession-false"><a href="#request-getSession-以及其重构方法request-getSession-false" class="headerlink" title="request.getSession()以及其重构方法request.getSession(false)"></a>request.getSession()以及其重构方法request.getSession(false)</h4><p><code>HttpSession session = request.getSession(boolean create)</code>返回当前reqeust中的HttpSession，如果当前reqeust中的HttpSession为null，当create为true，就创建一个新的Session，否则返回null</p>
-<ul>
-<li><p>当向Session中存取登录信息时，一般建议：HttpSession session =request.getSession();</p>
-</li>
-<li><p>当从Session中获取登录信息时，一般建议：HttpSession session =request.getSession(false);</p>
-</li>
-</ul>
-<h4 id="session-isNew-判断是否为新的用户"><a href="#session-isNew-判断是否为新的用户" class="headerlink" title="session.isNew() - 判断是否为新的用户"></a>session.isNew() - 判断是否为新的用户</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(session.isNew()) &#123;</span><br><span class="line">    <span class="comment">// do something with new user</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="session-getId-获取当前用户的sessionID"><a href="#session-getId-获取当前用户的sessionID" class="headerlink" title="session.getId() - 获取当前用户的sessionID"></a>session.getId() - 获取当前用户的sessionID</h4><h3 id="其他HttpSession-API"><a href="#其他HttpSession-API" class="headerlink" title="其他HttpSession API"></a>其他HttpSession API</h3><!-- TODO: 插入图片HttpSessionAPI.png -->
-<p><img src="https://i.imgur.com/MG1yk0L.png" alt=""></p>
-<h3 id="禁用cookie的解决方法-URL重写"><a href="#禁用cookie的解决方法-URL重写" class="headerlink" title="禁用cookie的解决方法-URL重写"></a>禁用cookie的解决方法-URL重写</h3><p>您可以在每个 URL 末尾追加一些额外的数据来标识 session 会话，服务器会把该 session 会话标识符与已存储的有关 session 会话的数据相关联。</p>
-<p>例如，<a href="http://w3cschool.cc/file.htm;sessionid=12345，session" target="_blank" rel="noopener">http://w3cschool.cc/file.htm;sessionid=12345，session</a> 会话标识符被附加为 sessionid=12345，标识符可被 Web 服务器访问以识别客户端。</p>
-<p>URL 重写是一种更好的维持 session 会话的方式，它在浏览器不支持 cookie 时能够很好地工作，但是它的缺点是会动态生成每个 URL 来为页面分配一个 session 会话 ID，即使是在很简单的静态HTML页面中也会如此。</p>
-<p><strong>对URL重写，必须要先对URL进行编码</strong><br>可以通过以下两种方法对URL进行编码</p>
-<ul>
-<li><p>jsp中添加<code>&lt;% response.encodeURL(&quot;hello.jsp&quot;); %&gt;</code></p>
-</li>
-<li><p>Servlet中使用response.encodeRedirectURL()与sendRedirect()，见下面</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">    HttpSession session  = request.getSession();</span><br><span class="line">    <span class="comment">//下面请求重定向的路径。</span></span><br><span class="line">    String path = response.encodeRedirectURL(<span class="string">"/BeerTest.do"</span>);</span><br><span class="line">    String sessionId = request.getSession().getId();</span><br><span class="line">    request.setAttribute(<span class="string">"sessionId"</span>,sessionId);</span><br><span class="line">    response.sendRedirect(path);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="设置会话超时"><a href="#设置会话超时" class="headerlink" title="设置会话超时"></a>设置会话超时</h3><p>在web.xml中配置,下面例子是设置15分钟超时</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>15<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="设置特定会话的会话超时"><a href="#设置特定会话的会话超时" class="headerlink" title="设置特定会话的会话超时"></a>设置特定会话的会话超时</h4><p><code>session.setMaxInactiveInterval(20*60); // 设置20分钟没有做任何请求就超时</code></p>
-<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>创建一个新Cookie<br><code>Cookie cookie = new Cookie(&quot;username&quot;, name);</code><br>设置cookie在客户端存活时间<br><code>cookie.setMaxAge(30*60); // 30min</code><br>把cookie发送给客户<br><code>response.addCookie(cookie);</code><br>从客户请求得到cookie</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Cookie[] cookies = request.getCookies();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cookies.length; i++) &#123;</span><br><span class="line">    Cookie cookie = cookies[i];</span><br><span class="line">    <span class="keyword">if</span> (cookie.getName().equals(<span class="string">"username"</span>)) &#123;</span><br><span class="line">        String userName = cookie.getValue();</span><br><span class="line">        out.println(<span class="string">"Hello "</span> + userName);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="简单的cookie示例"><a href="#简单的cookie示例" class="headerlink" title="简单的cookie示例"></a>简单的cookie示例</h3><p>login.jsp设置表单提交账号密码，如果账号为test，则点击index.jsp的提交按钮可以显示其密码<br>可以在F12 Application Cookies可以看到cookie</p>
-<p>web.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>cookieTest<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>ServletCookie<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>cookieTest<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/sv.html<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>cookieTest2<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>CheckCookie<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>cookieTest2<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/result.html<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>login.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Insert title here<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"sv.html"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> /&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span></span></span><br><span class="line"><span class="tag">                                                 <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>index.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>$Title$<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"result.html"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span></span></span><br></pre></td></tr></table></figure>
-<p>ServletCookie.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"ServletCookie"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServletCookie</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">        String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//定义一个名为username，值为Tom的cookie</span></span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(username, password);</span><br><span class="line">        response.addCookie(cookie);</span><br><span class="line">        request.getRequestDispatcher(<span class="string">"index.jsp"</span>).forward(request, response);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CheckCookie.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"CheckCookie"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckCookie</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">        Cookie[] cookies = request.getCookies();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Cookie cookie : cookies) &#123;</span><br><span class="line">                <span class="keyword">if</span>(cookie.getName().equals(<span class="string">"test"</span>)) &#123;</span><br><span class="line">                    String userName = cookie.getValue();</span><br><span class="line">                    out.println(userName);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="HttpSessionBindingListener"><a href="#HttpSessionBindingListener" class="headerlink" title="HttpSessionBindingListener"></a>HttpSessionBindingListener</h2><!-- TODO: HttpSessionBindingListener.png -->
-<p><img src="https://i.imgur.com/GwRSAjF.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2576,7 +2698,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2598,7 +2720,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

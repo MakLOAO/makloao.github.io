@@ -369,6 +369,171 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/二叉树遍历/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/20/二叉树遍历/" itemprop="url">二叉树的遍历</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T13:59:34+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/20/二叉树遍历/" class="leancloud_visitors" data-flag-title="二叉树的遍历">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 二叉树的定义</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><h3 id="非递归"><a href="#非递归" class="headerlink" title="非递归"></a>非递归</h3><p>中序遍历思路：<strong>p!=null，则往左走到底，边走边入栈，走到底后p==null，出栈，访问，然后往右走一步，如果p!=null，则再往左走到底，边走边入栈，走到底p==null，出栈，重复上述步骤</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || stack.size() != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = stack.pop();</span><br><span class="line">            visit(p);</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != <span class="keyword">null</span>) &#123;</span><br><span class="line">        inOrderRecursive(pRoot.left);</span><br><span class="line">        visit(pRoot);</span><br><span class="line">        inOrderRecursive(pRoot.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h2><h3 id="非递归-1"><a href="#非递归-1" class="headerlink" title="非递归"></a>非递归</h3><p>前序遍历：<strong>访问根，入栈，然后访问左子树，直到走到底，然后出栈，访问其右孩子，入栈，重复上述步骤</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    <span class="keyword">while</span> (p != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123;</span><br><span class="line">            visit(p);</span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            p = stack.pop();</span><br><span class="line">            p = p.right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != null) &#123;</span><br><span class="line">        visit(pRoot);</span><br><span class="line">        preOrderRecursive(pRoot.left);</span><br><span class="line">        preOrderRecursive(pRoot.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><h3 id="非递归-2"><a href="#非递归-2" class="headerlink" title="非递归"></a>非递归</h3><p>后序难点：王道书课后题第三题，需要判断上次访问的是左子树还是右子树，若是左子树，则要跳过根，去访问它的兄弟，然后再回头访问根，若是右子树，则直接访问根<br>算法思想:<strong>往左走到底，并入栈，走到底后出栈，判断其右孩子是否为空||右孩子是否被访问了(pre)，若符合判断，则访问该结点（因为这个时候它的左右孩子都已经访问了），然后令pre=p（记录最近访问的结点是否是其父的右孩子），并重置p指针，让它指向null（使得下一次循环直接进入stack.pop()环节，避免无限循环的发生），如果不符合，说明这个结点的右孩子还没有被访问，则先让它入栈，然后再让p=p-&gt;rchild，然后再入栈，往左走到底，边走边入</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderNonRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; stack = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot, pre = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stack.isEmpty() || p != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (p != <span class="keyword">null</span>) &#123; <span class="comment">// 往左走到底并入栈</span></span><br><span class="line">            stack.push(p);</span><br><span class="line">            p = p.left;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 走到底后出栈判断</span></span><br><span class="line">            p = stack.pop();</span><br><span class="line">            <span class="keyword">if</span> (p.right == <span class="keyword">null</span> || p.right == pre) &#123;</span><br><span class="line">                <span class="comment">// 右孩子被访问了，此时要访问该结点</span></span><br><span class="line">                visit(p);</span><br><span class="line">                pre = p;</span><br><span class="line">                <span class="comment">// 因为根也被访问了，说明这棵子树已经被访问完了，应该让下次循环继续出栈，访问它的父结点或它的兄弟</span></span><br><span class="line">                p = <span class="keyword">null</span>; <span class="comment">// 关键步骤！！！重置p指针，让下次循环继续出栈，防止无限循环</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 右孩子存在且没有被访问</span></span><br><span class="line">                stack.push(p);</span><br><span class="line">                p = p.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归-2"><a href="#递归-2" class="headerlink" title="递归"></a>递归</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderRecursive</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot != <span class="keyword">null</span>) &#123;</span><br><span class="line">        postOrderRecursive(pRoot.left);</span><br><span class="line">        postOrderRecursive(pRoot.right);</span><br><span class="line">        visit(pRoot);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><h3 id="非递归-3"><a href="#非递归-3" class="headerlink" title="非递归"></a>非递归</h3><p>借助队列实现即可，根入队，while(!queue.empty())循环体内出队并访问，然后判断左右子树是否空，非空则入队，依次类推</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    TreeNode p = pRoot;</span><br><span class="line">    queue.addLast(p);</span><br><span class="line">    <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">        p = queue.removeFirst();</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span> (p.left != <span class="keyword">null</span>) queue.addLast(p.left);</span><br><span class="line">        <span class="keyword">if</span> (p.right != <span class="keyword">null</span>) queue.addLast(p.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现分层输出：层间隔间添加null作分隔符</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">levelOrder2</span><span class="params">(TreeNode pRoot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pRoot == <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">    LinkedList&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    queue.addLast(<span class="keyword">null</span>);</span><br><span class="line">    queue.addLast(pRoot);</span><br><span class="line">    <span class="comment">// 注意当size==1的时候，意味着只剩下一个null了，就退出循环</span></span><br><span class="line">    <span class="keyword">while</span> (queue.size() != <span class="number">1</span>) &#123;</span><br><span class="line">        TreeNode p = queue.removeFirst();</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 输出该层</span></span><br><span class="line">            Iterator&lt;TreeNode&gt; iterator = queue.iterator();</span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) visit(iterator.next());</span><br><span class="line">            System.out.println();</span><br><span class="line">            queue.addLast(<span class="keyword">null</span>);</span><br><span class="line">            <span class="keyword">continue</span>; <span class="comment">// 输出该层后直接进入下一个循环，把该层的子结点加入到队列</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (p.left != <span class="keyword">null</span>) queue.add(p.left);</span><br><span class="line">        <span class="keyword">if</span> (p.right != <span class="keyword">null</span>) queue.add(p.right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/05/redis基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2818,384 +2983,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/网络3-网络层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/25/网络3-网络层/" itemprop="url">计算机网络3-网络层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T09:24:34+08:00">
-                2019-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/25/网络3-网络层/" class="leancloud_visitors" data-flag-title="计算机网络3-网络层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络3-网络层"><a href="#网络3-网络层" class="headerlink" title="网络3-网络层"></a>网络3-网络层</h1><ul>
-<li>网络层的功能<br>异构网络互联；路由与转发；拥塞控制</li>
-<li>路由算法<br>静态路由与动态路由：距离-向量路由算法；链路状态路由算法；层次路由</li>
-<li>IPv4<br>IPv4分组：IPv4地址与NAT；子网划分与子网掩码，CIDR，路由聚集<br>ARP，DHCP与ICMP</li>
-<li>IPv6<br>IPv6主要特点，IPv6地址</li>
-<li>路由协议<br>自治系统；域内路由与域间路由；RIP路由协议；OSPF路由协议；BGP路由协议</li>
-<li>IP组播<br>组播的概念：IP组播地址</li>
-<li>移动IP<br>移动IP的概念：移动IP通信过程</li>
-<li>网络层设备<br>路由器的组成和功能；路由表与路由转发</li>
-</ul>
-<h2 id="网络层的功能"><a href="#网络层的功能" class="headerlink" title="网络层的功能"></a>网络层的功能</h2><h3 id="异构网络互联"><a href="#异构网络互联" class="headerlink" title="异构网络互联"></a>异构网络互联</h3><p>要解决数以万计的网络互联，需要解决许多问题，如不同的寻址方案，不同的网络接入机制，不同的差错处理方法，不同的路由选择机制等<br>网络互联指将两个以上的计算机网络，通过一定方法，用一种或多种通信处理设备（中间设备）相互连接起来，中间设备又称中继系统，分为以下4种：</p>
-<ul>
-<li>物理层中继系统：中继器，集线器</li>
-<li>数据链路层中继系统：网桥或交换机</li>
-<li>网络层中继系统：路由器</li>
-<li>网络层以上的中继系统：网关</li>
-</ul>
-<p>TCP/IP体系在网络互联上采用的做法是在网络层（IP层）采用标准化协议，但相互连接的网络可以是异构的</p>
-<h3 id="路由与转发"><a href="#路由与转发" class="headerlink" title="路由与转发"></a>路由与转发</h3><p>路由器主要完成两个功能：一是路由选择（确定路径），二是分组转发（一个分组到达时采取的动作）。前者根据特定的路由选择协议构造出路由表，经常或定期和相邻路由器交换路由信息而不断更新维护路由表。后者处理通过路由器的数据流，关键操作是转发表查询，转发及相关的队列管理和任务调度</p>
-<ul>
-<li>路由选择：指按照复杂的分布式算法，根据从各相邻路由器所得到的关于整个网络拓扑的变化情况，动态地改变所选择的路由</li>
-<li>分组转发：指路由器根据转发表将用户的IP数据报从合适的端口发送出去</li>
-</ul>
-<h3 id="拥塞控制"><a href="#拥塞控制" class="headerlink" title="拥塞控制"></a>拥塞控制</h3><p>通信子网中，因出现过量的分组而引起的网络性能下降的现象称为拥塞。拥塞控制主要解决的问题是如何获取网络中发生拥塞的信息，从而利用这些信息进行控制，以避免由于拥塞而出现分组的丢失，以及严重拥塞而产生网络死锁的现象</p>
-<p>流量控制与拥塞控制的区别：流量控制往往指发送端和接收端之间点对点通信量的控制，流量控制要做的是抑制发送端发送数据的速率。而拥塞控制必须确保通信子网能够传送待传送的数据，是一个全局性的问题</p>
-<p>拥塞控制有如下两种方法：</p>
-<ul>
-<li>开环控制：设计网络时事先将有关发生拥塞的因素考虑周到，力求网络在工作时不产生拥塞，是静态的预防方法</li>
-<li>闭环控制：事先不考虑有关发生拥塞的各种因素，采用监测网络系统去监视，及时监测哪里发生拥塞，然后调整，基于反馈环路的概念，是动态的方法</li>
-</ul>
-<h2 id="路由算法"><a href="#路由算法" class="headerlink" title="路由算法"></a>路由算法</h2><h3 id="静态路由与动态路由"><a href="#静态路由与动态路由" class="headerlink" title="静态路由与动态路由"></a>静态路由与动态路由</h3><p>从能否随网络通信量或拓扑自适应地进行调整变化来划分，路由算法可分为如下两大类</p>
-<p>静态路由算法：指网络管理员手工配置的路由信息，当网络的拓扑结构或链路状态发生变化时，网络管理员需要手工去修改路由表中相关的静态路由信息<br>动态路由算法：指路由器上的路由表项是通过相互连接的路由器之间彼此交换信息，然后按照一定的算法优化出来的，这些路由信息会在一定时间间隙里不断更新，以适应不断变化的网络，随时获得最优的寻路效果</p>
-<h3 id="距离-向量路由算法"><a href="#距离-向量路由算法" class="headerlink" title="距离-向量路由算法"></a>距离-向量路由算法</h3><p>所有结点都定期将它们的整个路由选择表传送给所有与之直接相连的结点。这些路由选择表包含：</p>
-<ul>
-<li>每条路径的目的地（另一结点）</li>
-<li>路径的代价（距离）</li>
-</ul>
-<p>这种算法中，所有结点都监听从其他结点传来的路由选择更新信息，在下列情况下更新它们的路由选择表：</p>
-<ul>
-<li>被通告一条新的路由，该路由在本结点的路由表中不存在，此时本地系统加入这条新的路由</li>
-<li>发来的路由信息中有一条到达某个目的地的路由，该路由与当前使用的路由相比，有较短的距离</li>
-</ul>
-<p>距离-向量算法的实质是：迭代计算一条路由中的站段数或延迟时间，从而得到到达一个目标的最短通路。它要求每个结点在每次更新时将它的全部路由表发送给所有相邻的结点</p>
-<p>典型的距离-向量算法是RIP算法，它采用跳数（源到目的所经过的路由个数）作为距离的度量</p>
-<h3 id="链路状态路由算法"><a href="#链路状态路由算法" class="headerlink" title="链路状态路由算法"></a>链路状态路由算法</h3><p>要求每个参与该算法的结点都具有完全的网络拓扑信息，它们执行下述两项任务，第一，主动测试所有邻接结点的状态。两个共享一条链路的结点是相邻结点，它们连接到同一条链路，或者连接到同一广播型物理网络。第二，定期地将链路状态传播给所有其他结点。典型的链路状态算法是OSPF算法</p>
-<p>一个链路状态路由选择中，一个结点检查所有直接链路的状态，并将所得的状态信息发送给网上的所有其他结点，而不是仅送给那些直接相连的结点，每个结点用这种方式从网上所有其他的结点接收包含直接链路状态的路由选择信息，每当链路状态报文到达，路由结点使用这些状态信息去更新自己的网络拓扑和状态视野图，一旦链路状态发生变化，就利用Dijsktra最短路径算法重新计算路由，从单一源触发计算到达所有目的结点的最短路径</p>
-<p>OSPF算法中，链路状态的度量主要表示费用，距离，时延，带宽等</p>
-<h3 id="两者比较"><a href="#两者比较" class="headerlink" title="两者比较"></a>两者比较</h3><p>距离-向量路由算法中，每个结点仅与它的直接邻居交谈，它为它的邻居提供从自己到网络中所有其他结点的最低费用估计，最低费用估计是由迭代计算得出<br>链路状态路由中，每个结点通过广播与所有其他结点交谈，但它仅告诉它们与它直接连接的链路的费用，然后让其它结点自行计算单一源到所有目的结点的最短路径</p>
-<h3 id="层次路由"><a href="#层次路由" class="headerlink" title="层次路由"></a>层次路由</h3><p>因特网将整个互联网划分为许多较小的自治系统，每个自治系统有权自主决定本系统内采用何种路由选择协议。如果两个自治系统需要通信，就需要一种在两个自治系统间的协议来屏蔽这些差异，据此因特网把路由选择协议划分为两大类：</p>
-<ul>
-<li>一个自治系统内部所使用的路由选择协议称为内部网关协议（IGP），具体有RIP和OSPF等</li>
-<li>自治系统间的路由选择协议称为外部网关协议（EGP），在不同自治系统的路由器之间交换路由信息，具体有BGP等</li>
-</ul>
-<h2 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h2><h3 id="IPv4分组"><a href="#IPv4分组" class="headerlink" title="IPv4分组"></a>IPv4分组</h3><p>IPv4即现在普遍使用的IP（版本4）。IP定义数据传送的基本单元——IP分组及其确切的数据格式，IP也包括一套规则，指明分组如何处理，错误怎么控制。特别是IP还包含非可靠投递的思想，以及与此关联的分组路由选择的思想</p>
-<h4 id="IPv4分组的格式"><a href="#IPv4分组的格式" class="headerlink" title="IPv4分组的格式"></a>IPv4分组的格式</h4><p><img src="https://i.imgur.com/TaCniUE.png" alt=""></p>
-<p>IP分组由首部和数据组成，首部前一部分是长度固定，共20B，是所有IP分组必须具有的，首部固定部分后面有一些可选字段，长度可变，用来提供错误检测及安全等机制，重要字段如下：</p>
-<ul>
-<li>版本：IP的版本，目前广泛版本号4</li>
-<li>首部长度：4位，以32位为单位，最大值为60B（4位最大值15,32位=4字节，4*15=60B），最常用首部长度是20B</li>
-<li>总长度：16位，指首部和数据之和的长度，单位为字节，因此数据报最大长度为2^16-1=65535B。以太网帧的最大传送单元（MTU）为1500B，因此一个IP数据报封装成帧时，数据报长度不能超过链路层的MTU值</li>
-<li>标识：16位，是一个计数器，每产生一个IP数据报就加1，并赋值给标识字段（但不是序号，IP是无连接服务）。当一个数据报长度超过网络的MTU时，必须分片，此时每个数据报片都赋值一次标识号，以便能正确重装成原来的数据报</li>
-<li>标志：3位，最低位为MF，MF=1表示后面还有分片，MF=0表示最后一个分片，中间位是DF，只有当DF=0才允许分片</li>
-<li>片偏移：13位，指出较长的分组在分片后，某片在原分组中的相对位置。片偏移以8个字节为偏移单位，即每个分片的长度一定是8B的整数倍</li>
-<li>首部校验和：16位，IP数据报的首部校验和只校验分组的首部，而不校验数据部分</li>
-<li>生存时间（TTL）：8位，数据报在网络中可通过的路由器数的最大值，标识分组在网络中的寿命，以确保分组不会永远在网络中循环。路由器转发分组前，先把TTL减1，若TTL减为0，则丢弃该分组</li>
-<li>协议：8位，指出该分组携带的数据使用何种协议，即分组数据部分应交给哪个传输层协议，如TCP,UDP等，值为6表示TCP，17表示UDP</li>
-<li>源地址字段：4B，标识发送方的IP地址</li>
-<li>目的地址字段：4B，标识接收方的IP地址</li>
-</ul>
-<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>一个链路层数据报能承载的最大数据量称为最大传送单元(MTU)。IP数据报是被封装在链路层数据报中，因此链路层的MTU严格限制IP数据报的长度，且在IP数据报的源和目的地路径上的各段链路可能使用不同的链路层协议，有不同的MTU。如以太网的MTU为1500B，许多广域网的MTU不超过576B，当IP数据报总长度大于链路MTU时，就需要将IP数据报的数据分装在两个或多个较小的IP数据报中，这些较小的数据报称为片</p>
-<p>网络层转发分组的流程</p>
-<ol>
-<li>从数据报首部提取目的主机的IP地址D，得出目的网络地址N</li>
-<li>若网络N与此路由器直接相连，则把数据报直接交付给目的主机D，这称为路由器的直接交付；否则是间接交付，执行步骤3</li>
-<li>若路由表中有目的地址D的特定主机路由，则把数据报传送给路由表中所指明的下一跳路由器；否则执行步骤4</li>
-<li>若路由表有到达网络N的路由，则把数据报传送给路由表指明的下一跳路由，否则执行步骤5</li>
-<li>若路由表有一条默认路由，则把数据报传送给路由表指明的默认路由器，否则执行步骤6</li>
-<li>报告转发分组出错</li>
-</ol>
-<h3 id="IPv4地址与NAT"><a href="#IPv4地址与NAT" class="headerlink" title="IPv4地址与NAT"></a>IPv4地址与NAT</h3><p>连接到因特网上的每台主机都分配一个32比特的全球唯一标识符，即IP地址，分为A,B,C,D,E五类，无论哪类，都由网络号和主机号两部分组成，网络号是整个因特网范围内唯一的，主机号是该网络号的网络范围内唯一的</p>
-<p><img src="https://i.imgur.com/BMSwYhc.png" alt=""></p>
-<p>有些IP地址具有特殊用途，不用做主机的IP地址</p>
-<ul>
-<li>主机号全为0的表示本网络本身，如202.98.174.0</li>
-<li>主机号全为1的表示本网络的广播地址，如202.98.174.255</li>
-<li>127.0.0.0保留为环路自检地址，表示任意主机本身，目的地址为环路自检地址的IP数据报永远不会出现在任何网络上</li>
-<li>32位全为0，即0.0.0.0表示本网络上的本主机</li>
-<li>32位全为1，即255.255.255.255表示整个TCP/IP网络的广播地址，又称受限广播地址，实际使用时由于路由器对广播域的隔离，可以等效为本网络的广播地址</li>
-</ul>
-<p><img src="https://i.imgur.com/pAwuxc4.png" alt=""></p>
-<p>&nbsp;</p>
-<p>网络地址转换(NAT)指通过将专用网络转换为共用地址，从而对外隐藏内部管理的IP地址。它使得整个专用网只需要一个全球IP地址就可以与因特网连通，专用网本地IP地址是可重用的，NAT大大节省了IP地址的消耗。同时，它隐藏了内部网络结构，降低内部网络受到攻击的风险</p>
-<p>此外，为了网络安全，划出了部分IP地址为私有IP地址，私有IP地址只用于LAN，不用于WAN连接（私有IP地址不能直接用于Internet，必须通过网关利用NAT把私有IP地址转换为Internet中合法的全球IP地址后才能用于Internet），并且允许私有IP地址被LAN重复利用，私有IP地址网段如下：</p>
-<p>A类：1个A类网段，即10.0.0.0&sim;10.255.255.255<br>B类：16个B类网段：172.16.0.0&sim;172.31.255.255<br>C类：256个C类网段：192.168.0.0&sim;192.168.255.255</p>
-<p>对目的地址是私有地址的数据报一律不进行转发</p>
-<p>使用NAT需要在专用网连接到因特网的路由器上安装NAT软件，NAT路由器至少有一个有效的外部全球地址。使用本地地址的主机和外界通信时，NAT路由器使用NAT转换表将本地地址转换成全球地址，或将全球地址转换成本地地址。NAT转换表存放着 {本地IP地址: 端口}到{全球IP地址: 端口}的映射。通过{IP地址: 端口}的映射方式，可以让多个私有IP地址映射到同一个全球IP地址</p>
-<p>以宿舍共享宽带上网为例，假设某个宿舍办理了电信宽带，就获得一个全球IP地址如138.76.29.7，而宿舍内4台主机使用私有地址（如192.168.0.0网段）。宿舍的网关路由器应该开启NAT功能，并且某时刻路由器的NAT转换表如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">WAN端</th>
-<th style="text-align:left">LAN端</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">138.76.29.7:5001</td>
-<td style="text-align:left">192.168.0.2:2233</td>
-</tr>
-<tr>
-<td style="text-align:left">138.76.29.7:5060</td>
-<td style="text-align:left">192.168.0.3:1234</td>
-</tr>
-</tbody>
-</table>
-<p>当路由器从LAN端收到源IP及源端口号的数据报时，会映射为对应的WAN端的IP和端口号，从WAN端发送到因特网，当路由器从WAN收到目的IP及目的端口号，会映射为LAN端的IP和端口号，这样只需要一个全球地址，就可以让多台主机同时访问因特网</p>
-<h3 id="子网划分与子网掩码，CIDR"><a href="#子网划分与子网掩码，CIDR" class="headerlink" title="子网划分与子网掩码，CIDR"></a>子网划分与子网掩码，CIDR</h3><h4 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h4><p>两级IP地址的缺点是：IP地址空间的利用率有时很低；给每个物理网络分配一个网络号会使得路由表变得太大而使网络性能变坏；两级IP地址不够灵活</p>
-<p>1985年在IP地址增加一个子网号字段，使2级IP地址变为3级IP地址，这种做法称为子网划分，基本思路如下：</p>
-<ul>
-<li>子网划分纯属一个单位内部的事情，单位对外仍然表现为没有划分子网的网络</li>
-<li>从主机号借用若干比特作为子网号，三级IP地址结构如下：IP地址={&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}</li>
-<li>凡是从其他网络发往本单位某台主机的IP数据报，仍然是根据IP数据报的目的网络号先找到连接到本单位网络上的路由器，然后该路由器在收到IP数据报后，按目的网络号和子网号找到目的子网。最后把IP数据报直接交付给目的主机</li>
-</ul>
-<p>不能从网络号判断是否为子网划分；IPv4子网划分时，子网号不能全为0或1，但CIDR可以使用全为0或全为1的子网号；不论是分类的IPv4地址还是CIDR，主机号都不能全0或全1，主机号全0表示子网的网络号，主机号全1表示子网的广播地址</p>
-<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>为了告诉主机或路由器对一个A类，B类，C类网络进行了子网划分，使用子网掩码来表达对原网络号中主机号的借位<br>子网掩码是一个与IP地址相对应的，长32bit的二进制串，它由一串1和跟随的一串0组成。其中1对应于IP地址中的网络号及子网号，0对应于主机号。计算机只需要将IP地址和其对应的子网掩码逐位与，就可得到相应子网的网络地址（网络号）<br>现在因特网标准规定所有网络都必须使用子网掩码，如果一个网络未划分子网，那么采用默认的子网掩码。A，B，C类地址的默认子网掩码分别为255.0.0.0 , 255.255.0.0 , 255.255.255.0。如某主机的IP地址为192.168.5.56，子网掩码为255.255.255.0，则该主机的网络号为192.168.5<br>路由器交换路由信息时也必须交换子网掩码，路由表的每个条目也必须给出该目的网络的子网掩码</p>
-<p>使用子网掩码的情况下，每台主机必须设置IP地址信息和子网掩码；同属于一个子网的所有主机及路由器的相应端口，必须设置相同的子网掩码；路由器的路由表中，所包含信息主要内容必须有目的网络地址，子网掩码，下一跳地址</p>
-<p>使用子网掩码的分组转发算法如下：</p>
-<ol>
-<li>从收到的分组首部提取目的主机的IP地址D（不需要得出目的网络地址，下面步骤使用子网掩码按位与即可）</li>
-<li>先判断是否为直接交付，对路由器直接相连的网络逐个进行检查：用各网络的子网掩码和D逐位相与，结果是否和相应的网络地址匹配，若匹配则分组直接交付，否则间接交付，执行步骤3</li>
-<li>若路由表中有目的地址为D的特定主机路由，则将该分组传送给路由表中所指明的下一跳路由器，否则执行步骤4</li>
-<li>对路由表中的每一行中的子网掩码和D逐位相与，结果为N，若N与该行的目的网络地址匹配，则将该分组传送给该行指明的下一跳路由器，否则执行步骤5</li>
-<li>若路由器中有一个默认路由，则将分组传送给路由表中所指明的默认路由器；否则执行步骤6</li>
-<li>报告转发分组出错</li>
-</ol>
-<h4 id="无分类域间路由选择-CIDR"><a href="#无分类域间路由选择-CIDR" class="headerlink" title="无分类域间路由选择(CIDR)"></a>无分类域间路由选择(CIDR)</h4><p>无分类域间路由选择是在变长子网掩码的基础上提出的一种消除传统A,B,C类网络划分，并且可以在软件的支持下实现超网构造的一种IP地址的划分方法，略</p>
-<h3 id="ARP，DHCP与ICMP"><a href="#ARP，DHCP与ICMP" class="headerlink" title="ARP，DHCP与ICMP"></a>ARP，DHCP与ICMP</h3><h4 id="IP地址与硬件地址"><a href="#IP地址与硬件地址" class="headerlink" title="IP地址与硬件地址"></a>IP地址与硬件地址</h4><p>IP地址是网络层使用的地址，是分层次等级的，而硬件地址是数据链路层的地址（如MAC地址），是平面式的。网络层及其以上使用IP地址，IP地址放在IP数据报的首部，MAC地址放在MAC帧的首部。数据链路层看不到数据报分组中的IP地址</p>
-<p>IP地址是逻辑上的概念，是网络层及其上层使用的地址，由软件实现，而MAC地址是数据链路层和物理层使用的地址，它们的区别见下面图</p>
-<p><img src="https://i.imgur.com/wOTjX2V.png" alt=""></p>
-<p>IP数据报一旦交给数据链路层，就封装成帧了，MAC帧在传送时使用的都是MAC地址</p>
-<p>下面例子是3个局域网用2个路由器R1和R2互连起来，通信路径是：H1-&gt;R1转发-&gt;R2转发-&gt;H2，路由器R1同时连接两个局域网，有两个硬件地址HA3和HA4，R2也有两个硬件地址HA5和HA6</p>
-<p><img src="https://i.imgur.com/SOCcyMl.png" alt=""></p>
-<p><img src="https://i.imgur.com/SUCthiz.png" alt=""></p>
-<p>主要有如下几点：</p>
-<ul>
-<li>IP层的抽象只会看到IP地址和IP数据报，IP数据报的地址始终是IP1和IP2</li>
-<li>链路层只看到MAC地址，会在每次转发的时候封装MAC帧，重新设置源和目的MAC地址</li>
-<li>IP层的抽象屏蔽了下面链路层复杂的细节</li>
-</ul>
-<h4 id="地址解析协议ARP"><a href="#地址解析协议ARP" class="headerlink" title="地址解析协议ARP"></a>地址解析协议ARP</h4><p>无论网络层使用什么协议，在实际网络的链路上传送数据帧时，最终必须使用硬件地址。所以需要一种方法来完成IP地址到MAC地址的映射，这就是地址解析协议。每台主机都设有一个ARP高速缓存，用来存放本局域网上各主机和路由器的IP地址到MAC地址的映射表，称ARP表。使用ARP动态维护此ARP表</p>
-<p>ARP在网络层上工作，原理如下：<strong>主机A欲向本局域网上某台主机B发送IP数据报时，先在其ARP高速缓存中查看有无主机B的IP地址。如有，就可以查出其对应的硬件地址，再将此硬件地址写入MAC帧，然后通过局域网将该MAC帧发往此硬件地址。如果没有，就通过使用目的MAC地址为FF-FF-FF-FF-FF-FF的帧封装并广播ARP请求分组，使同一个局域网里的所有主机收到ARP请求，该请求包括源主机IP，源主机MAC地址，目的主机IP，目的主机地址。所有主机都会受到该ARP请求包，当主机B收到该ARP请求后，会检查包中IP地址是否是自己的IP地址，如果是，则先把该ARP数据报的源主机IP和源MAC地址写入自己的ARP缓存列表，如果已存在则覆盖，然后向主机A发出响应ARP分组，分组中包含主机B的IP地址与MAC地址的映射关系，主机A收到后将次映射写入ARP缓存，然后按查询到的硬件地址发送MAC帧</strong>。ARP是可以看到IP地址的，所以工作在网络层，NAT路由器看到了端口，所以工作在传输层<br>ARP用于解决同一局域网上的主机或路由器的IP地址和硬件地址的映射关系，如果要找的主机和源主机不在同一局域网，就要通过ARP找到一个位于本局域网上的某个路由器的硬件地址，把分组发送给这个路由器，这个路由器把分组转发给下一个网络。剩下的工作就由下一个网络来做。ARP请求分组是广播发送的，但ARP响应分组是普通的单播</p>
-<p>ARP的4种典型情况如下：</p>
-<ul>
-<li>发送方是主机，要把IP数据报发送本网络的另一台主机。这时用ARP找到目的主机的硬件地址</li>
-<li>发送方是主机，要把IP数据报发送给另一个网络的主机。这时用ARP找到本网络的一个路由器的硬件地址，剩下工作由这个路由器完成</li>
-<li>发送方是路由器，要把IP数据报转发给本网络的一台主机。这时用ARP找到目的主机的硬件地址</li>
-<li>发送方是路由器，要把IP数据报转发到另一个网络的一台主机。这时用ARP找到本网络上一个路由器的硬件地址，剩下的工作由找到的这个路由器来完成</li>
-</ul>
-<h4 id="动态主机配置协议DHCP"><a href="#动态主机配置协议DHCP" class="headerlink" title="动态主机配置协议DHCP"></a>动态主机配置协议DHCP</h4><p>动态主机配置协议常用于给主机动态分配IP地址，提供即插即用联网的机制，这种机制允许一台计算机加入新的网络和获取IP地址而不用手工参与。DHCP是应用层协议，是基于UDP的</p>
-<p>工作原理：使用客户/服务器方式，需要IP地址的主机在启动时向DHCP服务器广播发送发现报文，这时该主机称为DHCP客户。本地网络上所有主机都能收到此广播报文，但只有DHCP服务器才回答此广播报文。DHCP服务器先在其数据库查找该计算机的配置信息，若找到则返回找到的信息，若找不到，则从服务器的IP地址池取一个地址分配给该计算机，DHCP服务器的回答报文称为提供报文</p>
-<p>DHCP服务器聚合DHCP客户端交换过程如下：</p>
-<ul>
-<li>DHCP客户机广播 DHCP发现 消息，试图找到网络中的DHCP服务器，服务器获得一个IP地址</li>
-<li>DHCP服务器收到 DHCP发现 消息后，向网络广播 DHCP提供 消息，其中包括提供DHCP客户机的IP地址和相关配置信息</li>
-<li>DHCP客户机收到 DHCP提供 消息，如果接收DHCP服务器提供的相关参数，那么通过广播 DHCP请求 消息向DHCP服务器请求提供IP地址</li>
-<li>DHCP服务器广播 DHCP确认 消息，将IP地址分配给DHCP客户机</li>
-</ul>
-<p>DHCP服务器分配给DHCP客户的IP地址是临时的，客户只能在一段有限时间内使用这个分配的IP地址<br>DHCP是应用层协议，因为它通过客户/服务器方式工作<br>DHCP通过广播方式交互，客户和服务器都没有标识自己身份的IP地址</p>
-<h4 id="网际控制报文协议ICMP"><a href="#网际控制报文协议ICMP" class="headerlink" title="网际控制报文协议ICMP"></a>网际控制报文协议ICMP</h4><p>为了提高IP数据报交付成功的机会，在网络层使用网际控制报文协议让主机或路由器报告差错和异常情况，<strong>它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息</strong>。ICMP报文作为IP层数据报的数据，加上数据报的首部，组成IP数据报发送出去。ICMP是IP层协议</p>
-<p>ICMP报文有两种，ICMP差错报告报文和ICMP询问报文</p>
-<p>ICMP差错报告报文用于目标主机或到目标主机路径上的路由器向源主机报告差错和异常情况。共有以下5种类型</p>
-<ul>
-<li>终点不可达：当路由器或主机不能交付数据报时，向源点发送终点不可达报文</li>
-<li>源点抑制：当路由器或主机由于拥塞而丢弃数据报时，向源点发送源点抑制报文，使源点知道应当把数据报的发送速率放慢</li>
-<li>时间超过：当路由器收到生存时间TTL为0的数据报时，除丢弃该数据报外，还要向源点发送时间超过报文。终点在预先规定时间内不能收到一个数据报的全部数据报片时，就把已收到数据报片丢弃，向源点发送时间超过报文</li>
-<li>参数问题：路由器或目的主机收到的数据报首部有字段值不正确时，就丢弃该数据报并向源点发送参数问题报文</li>
-<li>改变路由（重定向）：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器</li>
-</ul>
-<p>ICMP询问报文有4种类型：回送请求和回答报文，时间戳请求和回答报文，掩码地址请求和回答报文，路由器询问和通告报文</p>
-<p>ICMP两个常见应用是分组网间探测PING和Traceroute（Windows是tracert，用来跟踪分组经过的路由），PING使用了ICMP回送请求和回答报文，Traceroute使用ICMP时间超过报文，PING工作在应用层，直接使用网络层的ICMP，而未使用TCP或UDP，Traceroute工作在网络层</p>
-<h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><p>解决IP地址耗尽的措施有如下三种：采用无类别CIDR；采用NAT方法；采用更大地址空间的IPv6（根本）</p>
-<h3 id="IPv6特点"><a href="#IPv6特点" class="headerlink" title="IPv6特点"></a>IPv6特点</h3><p>IPv6特点：</p>
-<ul>
-<li>更大地址空间，IPv6地址从32位增大到128位，字节数是IPv4(4字节)的平方(16字节)</li>
-<li>扩展的地址层次结构</li>
-<li>灵活的首部格式</li>
-<li>允许协议继续扩充</li>
-<li>支持即插即用</li>
-<li>支持资源的预分配</li>
-<li>IPv6只有在包的源结点才能分片，是端到端的，传输路径中路由器不能分片，所以一般意义上说，IPv6不允许分片</li>
-<li>IPv6首部长度必须是8B的整数倍（IPv4是4B整数倍）</li>
-<li>增大了安全性（身份验证和保密功能）</li>
-</ul>
-<p>IPv6和IPv4不兼容，但它与所有其他因特网协议兼容，包括TCP,UDP,DNS等，只需要在少数地方做修改</p>
-<h3 id="IPv6地址"><a href="#IPv6地址" class="headerlink" title="IPv6地址"></a>IPv6地址</h3><p>IPv6数据报的目的地址可以是以下三种基本类型地址之一：</p>
-<ul>
-<li>单播：传统的点对点通信</li>
-<li>多播：一点对多点通信</li>
-<li>任播：目的站是一组计算机，交付时只交付其中的一台</li>
-</ul>
-<p>IPv6通常是表示方法是十六进制，每16位用冒号分隔（IPv4是点分十进制法），如：4BF5:0000:0000:0000:BA5F:039A:000A:2176，对于16位域开头为0的，可以省略，如：4BF5:0:0:0:BA5F:39A:A:2176</p>
-<h2 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h2><h3 id="自治系统"><a href="#自治系统" class="headerlink" title="自治系统"></a>自治系统</h3><p>自治系统（AS)是单一技术管理下的一组路由器，这些路由器用一种AS内部的路由选择协议和共同的度量来确定分组在该AS内的路由，同时还使用一种AS之间的路由选择协议来确定分组在AS之间的路由</p>
-<p>一个自治系统内所有网络都由一个行政单位管辖</p>
-<h3 id="域内路由与域间路由"><a href="#域内路由与域间路由" class="headerlink" title="域内路由与域间路由"></a>域内路由与域间路由</h3><p>内部网关协议IGP：在一个自治系统内部使用的路由选择协议，RIP，OSPF等<br>外部网关协议EGP：源站和目的站处于不同自治系统的路由选择协议，如BGP-4</p>
-<h3 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h3><p>基于距离向量路由选择协议，使用UDP，与相邻路由器交换整个路由表</p>
-<h3 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h3><p>基于链路状态路由算法，使用IP，与全部路由器交换相邻结点链路状态</p>
-<h3 id="BGP协议"><a href="#BGP协议" class="headerlink" title="BGP协议"></a>BGP协议</h3><p>基于路径向量路由选择协议，使用TCP，寻找的并非最佳路由</p>
-<h2 id="IP组播"><a href="#IP组播" class="headerlink" title="IP组播"></a>IP组播</h2><p>组播机制指源计算机一次发送的单个分组可以抵达用一个组地址标识的若干目标主机，并被它们正确接收</p>
-<p>组播应用于UDP（TCP要连接，只能一对一发送）。IP组播使用组播组概念，每个组都有一个特别分配的地址，要给该组发送的计算机将使用这个地址作为分组的目标地址，IPv4种，这些地址在D类地址空间中分配。主机使用一个称为IGMP的协议加入组播组。组播需要路由器的支持才能实现，称为组播路由器</p>
-<p><img src="https://i.imgur.com/2N4e9Ti.png" alt=""></p>
-<h3 id="IP组播地址"><a href="#IP组播地址" class="headerlink" title="IP组播地址"></a>IP组播地址</h3><p>IP组播使用D类地址格式，前4位是1110，首部协议字段是2，表示使用IGMP，特点如下：</p>
-<ul>
-<li>组播数据报尽最大努力交付</li>
-<li>组播地址只用于目的地址，不用于源地址</li>
-<li>对组播数据报不产生ICMP差错报文，PING命令后加入组播地址永远不会收到响应</li>
-<li>并非所有D类地址都作为组播地址</li>
-</ul>
-<h3 id="IGMP"><a href="#IGMP" class="headerlink" title="IGMP"></a>IGMP</h3><p>IGMP不知道IP组播组包含的成员数，也不知道成员分布在哪些网络，IGMP让连接到本地局域网上的组播路由器知道本局域网上是否有主机参加或退出某个组播组</p>
-<p>IGMP应视为TCP/IP的一部分，其工作分为两个阶段</p>
-<ol>
-<li>当某台主机加入新的组播组，该主机向组播组的组播地址发送一个IGMP报文声明自己要成为该组成员，本地组播路由器收到IGMP报文后将组成员关系转发给因特网上其他组播路由器</li>
-<li>因为组成员关系是动态的，本地组播路由器要周期性探询本地局域网上的主机，以便知道这些主机是否仍继续是组的成员。只要对某个组有一台主机响应，那么组播路由器就认为这个组是活跃的。一个组经过几次探询后仍然没有一台主机响应时，就不再将该组成员关系转发给其他组播路由器</li>
-</ol>
-<h2 id="网络层设备"><a href="#网络层设备" class="headerlink" title="网络层设备"></a>网络层设备</h2><h3 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h3><p>路由器是一种具有多个输入/输出端口的专用计算机，其任务是连接不同的网络并完成路由转发。在多个逻辑网络互联时必须使用路由器，路由器也可以作为最基础的包过滤防火墙应用</p>
-<p>路由表通常有4项：目的网络IP地址，子网掩码，下一跳IP地址，接口</p>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/Mfyxnin.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3252,7 +3039,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3274,7 +3061,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">209</span>
+                  <span class="site-state-item-count">210</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
