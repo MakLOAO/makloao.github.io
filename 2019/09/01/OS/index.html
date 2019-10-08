@@ -132,7 +132,7 @@
 <meta property="og:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/3xOqcwx.png">
-<meta property="og:updated_time" content="2019-09-25T09:22:04.904Z">
+<meta property="og:updated_time" content="2019-09-28T02:39:51.859Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OS（持续更新）">
 <meta name="twitter:description" content="进程，线程和程序以及它们的区别进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位线程：是进程的实体，是CPU调度和分派的基本单位，比进程更小的能独立运行的基本单位 进程和线程的区别  调度的基本单位：线程是调度和分派的基本单位，进程是资源分配的最小单位 资源：进程可以拥有资源，并作为系统中拥有资源的一个基本单位，线程本身不拥有系统资源，而是仅有一点保证独立运行的资源，线程还允许">
@@ -504,7 +504,15 @@
 </ul>
 <h3 id="进程同步方法"><a href="#进程同步方法" class="headerlink" title="进程同步方法"></a>进程同步方法</h3><p>我们把异步环境下的一组并发进程因直接制约而互相发送消息、进行互相合作、互相等待，使得各进程按一定的速度执行的过程称为进程间的同步</p>
 <p>原子操作：不会被线程调度机制打断的操作<br>信号量机制：P,V原语<br>自旋锁：互斥同步时，对性能影响最大的是阻塞（挂起和恢复线程要进入内核态完成），引入自旋锁，让后面请求锁的线程”稍等一下”，但不放弃处理机的执行时间，即执行一个忙循环（自旋），看看持有锁的对象是否很快就释放锁<br>管程：管程是由局部于管程自己的若干公共变量及其说明和所有访问这些公共变量的过程所组成的软件模块</p>
-<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>管道：半双工通信，只能在具有亲缘关系的进程间使用<br>命名管道：允许无亲缘关系<br>信号量<br>消息队列<br>共享内存<br>套接字 </p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>管道：半双工通信，只能在具有亲缘关系的进程间使用<br>命名管道：允许无亲缘关系<br>消息队列<br>共享内存<br>信号量<br>套接字 </p>
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h4><p><code>netstat -tulnp | grep 8080</code> ：把netstat -tulnp的输出作为grep 8080的输入，<strong>竖线</strong>是匿名管道，管道通信<strong>是单向的</strong></p>
+<p>命名管道：<br><code>mkfifo test</code> ： 生成一条test命名管道<br><code>echo &quot;this is a pipe&quot; &gt; test</code> 往这条管道写数据<br><code>cat &lt; test</code> ： 读数据</p>
+<p><strong>管道的通知机制类似于缓存，把数据放到某个缓存区域，等另一个线程去取，单向传输，缺点是效率低，a进程给b进程传输数据，只能等b进程取数据之后a进程才能返回，不适合频繁通信的进程，优点是简单，保证数据能够被取走</strong></p>
+<h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><p>aa进程要给b进程发送消息，只需要把消息放在对应队列即可，b进程需要的时候直接从对应消息队列取出</p>
+<p>优点是进程往消息队列放消息后就可以返回，缺点是如果发送的数据占用内存较大，通信特别频繁，会导致发送消息（拷贝）的过程需要花很多时间</p>
+<h4 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h4><p>可以让通信的2个进程各自取出1块虚拟地址空间映射到相同的物理内存，这样就实现了共享内存的机制，发送消息的时间也不存在了</p>
+<h4 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h4><p>共享内存可能导致多进程竞争内存的问题，使用信号量来解决即可（内存的互斥访问）</p>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>远程主机的不同进程之间的通信使用Socket</p>
 <h3 id="Linux文件属性"><a href="#Linux文件属性" class="headerlink" title="Linux文件属性"></a>Linux文件属性</h3><p>十位，- — — —，第一个是文件类型标识符，-表示普通文件，c表示字符设备，b表示块设备，d表示目录，l表示链接文件，第一组—表示用户权限位，第二组表示组权限位，第三组表示其他权限位，—分别表示rwx权限</p>
 <h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁</p>
 <p>产生死锁的必要条件：</p>
@@ -587,8 +595,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" rel="next" title="Java并发基础5-AQS,Atomic与ThreadLocal">
-                <i class="fa fa-chevron-left"></i> Java并发基础5-AQS,Atomic与ThreadLocal
+              <a href="/2019/09/01/设计模式/" rel="next" title="设计模式（持续更新）">
+                <i class="fa fa-chevron-left"></i> 设计模式（持续更新）
               </a>
             
           </div>
@@ -597,8 +605,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/01/Java集合类/" rel="prev" title="Java集合（持续更新）">
-                Java集合（持续更新） <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/03/HeadFirst设计模式-入门/" rel="prev" title="HeadFirst设计模式-入门&策略模式">
+                HeadFirst设计模式-入门&策略模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -688,7 +696,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -699,7 +707,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -710,7 +718,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">210</span>
+                  <span class="site-state-item-count">212</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -765,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步，阻塞和非阻塞"><span class="nav-number">5.</span> <span class="nav-text">同步和异步，阻塞和非阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程安全"><span class="nav-number">6.</span> <span class="nav-text">什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">7.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">8.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">9.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">10.</span> <span class="nav-text">进程间通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">11.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">12.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">13.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">14.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">15.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">16.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">17.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">18.</span> <span class="nav-text">进程调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个互为存在的条件"><span class="nav-number">19.</span> <span class="nav-text">两个互为存在的条件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程，线程和程序以及它们的区别"><span class="nav-number">1.</span> <span class="nav-text">进程，线程和程序以及它们的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞，挂起和睡眠"><span class="nav-number">2.</span> <span class="nav-text">阻塞，挂起和睡眠</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发与并行"><span class="nav-number">3.</span> <span class="nav-text">并发与并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断和轮询"><span class="nav-number">4.</span> <span class="nav-text">中断和轮询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步，阻塞和非阻塞"><span class="nav-number">5.</span> <span class="nav-text">同步和异步，阻塞和非阻塞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是线程安全"><span class="nav-number">6.</span> <span class="nav-text">什么是线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界区，解决冲突"><span class="nav-number">7.</span> <span class="nav-text">临界区，解决冲突</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分段和分页"><span class="nav-number">8.</span> <span class="nav-text">分段和分页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程同步方法"><span class="nav-number">9.</span> <span class="nav-text">进程同步方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">10.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管道"><span class="nav-number">10.1.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列"><span class="nav-number">10.2.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享内存"><span class="nav-number">10.3.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号量"><span class="nav-number">10.4.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket"><span class="nav-number">10.5.</span> <span class="nav-text">Socket</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux文件属性"><span class="nav-number">11.</span> <span class="nav-text">Linux文件属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁"><span class="nav-number">12.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">13.</span> <span class="nav-text">生产者-消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产者消费者模型的作用是什么"><span class="nav-number">14.</span> <span class="nav-text">生产者消费者模型的作用是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哲学家进餐问题"><span class="nav-number">15.</span> <span class="nav-text">哲学家进餐问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读者-写者问题"><span class="nav-number">16.</span> <span class="nav-text">读者-写者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独木桥问题"><span class="nav-number">17.</span> <span class="nav-text">独木桥问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程调度策略"><span class="nav-number">18.</span> <span class="nav-text">进程调度策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个互为存在的条件"><span class="nav-number">19.</span> <span class="nav-text">两个互为存在的条件</span></a></li></ol></div>
             
 
           </div>

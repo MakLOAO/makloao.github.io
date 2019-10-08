@@ -133,7 +133,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/VtSETGs.png">
 <meta property="og:image" content="https://i.imgur.com/aYMLN3D.jpg">
-<meta property="og:updated_time" content="2019-09-07T12:36:44.207Z">
+<meta property="og:updated_time" content="2019-09-28T15:12:40.501Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="algs（持续更新）">
 <meta name="twitter:description" content="algs二叉树遍历略排序排序算法的过程gif图 排序算法总览在复习完后，记得再看看自己的理解对不对，再作修改补充 对于各种排序，要心中有数，知道它的过程是怎么样的我是这样理解的：交换排序中，交换的对象是两个指针的对象（冒泡中指针是相邻的，快排指针是不相邻的），交换的目的是让某元素处在全局有序的位置，每趟交换都有一个元素处于全局有序，直到交换完毕插入排序中，插入是插入到前面的有序区，需要有记录后移的">
@@ -529,6 +529,8 @@
 <p>KMP的关键和难点就是计算next数组，看下面例子</p>
 <p>构建next数组的时间和空间复杂度都是O(n)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">        j i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0</span><br><span class="line">// i和j的值不相等，0填入next，i继续往前走</span><br><span class="line">        j   i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0</span><br><span class="line">// i和j的值不相等，0填入next，i继续往前走</span><br><span class="line">        j     i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0</span><br><span class="line"></span><br><span class="line">        j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0</span><br><span class="line"></span><br><span class="line">          j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1</span><br><span class="line"></span><br><span class="line">            j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2</span><br><span class="line"></span><br><span class="line">              j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2 3</span><br><span class="line"></span><br><span class="line">        j             i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2 3 1</span><br></pre></td></tr></table></figure>
+<h2 id="递归的思想"><a href="#递归的思想" class="headerlink" title="递归的思想"></a>递归的思想</h2><p>剑指offer58题，判断对错二叉树isSymmetrical，对boolean类型返回值的<strong>尾</strong>递归，实质上是一个&amp;&amp;问题，它是这样的：<strong>只要子问题有一个返回false，则整个系列问题都返回false，必须要所有子问题都返回true，最终结果才是true，即对于一个整体问题，递归求解它的子问题，只要有某一个子问题出现了错误，直接全局问题出错</strong></p>
+
       
     </div>
     
@@ -674,7 +676,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -685,7 +687,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -696,7 +698,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">210</span>
+                  <span class="site-state-item-count">212</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -751,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#algs"><span class="nav-number">1.</span> <span class="nav-text">algs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树遍历略"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树遍历略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">1.2.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法总览"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法的代码"><span class="nav-number">1.2.2.</span> <span class="nav-text">排序算法的代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列表"><span class="nav-number">1.4.</span> <span class="nav-text">散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数的构造方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">哈希函数的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决冲突的方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">解决冲突的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.4.3.</span> <span class="nav-text">哈夫曼树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP"><span class="nav-number">1.4.4.</span> <span class="nav-text">KMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算next数组"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">计算next数组</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#algs"><span class="nav-number">1.</span> <span class="nav-text">algs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树遍历略"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树遍历略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">1.2.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法总览"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法的代码"><span class="nav-number">1.2.2.</span> <span class="nav-text">排序算法的代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列表"><span class="nav-number">1.4.</span> <span class="nav-text">散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数的构造方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">哈希函数的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决冲突的方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">解决冲突的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.4.3.</span> <span class="nav-text">哈夫曼树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP"><span class="nav-number">1.4.4.</span> <span class="nav-text">KMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算next数组"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">计算next数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归的思想"><span class="nav-number">1.5.</span> <span class="nav-text">递归的思想</span></a></li></ol></li></ol></div>
             
 
           </div>

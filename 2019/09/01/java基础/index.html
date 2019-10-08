@@ -133,7 +133,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/hIFsPrY.png">
 <meta property="og:image" content="https://i.imgur.com/9f9x6ng.png">
-<meta property="og:updated_time" content="2019-09-22T15:15:47.367Z">
+<meta property="og:updated_time" content="2019-09-27T04:38:26.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java基础（持续更新）">
 <meta name="twitter:description" content="java基础关于继承的杂七杂八 子类重写父类方法，修饰符必须比父类范围大，private&amp;lt;default&amp;lt;protected&amp;lt;public super()和this()都必须放在构造函数的第一行，因此不能共存 父类有其他构造器的时候，必须显式指定一个无参构造器，否则子类继承会出错，如果父类没有任何构造器，会默认有一个空的无参构造器，如果没有显式指定，子类会默认会在自己的构造器的第">
@@ -583,7 +583,8 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Outer outer=<span class="keyword">new</span> Outer();</span><br><span class="line">Outer.Inner inner=outer.new Inner();</span><br></pre></td></tr></table></figure>
 <h3 id="OR-NOT-AND优先级"><a href="#OR-NOT-AND优先级" class="headerlink" title="OR NOT AND优先级"></a>OR NOT AND优先级</h3><p>优先级：not&gt;and&gt;or</p>
-<h3 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h3><p><img src="https://i.imgur.com/hIFsPrY.png" alt=""></p>
+<h3 id="Java容器"><a href="#Java容器" class="headerlink" title="Java容器"></a>Java容器</h3><p>P.S：这个图错了一个地方，只有LinkedList是实现了Queue接口的（其实还有ArrayDeque）</p>
+<p><img src="https://i.imgur.com/hIFsPrY.png" alt=""></p>
 <h3 id="Collection和Collections区别"><a href="#Collection和Collections区别" class="headerlink" title="Collection和Collections区别"></a>Collection和Collections区别</h3><p>Collection是一个集合接口，提供对集合进行基本操作的通用接口方法，其直接继承接口有List，Queue和Set<br>Collections是集合类的一个工具类，提供一系列静态方法，用于对集合元素进行排序，搜索以及线程安全等操作</p>
 <h3 id="三个具体Map的用处"><a href="#三个具体Map的用处" class="headerlink" title="三个具体Map的用处"></a>三个具体Map的用处</h3><p>如果只需要在Map中插入，删除和定位，则HashMap是最好选择<br>如果需要一个有序的key集合进行遍历，则使用TreeMap会更好，TreeMap默认使用自然顺序，可以传入Comparator实现排序<br>如果需要一个LRU算法的Map，则使用LinkedHashMap，它基于LRU算法，插入的时候会根据插入顺序形成链表，遍历的时候从表头输出到表尾，get方法会导致LinkedHashMap的顺序发生变化，get到的算法会重新插入到队尾</p>
 <h3 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h3><p><img src="https://i.imgur.com/9f9x6ng.png" alt=""></p>
@@ -769,7 +770,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">99</span>
+                  <span class="site-state-item-count">101</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -780,7 +781,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -791,7 +792,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">210</span>
+                  <span class="site-state-item-count">212</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
