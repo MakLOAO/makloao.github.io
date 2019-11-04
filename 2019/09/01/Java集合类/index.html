@@ -123,18 +123,18 @@
 
 
 
-<meta name="description" content="Java集合类HashMapHashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑树理解成不太严格的AVL树，是一个折中方案，它降低了对旋转的要求，从而提高了">
+<meta name="description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
 <meta name="keywords" content="集合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合（持续更新）">
 <meta property="og:url" content="http://yoursite.com/2019/09/01/Java集合类/index.html">
 <meta property="og:site_name" content="MakaL-0-">
-<meta property="og:description" content="Java集合类HashMapHashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑树理解成不太严格的AVL树，是一个折中方案，它降低了对旋转的要求，从而提高了">
+<meta property="og:description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-17T15:41:46.628Z">
+<meta property="og:updated_time" content="2019-10-25T05:33:35.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合（持续更新）">
-<meta name="twitter:description" content="Java集合类HashMapHashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑树理解成不太严格的AVL树，是一个折中方案，它降低了对旋转的要求，从而提高了">
+<meta name="twitter:description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
 
 
 
@@ -470,7 +470,8 @@
       
 
       
-        <h1 id="Java集合类"><a href="#Java集合类" class="headerlink" title="Java集合类"></a>Java集合类</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="HashMap相关问题"><a href="#HashMap相关问题" class="headerlink" title="HashMap相关问题"></a>HashMap相关问题</h3><h4 id="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"><a href="#为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？" class="headerlink" title="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"></a>为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？</h4><p>AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣</p>
+        <h1 id="Java集合类"><a href="#Java集合类" class="headerlink" title="Java集合类"></a>Java集合类</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p><strong>去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章</strong></p>
+<h3 id="HashMap相关问题"><a href="#HashMap相关问题" class="headerlink" title="HashMap相关问题"></a>HashMap相关问题</h3><h4 id="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"><a href="#为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？" class="headerlink" title="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"></a>为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？</h4><p>AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣</p>
 <p>而红黑树不要求完全的平衡，可以把红黑树理解成不太严格的AVL树，是一个折中方案，它降低了对旋转的要求，从而提高了性能<br>红黑树的算法时间复杂度和AVL树相同，但是统计性能更高</p>
 <h4 id="hashMap怎么实现的"><a href="#hashMap怎么实现的" class="headerlink" title="hashMap怎么实现的"></a>hashMap怎么实现的</h4><p>Entry数组+链表+红黑树，具体看源码解析那里</p>
 <h4 id="key的hash相同时是插入链表头还是尾"><a href="#key的hash相同时是插入链表头还是尾" class="headerlink" title="key的hash相同时是插入链表头还是尾"></a>key的hash相同时是插入链表头还是尾</h4><p>JDK 1.8中插入尾部</p>
@@ -752,7 +753,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
