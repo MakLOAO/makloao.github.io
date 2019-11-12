@@ -2253,207 +2253,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet01-WEB应用体系与初窥MVC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" itemprop="url">Servlet之WEB应用体系与MVC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index">
-                    <span itemprop="name">Servlet</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" class="leancloud_visitors" data-flag-title="Servlet之WEB应用体系与MVC">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>#Servlet之WEB应用体系与MVC</p>
-<p>##WEB应用体系</p>
-<p>###TOMCAT容器的作用</p>
-<dl><br><dt>通信支持</dt><br><dd>容器可以让servlet与WEB容器对话，创建ServerSocket，监听端口，创建流等</dd><br><dt>生命周期管理</dt><br><dd>容器控制着servlet的生命周期，负责加载类，实例化，初始化servlet，调用servlet方法，垃圾回收等</dd><br><dt>多线程支持</dt><br><dd>每次接收到用户servlet请求，就会创建一个新的Java线程，</dd><br><dt>声明方式实现安全</dt><br><dd>使用XML部署描述文件配置安全性</dd><br><dt>JSP支持</dt><br><dd>容器负责把JSP翻译成Java</dd><br></dl>
-
-<p>###容器处理请求</p>
-<ol>
-<li>用户点击一个链接，指向一个servlet</li>
-<li>容器看出来这个请求要的是一个servlet，创建两个对象，分别为HttpServletResponse，HttpServletRequest</li>
-<li>容器根据请求的URL找到对应的servlet，为这个请求分配一个线程，并把请求和响应对象传递给这个servlet线程</li>
-<li>容器调用service的service()方法，根据请求的不同类型，service()方法会调用doGet()或doPost()方法</li>
-<li>doGet()方法生成动态页面，塞到响应对象里</li>
-<li>线程结束，容器把响应对象转换为一个HTTP响应，把它发回给客户，然后删除请求和响应对象</li>
-</ol>
-<p>###servlet的映射方式<br>通过配置部署描述文件web.xml可以配置servlet名对应的URL路径<br>一般的web.xml内容如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>yourDefinedName<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>yourServletClassName<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>yourDefinedName<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/yourUrl<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>&lt;servlet&gt;元素告诉容器有哪个类文件<br>&lt;servlet-name&gt;元素用于把一个&lt;servlet&gt;元素与一个特定的&lt;servlet-mapping&gt;元素绑定，最终用户看不到这个名字，这个名字只在这个部署文件的其他部分使用<br>&lt;servlet-class&gt;类的完全限定名，但不要加上.class后缀<br>&lt;servlet-mapping&gt;请求到来时，容器会在运行时使用这个元素，来调用对应的servlet<br>&lt;url-pattern&gt;URL的路径</p>
-<p>客户知道的URL名对应的是&lt;url-pattern&gt;的值，部署人员知道的秘密的内部名对应的是&lt;servlet-name&gt;的值，实际的文件名对应的是&lt;servlet-class&gt;的值</p>
-<p>##初窥MVC<br>MVC分别为model，view，controller，MVC的关键是业务逻辑与表示分离，实际上，业务逻辑甚至根本不知道有表示存在</p>
-<p>###Model<br>实际的业务逻辑和状态放在模型中，系统中只有这部分与数据库通信</p>
-<p>###Controller<br>从请求获得用户输入，并明确输入对模型的影响，告诉模型自行更新，并让视图得到新的模型状态，一个servlet实际上就是一个控制器</p>
-<p>###View<br>负责表示，它从控制器得到模型的状态，还要获得用户输入，交给控制器，一个JSP文件其实就是一个View</p>
-<p>##一个简单的MVC应用<br>目录树如下<br><!-- TODO:directoryTree.png --><br><img src="https://i.imgur.com/FkEytHL.png" alt=""><br>其中，com.example.web.BeerSelect为控制器，com.example.model.BeerExpert为模型，result.jsp为view</p>
-<p>web.xml内容如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Ch3 Beer<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.example.web.BeerSelect<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Ch3 Beer<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/SelectBeer.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>form.html如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>form test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"css/form.css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>Beer Selection Page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"formT"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">action</span>=<span class="string">"SelectBeer.do"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>Color:</span><br><span class="line">                    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">"color"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">option</span> <span class="attr">name</span>=<span class="string">"light"</span>&gt;</span>light<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">option</span> <span class="attr">name</span>=<span class="string">"dark"</span>&gt;</span>dark<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">form</span>&gt;</span>            </span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>result.jsp<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.util.*"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>Bear Recommendations JSP<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">%</span></span></span><br><span class="line"><span class="tag">            <span class="attr">List</span> <span class="attr">styles</span> = <span class="string">(List)request.getAttribute(</span>"<span class="attr">styles</span>");</span></span><br><span class="line"><span class="tag">            <span class="attr">Iterator</span> <span class="attr">it</span> = <span class="string">styles.iterator();</span></span></span><br><span class="line"><span class="tag">            <span class="attr">while</span> (<span class="attr">it.hasNext</span>()) &#123;</span></span><br><span class="line"><span class="tag">                <span class="attr">out.print</span>("<span class="attr">try:</span> " + <span class="attr">it.next</span>());</span></span><br><span class="line"><span class="tag">            &#125;</span></span><br><span class="line"><span class="tag">        %&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>模型BeerExpert.java如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeerExpert</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">getBrands</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">        List brands = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">if</span> (color.equals(<span class="string">"light"</span>)) &#123;</span><br><span class="line">            brands.add(<span class="string">"light a"</span>);</span><br><span class="line">            brands.add(<span class="string">"light b"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            brands.add(<span class="string">"dark1"</span>);</span><br><span class="line">            brands.add(<span class="string">"dark2"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> brands;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>控制器BeelSelect如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.model.BeerExpert;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.RequestDispatcher;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"BeerSelect"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeerSelect</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        String c = request.getParameter(<span class="string">"color"</span>);</span><br><span class="line">        BeerExpert be = <span class="keyword">new</span> BeerExpert();</span><br><span class="line">        List result = be.getBrands(c);</span><br><span class="line">        request.setAttribute(<span class="string">"styles"</span>, result);</span><br><span class="line">        RequestDispatcher view = request.getRequestDispatcher(<span class="string">"result.jsp"</span>);</span><br><span class="line">        view.forward(request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>##作为Servlet<br>在上述代码中，Servlet作为控制器有如下功能</p>
-<ol>
-<li>获得html页面中参数color的值</li>
-<li>创建一个模型，通过参数获得模型对应的属性</li>
-<li>设置请求的属性并设置对应值为从模型得到的结果（键-值对应）</li>
-<li>创建一个请求分派器对象，获得result.jsp页面</li>
-<li>通过view.forward(request,response)把请求和响应发送给该view，view通过request.getAttribute(“key”)来得到模型发送来的结果</li>
-</ol>
-<p>###Servlet生命周期</p>
-<ol>
-<li>WEB容器加载servlet类</li>
-<li>实例化servlet（构造函数运行）</li>
-<li>init()</li>
-<li>service()调用doGet(),doPost()等等</li>
-<li>destroy()<!-- TODO:插入lifecycle1.png和lifecycle2.png -->
-<img src="https://i.imgur.com/e7ESb0v.png" alt=""><br><img src="https://i.imgur.com/LKmCgwU.png" alt=""></li>
-</ol>
-<p>###HttpServletRequest API<br><!-- TODO:插入HttpServletRequestAPI.png --><br><img src="https://i.imgur.com/5EdBfDz.png" alt=""></p>
-<p>###HttpServletResponse API<br><!-- TODO:插入HttpServletResponseAPI.png --><br><img src="https://i.imgur.com/X34PFJo.png" alt=""></p>
-<p>###输出字符或字节<br>对于输出，可以选择输出字符或者字节<br>输出字符的时候<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter writer = response.getWriter();</span><br><span class="line">writer.println(<span class="string">"some text or HTML"</span>);</span><br></pre></td></tr></table></figure></p>
-<p>输出字节的时候<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServletOutputStream out = response.getOutputStream();</span><br><span class="line">out.write(aByteArray);</span><br></pre></td></tr></table></figure></p>
-<p>####使用响应完成I/O<br>e.g.Servlet处理下载JAR文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeReutrn</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        </span><br><span class="line">        response.setContentType(<span class="string">"application/jar"</span>); <span class="comment">// 对于这里的ContentType，还有很多其他的，具体可以自行Google</span></span><br><span class="line">        </span><br><span class="line">        ServletContext ctx = getServletContext();</span><br><span class="line">        InputStream is = ctx.getResourceAsStream(<span class="string">"/directory/xxx.jar"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> read = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">        OutputStream os = response.getOutputStream();</span><br><span class="line">        <span class="keyword">while</span>((read = is.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            os.write(bytes, <span class="number">0</span>, read);</span><br><span class="line">        &#125;</span><br><span class="line">        os.flush();</span><br><span class="line">        os.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/JavaScript04-面向对象的程序设计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2853,6 +2652,186 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet04-JSP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/Servlet04-JSP/" itemprop="url">Servlet04-JSP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Servlet/" itemprop="url" rel="index">
+                    <span itemprop="name">Servlet</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/01/Servlet04-JSP/" class="leancloud_visitors" data-flag-title="Servlet04-JSP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Servlet04-JSP"><a href="#Servlet04-JSP" class="headerlink" title="Servlet04-JSP"></a>Servlet04-JSP</h1><h2 id="基本指令"><a href="#基本指令" class="headerlink" title="基本指令"></a>基本指令</h2><h3 id="page"><a href="#page" class="headerlink" title="page"></a>page</h3><p>使用page指令导入包<br><code>&lt;%@ page import=&quot;foo.*&quot; %&gt;</code><br><code>&lt;%@ page import=&quot;foo.*,java.util.*&quot; %&gt;</code></p>
+<h4 id="page指令的属性"><a href="#page指令的属性" class="headerlink" title="page指令的属性"></a>page指令的属性</h4><!-- TODO: page指令的属性.png -->
+<p><img src="https://i.imgur.com/fwXppdr.png" alt=""></p>
+<h3 id="taglib"><a href="#taglib" class="headerlink" title="taglib"></a>taglib</h3><p>taglib定义JSP可用的标记库<br><code>&lt;%@ taglib tagdir=&quot;/WEB-INF/tags/cool&quot; prefix=&quot;cool&quot; %&gt;</code></p>
+<h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><p>include定义在转换时增加到当前页面的文本和代码<br><code>&lt;%@ include file=&quot;xxx.html&quot; %&gt;</code><br>使用此指令允许你建立可重用的块（如标准页面标题或导航栏），这些可重用的块能增加到各个页面上，而不用每个JSP都重复写这些代码</p>
+<h3 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h3><p>对于<code>&lt;% out.println(Counter.getCount()); %&gt;</code><br>可以用<code>&lt;%= Counter.getCount() %&gt;</code>代替，不需要分号，表达式内的内容为out.print的参数</p>
+<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p><code>&lt;%! int count = 0; %&gt;</code><br>声明该JSP所生成的servlet类的成员</p>
+<h2 id="初始化JSP"><a href="#初始化JSP" class="headerlink" title="初始化JSP"></a>初始化JSP</h2><p>在配置文件中如下配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-file</span>&gt;</span>/directory/xxx.jsp<span class="tag">&lt;/<span class="name">jsp-file</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/xxx<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="覆盖jspInit"><a href="#覆盖jspInit" class="headerlink" title="覆盖jspInit()"></a>覆盖jspInit()</h2><p>只要在.jsp文件中实现了jspInit()方法，在JSP页面成为servlet的最开始容器就会调用这个方法，这个方法由servlet的init()方法调用，所以在运行jspInit()方法时，已经有一个ServletConfig和ServletContext可供servlet使用，可以在jspInit()中调用getServletConfig()和getServletContext()</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%!</span></span></span><br><span class="line"><span class="tag">    <span class="attr">public</span> <span class="attr">void</span> <span class="attr">jspInit</span>() &#123;</span></span><br><span class="line"><span class="tag">        <span class="attr">ServletConfig</span> <span class="attr">sConfig</span> = <span class="string">getServletConfig();</span></span></span><br><span class="line"><span class="tag">        // <span class="attr">do</span> <span class="attr">something</span></span></span><br><span class="line"><span class="tag">    &#125;</span></span><br><span class="line"><span class="tag">%&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同理jspDestroy()也可以覆盖</p>
+<h2 id="JSP的属性"><a href="#JSP的属性" class="headerlink" title="JSP的属性"></a>JSP的属性</h2><p>除了Servlet拥有的请求，会话和上下文这三个属性，JSP还拥有页面作用域pageContext（隐式对象），常用于开发定制标记</p>
+<!-- TODO:插入JSP属性.png -->
+<p><img src="https://i.imgur.com/ZLk83Pb.png" alt=""></p>
+<h3 id="使用PageContext得到属性"><a href="#使用PageContext得到属性" class="headerlink" title="使用PageContext得到属性"></a>使用PageContext得到属性</h3><p>可以在PageContext引用得到任意作用域的属性</p>
+<!-- TODO:PageContext得到属性.png -->
+<p><img src="https://i.imgur.com/LBZaptb.png" alt=""></p>
+<p>同理使用<br><code>&lt;% pageContext.setAttribute(&quot;foo&quot;, &quot;attr&quot;, PageContext.SESSION_SCOPE); %&gt;</code><br>等同于<br><code>&lt;% session.setAttribute(&quot;foo&quot;, &quot;attr&quot;); %&gt;</code></p>
+<p>使用<br><code>&lt;%= pageContext.findAttribute(&quot;foo&quot;) %&gt;</code><br>可以在不知道作用域的情况下查找一个属性</p>
+<h1 id="EL预热"><a href="#EL预热" class="headerlink" title="EL预热"></a>EL预热</h1><p>EL(Expression Language)是无脚本JSP，可以允许开发人员在JSP中不适用Java也能达到同样的效果</p>
+<p><strong>为什么使用EL？</strong></p>
+<ol>
+<li>不应该要求WEB页面设计人员必须懂Java</li>
+<li>JSP中的Java代码很难修改和维护</li>
+</ol>
+<h2 id="开启无脚本JSP"><a href="#开启无脚本JSP" class="headerlink" title="开启无脚本JSP"></a>开启无脚本JSP</h2><p>在配置文件web.xml中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">scripting-invalid</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="选择忽略EL"><a href="#选择忽略EL" class="headerlink" title="选择忽略EL"></a>选择忽略EL</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>*.jsp<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">        true</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-ignored</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">jsp-property-group</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">jsp-config</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2909,7 +2888,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

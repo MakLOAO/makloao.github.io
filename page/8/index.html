@@ -369,7 +369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/磁盘存储器的管理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/文件管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -388,7 +388,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/11/磁盘存储器的管理/" itemprop="url">磁盘存储器的管理</a></h1>
+                <a class="post-title-link" href="/2019/05/11/文件管理/" itemprop="url">文件管理</a></h1>
         
 
         <div class="post-meta">
@@ -440,7 +440,7 @@
 
           
           
-             <span id="/2019/05/11/磁盘存储器的管理/" class="leancloud_visitors" data-flag-title="磁盘存储器的管理">
+             <span id="/2019/05/11/文件管理/" class="leancloud_visitors" data-flag-title="文件管理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -473,92 +473,139 @@
       
         
           
-            <h1 id="磁盘存储器的管理"><a href="#磁盘存储器的管理" class="headerlink" title="磁盘存储器的管理"></a>磁盘存储器的管理</h1><p>磁盘存储器管理的单位是盘块</p>
-<h2 id="外存的组织方式"><a href="#外存的组织方式" class="headerlink" title="外存的组织方式"></a>外存的组织方式</h2><p>文件的物理结构直接与外存的组织方式有关，不同的外存组织方式形成不同的文件物理结构</p>
+            <h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><h2 id="文件的相关基本概念"><a href="#文件的相关基本概念" class="headerlink" title="文件的相关基本概念"></a>文件的相关基本概念</h2><p>数据项：文件系统中最低级的数据组织形式，分为基本数据项和组合数据项，<strong>基本数据项用于描述一个对象的某种属性的字符集</strong>，是可命名的最小逻辑数据单位，又称为字段，例如，用于描述学生的基本数据项有：学号，姓名等；组合数据项是若干基本数据项的组成；数据项还应有数据类型</p>
+<p>记录：<strong>记录是一组相关数据项的集合，用于描述一个对象在某方面的属性</strong>，一个记录应包含哪些数据项取决于需要描述对象的哪个方面。例如，一个学生，当把他作为班上一个学生时，对他的描述为学号，姓名，年龄，所在系班，若把学生当作医疗对象则不同。<strong>唯一标识记录的数据项是关键字</strong></p>
+<p>文件：<strong>文件是由创建者所定义的，具有文件名的一组相关元素的集合</strong>，分为有结构文件和无结构文件，<strong>有结构文件中，文件由若干个相关记录组成，而无结构文件被看成是一个字符流</strong>，文件在文件系统是一个最大的数据单位，它描述了一个对象集，例如可以将一个班的学生记录作为一个文件</p>
+<p>文件属性可以包括：文件类型，文件长度，文件的物理位置，文件的建立时间（最后一次的修改时间等）</p>
+<h3 id="文件类型"><a href="#文件类型" class="headerlink" title="文件类型"></a>文件类型</h3><p>文件类型按用途分类可分为系统文件，用户文件和库文件<br>按文件中数据的形式分类可分为源文件，目标文件和可执行文件<br>按存取控制属性分类可分为只执行文件，只读文件，读写文件<br>按组织形式和处理方式分类可分为普通文件，目录文件和特殊文件</p>
+<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><p>文件系统的模型是指文件和对文件进行操纵和管理的软件集合</p>
+<p>分为三层：对象及属性，对文件进行操纵和管理的软件集合，文件系统接口</p>
+<p><img src="https://i.imgur.com/T92HXjD.png" alt=""></p>
+<h3 id="对象及其属性层"><a href="#对象及其属性层" class="headerlink" title="对象及其属性层"></a>对象及其属性层</h3><p>文件管理系统管理的对象如下：</p>
 <ul>
-<li>连续组织方式：为每个文件分配连续的磁盘空间</li>
-<li>链接组织方式：为每个文件分配不连续的磁盘空间，通过链接指针将文件的所有盘块链接在一起</li>
-<li>索引组织方式</li>
+<li>文件</li>
+<li>目录</li>
+<li>磁盘存储空间</li>
 </ul>
-<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>特点：</p>
+<h3 id="对对象操纵和管理的软件集合层"><a href="#对对象操纵和管理的软件集合层" class="headerlink" title="对对象操纵和管理的软件集合层"></a>对对象操纵和管理的软件集合层</h3><p>该层是文件管理系统的核心部分，文件系统的功能大多是这一层实现，其中包括对文件存储空间的管理，对文件目录的管理，用于将文件的逻辑地址转换为物理地址的机制，对文件的读写管理，对文件的共享保护等功能</p>
+<p>一般把与文件系统有关的软件分为4个层次：</p>
 <ul>
-<li>顺序访问容易，速度快（磁头移动距离小）</li>
-<li>要求连续空间，一段时间后要整理磁盘消除碎片</li>
-<li>必须事先知道长度，文件不易动态增长和删除</li>
+<li>I/O控制层：磁盘驱动程序等组成</li>
+<li>基本文件系统层：内存与磁盘之间数据块的交换</li>
+<li>基本I/O管理程序：完成与磁盘I/O有关的事务，如文件逻辑块号转换为物理块号等</li>
+<li>逻辑文件系统：用于处理与记录和文件相关的操作，如允许用户使用符号文件名访问文件及记录等</li>
 </ul>
-<p>文件对应目录项包含：始址，总块数，最后一块字节数</p>
-<h3 id="链接组织方式"><a href="#链接组织方式" class="headerlink" title="链接组织方式"></a>链接组织方式</h3><p>特点：</p>
+<h3 id="文件系统接口"><a href="#文件系统接口" class="headerlink" title="文件系统接口"></a>文件系统接口</h3><p>文件系统提供了命令接口和程序接口</p>
+<h2 id="文件逻辑结构"><a href="#文件逻辑结构" class="headerlink" title="文件逻辑结构"></a>文件逻辑结构</h2><p>文件的逻辑结构是从用户观点出发所观察到的文件组织形式，即文件是由一系列逻辑记录组成的，是用户可以直接处理的数据及其结构，独立于文件的物理特性，又称为文件组织</p>
+<p>文件的物理结构又称为文件的存储结构，是指系统将文件存储在外存上所形成的一种存储组织形式，用户是不能看见的</p>
+<p>物理结构和逻辑结构都会影响对文件的检索速度</p>
+<p>下图是文件结构类型的概述</p>
+<p><img src="https://i.imgur.com/M9LFero.png" alt=""></p>
+<h3 id="逻辑结构的类型"><a href="#逻辑结构的类型" class="headerlink" title="逻辑结构的类型"></a>逻辑结构的类型</h3><p>文件按有无结构分为有结构文件和无结构文件</p>
+<p>有结构文件根据记录长度分为定长和不定长两类，定长指文件的所有记录长度都是相同的，所有记录的各数据项都处在记录中相同的位置，具有相同的顺序和长度，定长记录有效提高检索记录的速度和效率，方便对文件处理和修改，文件长度用记录数目来表示；变长记录指文件中各记录长度不相同</p>
+<p>有结构文件按文件组织方式分为</p>
 <ul>
-<li>消除磁盘外部碎片，提高外存利用率</li>
-<li>对插入，删除和修改记录容易</li>
-<li>适应文件的动态增长，无需事先知道文件大小</li>
-<li>只能顺序存取</li>
+<li>顺序文件：由一系列记录按某种顺序排列形成的文件，记录通常是定长记录（变长记录查询速度慢，不支持随机访问和删除插入记录）</li>
+<li>索引文件：可变长记录文件建立一张索引表，为每个记录设置一个表项，加速对记录的检索</li>
+<li>索引顺序文件：顺序文件和索引文件的结合，在为每个文件建立一张索引表时，并不是为每个记录建立索引表项，而是为一组记录中的第一个记录建立一个索引表项</li>
 </ul>
-<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>文件目录的每个目录项都含有指向链接文件第一个盘块和最后一个盘块的指针，只适用于顺序访问，随机访问效率低</p>
-<p>簇：包含多个块的单位，盘块分配时以簇为单位，可以成倍减小查找指定块的时间，增大内部碎片</p>
-<h4 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h4><p>把用于链接文件各物理块的指针显式地存放在内存的一张链接表中，该表在整个磁盘只设置一张</p>
-<p><img src="https://i.imgur.com/r2Cpho8.png" alt=""></p>
-<p>表的序号是物理块号，在每个表项中存放链接指针，即下一个盘块号，凡是属于某一文件的第一个盘块号，均作为文件地址被填入相应FCB的物理地址字段，查找是在内存进行的所以速度提升且减少磁盘访问次数，该表称为文件分配表FAT</p>
-<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>打开某个文件时，只要把该文件占用的索引块号读入内存即可，无需把FAT调入内存，索引的优点是支持直接访问，当要读第i块盘块时，直接从该文件的索引块中找到该盘块号</p>
-<p>单级索引：为每个文件分配一个索引块，文件较大时有利，较小时浪费外存空间，文件较大时索引块较多，需要建立多级索引</p>
-<p>多级索引如下</p>
-<p><img src="https://i.imgur.com/axLLInx.png" alt=""></p>
-<h3 id="混合分配方式"><a href="#混合分配方式" class="headerlink" title="混合分配方式"></a>混合分配方式</h3><p>UNIX采用混合分配方式，一，二，多级索引合用</p>
-<p><img src="https://i.imgur.com/823nqH9.png" alt=""></p>
-<p>i.addr(0)——i.addr(9)存放直接地址，i.addr(10)存放一次间接地址，i.addr(11)存放二次间接地址</p>
-<h3 id="文件组织策略"><a href="#文件组织策略" class="headerlink" title="文件组织策略"></a>文件组织策略</h3><ul>
-<li>文件访问通常是顺序，文件较小，用连续分配</li>
-<li>文件较大顺序访问，链接结构</li>
-<li>文件较大随机访问，索引结构</li>
+<p>无结构文件是流式文件，信息管理系统和数据库系统中广泛采用了有结构的文件形式，而源程序，可执行文件，库函数等采用的就是无结构文件，长度是以字节为单位，可以把流式文件看作记录式文件的一个特例：一个记录仅有一个字节</p>
+<h4 id="顺序文件"><a href="#顺序文件" class="headerlink" title="顺序文件"></a>顺序文件</h4><p>顺序文件可以按照串结构或顺序结构排列，串结构指按存入时间的先后进行排序，各记录之间的顺序与关键字无关，对串结构文件检索比较费时，顺序结构是由用户指定一个字段作为关键字，文件中所有记录可以按关键字排序，具有更高的检索速度</p>
+<h4 id="索引文件"><a href="#索引文件" class="headerlink" title="索引文件"></a>索引文件</h4><p>为变长记录建立一个索引表，对主文件的每个记录在索引表中设有一个相应表项，用于记录该记录的长度L，以及指向该记录的指针</p>
+<p><img src="https://i.imgur.com/UDTyQoQ.png" alt=""></p>
+<p>索引文件是可以实现直接存取的，索引文件支持随机访问</p>
+<h4 id="索引顺序文件"><a href="#索引顺序文件" class="headerlink" title="索引顺序文件"></a>索引顺序文件</h4><p>索引顺序文件保留了顺序文件的关键字顺序，又增加了文件索引表和溢出文件，溢出文件用来记录新增加的，删除的和修改的记录</p>
+<h5 id="一级索引顺序文件"><a href="#一级索引顺序文件" class="headerlink" title="一级索引顺序文件"></a>一级索引顺序文件</h5><p>将变长记录顺序文件的所有记录分为若干组，为顺序文件建立一张索引表，并为每组的第一个记录，在索引表建立一个索引项，其中包含该记录的关键字和指向该记录的指针</p>
+<p>对索引顺序文件检索时，先利用提供的关键字以及某种查找算法去检索索引表，找到该记录所在记录组第一个记录的表项，从中得到该记录组第一个记录在主文件的位置，然后再利用顺序查找法去查找主文件，从中找到所要求的记录</p>
+<h4 id="直接文件和哈希文件"><a href="#直接文件和哈希文件" class="headerlink" title="直接文件和哈希文件"></a>直接文件和哈希文件</h4><h5 id="直接文件"><a href="#直接文件" class="headerlink" title="直接文件"></a>直接文件</h5><p>直接文件可以根据给定的关键字直接获得记录的物理地址，即关键字本身就决定了记录的物理地址，由关键字到记录物理地址的转换称为键值转换，而上述的索引文件实质是对关键字计算得到对应索引表表项的物理地址，由该物理地址得到指向对应记录的指针</p>
+<h5 id="哈希文件"><a href="#哈希文件" class="headerlink" title="哈希文件"></a>哈希文件</h5><p>利用哈希函数将关键字转换为相应记录的地址</p>
+<h3 id="文件的物理结构"><a href="#文件的物理结构" class="headerlink" title="文件的物理结构"></a>文件的物理结构</h3><p>物理结构是从实现的观点出发，文件在外存上的存放组织形式，有如下三种物理结构</p>
+<ul>
+<li>连续结构</li>
+<li>链接结构</li>
+<li>索引结构</li>
 </ul>
-<h3 id="分配策略的小习题"><a href="#分配策略的小习题" class="headerlink" title="分配策略的小习题"></a>分配策略的小习题</h3><p><img src="https://i.imgur.com/GJLObbI.png" alt=""></p>
-<p><img src="https://i.imgur.com/MvlYqVV.png" alt=""></p>
-<h2 id="文件存储空间的管理"><a href="#文件存储空间的管理" class="headerlink" title="文件存储空间的管理"></a>文件存储空间的管理</h2><p>设置一个磁盘分配表，用于记住可供分配的存储空间情况，还应提供对盘块分配和回收的手段，存储空间基本分配单位都是磁盘块而非字节</p>
-<h3 id="空闲表法"><a href="#空闲表法" class="headerlink" title="空闲表法"></a>空闲表法</h3><p>空闲表属于连续分配方式，为每个文件分配一块连续的存储空间，即系统为外存上的所有空闲区建立一张空闲表，每个空闲区对应一个空闲表项，包括表项序号，第一个盘块号，空闲盘块数等信息</p>
-<p><img src="https://i.imgur.com/hh96knJ.png" alt=""></p>
-<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><h4 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h4><p>将所有空闲空间以盘块为单位拉成一条链，工作效率低</p>
-<h4 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h4><p>将磁盘所有空闲盘区拉成一条链，每个盘区包含若干个盘块，要有指明本盘块大小的信息</p>
-<h3 id="位示图法"><a href="#位示图法" class="headerlink" title="位示图法"></a>位示图法</h3><p>利用二进制的一位来表示磁盘一个盘块的使用情况，0为盘块空闲，1为已分配</p>
-<p><img src="https://i.imgur.com/betahpN.png" alt=""></p>
-<p><img src="https://i.imgur.com/dU7Bpaj.png" alt=""></p>
-<h4 id="位示图法盘块的分配"><a href="#位示图法盘块的分配" class="headerlink" title="位示图法盘块的分配"></a>位示图法盘块的分配</h4><ol>
-<li>顺序扫描位示图，找出一个或一组值为0的二进制位</li>
-<li>将找到的一个或一组二进制位转换位盘块号，假定找到值为0的二进制位位于位示图第i行j列，则盘块号按下式计算：b=n(i-1)+j</li>
-<li>修改位示图，令map[i,j]=1</li>
+<h2 id="目录管理"><a href="#目录管理" class="headerlink" title="目录管理"></a>目录管理</h2><p>对目录管理的要求</p>
+<ul>
+<li><strong>实现”按名存取”</strong>：用户只须向系统提供所需访问的文件的名字，便能快速准确地找到指定文件在外存地存储位置，这是目录管理最基本地功能</li>
+<li>提高对目录的检索速度</li>
+<li>文件共享：允许多个用户共享一个文件，这样只须在外存中保留一份该文件副本供不同用户使用，节省存储空间，提高利用率</li>
+<li>允许文件重名：允许不同用户对不同文件采取相同的名字</li>
+</ul>
+<h3 id="文件控制块FCB"><a href="#文件控制块FCB" class="headerlink" title="文件控制块FCB"></a>文件控制块FCB</h3><p>文件目录：文件控制块的有序集合，即一个文件控制块就是一个文件目录项，通常一个文件目录被看成是一个文件，称为目录文件</p>
+<p>文件控制块：描述和控制文件的数据结构，文件与文件控制块一一对应，一个文件控制块就是一个文件目录项（文件目录是文件控制块的有序集合），包含基本信息，存取控制信息和使用信息，可以分为内存FCB和外存FCB</p>
+<p>它们的关系：文件控制块与文件一一对应，而文件目录是有结构文件，其中的每一个记录都是一个文件控制块</p>
+<p>检索过程：检索的时候，把文件目录调入内存，查找其目录项，找到与给定的文件名对应的文件名，读出其物理地址</p>
+<h4 id="基本信息类"><a href="#基本信息类" class="headerlink" title="基本信息类"></a>基本信息类</h4><ul>
+<li>文件名</li>
+<li>文件物理位置</li>
+<li>文件逻辑结构：流式还是有结构，记录数，定长记录还是变长记录等</li>
+<li>文件物理结构：顺序还是链接还是索引</li>
+</ul>
+<h4 id="存取控制信息类"><a href="#存取控制信息类" class="headerlink" title="存取控制信息类"></a>存取控制信息类</h4><p>文件主，核准用户和一般用户的存取权限</p>
+<h4 id="使用信息类"><a href="#使用信息类" class="headerlink" title="使用信息类"></a>使用信息类</h4><ul>
+<li>文件建立日期和时间</li>
+<li>上一次修改的日期和时间</li>
+<li>当前使用信息（已打开文件的进程数，是否被锁等等）</li>
+</ul>
+<h3 id="索引结点"><a href="#索引结点" class="headerlink" title="索引结点"></a>索引结点</h3><p>OS中每有一个目录，就有一个FCB</p>
+<p>引入：文件目录占空间，检索目录文件过程中，要把存放目录文件的第一个盘块中的目录的调入内存，然后将用户所给定的文件名与目录项的文件名一一对应，若没有找到指定文件，还需要将下一盘块的目录项调入内存。检索过程中，只用到了文件名，而没有其他描述文件的信息，仅当找到一个目录项（即其中文件名与指定要查找的文件名相匹配）时，才需从该目录项中读出该文件的物理地址，而其他一些对该文件进行描述的信息在检索目录时一概不用。显然这些信息在检索目录的时候不需要调入内存，为此，采用把文件名与文件描述信息分开的方法，即使<strong>文件描述信息单独形成一个称为索引结点的数据结构</strong></p>
+<p>引入后，文件目录项就不是FCB了，而是文件名+索引结点，这样可以使每个盘块可以存更多的文件目录项，减少盘块数，从而减少盘块调入内存的次数</p>
+<p><img src="https://i.imgur.com/bUvbRVo.png" alt=""></p>
+<p>引入索引结点前的文件目录项（FCB）</p>
+<p><img src="https://i.imgur.com/31IywfE.png" alt=""></p>
+<p>引入索引结点后的文件目录项（文件名+索引结点）</p>
+<p>例如上图，在没有引入索引结点的时候，FCB是上图一所示，每次检索目录的时候都要把FCB调入内存，而FCB又占用比较大的空间，这样系统开销会很多，采用了上图二的文件目录项后，一个目录项只占用很小的开销（UNIX为16个字节，14字节文件名，2字节为i结点指针），可以减少磁盘启动次数，节省系统开销</p>
+<h4 id="我对索引结点减少磁盘启动次数的理解"><a href="#我对索引结点减少磁盘启动次数的理解" class="headerlink" title="我对索引结点减少磁盘启动次数的理解"></a>我对索引结点减少磁盘启动次数的理解</h4><p>前提：目录文件所占盘块数为N，则检索该文件目录时平均调入盘块次数为(N+1)/2次，检索一个文件要从第一个文件目录开始检索，直到最后一个文件目录</p>
+<p>引入索引结点可以减少磁盘启动次数，节省系统开销，主要原因是调入内存是以盘块为单位和引入索引结点后文件目录项的大小比FCB的大小要小</p>
+<p>e.g.在文件系统中，每个盘块为256字节，文件控制块占64个字节，其中文件名占8个字节。如果索引节点编号占2个字节，对一个存放在磁盘上的128个目录项的目录，试比较引入索引节点前后，为找到其中一个文件，平均启动磁盘的次数</p>
+<p>在引入索引结点前，每个目录项中存放的是对应文件的FCB，故128个目录项的目录总共需要占用128X64／256=32个盘块。因此，在该目录中检索到一个文件，平均启动磁盘的次数为(1+32)/2=16.5次。<br>引入索引结点后，每个目录项中只需存放文件名和索引结点的编号，因此128个目录项的目录总共需要占用128X(8+2)／256=5个盘块。因此，找到匹配的目录项平均需要启动(1+5)／2，即3次磁盘；而得到索引结点编号后，还需启动磁盘将对应文件的索引结点读入内存，故平均需要启动磁盘4次。可见，引入索引结点后，可大大减少启动磁盘的次数，从而有效地提高检索文件的速度。</p>
+<h4 id="引入索引结点后的索引过程"><a href="#引入索引结点后的索引过程" class="headerlink" title="引入索引结点后的索引过程"></a>引入索引结点后的索引过程</h4><ol>
+<li>文件目标项只存放文件名和结点号，结点号存放FCB信息</li>
+<li>查询只调入文件名部分和结点指针，找到后才调入对应i结点指向的内容</li>
 </ol>
-<h4 id="位示图的回收"><a href="#位示图的回收" class="headerlink" title="位示图的回收"></a>位示图的回收</h4><ol>
-<li>将回收盘块号转换为位示图的行号列号i=(b-1)DIVn+1,j=(b-1)MODn+1</li>
-<li>修改位示图，令map[i,j]=0</li>
-</ol>
-<h3 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h3><p>UNIX采用的方法</p>
-<p>基本思想（汤书P281解释更详细）</p>
+<h4 id="磁盘索引结点"><a href="#磁盘索引结点" class="headerlink" title="磁盘索引结点"></a>磁盘索引结点</h4><p>存放在磁盘的索引结点，每个文件有唯一的磁盘索引结点，包括如下内容：</p>
 <ul>
-<li>空闲盘块号栈存放当前可用的一组空闲盘块号及栈中尚有的空闲盘块号数，唯一存在于内存的栈</li>
-<li>文件区的所有空闲盘块分为若干组</li>
-<li>每一组含有盘块总数和所有的盘块号记入前一组最后一个盘块中</li>
-<li>第一组盘块总数和所有盘块号记入空闲盘块号栈</li>
-<li>最末一组只有N-1各盘块</li>
+<li>文件主标识</li>
+<li>文件类型（正规文件，目录文件，特殊文件）</li>
+<li>文件存取权限</li>
+<li>文件物理地址</li>
+<li>文件长度</li>
+<li>文件连接计数（本文件系统所有指向该文件名的指针计数，用于共享）</li>
+<li>文件存取时间</li>
 </ul>
-<p><img src="https://i.imgur.com/ooa2j7G.png" alt=""></p>
-<p>S.free(0)是栈底</p>
-<h4 id="空闲盘块分配"><a href="#空闲盘块分配" class="headerlink" title="空闲盘块分配"></a>空闲盘块分配</h4><p>首先检查空闲盘块号栈是否上锁，如未上锁，便从<strong>栈顶</strong>取出一空闲盘块号，将与之对应的盘块分配给用户，然后将栈顶指针下移一格<br>若该盘块号已是栈底，即S.free(0)，即最后一个可分配的盘块号。 须调用磁盘读过程，将栈底盘块号所对应盘块的内容读入栈中，作为新的空闲盘块号栈的内容，然后，把原栈底对应的盘块分配出去(其中的有用数据已读入栈中)</p>
-<h4 id="空闲盘块的回收"><a href="#空闲盘块的回收" class="headerlink" title="空闲盘块的回收"></a>空闲盘块的回收</h4><p>将回收盘块的盘块号记入空闲盘块号栈的顶部，并执行空闲盘块数加1操作。<br>当栈中空闲盘块号数目已达100时，表示栈已满，便将现有栈中的100个盘块号，记入新回收的盘块中，再将其盘块号作为新栈底</p>
-<h2 id="提高磁盘I-O速度的途径"><a href="#提高磁盘I-O速度的途径" class="headerlink" title="提高磁盘I/O速度的途径"></a>提高磁盘I/O速度的途径</h2><ul>
-<li>磁盘高速缓存（数据交付，置换算法，周期性写回磁盘）</li>
-<li>提前读</li>
-<li>延迟写</li>
-<li>优化物理块布局</li>
-<li>虚拟盘</li>
+<h4 id="内存索引结点"><a href="#内存索引结点" class="headerlink" title="内存索引结点"></a>内存索引结点</h4><p>存放在内存中的索引结点，当文件被打开时，要将磁盘索引结点拷贝到内存的索引结点中方便以后使用，增加了以下内容</p>
+<ul>
+<li>索引结点编号</li>
+<li>状态</li>
+<li>访问计数</li>
+<li>文件所属文件系统的逻辑设备号</li>
+<li>链接指针</li>
 </ul>
-<h2 id="数据一致性控制"><a href="#数据一致性控制" class="headerlink" title="数据一致性控制"></a>数据一致性控制</h2><p>事务：用于访问和修改各种数据项的一个程序单位，可以看作一系列相关的读写操作，被访问的数据可以分散地存放在同一文件的不同记录中，也可放在多个文件中。只有对分布在不同位置的同一数据所进行的读和写(含修改)操作全部完成时，才能再以托付操作(Commit Operation)来终止事务。只要有一个读、写或修改操作失败，便须执行夭折操作(Abort Operation)。读或写操作的失败可能是由于逻辑错误，也可能是系统故障所导致的</p>
-<h3 id="事务记录"><a href="#事务记录" class="headerlink" title="事务记录"></a>事务记录</h3><ul>
-<li>事务名：用于标识该事务的惟一名字</li>
-<li>数据项名：它是被修改数据项的惟一名字</li>
-<li>旧值：修改前数据项的值</li>
-<li>新值：修改后数据项将具有的值</li>
+<h3 id="单级目录结构"><a href="#单级目录结构" class="headerlink" title="单级目录结构"></a>单级目录结构</h3><p>最简单的文件目录，在整个文件系统中只建立一张目录表，每个文件占一个目录项，目录项含文件名，文件扩展名，文件长度，文件类型，文件物理地址以及其他文件属性，状态位（是否空闲）</p>
+<p><img src="https://i.imgur.com/1cziASy.png" alt=""></p>
+<p>单级目录结构不允许重名，新建文件时要检查有无同名，删除时回收块并清楚占用目录项</p>
+<h3 id="两级目录结构"><a href="#两级目录结构" class="headerlink" title="两级目录结构"></a>两级目录结构</h3><p><img src="https://i.imgur.com/JKxqy9C.png" alt=""></p>
+<p>可以为每个用户再建立一个单独的用户文件目录UFD，这些文件目录由用户所有文件的文件控制块组成，在系统中再建立一个主文件目录MFD，MFD的每个目录项为用户的目录文件</p>
+<p>两级目录结构允许重名，但不允许用户建立自己的子目录</p>
+<h3 id="树形结构目录"><a href="#树形结构目录" class="headerlink" title="树形结构目录"></a>树形结构目录</h3><p>一个目录文件中目录项可以为目录文件和数据文件，允许重名，便于实现文件共享</p>
+<p><img src="https://i.imgur.com/8nlH5dR.png" alt=""></p>
+<h3 id="目录查询技术"><a href="#目录查询技术" class="headerlink" title="目录查询技术"></a>目录查询技术</h3><p>当用户要访问一个已经存在的文件时，系统首先利用用户提供的文件名对目录进行查询，找出该文件的FCB或对应索引结点，然后根据FCB或索引结点中记录的文件物理地址（盘块号），换算出文件在磁盘上的物理地址，最后再通过磁盘驱动程序将所需文件读入内存</p>
+<p>常用的目录查询方式为线性检索法和Hash方法</p>
+<h4 id="线性检索法"><a href="#线性检索法" class="headerlink" title="线性检索法"></a>线性检索法</h4><p><img src="https://i.imgur.com/aoT42vI.png" alt=""></p>
+<p>查找过程如下：</p>
+<ol>
+<li>系统先读入第一个文件分量名usr，用它与根目录文件中各目录项的文件名顺序的进行比较，找到匹配者，并得到索引结点号，再从索引结点号得知物理地址号（盘块号），将该盘块132号读入内存</li>
+<li>系统再将路径名第二个分量ast读入，与存放在132号盘块的第二级目录文件各目录项的文件名顺序比较，以此类推直到找到mbox的索引结点和物理地址</li>
+</ol>
+<p><img src="https://i.imgur.com/jr8fDTP.png" alt=""></p>
+<h4 id="Hash方法"><a href="#Hash方法" class="headerlink" title="Hash方法"></a>Hash方法</h4><p>建立一张Hash索引文件目录，利用Hash方法查询，系统利用文件名变换为文件目录的索引值，再利用该索引值到目录去查找</p>
+<h2 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h2><p>两种共享方式：用户直接通过路径名来访问共享文件和对需要共享的文件进行链接</p>
+<h2 id="文件保护"><a href="#文件保护" class="headerlink" title="文件保护"></a>文件保护</h2><ul>
+<li>存取控制机制防止人为因素造成文件不安全</li>
+<li>磁盘容错技术防止磁盘故障造成文件不安全</li>
+<li>后备系统防止自然因素造成的不安全性</li>
 </ul>
-<h3 id="恢复算法"><a href="#恢复算法" class="headerlink" title="恢复算法"></a>恢复算法</h3><p>undo<ti>，把所有被事务Ti修改过的数据恢复修改前的值<br>redo<ti>，把所有被事务Ti修改过的数据设置为新值</ti></ti></p>
-<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>作用：使对事务记录表中事务记录的清理工作经常化</p>
 
           
         
@@ -1963,6 +2010,224 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
+<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/JavaScript09-事件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2226,224 +2491,6 @@ alert(isSupported);</code></p>
 <p><code>var isSupported = document.implementation.hasFeature(&quot;MutationEvents&quot;, &quot;2.0&quot;);</code>检查是否支持变动事件。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events" target="_blank" rel="noopener">MDN的mutation事件</a></p>
 <h3 id="设备事件与触摸手势事件"><a href="#设备事件与触摸手势事件" class="headerlink" title="设备事件与触摸手势事件"></a>设备事件与触摸手势事件</h3><p>主要用于智能手机和平板电脑</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
-                2019-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
-<ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
-</ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
-<ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
-</ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
-<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
-<ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
-</ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
-<ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
-</ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
 
           
         
@@ -3019,7 +3066,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">101</span>
+                  <span class="site-state-item-count">102</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
