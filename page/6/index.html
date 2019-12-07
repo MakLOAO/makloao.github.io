@@ -369,6 +369,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/" itemprop="url">SpringMVC04-AJAX&JSON处理,拦截器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T12:31:30+08:00">
+                2019-06-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringMVC/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringMVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/" class="leancloud_visitors" data-flag-title="SpringMVC04-AJAX&JSON处理,拦截器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SpringMVC04-AJAX-amp-JSON处理-拦截器"><a href="#SpringMVC04-AJAX-amp-JSON处理-拦截器" class="headerlink" title="SpringMVC04-AJAX&amp;JSON处理,拦截器"></a>SpringMVC04-AJAX&amp;JSON处理,拦截器</h1><p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源码</a></p>
+<h2 id="AJAX-amp-JSON处理"><a href="#AJAX-amp-JSON处理" class="headerlink" title="AJAX&amp;JSON处理"></a>AJAX&amp;JSON处理</h2><p>AJAX处理可以去看AJAX那篇BLOG，只需要通过HttpServletResponse对象实例发送非视图的响应回去即可</p>
+<h3 id="SpringMVC处理JSON数据"><a href="#SpringMVC处理JSON数据" class="headerlink" title="SpringMVC处理JSON数据"></a>SpringMVC处理JSON数据</h3><p>一定要知道：<strong>服务器和客户端传递的是JSON串，而不是JSON对象！！！</strong></p>
+<p>如果用到JSON，最好还是去 <a href="https://www.w3cschool.cn/fastjson/fastjson-quickstart.html" target="_blank" rel="noopener">学一下Fastjson</a></p>
+<p>导入JAR包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.58<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="发送和接收JSON"><a href="#发送和接收JSON" class="headerlink" title="发送和接收JSON"></a>发送和接收JSON</h4><p>前端接收JSON很简单，通过 <code>var text = xmlHttp.responseText; // 返回的是一个json字符串</code> 接收JSON字符串，然后调用eval方法即可得到JSON对象 <code>var user = eval(&quot;(&quot; + text + &quot;)&quot;);</code>，需要注意，<strong>如果发送的是GET请求，浏览器会下载该JSON格式，如果发送的是POST请求，它才能正常执行</strong>，我也不清楚为什么</p>
+<p>服务器通过@ResponseBody注解，返回对象即可，转换器会把该对象转换成JSON对象，同理，对于前端传来的JSON串，也会解析成对应参数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 摘自https://www.w3cschool.cn/fastjson/fastjson-httpmessageconverter.html --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- JSON配置，配置json转换器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"fastJsonConfig"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.config.FastJsonConfig"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Default charset --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"charset"</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Default dateFormat --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dateFormat"</span> <span class="attr">value</span>=<span class="string">"yyyy-MM-dd HH:mm:ss"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Class Level SerializeFilter --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- MediaTypes --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"supportedMediaTypes"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/json<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>text/plain<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/x-www-form-urlencoded<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- FastJsonConfig --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fastJsonConfig"</span> <span class="attr">ref</span>=<span class="string">"fastJsonConfig"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>一定要注意，前端发送过来的并不是JSON对象，而是JSON字符串，即要通过 <code>var jsonStr = JSON.stringify(json)</code> 转换为JSON字符串，然后添加请求头 <code>xmlHttp.setRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);</code> 注意发送JSON串时，请求头是<code>application/json</code>，然后 <code>xmlHttp.send(jsonStr);</code> 直接发送该字符串；前端接收服务器传来的JSON串时，要调用eval方法执行该串转为JSON对象</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> &gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        function createXMLHttpRequest() // 略</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        window.onload = function (ev) &#123;</span></span><br><span class="line"><span class="undefined">            var btn = document.getElementById("btn");</span></span><br><span class="line"><span class="undefined">            btn.onclick = function (ev1) </span></span><br><span class="line"><span class="undefined">                var json = &#123;"name":"zhangsan","id":18,"password":"123456"&#125;;</span></span><br><span class="line"><span class="undefined">                var jsonStr = JSON.stringify(json);</span></span><br><span class="line"><span class="undefined">                var xmlHttp = createXMLHttpRequest();</span></span><br><span class="line"><span class="undefined">                xmlHttp.open("POST", "/jsontest.do", true);</span></span><br><span class="line"><span class="undefined">                xmlHttp.setRequestHeader("Content-Type", "application/json");</span></span><br><span class="line"><span class="undefined">                xmlHttp.send(jsonStr); // 直接发送</span></span><br><span class="line"><span class="undefined">                xmlHttp.onreadystatechange = function () &#123; // xmlHttp的任意一种状态变化都会调用本方法</span></span><br><span class="line"><span class="undefined">                    if (xmlHttp.readyState == 4 &amp;&amp; xmlHttp.status == 200) &#123; // 状态码200表示服务器已成功处理了请求</span></span><br><span class="line"><span class="undefined">                        var text = xmlHttp.responseText; // 返回的是一个json字符串</span></span><br><span class="line"><span class="undefined">                        var user = eval("(" + text + ")"); // eval函数是用JavaScript执行其参数的内容，需要注意的是要加圆括号括起来</span></span><br><span class="line"><span class="undefined">                        var s = user.id + ", " + user.name + ", " + user.password;</span></span><br><span class="line"><span class="undefined">                        var h1 = document.getElementById("h1");</span></span><br><span class="line"><span class="undefined">                        h1.innerText = s;</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>click here<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"h1"</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>服务器对应方法添加@ResponseBody注解，以及接收的参数添加@RequestBody注解即可，如下，转换器把前端发送过来的JSON串转换为user对象，然后把user对象经转换器转换为JSON串发送回前端</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// testjson测试客户端发送JSON数据到服务器接收</span></span><br><span class="line"><span class="comment">// 接收前端传来的JSON参数，并原样返回给前端</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/jsontest"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">jsontest</span><span class="params">(HttpServletRequest request, HttpServletResponse response, @RequestBody User user)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 此时服务器会把json串转换为user对象</span></span><br><span class="line">    <span class="keyword">return</span> user; <span class="comment">// 直接返回user对象即可，转换器会自动转换为JSON串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>java里的拦截器是动态拦截Action调用的对象。它提供了一种机制可以使开发者可以定义在一个action执行的前后执行的代码，也可以在一个action执行前阻止其执行，同时也提供了一种可以提取action中可重用部分的方式。在AOP（Aspect-Oriented Programming）中拦截器用于在某个方法或字段被访问之前，进行拦截然后在之前或之后加入某些操作。</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
+<li>实现HandlerInterceptor接口</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在请求处理的方法之前执行</span></span><br><span class="line">    <span class="comment">// 如果返回true，执行下一个拦截器，返回false，不执行下一个拦截器，如果返回false，使用HttpServletRequest或HttpServletResponse转发或重定向，如下注释</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------处理前-------"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">//httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/index.jsp");</span></span><br><span class="line">        <span class="comment">//return false;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在请求处理的方法之后执行</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------处理后-------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在DispatcherServlet处理后执行---清理工作</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>配置拦截器，在Spring配置文件中配置</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 拦截器的配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- mapping拦截某一路径，比如/admin/* --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- /**表示该路径下所有路径及其子路径</span></span><br><span class="line"><span class="comment">            如果是/admin/*，拦截的是/admin/add,/admin/list，而/admin/user/add之类的孙子路径不能拦截</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;mvc:mapping path="/**"/&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/admin/*"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.mkl.interceptor.MyInterceptor"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>被拦截Controller的编写</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/admin"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/interceptor"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello controller"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当访问<code>http://localhost:8080/admin/interceptor.do</code>的时候，控制台输出如下</p>
+<p><img src="https://i.imgur.com/QGaVHZp.png" alt=""></p>
+<h3 id="拦截器应用-登陆拦截器"><a href="#拦截器应用-登陆拦截器" class="headerlink" title="拦截器应用-登陆拦截器"></a>拦截器应用-登陆拦截器</h3><p>先说功能：index.do转交给login.jsp，通过login.jsp输入用户名密码点击submit登录，点击submit后交由login.do处理，如果用户名密码均为<code>admin</code>，则进入登录成功页面，否则重定向回index.do<br>拦截器的任务是：当session没有用户对象时，就拦截除了index.do的请求，当有用户对象，就不拦截，<strong>注意，因为login.do负责验证用户名密码，并为session添加user对象的任务，所以拦截器不应该对其进行拦截，如果拦截了，那么只要提交表单，交由login.do处理时，还没进入login.do的代码段，就会被拦截器重定位回index.do</strong></p>
+<p>LoginInterceptor</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAllowedPass</span><span class="params">(List&lt;String&gt; allowedPass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.allowedPass = allowedPass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; allowedPass;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String url = httpServletRequest.getRequestURL().toString();</span><br><span class="line">        User user = (User) httpServletRequest.getSession().getAttribute(<span class="string">"user"</span>);</span><br><span class="line">        <span class="comment">// 当session中的user属性不为空，表示有用户对象，此时不拦截</span></span><br><span class="line">        <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 有些内容不登录是看不到的，就需要拦截器拦截，只有用户登录了，才能进入这些页面，否则就重定向回登录页面</span></span><br><span class="line">        <span class="keyword">for</span> (String temp : allowedPass) &#123;</span><br><span class="line">            <span class="keyword">if</span> (url.endsWith(temp)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        httpServletResponse.sendRedirect(<span class="string">"/index.do"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>LoginController</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/index"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 跳转到login.jsp,login.jsp表单交由login.do处理</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(User user, HttpSession session)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"admin"</span>.equals(user.getName()) &amp;&amp; <span class="string">"admin"</span>.equals(user.getPwd())) &#123;</span><br><span class="line">            session.setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"redirect:/success.do"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"redirect:/index.do"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/success"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">success</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"loginsuccess"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于测试拦截器，如果拦截器生效，输入http://localhost:8080/add.do并不会转发到index.jsp，而是重定向回index.do，且控制台不会输出add</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/add"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>登录拦截器的编写</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 登陆拦截器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/**"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.mkl.interceptor.LoginInterceptor"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"allowedPass"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>index.do<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>login.do<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>login.jsp</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"login.do"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">        name:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        password:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"pwd"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>loginsuccess.jsp略，只有一个登录成功的标志</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/ajax/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1594,238 +1784,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/Java并发基础1-线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/06/Java并发基础1-线程/" itemprop="url">Java并发基础1-线程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-06T23:47:34+08:00">
-                2019-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/06/Java并发基础1-线程/" class="leancloud_visitors" data-flag-title="Java并发基础1-线程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java并发基础1-线程"><a href="#Java并发基础1-线程" class="headerlink" title="Java并发基础1-线程"></a>Java并发基础1-线程</h1><h2 id="启动一个线程"><a href="#启动一个线程" class="headerlink" title="启动一个线程"></a>启动一个线程</h2><ol>
-<li>实现Runnable接口，可以使用lambda表达式<code>Runnable r = () -&gt; { task code };</code></li>
-<li>由Runnable创建一个Thread对象<code>Thread t = new Thread(r);</code></li>
-<li>启动线程<code>t.start();</code></li>
-</ol>
-<p>也可以通过构建一个Thread类的子类来定义一个线程，然后构造该子类的对象，并调用start()方法，不过这种方法不推荐，应该将要并行运行的任务与运行机制解耦合</p>
-<p>不要调用Thread类或Runnable对象的run方法，直接调用run方法，只会执行同一个线程的任务，而不会启动新线程。应该调用Thread.start方法，这个方法将创建一个run方法的新线程</p>
-<h2 id="中断线程"><a href="#中断线程" class="headerlink" title="中断线程"></a>中断线程</h2><p>当线程的run方法执行方法体中最后一条语句后，并经由执行return语句返回后，或者出现了在方法中没有捕获的异常时，线程将终止</p>
-<p><strong>可以使用interrupt方法，请求终止线程，线程中断状态被置位，每个线程都应该时不时检查这个标志，以判断线程是否被中断</strong><br><strong>可以使用<code>Thread.currentThread().isInterrupted()</code>来判断线程是否被中断</strong><br>如果线程被阻塞(调用sleep或wait)，就无法检测中断状态。这是产生InterruptedException异常的地方<br>注意有个静态方法interrupted，它检测当前线程是否被中断，调用它会清除该线程的中断状态，isInterrupted是一个实例方法，它检验线程被中断，它不会改变中断状态</p>
-<p>中断线程不等于终止线程，但普遍的情况下，线程将简单地将中断作为一个终止的请求。这种线程的Run方法有如下形式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Runnable r = () -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">while</span> (!Thread.currentThread().isInterrupted() &amp;&amp; more work to <span class="keyword">do</span>) &#123;</span><br><span class="line">            <span class="keyword">do</span> more work</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="comment">// thread was interrupted during sleep or wait</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cleanup,<span class="keyword">if</span> required</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// exiting the run method terminates the thread</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果每次工作迭代之后都调用sleep方法，isInterrupted检测既没有必要也没有用处。如果在中断状态被置位时调用sleep方法，它不会休眠，相反，<strong>它会清除这一状态</strong>并抛出InterruptedException。因此，如果循环调用了sleep，不会检测中断状态。相反，要如下所示捕获InterruptedException异常：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Runnable r = () -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">while</span> (more work to <span class="keyword">do</span>) &#123;</span><br><span class="line">            <span class="keyword">do</span> more work</span><br><span class="line">            Thread.sleep(delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="comment">// thread was interrupted during sleep</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cleanup,<span class="keyword">if</span> required</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>catch语句块不要忽略，不要空着不写，有两种更好的选择<br>第一种是catch子句中设置中断状态</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mySubTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">try</span> &#123; sleep(delay); &#125;</span><br><span class="line">    <span class="keyword">catch</span> (InterruptedException e) &#123; Thread.currentThread().interrupt(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>第二种更好的选择是抛出错误，不采用try</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mySubTask</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    sleep(delay);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>线程有如下6种状态</p>
-<ul>
-<li>New</li>
-<li>Runnable</li>
-<li>Blocked</li>
-<li>Waiting</li>
-<li>Timed waiting(计时等待)</li>
-<li>Terminated</li>
-</ul>
-<p>可以采用getState方法确定一个线程当前状态</p>
-<p><img src="https://i.imgur.com/Zz6h9gj.png" alt=""></p>
-<p><img src="https://i.imgur.com/8DnF00l.jpg" alt=""></p>
-<h3 id="新创建线程"><a href="#新创建线程" class="headerlink" title="新创建线程"></a>新创建线程</h3><p>当用new操作符创建一个新线程时，如new Thread(r)，该线程还没有开始运行，他的状态是new</p>
-<h3 id="可运行线程"><a href="#可运行线程" class="headerlink" title="可运行线程"></a>可运行线程</h3><p>一旦调用start方法，线程就处于Runnable状态。一个可运行的线程可能正在运行也可能没有运行，这取决于操作系统给线程提供运行的时间</p>
-<h3 id="被阻塞线程和等待线程"><a href="#被阻塞线程和等待线程" class="headerlink" title="被阻塞线程和等待线程"></a>被阻塞线程和等待线程</h3><p>当线程处于被阻塞或等待状态时，它暂时不活动。它不运行任何代码且消耗最少的资源。直到线程调度器重新激活它</p>
-<ul>
-<li>当一个线程试图获取一个内部的对象锁，而该锁被其他线程持有，则该线程进入阻塞状态</li>
-<li>当线程等待另一个线程通知调度器一个条件时，它自己进入等待状态</li>
-<li>有几个方法有一个超时参数。调用它们导致线程进入计时等待状态</li>
-</ul>
-<h4 id="sleep-与wait-的区别"><a href="#sleep-与wait-的区别" class="headerlink" title="sleep()与wait()的区别"></a>sleep()与wait()的区别</h4><p>sleep一般用于当前线程休眠，或者轮循暂停操作，wait则多用于多线程之间的通信</p>
-<p>sleep()方法是Thread类里面的，主要的意义就是让当前线程停止执行，让出cpu给其他的线程，但是不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态，sleep必须捕获异常<br>wait()方法是Object类里面的，主要的意义就是让线程放弃当前的对象的锁，进入等待此对象的等待锁定池，只有针对此对象调动notify方法后本线程才能够进入对象锁定池准备获取对象锁进入运行状态，wait不用捕获异常<br>wait() method causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0). </p>
-<h3 id="被终止的线程"><a href="#被终止的线程" class="headerlink" title="被终止的线程"></a>被终止的线程</h3><p>线程因如下两个原因之一被终止</p>
-<ul>
-<li>因为run方法正常退出而自然死亡</li>
-<li>因为一个没有捕获的异常终止了run方法而意外死亡</li>
-</ul>
-<h4 id="join"><a href="#join" class="headerlink" title="join"></a>join</h4><p>join()方法是Thread类中一个实例方法，该方法的定义是等待该线程终止，它可以传入参数<code>void join(long millis)</code>，表示等待指定的线程死亡或者经过指定的毫秒数</p>
-<h5 id="join的一个例子"><a href="#join的一个例子" class="headerlink" title="join的一个例子"></a>join的一个例子</h5><p>T1,T2,T3三个线程，保证T2在T1执行后再执行，T3再T2执行后再执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"T1 is running"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            t1.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            t1.interrupt();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"T2 is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread t3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            t2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            t2.interrupt();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"T3 is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    t2.start();</span><br><span class="line">    t3.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h2><h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>每个线程可以有一个优先级,但优先级依赖于宿主机平台的线程实现机制,相关方法如下</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法或属性</th>
-<th style="text-align:left">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">void setPriority(int newPrority)</td>
-<td style="text-align:left">Changes the priority of this thread.</td>
-</tr>
-<tr>
-<td style="text-align:left">static int MIN_PRIORITY</td>
-<td style="text-align:left">线程的最小优先级,值为1</td>
-</tr>
-<tr>
-<td style="text-align:left">static int NORM_PRIORITY</td>
-<td style="text-align:left">线程的默认优先级,默认为5</td>
-</tr>
-<tr>
-<td style="text-align:left">static int MAX_PRIORITY</td>
-<td style="text-align:left">线程的最高优先级,为10</td>
-</tr>
-<tr>
-<td style="text-align:left">static void yield()</td>
-<td style="text-align:left">导致当前执行的线程处于让步状态,如果其他可运行线程具有至少与此线程同样高的优先级,则这些线程接下来会被调度</td>
-</tr>
-</tbody>
-</table>
-<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>可以通过调用<code>t.setDaemon(true)</code>将线程设置为守护线程,守护线程的作用是为其他线程提供服务,当只剩下守护线程时,虚拟机就退出了,守护线程不应该访问固有资源,例如文件,数据库,因为守护线程会在任何时候发生中断</p>
-<h3 id="未捕获异常处理器"><a href="#未捕获异常处理器" class="headerlink" title="未捕获异常处理器"></a>未捕获异常处理器</h3><p>线程的run方法不能抛出任何受查异常，但是，非受查异常会导致线程终止，这种情况下线程就死亡了，当一个线程由于非受查异常而死亡，在死亡前，异常会被传递到一个用于未捕获异常的处理器，该处理器必须属于一个实现<code>Thread.UncaughtExceptionHandler</code>接口的类，这个接口只有一个方法<code>void uncaughtException(Thread t, Throwable e)</code><br>可以用setUncaughtExceptionHandler方法为所有线程安装一个处理器，也可以用Thread类的静态方法setDefaultUncaughtExceptionHandler为所有线程安装一个默认的处理器</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/MyBatis从入门到秃头/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2127,6 +2085,238 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/06/Java并发基础1-线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/06/Java并发基础1-线程/" itemprop="url">Java并发基础1-线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-06T23:47:34+08:00">
+                2019-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/06/Java并发基础1-线程/" class="leancloud_visitors" data-flag-title="Java并发基础1-线程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java并发基础1-线程"><a href="#Java并发基础1-线程" class="headerlink" title="Java并发基础1-线程"></a>Java并发基础1-线程</h1><h2 id="启动一个线程"><a href="#启动一个线程" class="headerlink" title="启动一个线程"></a>启动一个线程</h2><ol>
+<li>实现Runnable接口，可以使用lambda表达式<code>Runnable r = () -&gt; { task code };</code></li>
+<li>由Runnable创建一个Thread对象<code>Thread t = new Thread(r);</code></li>
+<li>启动线程<code>t.start();</code></li>
+</ol>
+<p>也可以通过构建一个Thread类的子类来定义一个线程，然后构造该子类的对象，并调用start()方法，不过这种方法不推荐，应该将要并行运行的任务与运行机制解耦合</p>
+<p>不要调用Thread类或Runnable对象的run方法，直接调用run方法，只会执行同一个线程的任务，而不会启动新线程。应该调用Thread.start方法，这个方法将创建一个run方法的新线程</p>
+<h2 id="中断线程"><a href="#中断线程" class="headerlink" title="中断线程"></a>中断线程</h2><p>当线程的run方法执行方法体中最后一条语句后，并经由执行return语句返回后，或者出现了在方法中没有捕获的异常时，线程将终止</p>
+<p><strong>可以使用interrupt方法，请求终止线程，线程中断状态被置位，每个线程都应该时不时检查这个标志，以判断线程是否被中断</strong><br><strong>可以使用<code>Thread.currentThread().isInterrupted()</code>来判断线程是否被中断</strong><br>如果线程被阻塞(调用sleep或wait)，就无法检测中断状态。这是产生InterruptedException异常的地方<br>注意有个静态方法interrupted，它检测当前线程是否被中断，调用它会清除该线程的中断状态，isInterrupted是一个实例方法，它检验线程被中断，它不会改变中断状态</p>
+<p>中断线程不等于终止线程，但普遍的情况下，线程将简单地将中断作为一个终止的请求。这种线程的Run方法有如下形式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Runnable r = () -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">while</span> (!Thread.currentThread().isInterrupted() &amp;&amp; more work to <span class="keyword">do</span>) &#123;</span><br><span class="line">            <span class="keyword">do</span> more work</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="comment">// thread was interrupted during sleep or wait</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cleanup,<span class="keyword">if</span> required</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// exiting the run method terminates the thread</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果每次工作迭代之后都调用sleep方法，isInterrupted检测既没有必要也没有用处。如果在中断状态被置位时调用sleep方法，它不会休眠，相反，<strong>它会清除这一状态</strong>并抛出InterruptedException。因此，如果循环调用了sleep，不会检测中断状态。相反，要如下所示捕获InterruptedException异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Runnable r = () -&gt; &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">while</span> (more work to <span class="keyword">do</span>) &#123;</span><br><span class="line">            <span class="keyword">do</span> more work</span><br><span class="line">            Thread.sleep(delay);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">        <span class="comment">// thread was interrupted during sleep</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        cleanup,<span class="keyword">if</span> required</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>catch语句块不要忽略，不要空着不写，有两种更好的选择<br>第一种是catch子句中设置中断状态</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mySubTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">try</span> &#123; sleep(delay); &#125;</span><br><span class="line">    <span class="keyword">catch</span> (InterruptedException e) &#123; Thread.currentThread().interrupt(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第二种更好的选择是抛出错误，不采用try</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mySubTask</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    sleep(delay);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h2><p>线程有如下6种状态</p>
+<ul>
+<li>New</li>
+<li>Runnable</li>
+<li>Blocked</li>
+<li>Waiting</li>
+<li>Timed waiting(计时等待)</li>
+<li>Terminated</li>
+</ul>
+<p>可以采用getState方法确定一个线程当前状态</p>
+<p><img src="https://i.imgur.com/Zz6h9gj.png" alt=""></p>
+<p><img src="https://i.imgur.com/8DnF00l.jpg" alt=""></p>
+<h3 id="新创建线程"><a href="#新创建线程" class="headerlink" title="新创建线程"></a>新创建线程</h3><p>当用new操作符创建一个新线程时，如new Thread(r)，该线程还没有开始运行，他的状态是new</p>
+<h3 id="可运行线程"><a href="#可运行线程" class="headerlink" title="可运行线程"></a>可运行线程</h3><p>一旦调用start方法，线程就处于Runnable状态。一个可运行的线程可能正在运行也可能没有运行，这取决于操作系统给线程提供运行的时间</p>
+<h3 id="被阻塞线程和等待线程"><a href="#被阻塞线程和等待线程" class="headerlink" title="被阻塞线程和等待线程"></a>被阻塞线程和等待线程</h3><p>当线程处于被阻塞或等待状态时，它暂时不活动。它不运行任何代码且消耗最少的资源。直到线程调度器重新激活它</p>
+<ul>
+<li>当一个线程试图获取一个内部的对象锁，而该锁被其他线程持有，则该线程进入阻塞状态</li>
+<li>当线程等待另一个线程通知调度器一个条件时，它自己进入等待状态</li>
+<li>有几个方法有一个超时参数。调用它们导致线程进入计时等待状态</li>
+</ul>
+<h4 id="sleep-与wait-的区别"><a href="#sleep-与wait-的区别" class="headerlink" title="sleep()与wait()的区别"></a>sleep()与wait()的区别</h4><p>sleep一般用于当前线程休眠，或者轮循暂停操作，wait则多用于多线程之间的通信</p>
+<p>sleep()方法是Thread类里面的，主要的意义就是让当前线程停止执行，让出cpu给其他的线程，但是不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态，sleep必须捕获异常<br>wait()方法是Object类里面的，主要的意义就是让线程放弃当前的对象的锁，进入等待此对象的等待锁定池，只有针对此对象调动notify方法后本线程才能够进入对象锁定池准备获取对象锁进入运行状态，wait不用捕获异常<br>wait() method causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0). </p>
+<h3 id="被终止的线程"><a href="#被终止的线程" class="headerlink" title="被终止的线程"></a>被终止的线程</h3><p>线程因如下两个原因之一被终止</p>
+<ul>
+<li>因为run方法正常退出而自然死亡</li>
+<li>因为一个没有捕获的异常终止了run方法而意外死亡</li>
+</ul>
+<h4 id="join"><a href="#join" class="headerlink" title="join"></a>join</h4><p>join()方法是Thread类中一个实例方法，该方法的定义是等待该线程终止，它可以传入参数<code>void join(long millis)</code>，表示等待指定的线程死亡或者经过指定的毫秒数</p>
+<h5 id="join的一个例子"><a href="#join的一个例子" class="headerlink" title="join的一个例子"></a>join的一个例子</h5><p>T1,T2,T3三个线程，保证T2在T1执行后再执行，T3再T2执行后再执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    Thread t1 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"T1 is running"</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread t2 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            t1.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            t1.interrupt();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"T2 is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread t3 = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            t2.join();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            t2.interrupt();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"T3 is running"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t1.start();</span><br><span class="line">    t2.start();</span><br><span class="line">    t3.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程属性"><a href="#线程属性" class="headerlink" title="线程属性"></a>线程属性</h2><h3 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h3><p>每个线程可以有一个优先级,但优先级依赖于宿主机平台的线程实现机制,相关方法如下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法或属性</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">void setPriority(int newPrority)</td>
+<td style="text-align:left">Changes the priority of this thread.</td>
+</tr>
+<tr>
+<td style="text-align:left">static int MIN_PRIORITY</td>
+<td style="text-align:left">线程的最小优先级,值为1</td>
+</tr>
+<tr>
+<td style="text-align:left">static int NORM_PRIORITY</td>
+<td style="text-align:left">线程的默认优先级,默认为5</td>
+</tr>
+<tr>
+<td style="text-align:left">static int MAX_PRIORITY</td>
+<td style="text-align:left">线程的最高优先级,为10</td>
+</tr>
+<tr>
+<td style="text-align:left">static void yield()</td>
+<td style="text-align:left">导致当前执行的线程处于让步状态,如果其他可运行线程具有至少与此线程同样高的优先级,则这些线程接下来会被调度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><p>可以通过调用<code>t.setDaemon(true)</code>将线程设置为守护线程,守护线程的作用是为其他线程提供服务,当只剩下守护线程时,虚拟机就退出了,守护线程不应该访问固有资源,例如文件,数据库,因为守护线程会在任何时候发生中断</p>
+<h3 id="未捕获异常处理器"><a href="#未捕获异常处理器" class="headerlink" title="未捕获异常处理器"></a>未捕获异常处理器</h3><p>线程的run方法不能抛出任何受查异常，但是，非受查异常会导致线程终止，这种情况下线程就死亡了，当一个线程由于非受查异常而死亡，在死亡前，异常会被传递到一个用于未捕获异常的处理器，该处理器必须属于一个实现<code>Thread.UncaughtExceptionHandler</code>接口的类，这个接口只有一个方法<code>void uncaughtException(Thread t, Throwable e)</code><br>可以用setUncaughtExceptionHandler方法为所有线程安装一个处理器，也可以用Thread类的静态方法setDefaultUncaughtExceptionHandler为所有线程安装一个默认的处理器</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Java异常/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2302,227 +2492,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Spring04-AspectJ/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/22/Spring04-AspectJ/" itemprop="url">Spring04-AspectJ</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T16:18:30+08:00">
-                2019-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/22/Spring04-AspectJ/" class="leancloud_visitors" data-flag-title="Spring04-AspectJ">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Spring04-AspectJ"><a href="#Spring04-AspectJ" class="headerlink" title="Spring04-AspectJ"></a>Spring04-AspectJ</h1><p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源代码在这</a></p>
-<p>@AspectJ的风格类似于纯Java注解的普通Java类</p>
-<p>Spring可以使用AspectJ来做切入点解析</p>
-<p>AOP的运行时仍旧是纯的Spring AOP，对AspectJ的编译器或者织入无依赖性</p>
-<h2 id="Enabling-AspectJ-Support"><a href="#Enabling-AspectJ-Support" class="headerlink" title="Enabling @AspectJ Support"></a>Enabling @AspectJ Support</h2><p>对@AspectJ支持可以使用XML或Java风格的配置</p>
-<h3 id="Java注解方式"><a href="#Java注解方式" class="headerlink" title="Java注解方式"></a>Java注解方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="XML配置"><a href="#XML配置" class="headerlink" title="XML配置"></a>XML配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Declaring-an-aspect"><a href="#Declaring-an-aspect" class="headerlink" title="Declaring an aspect"></a>Declaring an aspect</h2><p>@AspectJ切面使用@Aspect注解配置，拥有@Aspect的任何bean将被Spring自动识别并应用，用@Aspect注解的类可以有方法和字段，他们也可能包括切入点（pointcut），通知（advice）和引入（introduction）声明，<strong>@Aspect注解不能通过类路径自动检测发现，需要配合使用@Component注释或者在xml配置bean</strong><br>一个类中的@Aspect注解标识它为一个切面，并且将自己从自动代理中排除（假如切面类和业务类在同一包下，或者相同包的不同子包中，切入点的声明只声明了它们的基本包，声明了@Aspect的切面不会代理它自己，即检测到自己不会调用通知方法）</p>
-<p>定义一个切面模板如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAspect"</span> <span class="attr">class</span>=<span class="string">"org.xyz.NotVeryUsefulAspect"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- configure properties of aspect here as normal --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.xyz;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NotVeryUsefulAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Declaring-a-pointcut"><a href="#Declaring-a-pointcut" class="headerlink" title="Declaring a pointcut"></a>Declaring a pointcut</h2><p>一个切入点通过一个普通的方法定义来提供，并且切入点表达式使用@Pointcut注解，<strong>方法返回类型必须是void</strong></p>
-<p>下面定义一个名为<code>anyOldTransfer</code>，这个切入点将匹配任何名为”transfer”的方法的执行</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(* transfer(..))"</span>)<span class="comment">// the pointcut expression</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">anyOldTransfer</span><span class="params">()</span> </span>&#123;&#125;<span class="comment">// the pointcut signature</span></span><br></pre></td></tr></table></figure>
-<h3 id="Supported-Pointcut-Designators"><a href="#Supported-Pointcut-Designators" class="headerlink" title="Supported Pointcut Designators"></a>Supported Pointcut Designators</h3><ul>
-<li>execution - for matching method execution join points, this is the primary pointcut designator you will use when working with Spring AOP（匹配方法执行的切入点）</li>
-<li>within - limits matching to join points within certain types (simply the execution of a method declared within a matching type when using Spring AOP)（限定匹配特定类型的切入点）</li>
-<li>this - limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type（匹配特定切入点的bean引用是指定类型的实例的限制）</li>
-<li>target - limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type</li>
-<li>args - limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types</li>
-<li>@target - limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type</li>
-<li>@args - limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given type(s)</li>
-<li>@within - limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP)</li>
-<li>@annotation - limits matching to join points where the subject of the join point (method being executed in Spring AOP) has the given annotation</li>
-</ul>
-<p>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 当检测到biz这个包里任何以Biz结尾的类的任何方法时，都会匹配当前这个切入点</span></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 检测到biz这个包的任何类都会匹配到这个切入点</span></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"within(com.mkl.aop.aspectj.biz.*)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bizPointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Combining-pointcut-expressions"><a href="#Combining-pointcut-expressions" class="headerlink" title="Combining pointcut expressions"></a>Combining pointcut expressions</h3><p>切入点表达式可以通过&amp;&amp;，||和!进行组合，也可以通过名字引用切入点表达式，通过组合，可以建立更加复杂的切入点表达式</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(public * *(..))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">anyPublicOperation</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"within(com.xyz.someapp.trading..*)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">inTrading</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"anyPublicOperation() &amp;&amp; inTrading()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">tradingOperation</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="定义良好的pointcuts"><a href="#定义良好的pointcuts" class="headerlink" title="定义良好的pointcuts"></a>定义良好的pointcuts</h3><p>AspectJ是编译器的AOP，检查代码并匹配连接点与切入点的代价是昂贵的</p>
-<p>一个好的切入点应该包括以下几点</p>
-<ul>
-<li>选择特定类型的连接点，如：execution,get,set,call,handler</li>
-<li>确定连接点范围，如：within,withincode</li>
-<li>匹配上下文信息，如：this,target,@annotation</li>
-</ul>
-<h2 id="Before-advice"><a href="#Before-advice" class="headerlink" title="Before advice"></a>Before advice</h2><p>Before advice is declared in an aspect using the @Before annotation:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeforeExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>If using an in-place pointcut expression we could rewrite the above example as:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeforeExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(* com.xyz.myapp.dao.*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Before-Advice的小DEMO"><a href="#Before-Advice的小DEMO" class="headerlink" title="Before Advice的小DEMO"></a>Before Advice的小DEMO</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- spring-aop-aspectj.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">...</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.mkl.aop.aspectj"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MoocBiz.java</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MoocAspect.java</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  @Before("execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))")</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Before"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单元测试方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// Before</span></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br></pre></td></tr></table></figure>
-<h2 id="After-returning-advice"><a href="#After-returning-advice" class="headerlink" title="After returning advice"></a>After returning advice</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterReturningExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>有时候需要在通知体内得到返回的实际值，可以使用@AfterReturning绑定返回值的形式，<strong>这里的返回值指的是连接点指定的方法，即被通知的方法的返回值，把该返回值作为参数传递给通知</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterReturningExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(</span><br><span class="line">        pointcut=<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>,</span><br><span class="line">        returning=<span class="string">"retVal"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">(Object retVal)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="AfterReturning的小DEMO"><a href="#AfterReturning的小DEMO" class="headerlink" title="AfterReturning的小DEMO"></a>AfterReturning的小DEMO</h3><p>大部分和Before advice的一样</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(pointcut = <span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>, returning = <span class="string">"returnValue"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterReturning : "</span> + returnValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果：（Save success是MoocBiz的save方法的返回值）</span></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">// AfterReturning : Save success</span></span><br></pre></td></tr></table></figure>
-<h2 id="After-throwing-advice"><a href="#After-throwing-advice" class="headerlink" title="After throwing advice"></a>After throwing advice</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterThrowingExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doRecoveryActions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Often you want the advice to run only when exceptions of a given type are thrown, and you also often need access to the thrown exception in the advice body. Use the throwing attribute to both restrict matching (if desired, use Throwable as the exception type otherwise) and bind the thrown exception to an advice parameter.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterThrowingExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The name used in the throwing attribute must correspond to the name of a parameter in the advice method. </span></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(</span><br><span class="line">        pointcut=<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>,</span><br><span class="line">        throwing=<span class="string">"ex"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doRecoveryActions</span><span class="params">(DataAccessException ex)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="After-throwing-advice的小DEMO"><a href="#After-throwing-advice的小DEMO" class="headerlink" title="After throwing advice的小DEMO"></a>After throwing advice的小DEMO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Save failed!"</span>);</span><br><span class="line"><span class="comment">//        return "Save success";</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(pointcut = <span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>, throwing = <span class="string">"e"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(RuntimeException e)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterThrowing： "</span> + e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">// AfterThrowing： Save failed!</span></span><br></pre></td></tr></table></figure>
-<h2 id="After-finally-advice"><a href="#After-finally-advice" class="headerlink" title="After (finally) advice"></a>After (finally) advice</h2><p>最终通知必须准备处理正常和异常两种返回情况，它通常用于释放资源</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterFinallyExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doReleaseLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Around-advice"><a href="#Around-advice" class="headerlink" title="Around advice"></a>Around advice</h2><p>环绕通知使用@Around注解来声明，通知方法的第一个参数必须是ProceedingJoinPoint类型，在通知内部调用ProceedingJoinPoint的proceed()方法会导致执行真正的方法，传入一个Object[]对象，数组中的值将被作为参数传递给该方法，<code>Object retVal</code>是真正方法的返回值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AroundExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.businessService()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">doBasicProfiling</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// start stopwatch</span></span><br><span class="line">        Object retVal = pjp.proceed();</span><br><span class="line">        <span class="comment">// stop stopwatch</span></span><br><span class="line">        <span class="keyword">return</span> retVal;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Advice扩展"><a href="#Advice扩展" class="headerlink" title="Advice扩展"></a>Advice扩展</h2><h3 id="给advice传递参数"><a href="#给advice传递参数" class="headerlink" title="给advice传递参数"></a>给advice传递参数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以先给pointcut传递参数，再通过pointcut把参数传递给advice</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">accountDataAccessOperation</span><span class="params">(Account account)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Before</span>(<span class="string">"accountDataAccessOperation(account)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>前两种方法是把切入点的方法的参数通过args(..)，作为参数传递给通知，让通知可以得到被通知的方法的参数</strong></p>
-<p>第三种方法是，首先定义一个注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Auditable &#123;</span><br><span class="line">    <span class="function">AuditCode <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在advice中引用这个注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; @annotation(auditable)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">audit</span><span class="params">(Auditable auditable)</span> </span>&#123;</span><br><span class="line">    AuditCode code = auditable.value();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>具体流程是：首先按上面的模板定义一个注解MyAnnotation，然后在切入点的方法中使用这个注解并传入参数，然后在advice添加<code>@Before(&quot;xxx &amp;&amp; @annotation(myAnnotation)&quot;)</code>，然后给advice添加参数<code>public void advice(MyAnnotation myAnnotation)</code>，注解的value就可以通过该参数传递给通知了（注解的value在切入点方法中定义，在通知中使用）</p>
-<h4 id="使用注解的DEMO"><a href="#使用注解的DEMO" class="headerlink" title="使用注解的DEMO"></a>使用注解的DEMO</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MoocMethod &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"pointcut() &amp;&amp; @annotation(moocMethod)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeWithAnnotation</span><span class="params">(MoocMethod moocMethod)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeforeWithParam: "</span> + moocMethod.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@MoocMethod</span>(<span class="string">"MoocBiz save MoocMethod."</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line"><span class="comment">//        throw new RuntimeException("Save failed!");</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">BeforeWithParam: MoocBiz save MoocMethod.</span></span><br><span class="line"><span class="comment">MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h3 id="其他的Advice扩展"><a href="#其他的Advice扩展" class="headerlink" title="其他的Advice扩展"></a>其他的Advice扩展</h3><p>比如对泛型的处理，通过argNames决定参数名称，都可以去看<a href="https://docs.spring.io/spring/docs/5.0.14.RELEASE/spring-framework-reference/core.html#aop-ataspectj-advice-params" target="_blank" rel="noopener">Spring-5.0.14官方文档</a></p>
-<h2 id="Introductions"><a href="#Introductions" class="headerlink" title="Introductions"></a>Introductions</h2><p>允许一个切面声明一个通知对象实现指定接口，并提供一个接口实现类来代表这些对象</p>
-<p>introduction使用@DeclareParents进行注解，这个注解用来定义匹配的类型拥有一个新的parent</p>
-<p>e.g.给定一个接口UsageTracked，并且该接口拥有DefaultUsageTracked的实现，接下来的切面声明了所有的service包下的类的实现都实现了UsageTracked接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UsageTracking</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DeclareParents</span>(value=<span class="string">"com.xzy.myapp.service.*+"</span>, defaultImpl=DefaultUsageTracked.class)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> UsageTracked mixin;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.businessService() &amp;&amp; this(usageTracked)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recordUsage</span><span class="params">(UsageTracked usageTracked)</span> </span>&#123;</span><br><span class="line">        usageTracked.incrementUseCount();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="切面实例化模型"><a href="#切面实例化模型" class="headerlink" title="切面实例化模型"></a>切面实例化模型</h2><p>“perthis”切面通过指定@Aspect注解perthis子句实现<br>每个独立的service对象执行时都会创建一个切面实例<br>service对象的每个方法在第一次执行的时候创建切面实例，切面在service对象失效的同时失效</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span>(<span class="string">"perthis(com.xyz.myapp.SystemArchitecture.businessService())"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> someState;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(com.xyz.myapp.SystemArchitecture.businessService())</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recordServiceUsage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2579,7 +2548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2590,7 +2559,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2601,7 +2570,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">212</span>
+                  <span class="site-state-item-count">213</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

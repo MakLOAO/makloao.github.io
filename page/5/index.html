@@ -369,6 +369,269 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/类文件结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/17/类文件结构/" itemprop="url">类文件结构</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T11:15:34+08:00">
+                2019-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/17/类文件结构/" class="leancloud_visitors" data-flag-title="类文件结构">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="类文件结构"><a href="#类文件结构" class="headerlink" title="类文件结构"></a>类文件结构</h1><p>将我们编写的程序编译成二进制本地机器码已不再是唯一选择，越来越多程序语言选择了与操作系统和机器指令集无关的，平台中立的格式作为程序编译后的存储格式，各种不同平台的虚拟机与所有平台都统一使用的程序存储格式——字节码，是构成平台无关性的基石。Java虚拟机不和包括Java在内的任何语言绑定，它只与”Class”文件这种特定的二进制文件所关联，Class文件中包含了Java虚拟机指令集和符号表以及若干其他辅助信息，Class文件有许多强制性语法和结构化约束</p>
+<h2 id="Class类文件的结构"><a href="#Class类文件的结构" class="headerlink" title="Class类文件的结构"></a>Class类文件的结构</h2><p>Class文件是一组以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在Class文件之中，中间没有添加任何的分隔符，使得整个Class文件存储的内容几乎都是程序运行的必要数据，没有空隙存在，当遇到需要占用8位字节以上空间的数据项时，就会按照高位在前的方式分割成若干个8位字节进行存储</p>
+<p>Class文件格式采用一种类似于C语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：<strong>无符号数和表</strong></p>
+<p>无符号数属于基本的数据类型，以u1,u2,u4,u8来分别代表1个字节，2个字节，4个字节和8个字节的无符号数，无符号数可以用来描述数字，索引引用，数量值或者按照UTF-8编码构成字符串值</p>
+<p>表是由多个无符号数或者其他表作为数据项构成的复合数据类型，整个Class文件本质上就是一张表</p>
+<p><img src="https://i.imgur.com/epydY8P.png" alt=""></p>
+<h3 id="魔数域Class文件的版本"><a href="#魔数域Class文件的版本" class="headerlink" title="魔数域Class文件的版本"></a>魔数域Class文件的版本</h3><p>每个Class文件的头4个字节称为魔数，它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件，很多文件存储标准都有用魔数，比如gif或者jpeg，使用魔数而不是扩展名是出于安全方面考虑，文件扩展名可以随意改动。Class文件的魔数值为0xCAFEBABE</p>
+<p>紧接着魔数的4个字节存储的Class文件的版本号，第5第6个字节是次版本号，第7第8个字节是主版本号，Java的版本号是从45开始的，JDK1.1之后每个JDK大版本发布主版本号往上加1，高版本JDK能向下兼容以前版本的Class文件，但不能运行以后版本的Class文件</p>
+<h3 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h3><p>紧接着主次版本号的是常量池入口，常量池可以理解为Class文件中的资源仓库，常量池入口放置一个u2类型的数据代表常量池容量计数值（constant_pool_count），这个容量计数从1开始，e.g.常量池容量为十六进制0x0016（十进制22），代表常量池有21项常量，索引值范围是1——21，<strong>索引值置为0代表”不引用任何一个常量池项目”</strong></p>
+<p>常量池主要存放两大类常量：<strong>字面量和符号引用</strong>，字面量指<strong>文本字符串，final常量</strong>等，对于类内定义的常量，一般在常量池有值，然后字段表对应字段有个属性ConstantValue指向该常量池的常量<br>符号引用属于编译原理的概念，包括</p>
+<ul>
+<li>类和接口的全限定名</li>
+<li>字段的名称和描述符</li>
+<li>方法的名称和描述符</li>
+</ul>
+<p>Java代码在Javac编译的时候，不会有链接这一步，而是在虚拟机加载Class文件的时候进行动态链接，也就是说，Class文件中不会保存各个方法，字段的最终内存布局信息，当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析，翻译到具体的内存地址中</p>
+<p>常量池中每一项常量都是一个表，常见的如下</p>
+<p><img src="https://i.imgur.com/X1ARRt6.png" alt=""></p>
+<p><img src="https://i.imgur.com/rb7FXWs.png" alt=""></p>
+<p>这14种表都有一个共同特点：表开始第一位是一个u1类型的tag，代表这个常量属于哪种常量类型</p>
+<p>看CONSTANT_Class_info，它有一个tag，一个index，index指向常量池中一个CONSTANT_Utf8_info类型的常量，代表这个类的全限定名</p>
+<p>CONSTANT_Utf8_info，有一个tag，一个u2类型length，length个u1类型的bytes，length值就是这个UTF-8编码的字符串长度是多少字节，后面使用UTF-8缩略编码表示的字符串</p>
+<h3 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3><p>在常量池结束后，紧接着的两个字节代表访问标志（access_flags），用于识别一些<strong>类或者接口层次</strong>的访问信息，包括这个Class是类还是接口，是否为public类型，是否为abstract类型，如果是类，是否被声明为final等</p>
+<p><img src="https://i.imgur.com/xX9THfX.png" alt=""></p>
+<p>e.g.TestClass是一个普通Java类，不是接口，枚举或者注解，被public修饰但没有abstract和final，所以它的ACC_PUBLIC，ACC_SUPER为真，ACC_FINAL，ACC_INTERFACE，ACC_ABSTRACT，ACC_SYNTHETIC，ACC_ANNOTATION，ACC_ENUM这六个标志为假，access_flags的值为0x0001|0x0020=0x0021</p>
+<h3 id="类索引，父类索引与接口索引集合"><a href="#类索引，父类索引与接口索引集合" class="headerlink" title="类索引，父类索引与接口索引集合"></a>类索引，父类索引与接口索引集合</h3><p><strong>类索引（this_class）和父类索引（super_class）都是u2类型的数据（我感觉可以理解为u2类型的地址），接口索引集合（interfaces）是一组u2类型的数据集合</strong>，类索引用于确定这个类的全限定名，父类，接口索引集合同样。类索引，父类索引，接口索引集合都按顺序排列在访问标志之后，<strong>类索引和父类索引分别用一个u2类型的索引值表示，它们各自指向一个类型为CONSTANT_Class_info的类描述符</strong>，通过CONSTANT_Class_info类型的常量中的索引值就可以找到定义在CONSTANT_Utf8_info类型的常量中的全限定名字符串</p>
+<p><img src="https://i.imgur.com/97ZGEZT.png" alt=""></p>
+<p>对于接口索引集合，入口第一项为u2类型的接口计数器，表示接口索引表的容量</p>
+<h3 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3><p>方法表和字段表之前都会有一个u2类型的计数器保存方法和字段的个数</p>
+<p><strong>字段表（field_info）用于描述接口或者类中声明的变量</strong>，字段包括类级变量以及实例级变量，但不包括在方法内部声明的局部变量</p>
+<p><img src="https://i.imgur.com/5F02naS.png" alt=""></p>
+<p>字段修饰符放在access_flags项目中，它与类的access_flags项目非常类似，都是一个u2数据类型，其中可以设置的标志位和含义见下图</p>
+<p><img src="https://i.imgur.com/U4exx1U.png" alt=""></p>
+<p>name_index和descriptor_index是对常量池的引用，分别代表字段的简单名称以及字段和方法的描述符（简单名称指没有类型和参数修饰的方法或者字段名称）<br>描述符用来描述字段的数据类型，方法的参数列表和返回值，基本数据类型以及代表无返回值的void类型用一个大写字符表示，对象类型用字符L加对象的全限定名表示</p>
+<p><img src="https://i.imgur.com/FvV55ia.png" alt=""></p>
+<p>对于数组类型，每一维度用一个前置的”[“字符描述，如一个<code>java.lang.String[][]</code>的数组，，被记录为”[[Ljava/lang/String”，整形数组被记录为”[I”<br>用描述符描述方法时，按照先参数列表，后返回值的顺序描述，参数列表按照参数的严格顺序放在一组小括号”()”之内，如方法<code>void inc()</code>的描述符为”()V”，<code>java.lang.String toString()</code>描述符为”()Ljava/lang/String;”，方法<code>int indexOf(char[] source, int sourceOffset, int sourceCount, char[] target, int targetOffset, int targetCount, int fromIndex)</code>描述符为”([CII[CIII)I”</p>
+<p>descriptor_index之后跟随一个属性表集合用于存储一些额外的信息（如final static int m=123，可能存在名为ConstantValue的属性，指向常量123）</p>
+<p>字段表集合不会列出从超类或者父接口继承而来的字段，但有可能列出原本Java代码之中不存在的字段<br>Java语言中，字段是无法重载的，两个字段的数据类型，修饰符不管是否相同，都必须使用不一样的名称，但对于字节码而言，只要描述符不一致，重名也是合法的</p>
+<h3 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3><p>Class文件存储格式中对方法的描述与对字段的描述几乎完全一致，依次包括访问标志（access_flags），名称索引（name_index），描述符索引（descriptor_index），属性表集合（attributes）几项，与字段表的区别就是<strong>访问标志和属性表集合的可选项</strong></p>
+<p><img src="https://i.imgur.com/gEacQpQ.png" alt=""></p>
+<p>主要是没有了只能访问字段的volatile和transient关键字，增加了只能访问方法的synchronized，native，strictfp和abstract关键字</p>
+<p>方法里的代码，经过编译器编译成字节码指令后，存放在方法属性表集合中一个名为”Code”的属性里</p>
+<h3 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3><p>Class文件，字段表，方法表都可以携带自己的属性表集合</p>
+<p>虚拟机能够识别的属性如下：</p>
+<p><img src="https://i.imgur.com/No7Y6Yj.png" alt=""></p>
+<p><img src="https://i.imgur.com/4WShd1b.png" alt=""></p>
+<p>对于每个属性，它的名称需要从常量池中引用一个CONSTANT_Utf8_info类型的常量来表示，属性值结构则完全自定义，只需要通过一个u4的长度属性去说明属性值所占用的位数即可</p>
+<p><img src="https://i.imgur.com/u2h0k2z.png" alt=""></p>
+<h4 id="Code属性"><a href="#Code属性" class="headerlink" title="Code属性"></a>Code属性</h4><p><img src="https://i.imgur.com/a2ewcl1.png" alt=""></p>
+<p>attribute_name_index指向CONSTANT_Utf8_info，值为”Code”，attribute_length指示属性值长度，max_stack操作数栈深的最大值，虚拟机根据这个值分配栈帧，max_locals代表局部变量表所需存储空间，code_length和code保存编译后的字节码指令，exception_table_length和exception_table是显式异常处理表集合，如下：</p>
+<p><img src="https://i.imgur.com/0or3wBj.png" alt=""></p>
+<p>当字节码在第start_pc行到end_pc行之间出现类型为catch_type或者其子类的异常时（catch_type指向CONSTANT_Class_info），则转到第handler_pc行继续处理，catch_type为0时，任意异常都转到handler_pc</p>
+<p>编译器使用异常表而不是简单跳转命令来实现Java异常和finally处理机制</p>
+<h4 id="Exceptions属性"><a href="#Exceptions属性" class="headerlink" title="Exceptions属性"></a>Exceptions属性</h4><p>它的作用是列举出方法中可能抛出的受查异常，也就是方法描述时在throws关键字后列举的异常</p>
+<h4 id="ConstantValue属性"><a href="#ConstantValue属性" class="headerlink" title="ConstantValue属性"></a>ConstantValue属性</h4><p>通知虚拟机自动为静态变量赋值，只有被static关键字修饰的变量才可以使用这项属性。非static类型的变量的赋值在实例构造器&lt;init&gt;方法中进行，而类变量可以在类构造器&lt;clinit&gt;方法中或者使用ConstantValue属性。Sun Javac编译器中，如果同时使用final static修饰一个变量，并且这个变量类型是基本类型或者String类型，就生成ConstantValue属性初始化，否则其他静态变量就选择&lt;clinit&gt;初始化</p>
+<h2 id="字节码指令"><a href="#字节码指令" class="headerlink" title="字节码指令"></a>字节码指令</h2><p>Java虚拟机指令由一个字节长度的操作码以及跟随其后的0到多个操作数构成。Java虚拟机采用面向操作数栈而不是寄存器的架构，所以大多数指令都不包含操作数</p>
+<p>Java字节码指令限制操作码1个字节，放弃操作数长度对齐</p>
+<p>大部分与数据类型相关的字节码指令，操作码助记符都有特殊字符表明，i代表int类型的数据操作，l代表long，s代表short，b代表byte，c代表char，f代表float，d代表double，a代表reference</p>
+<p>大多数指令没有支持byte，char和short的，boolean没有任何指令支持，这是因为编译器编译或运行期间将byte和short类型的数据带符号扩展为int，boolean和char零位扩展为int</p>
+<p><img src="https://i.imgur.com/8sfsGwi.png" alt=""></p>
+<p><img src="https://i.imgur.com/0fTqbmL.png" alt=""></p>
+<h3 id="加载和存储指令"><a href="#加载和存储指令" class="headerlink" title="加载和存储指令"></a>加载和存储指令</h3><p>用于将数据在栈帧中的局部变量表和操作数栈之间来回传输</p>
+<ul>
+<li>将一个局部变量加载到操作栈：<br>iload,iload_&lt;n&gt;,lload,lload_&lt;n&gt;,fload,fload_&lt;n&gt;,dload,dload_&lt;n&gt;,aload,aload_&lt;n&gt;</li>
+<li>将一个数值从操作数栈存储到局部变量表：<br>istore,istore_&lt;n&gt;, …</li>
+<li>将一个常量加载到操作数栈：bipush,sipush,ldc …</li>
+<li>扩充局部变量表的访问索引的指令：wide</li>
+</ul>
+<p>iload_&lt;n&gt;代表iload_1,iload_2等</p>
+<h3 id="运算指令"><a href="#运算指令" class="headerlink" title="运算指令"></a>运算指令</h3><ul>
+<li>加法：iadd,ladd,fadd,dadd</li>
+<li>减法：isub,lsub…</li>
+<li>乘法：imul,lmul…</li>
+<li>除法：idiv,ldiv…</li>
+<li>求余：irem,lrem…</li>
+<li>取反：ineg,lneg…</li>
+<li>位移：ishl,ishr,iushr,lshl,lshr,lushr</li>
+<li>按位或：ior,lor</li>
+<li>按位与：iand,land</li>
+<li>按位异或：ixor,lxor</li>
+<li>局部变量自增：iinc</li>
+<li>比较指令：dcmpg,dcmpl,fcmpg,fcmpl,lcmp</li>
+</ul>
+<h3 id="类型转换指令"><a href="#类型转换指令" class="headerlink" title="类型转换指令"></a>类型转换指令</h3><p>i2b,i2c,i2s等</p>
+<h3 id="对象创建与访问指令"><a href="#对象创建与访问指令" class="headerlink" title="对象创建与访问指令"></a>对象创建与访问指令</h3><ul>
+<li>创建类实例：new</li>
+<li>创建数组指令：newarray,anewarray,multianewarray</li>
+<li>访问类字段和实例字段：getfield,putfield,getstatic,putstatic</li>
+<li>把一个数组元素加载到操作数栈：baload,caload,saload,iaload,laload,faload,daload,aaload</li>
+<li>取数组长度：arraylength</li>
+<li>检查类实例类型：instanceof，checkcast</li>
+</ul>
+<h3 id="操作数栈管理指令"><a href="#操作数栈管理指令" class="headerlink" title="操作数栈管理指令"></a>操作数栈管理指令</h3><ul>
+<li>操作数栈栈顶1个或2个元素出栈：pop,pop2</li>
+<li>复制栈顶一个或两个数值并将复制值重新压入栈顶：dup,dup2,dup_x1,dup2_x1,dup_x2,dup2_x2</li>
+<li>栈最顶两个元素互换：swap</li>
+</ul>
+<h3 id="控制转移指令"><a href="#控制转移指令" class="headerlink" title="控制转移指令"></a>控制转移指令</h3><ul>
+<li>条件分支：ifeq,iflt,ifle,ifne,ifgt,ifge…</li>
+<li>复合条件分支：tableswitch,lookupswitch</li>
+<li>无条件分支：goto,goto_w,jsr,jsr_w,ret</li>
+</ul>
+<h3 id="方法调用和返回指令"><a href="#方法调用和返回指令" class="headerlink" title="方法调用和返回指令"></a>方法调用和返回指令</h3><ul>
+<li>invokevirtual调用对象实例方法</li>
+<li>invokeinterface调用接口方法</li>
+<li>invokeespecial调用特殊处理的实例方法如实例初始化方法，私有方法和父类方法</li>
+<li>invokestatic</li>
+<li>invokedynamic：运行时动态解析调用点限定符所引用的方法</li>
+</ul>
+<h3 id="异常处理指令"><a href="#异常处理指令" class="headerlink" title="异常处理指令"></a>异常处理指令</h3><p>athrow显示抛出异常，处理异常（catch）不由字节码实现，而是异常表</p>
+<h3 id="同步指令"><a href="#同步指令" class="headerlink" title="同步指令"></a>同步指令</h3><p>monitorenter和monitorexit对synchronized关键字的支持</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Java集合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2811,196 +3074,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/" itemprop="url">SpringMVC04-AJAX&JSON处理,拦截器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-15T12:31:30+08:00">
-                2019-06-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringMVC/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringMVC</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/06/15/SpringMVC04-AJAX&JSON处理,拦截器/" class="leancloud_visitors" data-flag-title="SpringMVC04-AJAX&JSON处理,拦截器">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SpringMVC04-AJAX-amp-JSON处理-拦截器"><a href="#SpringMVC04-AJAX-amp-JSON处理-拦截器" class="headerlink" title="SpringMVC04-AJAX&amp;JSON处理,拦截器"></a>SpringMVC04-AJAX&amp;JSON处理,拦截器</h1><p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源码</a></p>
-<h2 id="AJAX-amp-JSON处理"><a href="#AJAX-amp-JSON处理" class="headerlink" title="AJAX&amp;JSON处理"></a>AJAX&amp;JSON处理</h2><p>AJAX处理可以去看AJAX那篇BLOG，只需要通过HttpServletResponse对象实例发送非视图的响应回去即可</p>
-<h3 id="SpringMVC处理JSON数据"><a href="#SpringMVC处理JSON数据" class="headerlink" title="SpringMVC处理JSON数据"></a>SpringMVC处理JSON数据</h3><p>一定要知道：<strong>服务器和客户端传递的是JSON串，而不是JSON对象！！！</strong></p>
-<p>如果用到JSON，最好还是去 <a href="https://www.w3cschool.cn/fastjson/fastjson-quickstart.html" target="_blank" rel="noopener">学一下Fastjson</a></p>
-<p>导入JAR包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.58<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="发送和接收JSON"><a href="#发送和接收JSON" class="headerlink" title="发送和接收JSON"></a>发送和接收JSON</h4><p>前端接收JSON很简单，通过 <code>var text = xmlHttp.responseText; // 返回的是一个json字符串</code> 接收JSON字符串，然后调用eval方法即可得到JSON对象 <code>var user = eval(&quot;(&quot; + text + &quot;)&quot;);</code>，需要注意，<strong>如果发送的是GET请求，浏览器会下载该JSON格式，如果发送的是POST请求，它才能正常执行</strong>，我也不清楚为什么</p>
-<p>服务器通过@ResponseBody注解，返回对象即可，转换器会把该对象转换成JSON对象，同理，对于前端传来的JSON串，也会解析成对应参数</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 摘自https://www.w3cschool.cn/fastjson/fastjson-httpmessageconverter.html --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- JSON配置，配置json转换器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"fastJsonConfig"</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.config.FastJsonConfig"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Default charset --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"charset"</span> <span class="attr">value</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Default dateFormat --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dateFormat"</span> <span class="attr">value</span>=<span class="string">"yyyy-MM-dd HH:mm:ss"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Class Level SerializeFilter --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- MediaTypes --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"supportedMediaTypes"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/json<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>text/plain<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">value</span>&gt;</span>application/x-www-form-urlencoded<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- FastJsonConfig --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"fastJsonConfig"</span> <span class="attr">ref</span>=<span class="string">"fastJsonConfig"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:message-converters</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>一定要注意，前端发送过来的并不是JSON对象，而是JSON字符串，即要通过 <code>var jsonStr = JSON.stringify(json)</code> 转换为JSON字符串，然后添加请求头 <code>xmlHttp.setRequestHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);</code> 注意发送JSON串时，请求头是<code>application/json</code>，然后 <code>xmlHttp.send(jsonStr);</code> 直接发送该字符串；前端接收服务器传来的JSON串时，要调用eval方法执行该串转为JSON对象</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> &gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        function createXMLHttpRequest() // 略</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        window.onload = function (ev) &#123;</span></span><br><span class="line"><span class="undefined">            var btn = document.getElementById("btn");</span></span><br><span class="line"><span class="undefined">            btn.onclick = function (ev1) </span></span><br><span class="line"><span class="undefined">                var json = &#123;"name":"zhangsan","id":18,"password":"123456"&#125;;</span></span><br><span class="line"><span class="undefined">                var jsonStr = JSON.stringify(json);</span></span><br><span class="line"><span class="undefined">                var xmlHttp = createXMLHttpRequest();</span></span><br><span class="line"><span class="undefined">                xmlHttp.open("POST", "/jsontest.do", true);</span></span><br><span class="line"><span class="undefined">                xmlHttp.setRequestHeader("Content-Type", "application/json");</span></span><br><span class="line"><span class="undefined">                xmlHttp.send(jsonStr); // 直接发送</span></span><br><span class="line"><span class="undefined">                xmlHttp.onreadystatechange = function () &#123; // xmlHttp的任意一种状态变化都会调用本方法</span></span><br><span class="line"><span class="undefined">                    if (xmlHttp.readyState == 4 &amp;&amp; xmlHttp.status == 200) &#123; // 状态码200表示服务器已成功处理了请求</span></span><br><span class="line"><span class="undefined">                        var text = xmlHttp.responseText; // 返回的是一个json字符串</span></span><br><span class="line"><span class="undefined">                        var user = eval("(" + text + ")"); // eval函数是用JavaScript执行其参数的内容，需要注意的是要加圆括号括起来</span></span><br><span class="line"><span class="undefined">                        var s = user.id + ", " + user.name + ", " + user.password;</span></span><br><span class="line"><span class="undefined">                        var h1 = document.getElementById("h1");</span></span><br><span class="line"><span class="undefined">                        h1.innerText = s;</span></span><br><span class="line"><span class="undefined">                    &#125;</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span>click here<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"h1"</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>服务器对应方法添加@ResponseBody注解，以及接收的参数添加@RequestBody注解即可，如下，转换器把前端发送过来的JSON串转换为user对象，然后把user对象经转换器转换为JSON串发送回前端</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// testjson测试客户端发送JSON数据到服务器接收</span></span><br><span class="line"><span class="comment">// 接收前端传来的JSON参数，并原样返回给前端</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/jsontest"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">jsontest</span><span class="params">(HttpServletRequest request, HttpServletResponse response, @RequestBody User user)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">// 此时服务器会把json串转换为user对象</span></span><br><span class="line">    <span class="keyword">return</span> user; <span class="comment">// 直接返回user对象即可，转换器会自动转换为JSON串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><p>java里的拦截器是动态拦截Action调用的对象。它提供了一种机制可以使开发者可以定义在一个action执行的前后执行的代码，也可以在一个action执行前阻止其执行，同时也提供了一种可以提取action中可重用部分的方式。在AOP（Aspect-Oriented Programming）中拦截器用于在某个方法或字段被访问之前，进行拦截然后在之前或之后加入某些操作。</p>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
-<li>实现HandlerInterceptor接口</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 在请求处理的方法之前执行</span></span><br><span class="line">    <span class="comment">// 如果返回true，执行下一个拦截器，返回false，不执行下一个拦截器，如果返回false，使用HttpServletRequest或HttpServletResponse转发或重定向，如下注释</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------处理前-------"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="comment">//httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/index.jsp");</span></span><br><span class="line">        <span class="comment">//return false;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在请求处理的方法之后执行</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"--------处理后-------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在DispatcherServlet处理后执行---清理工作</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>配置拦截器，在Spring配置文件中配置</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 拦截器的配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- mapping拦截某一路径，比如/admin/* --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- /**表示该路径下所有路径及其子路径</span></span><br><span class="line"><span class="comment">            如果是/admin/*，拦截的是/admin/add,/admin/list，而/admin/user/add之类的孙子路径不能拦截</span></span><br><span class="line"><span class="comment">        --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &lt;mvc:mapping path="/**"/&gt; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/admin/*"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.mkl.interceptor.MyInterceptor"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptors</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>被拦截Controller的编写</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/admin"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/interceptor"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"hello controller"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当访问<code>http://localhost:8080/admin/interceptor.do</code>的时候，控制台输出如下</p>
-<p><img src="https://i.imgur.com/QGaVHZp.png" alt=""></p>
-<h3 id="拦截器应用-登陆拦截器"><a href="#拦截器应用-登陆拦截器" class="headerlink" title="拦截器应用-登陆拦截器"></a>拦截器应用-登陆拦截器</h3><p>先说功能：index.do转交给login.jsp，通过login.jsp输入用户名密码点击submit登录，点击submit后交由login.do处理，如果用户名密码均为<code>admin</code>，则进入登录成功页面，否则重定向回index.do<br>拦截器的任务是：当session没有用户对象时，就拦截除了index.do的请求，当有用户对象，就不拦截，<strong>注意，因为login.do负责验证用户名密码，并为session添加user对象的任务，所以拦截器不应该对其进行拦截，如果拦截了，那么只要提交表单，交由login.do处理时，还没进入login.do的代码段，就会被拦截器重定位回index.do</strong></p>
-<p>LoginInterceptor</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAllowedPass</span><span class="params">(List&lt;String&gt; allowedPass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.allowedPass = allowedPass;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; allowedPass;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String url = httpServletRequest.getRequestURL().toString();</span><br><span class="line">        User user = (User) httpServletRequest.getSession().getAttribute(<span class="string">"user"</span>);</span><br><span class="line">        <span class="comment">// 当session中的user属性不为空，表示有用户对象，此时不拦截</span></span><br><span class="line">        <span class="keyword">if</span> (user != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 有些内容不登录是看不到的，就需要拦截器拦截，只有用户登录了，才能进入这些页面，否则就重定向回登录页面</span></span><br><span class="line">        <span class="keyword">for</span> (String temp : allowedPass) &#123;</span><br><span class="line">            <span class="keyword">if</span> (url.endsWith(temp)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        httpServletResponse.sendRedirect(<span class="string">"/index.do"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>LoginController</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/index"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 跳转到login.jsp,login.jsp表单交由login.do处理</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"login"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">(User user, HttpSession session)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"admin"</span>.equals(user.getName()) &amp;&amp; <span class="string">"admin"</span>.equals(user.getPwd())) &#123;</span><br><span class="line">            session.setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"redirect:/success.do"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"redirect:/index.do"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/success"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">success</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"loginsuccess"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于测试拦截器，如果拦截器生效，输入http://localhost:8080/add.do并不会转发到index.jsp，而是重定向回index.do，且控制台不会输出add</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/add"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>登录拦截器的编写</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 登陆拦截器 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:interceptor</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mvc:mapping</span> <span class="attr">path</span>=<span class="string">"/**"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.mkl.interceptor.LoginInterceptor"</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"allowedPass"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>index.do<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">value</span>&gt;</span>login.do<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mvc:interceptor</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>login.jsp</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"login.do"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">        name:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line">        password:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"pwd"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>loginsuccess.jsp略，只有一个登录成功的标志</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3057,7 +3130,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3068,7 +3141,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3079,7 +3152,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">212</span>
+                  <span class="site-state-item-count">213</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

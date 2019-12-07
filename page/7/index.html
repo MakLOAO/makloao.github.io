@@ -369,6 +369,227 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/22/Spring04-AspectJ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/22/Spring04-AspectJ/" itemprop="url">Spring04-AspectJ</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-22T16:18:30+08:00">
+                2019-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/22/Spring04-AspectJ/" class="leancloud_visitors" data-flag-title="Spring04-AspectJ">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Spring04-AspectJ"><a href="#Spring04-AspectJ" class="headerlink" title="Spring04-AspectJ"></a>Spring04-AspectJ</h1><p><a href="https://github.com/MakLOAO/springdemo" target="_blank" rel="noopener">源代码在这</a></p>
+<p>@AspectJ的风格类似于纯Java注解的普通Java类</p>
+<p>Spring可以使用AspectJ来做切入点解析</p>
+<p>AOP的运行时仍旧是纯的Spring AOP，对AspectJ的编译器或者织入无依赖性</p>
+<h2 id="Enabling-AspectJ-Support"><a href="#Enabling-AspectJ-Support" class="headerlink" title="Enabling @AspectJ Support"></a>Enabling @AspectJ Support</h2><p>对@AspectJ支持可以使用XML或Java风格的配置</p>
+<h3 id="Java注解方式"><a href="#Java注解方式" class="headerlink" title="Java注解方式"></a>Java注解方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAspectJAutoProxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="XML配置"><a href="#XML配置" class="headerlink" title="XML配置"></a>XML配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Declaring-an-aspect"><a href="#Declaring-an-aspect" class="headerlink" title="Declaring an aspect"></a>Declaring an aspect</h2><p>@AspectJ切面使用@Aspect注解配置，拥有@Aspect的任何bean将被Spring自动识别并应用，用@Aspect注解的类可以有方法和字段，他们也可能包括切入点（pointcut），通知（advice）和引入（introduction）声明，<strong>@Aspect注解不能通过类路径自动检测发现，需要配合使用@Component注释或者在xml配置bean</strong><br>一个类中的@Aspect注解标识它为一个切面，并且将自己从自动代理中排除（假如切面类和业务类在同一包下，或者相同包的不同子包中，切入点的声明只声明了它们的基本包，声明了@Aspect的切面不会代理它自己，即检测到自己不会调用通知方法）</p>
+<p>定义一个切面模板如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myAspect"</span> <span class="attr">class</span>=<span class="string">"org.xyz.NotVeryUsefulAspect"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- configure properties of aspect here as normal --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.xyz;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NotVeryUsefulAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Declaring-a-pointcut"><a href="#Declaring-a-pointcut" class="headerlink" title="Declaring a pointcut"></a>Declaring a pointcut</h2><p>一个切入点通过一个普通的方法定义来提供，并且切入点表达式使用@Pointcut注解，<strong>方法返回类型必须是void</strong></p>
+<p>下面定义一个名为<code>anyOldTransfer</code>，这个切入点将匹配任何名为”transfer”的方法的执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(* transfer(..))"</span>)<span class="comment">// the pointcut expression</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">anyOldTransfer</span><span class="params">()</span> </span>&#123;&#125;<span class="comment">// the pointcut signature</span></span><br></pre></td></tr></table></figure>
+<h3 id="Supported-Pointcut-Designators"><a href="#Supported-Pointcut-Designators" class="headerlink" title="Supported Pointcut Designators"></a>Supported Pointcut Designators</h3><ul>
+<li>execution - for matching method execution join points, this is the primary pointcut designator you will use when working with Spring AOP（匹配方法执行的切入点）</li>
+<li>within - limits matching to join points within certain types (simply the execution of a method declared within a matching type when using Spring AOP)（限定匹配特定类型的切入点）</li>
+<li>this - limits matching to join points (the execution of methods when using Spring AOP) where the bean reference (Spring AOP proxy) is an instance of the given type（匹配特定切入点的bean引用是指定类型的实例的限制）</li>
+<li>target - limits matching to join points (the execution of methods when using Spring AOP) where the target object (application object being proxied) is an instance of the given type</li>
+<li>args - limits matching to join points (the execution of methods when using Spring AOP) where the arguments are instances of the given types</li>
+<li>@target - limits matching to join points (the execution of methods when using Spring AOP) where the class of the executing object has an annotation of the given type</li>
+<li>@args - limits matching to join points (the execution of methods when using Spring AOP) where the runtime type of the actual arguments passed have annotations of the given type(s)</li>
+<li>@within - limits matching to join points within types that have the given annotation (the execution of methods declared in types with the given annotation when using Spring AOP)</li>
+<li>@annotation - limits matching to join points where the subject of the join point (method being executed in Spring AOP) has the given annotation</li>
+</ul>
+<p>e.g.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 当检测到biz这个包里任何以Biz结尾的类的任何方法时，都会匹配当前这个切入点</span></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 检测到biz这个包的任何类都会匹配到这个切入点</span></span><br><span class="line">	<span class="meta">@Pointcut</span>(<span class="string">"within(com.mkl.aop.aspectj.biz.*)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bizPointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Combining-pointcut-expressions"><a href="#Combining-pointcut-expressions" class="headerlink" title="Combining pointcut expressions"></a>Combining pointcut expressions</h3><p>切入点表达式可以通过&amp;&amp;，||和!进行组合，也可以通过名字引用切入点表达式，通过组合，可以建立更加复杂的切入点表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"execution(public * *(..))"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">anyPublicOperation</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"within(com.xyz.someapp.trading..*)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">inTrading</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"anyPublicOperation() &amp;&amp; inTrading()"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">tradingOperation</span><span class="params">()</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义良好的pointcuts"><a href="#定义良好的pointcuts" class="headerlink" title="定义良好的pointcuts"></a>定义良好的pointcuts</h3><p>AspectJ是编译器的AOP，检查代码并匹配连接点与切入点的代价是昂贵的</p>
+<p>一个好的切入点应该包括以下几点</p>
+<ul>
+<li>选择特定类型的连接点，如：execution,get,set,call,handler</li>
+<li>确定连接点范围，如：within,withincode</li>
+<li>匹配上下文信息，如：this,target,@annotation</li>
+</ul>
+<h2 id="Before-advice"><a href="#Before-advice" class="headerlink" title="Before advice"></a>Before advice</h2><p>Before advice is declared in an aspect using the @Before annotation:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeforeExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>If using an in-place pointcut expression we could rewrite the above example as:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeforeExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(* com.xyz.myapp.dao.*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Before-Advice的小DEMO"><a href="#Before-Advice的小DEMO" class="headerlink" title="Before Advice的小DEMO"></a>Before Advice的小DEMO</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- spring-aop-aspectj.xml --&gt;</span></span><br><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">...</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.mkl.aop.aspectj"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MoocBiz.java</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MoocAspect.java</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//  @Before("execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))")</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Before"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 单元测试方法</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// Before</span></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br></pre></td></tr></table></figure>
+<h2 id="After-returning-advice"><a href="#After-returning-advice" class="headerlink" title="After returning advice"></a>After returning advice</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterReturningExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有时候需要在通知体内得到返回的实际值，可以使用@AfterReturning绑定返回值的形式，<strong>这里的返回值指的是连接点指定的方法，即被通知的方法的返回值，把该返回值作为参数传递给通知</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterReturningExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(</span><br><span class="line">        pointcut=<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>,</span><br><span class="line">        returning=<span class="string">"retVal"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAccessCheck</span><span class="params">(Object retVal)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AfterReturning的小DEMO"><a href="#AfterReturning的小DEMO" class="headerlink" title="AfterReturning的小DEMO"></a>AfterReturning的小DEMO</h3><p>大部分和Before advice的一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterReturning</span>(pointcut = <span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>, returning = <span class="string">"returnValue"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterReturning</span><span class="params">(Object returnValue)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterReturning : "</span> + returnValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果：（Save success是MoocBiz的save方法的返回值）</span></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">// AfterReturning : Save success</span></span><br></pre></td></tr></table></figure>
+<h2 id="After-throwing-advice"><a href="#After-throwing-advice" class="headerlink" title="After throwing advice"></a>After throwing advice</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterThrowingExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doRecoveryActions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Often you want the advice to run only when exceptions of a given type are thrown, and you also often need access to the thrown exception in the advice body. Use the throwing attribute to both restrict matching (if desired, use Throwable as the exception type otherwise) and bind the thrown exception to an advice parameter.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterThrowingExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The name used in the throwing attribute must correspond to the name of a parameter in the advice method. </span></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(</span><br><span class="line">        pointcut=<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>,</span><br><span class="line">        throwing=<span class="string">"ex"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doRecoveryActions</span><span class="params">(DataAccessException ex)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="After-throwing-advice的小DEMO"><a href="#After-throwing-advice的小DEMO" class="headerlink" title="After throwing advice的小DEMO"></a>After throwing advice的小DEMO</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Save failed!"</span>);</span><br><span class="line"><span class="comment">//        return "Save success";</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterThrowing</span>(pointcut = <span class="string">"com.mkl.aop.aspectj.MoocAspect.pointcut()"</span>, throwing = <span class="string">"e"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterThrowing</span><span class="params">(RuntimeException e)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"AfterThrowing： "</span> + e.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">// AfterThrowing： Save failed!</span></span><br></pre></td></tr></table></figure>
+<h2 id="After-finally-advice"><a href="#After-finally-advice" class="headerlink" title="After (finally) advice"></a>After (finally) advice</h2><p>最终通知必须准备处理正常和异常两种返回情况，它通常用于释放资源</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AfterFinallyExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doReleaseLock</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Around-advice"><a href="#Around-advice" class="headerlink" title="Around advice"></a>Around advice</h2><p>环绕通知使用@Around注解来声明，通知方法的第一个参数必须是ProceedingJoinPoint类型，在通知内部调用ProceedingJoinPoint的proceed()方法会导致执行真正的方法，传入一个Object[]对象，数组中的值将被作为参数传递给该方法，<code>Object retVal</code>是真正方法的返回值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AroundExample</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Around</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.businessService()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">doBasicProfiling</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="comment">// start stopwatch</span></span><br><span class="line">        Object retVal = pjp.proceed();</span><br><span class="line">        <span class="comment">// stop stopwatch</span></span><br><span class="line">        <span class="keyword">return</span> retVal;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Advice扩展"><a href="#Advice扩展" class="headerlink" title="Advice扩展"></a>Advice扩展</h2><h3 id="给advice传递参数"><a href="#给advice传递参数" class="headerlink" title="给advice传递参数"></a>给advice传递参数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以先给pointcut传递参数，再通过pointcut把参数传递给advice</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Pointcut</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.dataAccessOperation() &amp;&amp; args(account,..)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">accountDataAccessOperation</span><span class="params">(Account account)</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Before</span>(<span class="string">"accountDataAccessOperation(account)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">validateAccount</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>前两种方法是把切入点的方法的参数通过args(..)，作为参数传递给通知，让通知可以得到被通知的方法的参数</strong></p>
+<p>第三种方法是，首先定义一个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Auditable &#123;</span><br><span class="line">    <span class="function">AuditCode <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在advice中引用这个注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Before</span>(<span class="string">"com.xyz.lib.Pointcuts.anyPublicMethod() &amp;&amp; @annotation(auditable)"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">audit</span><span class="params">(Auditable auditable)</span> </span>&#123;</span><br><span class="line">    AuditCode code = auditable.value();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体流程是：首先按上面的模板定义一个注解MyAnnotation，然后在切入点的方法中使用这个注解并传入参数，然后在advice添加<code>@Before(&quot;xxx &amp;&amp; @annotation(myAnnotation)&quot;)</code>，然后给advice添加参数<code>public void advice(MyAnnotation myAnnotation)</code>，注解的value就可以通过该参数传递给通知了（注解的value在切入点方法中定义，在通知中使用）</p>
+<h4 id="使用注解的DEMO"><a href="#使用注解的DEMO" class="headerlink" title="使用注解的DEMO"></a>使用注解的DEMO</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MoocMethod &#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.mkl.aop.aspectj.biz.*Biz.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointcut</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"pointcut() &amp;&amp; @annotation(moocMethod)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeWithAnnotation</span><span class="params">(MoocMethod moocMethod)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"BeforeWithParam: "</span> + moocMethod.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoocBiz</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@MoocMethod</span>(<span class="string">"MoocBiz save MoocMethod."</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">save</span><span class="params">(String arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"MoocBiz save: "</span> + arg);</span><br><span class="line"><span class="comment">//        throw new RuntimeException("Save failed!");</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Save success"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MoocBiz biz = <span class="keyword">super</span>.getBean(<span class="string">"moocBiz"</span>);</span><br><span class="line">    biz.save(<span class="string">"This is test"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">BeforeWithParam: MoocBiz save MoocMethod.</span></span><br><span class="line"><span class="comment">MoocBiz save: This is test</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="其他的Advice扩展"><a href="#其他的Advice扩展" class="headerlink" title="其他的Advice扩展"></a>其他的Advice扩展</h3><p>比如对泛型的处理，通过argNames决定参数名称，都可以去看<a href="https://docs.spring.io/spring/docs/5.0.14.RELEASE/spring-framework-reference/core.html#aop-ataspectj-advice-params" target="_blank" rel="noopener">Spring-5.0.14官方文档</a></p>
+<h2 id="Introductions"><a href="#Introductions" class="headerlink" title="Introductions"></a>Introductions</h2><p>允许一个切面声明一个通知对象实现指定接口，并提供一个接口实现类来代表这些对象</p>
+<p>introduction使用@DeclareParents进行注解，这个注解用来定义匹配的类型拥有一个新的parent</p>
+<p>e.g.给定一个接口UsageTracked，并且该接口拥有DefaultUsageTracked的实现，接下来的切面声明了所有的service包下的类的实现都实现了UsageTracked接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UsageTracking</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@DeclareParents</span>(value=<span class="string">"com.xzy.myapp.service.*+"</span>, defaultImpl=DefaultUsageTracked.class)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> UsageTracked mixin;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"com.xyz.myapp.SystemArchitecture.businessService() &amp;&amp; this(usageTracked)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recordUsage</span><span class="params">(UsageTracked usageTracked)</span> </span>&#123;</span><br><span class="line">        usageTracked.incrementUseCount();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="切面实例化模型"><a href="#切面实例化模型" class="headerlink" title="切面实例化模型"></a>切面实例化模型</h2><p>“perthis”切面通过指定@Aspect注解perthis子句实现<br>每个独立的service对象执行时都会创建一个切面实例<br>service对象的每个方法在第一次执行的时候创建切面实例，切面在service对象失效的同时失效</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span>(<span class="string">"perthis(com.xyz.myapp.SystemArchitecture.businessService())"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAspect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> someState;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(com.xyz.myapp.SystemArchitecture.businessService())</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recordServiceUsage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/Spring03-AOP基本概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2414,244 +2635,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/磁盘存储器的管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/11/磁盘存储器的管理/" itemprop="url">磁盘存储器的管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T20:32:01+08:00">
-                2019-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/11/磁盘存储器的管理/" class="leancloud_visitors" data-flag-title="磁盘存储器的管理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="磁盘存储器的管理"><a href="#磁盘存储器的管理" class="headerlink" title="磁盘存储器的管理"></a>磁盘存储器的管理</h1><p>磁盘存储器管理的单位是盘块</p>
-<h2 id="外存的组织方式"><a href="#外存的组织方式" class="headerlink" title="外存的组织方式"></a>外存的组织方式</h2><p>文件的物理结构直接与外存的组织方式有关，不同的外存组织方式形成不同的文件物理结构</p>
-<ul>
-<li>连续组织方式：为每个文件分配连续的磁盘空间</li>
-<li>链接组织方式：为每个文件分配不连续的磁盘空间，通过链接指针将文件的所有盘块链接在一起</li>
-<li>索引组织方式</li>
-</ul>
-<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>特点：</p>
-<ul>
-<li>顺序访问容易，速度快（磁头移动距离小）</li>
-<li>要求连续空间，一段时间后要整理磁盘消除碎片</li>
-<li>必须事先知道长度，文件不易动态增长和删除</li>
-</ul>
-<p>文件对应目录项包含：始址，总块数，最后一块字节数</p>
-<h3 id="链接组织方式"><a href="#链接组织方式" class="headerlink" title="链接组织方式"></a>链接组织方式</h3><p>特点：</p>
-<ul>
-<li>消除磁盘外部碎片，提高外存利用率</li>
-<li>对插入，删除和修改记录容易</li>
-<li>适应文件的动态增长，无需事先知道文件大小</li>
-<li>只能顺序存取</li>
-</ul>
-<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>文件目录的每个目录项都含有指向链接文件第一个盘块和最后一个盘块的指针，只适用于顺序访问，随机访问效率低</p>
-<p>簇：包含多个块的单位，盘块分配时以簇为单位，可以成倍减小查找指定块的时间，增大内部碎片</p>
-<h4 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h4><p>把用于链接文件各物理块的指针显式地存放在内存的一张链接表中，该表在整个磁盘只设置一张</p>
-<p><img src="https://i.imgur.com/r2Cpho8.png" alt=""></p>
-<p>表的序号是物理块号，在每个表项中存放链接指针，即下一个盘块号，凡是属于某一文件的第一个盘块号，均作为文件地址被填入相应FCB的物理地址字段，查找是在内存进行的所以速度提升且减少磁盘访问次数，该表称为文件分配表FAT</p>
-<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>打开某个文件时，只要把该文件占用的索引块号读入内存即可，无需把FAT调入内存，索引的优点是支持直接访问，当要读第i块盘块时，直接从该文件的索引块中找到该盘块号</p>
-<p>单级索引：为每个文件分配一个索引块，文件较大时有利，较小时浪费外存空间，文件较大时索引块较多，需要建立多级索引</p>
-<p>多级索引如下</p>
-<p><img src="https://i.imgur.com/axLLInx.png" alt=""></p>
-<h3 id="混合分配方式"><a href="#混合分配方式" class="headerlink" title="混合分配方式"></a>混合分配方式</h3><p>UNIX采用混合分配方式，一，二，多级索引合用</p>
-<p><img src="https://i.imgur.com/823nqH9.png" alt=""></p>
-<p>i.addr(0)——i.addr(9)存放直接地址，i.addr(10)存放一次间接地址，i.addr(11)存放二次间接地址</p>
-<h3 id="文件组织策略"><a href="#文件组织策略" class="headerlink" title="文件组织策略"></a>文件组织策略</h3><ul>
-<li>文件访问通常是顺序，文件较小，用连续分配</li>
-<li>文件较大顺序访问，链接结构</li>
-<li>文件较大随机访问，索引结构</li>
-</ul>
-<h3 id="分配策略的小习题"><a href="#分配策略的小习题" class="headerlink" title="分配策略的小习题"></a>分配策略的小习题</h3><p><img src="https://i.imgur.com/GJLObbI.png" alt=""></p>
-<p><img src="https://i.imgur.com/MvlYqVV.png" alt=""></p>
-<h2 id="文件存储空间的管理"><a href="#文件存储空间的管理" class="headerlink" title="文件存储空间的管理"></a>文件存储空间的管理</h2><p>设置一个磁盘分配表，用于记住可供分配的存储空间情况，还应提供对盘块分配和回收的手段，存储空间基本分配单位都是磁盘块而非字节</p>
-<h3 id="空闲表法"><a href="#空闲表法" class="headerlink" title="空闲表法"></a>空闲表法</h3><p>空闲表属于连续分配方式，为每个文件分配一块连续的存储空间，即系统为外存上的所有空闲区建立一张空闲表，每个空闲区对应一个空闲表项，包括表项序号，第一个盘块号，空闲盘块数等信息</p>
-<p><img src="https://i.imgur.com/hh96knJ.png" alt=""></p>
-<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><h4 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h4><p>将所有空闲空间以盘块为单位拉成一条链，工作效率低</p>
-<h4 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h4><p>将磁盘所有空闲盘区拉成一条链，每个盘区包含若干个盘块，要有指明本盘块大小的信息</p>
-<h3 id="位示图法"><a href="#位示图法" class="headerlink" title="位示图法"></a>位示图法</h3><p>利用二进制的一位来表示磁盘一个盘块的使用情况，0为盘块空闲，1为已分配</p>
-<p><img src="https://i.imgur.com/betahpN.png" alt=""></p>
-<p><img src="https://i.imgur.com/dU7Bpaj.png" alt=""></p>
-<h4 id="位示图法盘块的分配"><a href="#位示图法盘块的分配" class="headerlink" title="位示图法盘块的分配"></a>位示图法盘块的分配</h4><ol>
-<li>顺序扫描位示图，找出一个或一组值为0的二进制位</li>
-<li>将找到的一个或一组二进制位转换位盘块号，假定找到值为0的二进制位位于位示图第i行j列，则盘块号按下式计算：b=n(i-1)+j</li>
-<li>修改位示图，令map[i,j]=1</li>
-</ol>
-<h4 id="位示图的回收"><a href="#位示图的回收" class="headerlink" title="位示图的回收"></a>位示图的回收</h4><ol>
-<li>将回收盘块号转换为位示图的行号列号i=(b-1)DIVn+1,j=(b-1)MODn+1</li>
-<li>修改位示图，令map[i,j]=0</li>
-</ol>
-<h3 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h3><p>UNIX采用的方法</p>
-<p>基本思想（汤书P281解释更详细）</p>
-<ul>
-<li>空闲盘块号栈存放当前可用的一组空闲盘块号及栈中尚有的空闲盘块号数，唯一存在于内存的栈</li>
-<li>文件区的所有空闲盘块分为若干组</li>
-<li>每一组含有盘块总数和所有的盘块号记入前一组最后一个盘块中</li>
-<li>第一组盘块总数和所有盘块号记入空闲盘块号栈</li>
-<li>最末一组只有N-1各盘块</li>
-</ul>
-<p><img src="https://i.imgur.com/ooa2j7G.png" alt=""></p>
-<p>S.free(0)是栈底</p>
-<h4 id="空闲盘块分配"><a href="#空闲盘块分配" class="headerlink" title="空闲盘块分配"></a>空闲盘块分配</h4><p>首先检查空闲盘块号栈是否上锁，如未上锁，便从<strong>栈顶</strong>取出一空闲盘块号，将与之对应的盘块分配给用户，然后将栈顶指针下移一格<br>若该盘块号已是栈底，即S.free(0)，即最后一个可分配的盘块号。 须调用磁盘读过程，将栈底盘块号所对应盘块的内容读入栈中，作为新的空闲盘块号栈的内容，然后，把原栈底对应的盘块分配出去(其中的有用数据已读入栈中)</p>
-<h4 id="空闲盘块的回收"><a href="#空闲盘块的回收" class="headerlink" title="空闲盘块的回收"></a>空闲盘块的回收</h4><p>将回收盘块的盘块号记入空闲盘块号栈的顶部，并执行空闲盘块数加1操作。<br>当栈中空闲盘块号数目已达100时，表示栈已满，便将现有栈中的100个盘块号，记入新回收的盘块中，再将其盘块号作为新栈底</p>
-<h2 id="提高磁盘I-O速度的途径"><a href="#提高磁盘I-O速度的途径" class="headerlink" title="提高磁盘I/O速度的途径"></a>提高磁盘I/O速度的途径</h2><ul>
-<li>磁盘高速缓存（数据交付，置换算法，周期性写回磁盘）</li>
-<li>提前读</li>
-<li>延迟写</li>
-<li>优化物理块布局</li>
-<li>虚拟盘</li>
-</ul>
-<h2 id="数据一致性控制"><a href="#数据一致性控制" class="headerlink" title="数据一致性控制"></a>数据一致性控制</h2><p>事务：用于访问和修改各种数据项的一个程序单位，可以看作一系列相关的读写操作，被访问的数据可以分散地存放在同一文件的不同记录中，也可放在多个文件中。只有对分布在不同位置的同一数据所进行的读和写(含修改)操作全部完成时，才能再以托付操作(Commit Operation)来终止事务。只要有一个读、写或修改操作失败，便须执行夭折操作(Abort Operation)。读或写操作的失败可能是由于逻辑错误，也可能是系统故障所导致的</p>
-<h3 id="事务记录"><a href="#事务记录" class="headerlink" title="事务记录"></a>事务记录</h3><ul>
-<li>事务名：用于标识该事务的惟一名字</li>
-<li>数据项名：它是被修改数据项的惟一名字</li>
-<li>旧值：修改前数据项的值</li>
-<li>新值：修改后数据项将具有的值</li>
-</ul>
-<h3 id="恢复算法"><a href="#恢复算法" class="headerlink" title="恢复算法"></a>恢复算法</h3><p>undo<ti>，把所有被事务Ti修改过的数据恢复修改前的值<br>redo<ti>，把所有被事务Ti修改过的数据设置为新值</ti></ti></p>
-<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>作用：使对事务记录表中事务记录的清理工作经常化</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2708,7 +2691,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">102</span>
+                  <span class="site-state-item-count">103</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2719,7 +2702,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2730,7 +2713,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">212</span>
+                  <span class="site-state-item-count">213</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
