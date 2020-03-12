@@ -490,7 +490,7 @@
 <p>一般考虑到老版本，使用事件冒泡更多。</p>
 <h3 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h3><p>DOM2级事件规定的事件流包括三个阶段：事件捕获阶段，处于目标阶段和事件冒泡阶段。</p>
 <h2 id="事件处理程序"><a href="#事件处理程序" class="headerlink" title="事件处理程序"></a>事件处理程序</h2><p>事件处理程序名字以”on”开头，因此click事件的事件处理程序就是onclick，load事件的事件处理程序就是onload。</p>
-<h3 id="HTML事件处理程序"><a href="#HTML事件处理程序" class="headerlink" title="HTML事件处理程序"></a>HTML事件处理程序</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    function showMessage() &#123;</span></span><br><span class="line"><span class="undefined">        alert("Hello World!");</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Click Me"</span> <span class="attr">onclick</span>=<span class="string">"showMessage()"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="HTML事件处理程序"><a href="#HTML事件处理程序" class="headerlink" title="HTML事件处理程序"></a>HTML事件处理程序</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">showMessage</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        alert(<span class="string">"Hello World!"</span>);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Click Me"</span> <span class="attr">onclick</span>=<span class="string">"showMessage()"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这样指定事件处理程序会创建一个封装着元素属性值的函数，这个函数中有一个局部变量event，也就是事件对象</p>
 <p><code>&lt;input type=&quot;button&quot; value=&quot;Click Me&quot; onclick=&quot;alert(event.type)&quot; /&gt; // &quot;click&quot;</code></p>
 <p>通过event对象，可以直接访问事件对象，在这个函数内部，this值等于事件的目标元素</p>
@@ -674,8 +674,8 @@ alert(isSupported);</code></p>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/10/DNS/" rel="next" title="计算机网络之DNS服务">
-                <i class="fa fa-chevron-left"></i> 计算机网络之DNS服务
+              <a href="/2019/03/25/对String,StringBuilder,StringBuffer的区分(源码剖析)/" rel="next" title="源码剖析-对String,StringBuilder,StringBuffer的区分">
+                <i class="fa fa-chevron-left"></i> 源码剖析-对String,StringBuilder,StringBuffer的区分
               </a>
             
           </div>
@@ -684,8 +684,8 @@ alert(isSupported);</code></p>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/08/进程管理/" rel="prev" title="进程管理">
-                进程管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/10/DNS/" rel="prev" title="计算机网络之DNS服务">
+                计算机网络之DNS服务 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -775,7 +775,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">121</span>
+                  <span class="site-state-item-count">122</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -786,7 +786,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -797,7 +797,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">246</span>
+                  <span class="site-state-item-count">241</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
