@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
+        <p class="site-subtitle">因为图片使用的是imgur的，imgur被墙了，所以不挂VPN图片加载不了</p>
       
   </div>
 
@@ -355,6 +355,246 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" itemprop="url">Java并发基础5-AQS,Atomic与ThreadLocal</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T23:49:34+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/28/Java并发基础5-AQS,Atomic与ThreadLocal(补充性质)/" class="leancloud_visitors" data-flag-title="Java并发基础5-AQS,Atomic与ThreadLocal">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484202&idx=1&sn=dbf9e94d2486ee0baa43e043a2363231&chksm=ebd7422bdca0cb3dc0451e09d139b72558b1cfa3593a6bcc1716ae9d1bd443804d194a303985&scene=21#wechat_redirect" target="_blank" rel="noopener">java3y AQS</a></p>
+</blockquote>
+<h1 id="Java并发基础5-AQS-Atomic与ThreadLocal-补充"><a href="#Java并发基础5-AQS-Atomic与ThreadLocal-补充" class="headerlink" title="Java并发基础5-AQS,Atomic与ThreadLocal(补充)"></a>Java并发基础5-AQS,Atomic与ThreadLocal(补充)</h1><p>前言：我在多线程这块的学习可能有点乱，所以写出来的文章也有点乱，等日后有机会我再重新整理下多线程的笔记</p>
+<h2 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h2><p>J.U.C包下子包locks的AbstractQueuedSynchronizer的简称</p>
+<ul>
+<li>是一个可以给我们<strong>实现锁的框架</strong>，实现了AQS的常见的有ReentrantLock,CountDownLatch</li>
+<li>acquire()方法调用了<strong>tryAcquire()</strong>，release()方法调用了<strong>tryRelease()</strong>，需要继承AQS的实现类去实现</li>
+<li>内部实现的关键：<strong>先进先出的阻塞等待队列CLH</strong>，<strong>state状态</strong></li>
+<li>拥有两种线程模式：<strong>独占和共享</strong></li>
+</ul>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>对象每上一次锁，state就通过<strong>CAS操作</strong>加1，表示它是可重入的<br>state的修改通过compareAndSetState（内部调用unsafe.compareAndSwapInt）函数实现</p>
+<h3 id="CLH队列"><a href="#CLH队列" class="headerlink" title="CLH队列"></a>CLH队列</h3><p>Node的每个结点有标识该线程状态的waitStatus<br>CLH的操作是这样的：当有线程持有了锁，另外一个线程竞争不到锁，就让它进入CLH队列，<strong>head代表持有锁的线程</strong>，tail指向队列的尾部<br>在公平竞争的前提下，来竞争锁的线程都会依次进入CLH队列的尾部<br>CLH还有一个内部类ConditionObject以及Node的状态CONDITION，是与条件队列有关的，这里先不去看了</p>
+<p>队列源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 共享与独占</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node SHARED = <span class="keyword">new</span> Node();</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> Node EXCLUSIVE = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 线程状态，依次为被取消，需要唤醒，等待condition唤醒，无条件传播？</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CANCELLED =  <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SIGNAL    = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CONDITION = -<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PROPAGATE = -<span class="number">3</span>;</span><br><span class="line">    <span class="comment">// 值为上面几种状态</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">int</span> waitStatus;</span><br><span class="line">    <span class="keyword">volatile</span> Node prev;</span><br><span class="line">    <span class="keyword">volatile</span> Node next;</span><br><span class="line">    <span class="comment">// 每个线程对应一个Node</span></span><br><span class="line">    <span class="keyword">volatile</span> Thread thread;</span><br><span class="line">    <span class="comment">// Link to next node waiting on condition, or the special value SHARED</span></span><br><span class="line">    Node nextWaiter;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">isShared</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> nextWaiter == SHARED;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">final</span> Node <span class="title">predecessor</span><span class="params">()</span> <span class="keyword">throws</span> NullPointerException </span>&#123;</span><br><span class="line">        Node p = prev;</span><br><span class="line">        <span class="keyword">if</span> (p == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node() &#123;    <span class="comment">// Used to establish initial head or SHARED marker</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, Node mode) &#123;     <span class="comment">// Used by addWaiter</span></span><br><span class="line">        <span class="keyword">this</span>.nextWaiter = mode;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Node(Thread thread, <span class="keyword">int</span> waitStatus) &#123; <span class="comment">// Used by Condition</span></span><br><span class="line">        <span class="keyword">this</span>.waitStatus = waitStatus;</span><br><span class="line">        <span class="keyword">this</span>.thread = thread;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="acquire"><a href="#acquire" class="headerlink" title="acquire()"></a>acquire()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">acquire</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!tryAcquire(arg) &amp;&amp;</span><br><span class="line">        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))</span><br><span class="line">        selfInterrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">acquireQueued</span><span class="params">(<span class="keyword">final</span> Node node, <span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> failed = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">boolean</span> interrupted = <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            <span class="keyword">final</span> Node p = node.predecessor();</span><br><span class="line">            <span class="keyword">if</span> (p == head &amp;&amp; tryAcquire(arg)) &#123;</span><br><span class="line">                setHead(node);</span><br><span class="line">                p.next = <span class="keyword">null</span>; <span class="comment">// help GC</span></span><br><span class="line">                failed = <span class="keyword">false</span>;</span><br><span class="line">                <span class="keyword">return</span> interrupted;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (shouldParkAfterFailedAcquire(p, node) &amp;&amp;</span><br><span class="line">                parkAndCheckInterrupt())</span><br><span class="line">                interrupted = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (failed)</span><br><span class="line">            cancelAcquire(node);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>acquire()方法调用子类实现的tryAcquire()方法来获取资源</li>
+<li>如果失败（tryAcquire返回false），就通过addWaiter()方法把当前线程创建一个Node结点（排他锁方式）并插入到队尾</li>
+<li>acquireQueued()使线程在等待队列中获取资源，一直获取到资源后才返回。如果在整个等待过程中被中断过，则返回true，否则返回false（<strong>这个函数说实话我还没有看明白</strong>）</li>
+</ul>
+<p>因此tryAcquire()需要我们实现的逻辑是获取资源</p>
+<h3 id="release"><a href="#release" class="headerlink" title="release()"></a>release()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">release</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tryRelease(arg)) &#123;</span><br><span class="line">        Node h = head;</span><br><span class="line">        <span class="keyword">if</span> (h != <span class="keyword">null</span> &amp;&amp; h.waitStatus != <span class="number">0</span>)</span><br><span class="line">            unparkSuccessor(h);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>release()方法调用子类实现的tryRelease()方法释放锁，然后沿队列找到第一个不是作废状态的结点唤醒</p>
+<h2 id="Atomic"><a href="#Atomic" class="headerlink" title="Atomic"></a>Atomic</h2><p>count++操作不是原子操作，需要经过 读取-修改-写入 三个步骤，如果需要同步，则可以加上synchronized关键字，但是开销很大，所以可以使用原子变量，它通过CAS操作来实现原子性</p>
+<p>CAS操作是：如果当前内存值=预期值，则把内存值改为想要修改的值，否则什么都不做（或重试），CAS操作是原子性的（虽然它是比较后再修改）</p>
+<p>原子变量分类：</p>
+<ul>
+<li>基本类型<ul>
+<li>AtomicBoolean</li>
+<li>AtomicInteger</li>
+<li>AtomicLong</li>
+</ul>
+</li>
+<li>数组<ul>
+<li>AtomicIntegerArray</li>
+<li>AtomicLongArray</li>
+<li>AtomicReferenceArray</li>
+</ul>
+</li>
+<li>引用类型<ul>
+<li>AtomicReference</li>
+<li>AtomicStampedReference：带有版本号的引用类型</li>
+<li>AtomicMarkableReference：带有标记位的引用类型</li>
+</ul>
+</li>
+<li>对象的属性<ul>
+<li>AtomicIntegerFieldUpdater：对象的属性是整型</li>
+<li>AtomicLongFieldUpdater：对象的属性是长整型</li>
+<li>AtomicReferenceFieldUpdater：对象的属性是引用类型</li>
+</ul>
+</li>
+<li>JDK 8新增DoubleAccumulator,LongAccumulator,DoubleAdder,LongAdder，它们是对AtomicLong等类的改进，高并发情况下会更高效</li>
+</ul>
+<p>Atomic包的类基本都是使用Unsafe实现的包装类，Unsafe提供了三种CAS方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一和第二个参数代表对象的实例以及地址，第三个参数代表期望值，第四个参数代表更新值</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapObject</span><span class="params">(Object var1, <span class="keyword">long</span> var2, Object var4, Object var5)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">int</span> var4, <span class="keyword">int</span> var5)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapLong</span><span class="params">(Object var1, <span class="keyword">long</span> var2, <span class="keyword">long</span> var4, <span class="keyword">long</span> var6)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h3><p>使用CAS有个缺点就是ABA问题，ABA问题描述如下：</p>
+<ul>
+<li>有一个变量count=10，三个线程A,B,C</li>
+<li>线程A和线程C同时读到count变量，所以线程A和线程C的内存值和预期值都为10,</li>
+<li>此时线程A使用CAS将count修改为100</li>
+<li>修改完后，线程B进来了，读取到count的值为100（内存值和预期值都是100），将count修改为10</li>
+<li>线程C拿到执行权，发现内存值是10，预期值也是10，将count修改为11</li>
+</ul>
+<p>这样 线程C无法得知线程A和线程B修改过count的值，是有风险的</p>
+<h3 id="解决ABA问题"><a href="#解决ABA问题" class="headerlink" title="解决ABA问题"></a>解决ABA问题</h3><p>可以使用JDK提供的AtomicStampedReference和AtomicMarkableReference类</p>
+<p>简单来说就是给这个对象提供一个版本，并且这个版本如果被修改了，这个版本号是自动更新的<br>多了这个版本号比较，就不会存在ABA的问题了</p>
+<h3 id="LongAdder性能"><a href="#LongAdder性能" class="headerlink" title="LongAdder性能"></a>LongAdder性能</h3><p>LongAdder性能要比AtomicLong好，它减少乐观锁的重试次数</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>ThreadLocal设计的目的就是为了能够<strong>在当前线程中有属于自己的变量</strong>，并不是为了解决并发或者共享变量的问题</p>
+<p>ThreadLocal提供了<strong>线程的局部变量</strong>，每个线程都可以通过<strong>set()</strong>和<strong>get()</strong>来对这个局部变量进行操作，但不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</p>
+<p>往ThreadLocal中填充的变量属于当前线程，该变量对其他线程而言是隔离的</p>
+<p>set方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">        map.set(<span class="keyword">this</span>, value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        createMap(t, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ThreadLocal内部使用的是ThreadLocalMap，ThreadLocalMap是<strong>ThreadLocal的一个静态内部类</strong>，也<strong>是Thread的一个域，由Thread去维护ThreadLocalMap变量</strong></p>
+<p>我们调用set()方法，值都是存储在这个Map上的，<strong>key就是当前的ThreadLocal对象</strong></p>
+<p>get方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">        ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">            T result = (T)e.value;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setInitialValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Map.Entry和集合类的Entry是类似的，可以通过它获得value</p>
+<p>总结：</p>
+<ul>
+<li>每个Thread维护一个ThreadLocalMap的引用</li>
+<li>ThreadLocalMap是ThreadLocal的内部静态类，用Entry来进行存储</li>
+<li>调用ThreadLocal的set()方法，实际上就是往ThreadLocalMap设置值，key是ThreadLocal对象，值是传递进来的对象</li>
+<li>ThreadLocal的get()方法，实际上就是往ThreadLocalMap获取值，key是ThreadLocal对象</li>
+<li><strong>ThreadLocal本身并不存储值，它只是作为一个key让线程从Thread维护的ThreadLocalMap获取value</strong></li>
+</ul>
+<h2 id="ThreadLocal的内存泄漏"><a href="#ThreadLocal的内存泄漏" class="headerlink" title="ThreadLocal的内存泄漏"></a>ThreadLocal的内存泄漏</h2><p>ThreadLocalMap的生命周期跟Thread是一样的，如果没有手动删除对应key就会导致内存泄漏，所以必须手动remove()</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2587,373 +2827,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/网络5-应用层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/31/网络5-应用层/" itemprop="url">计算机网络5-应用层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:07:34+08:00">
-                2019-07-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/31/网络5-应用层/" class="leancloud_visitors" data-flag-title="计算机网络5-应用层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络4-应用层"><a href="#网络4-应用层" class="headerlink" title="网络4-应用层"></a>网络4-应用层</h1><ul>
-<li>网络应用模型<br>客户/服务器模型；P2P模型</li>
-<li>域名系统DNS<br>层次域名控件；域名服务器；域名解析过程</li>
-<li>文件传输协议FTP<br>FTP的工作原理；控制连接与数据连接</li>
-<li>电子邮件E-mail<br>电子邮件系统的组成结构；电子邮件格式与MIME；SMTP与POP3</li>
-<li>万维网WWW<br>WWW的概念与组成结构；HTTP</li>
-</ul>
-<h2 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h2><h3 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户/服务器模型"></a>客户/服务器模型</h3><p>C/S模型中，服务器总是处于打开状态，它服务于许多来自其他客户机的主机请求，工作流程如下</p>
-<ul>
-<li>服务器处于接收请求的状态</li>
-<li>客户机发出服务请求，并等待接收结果</li>
-<li>服务器收到请求后，分析请求，进行必要的处理，得到结果并发送给客户机</li>
-</ul>
-<h3 id="P2P模型"><a href="#P2P模型" class="headerlink" title="P2P模型"></a>P2P模型</h3><p>P2P模型的思想是整个网络中的传输内容不再被保存在中心服务器上，每个结点都同时又下载，上传的功能</p>
-<p>P2P优点是减轻服务器压力，可扩展性好，网络健壮性强，多个客户机之间可以直接共享文档；缺点是占用内存，对硬盘损伤大，使网络非常拥塞</p>
-<h2 id="域名系统DNS"><a href="#域名系统DNS" class="headerlink" title="域名系统DNS"></a>域名系统DNS</h2><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h3 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h3><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
-<ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
-</ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
-<ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
-</ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h3 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h3><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h4 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h4><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h4 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h4><p>它返回权威服务器的IP地址</p>
-<h4 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h4><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h4 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h4><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h3 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h3><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.edu</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h3 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h3><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h3 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h3><h4 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h4><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
-<ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
-</ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h4 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h4><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h4 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h4><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
-<ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
-</ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
-<h2 id="文件传输协议FTP"><a href="#文件传输协议FTP" class="headerlink" title="文件传输协议FTP"></a>文件传输协议FTP</h2><p>FTP提供以下功能：</p>
-<ul>
-<li>提供不同种类主机系统之间的文件传输能力</li>
-<li>以用户权限管理的方式提供用户对远程FTP服务器上的文件管理能力</li>
-<li>以匿名FTP的方式提供公用文件共享的能力</li>
-</ul>
-<p>FTP采用C/S工作方式，使用TCP可靠传输服务，FTP服务器进程由两大部分组成：一个主进程负责就收新的请求；另外若干从属进程，负责处理单个请求，工作步骤如下：</p>
-<ul>
-<li>打开端口21（控制端口），等待客户进程发连接请求</li>
-<li>启动从属进程来处理客户进程发来的请求</li>
-</ul>
-<h3 id="控制连接与数据连接"><a href="#控制连接与数据连接" class="headerlink" title="控制连接与数据连接"></a>控制连接与数据连接</h3><p>FTP工作时使用两个并行的TCP连接，一个是控制连接（端口21），一个是数据连接（端口20）</p>
-<p><img src="https://i.imgur.com/wsZwAO2.png" alt=""></p>
-<p><img src="https://i.imgur.com/XcfFv3f.png" alt=""></p>
-<p>控制连接用来传输控制信息（连接请求，传送请求，中止传输等），并且控制信息都以7位ASCII格式传送</p>
-<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h2><h3 id="组成结构"><a href="#组成结构" class="headerlink" title="组成结构"></a>组成结构</h3><p>电子邮件系统主要由用户代理，邮件服务器和电子邮件协议组成，常见电子邮件协议是SMTP,POP3等</p>
-<p><img src="https://i.imgur.com/xbHpobS.png" alt=""></p>
-<p>常见的用户代理是Outlook,Foxmail等，邮件服务器采用C/S工作方式，但它能同时充当客户和服务器，发送方是客户，接收方的服务器，SMTP采用”推”的他通信方式，SMTP客户端是主动将邮件”推”到SMTP服务器的，POP3采用的是”拉”的通信方式，用户读取邮件时，用户代理向邮件服务器发出请求，”拉”取用户邮箱中的邮件</p>
-<p><img src="https://i.imgur.com/fD2xiTH.png" alt=""></p>
-<p>发送方发送邮件到邮件服务器和发送方邮件服务器发送邮件到接收方服务器采用的都是SMTP</p>
-<h3 id="电子邮件格式与MIME"><a href="#电子邮件格式与MIME" class="headerlink" title="电子邮件格式与MIME"></a>电子邮件格式与MIME</h3><p>电子邮件分为信封和内容两大部分，邮件内容又分为首部和主体两部分</p>
-<p>常见的邮件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">From: xxx@xxx.com</span><br><span class="line">To : xxx@xxx.com</span><br><span class="line">Subjuect: xxxxx</span><br><span class="line">主体</span><br></pre></td></tr></table></figure>
-<p>SMTP只能传送一定长度的ASCII码，MIME（多用途网际邮件扩充）的意图是继续使用目前SMTP的格式，但增加了邮件主体的结构，并定义了传送非ASCII码的编码规则</p>
-<p><img src="https://i.imgur.com/yRvFc6Q.png" alt=""></p>
-<ul>
-<li>MIME增加了5个新的邮件首部字段，包括MIME版本，内容描述，内容标识，内容传送编码和内容类型</li>
-<li>定义了许多邮件内容的格式，对多媒体电子邮件的表示方法进行了标准化</li>
-<li>定义了传送编码，可对任何内容格式进行转换，而不会被邮件系统改变</li>
-</ul>
-<h3 id="SMTP和POP3"><a href="#SMTP和POP3" class="headerlink" title="SMTP和POP3"></a>SMTP和POP3</h3><p>SMTP采用C/S方式，TCP连接，端口号25，有连接建立，邮件传送，连接释放三个阶段</p>
-<p>OPO3采用C/S方式，TCP连接，端口号110</p>
-<h2 id="万维网WWW"><a href="#万维网WWW" class="headerlink" title="万维网WWW"></a>万维网WWW</h2><p>万维网是一个资料空间，这个空间中：一样有用的事务称为一样”资源”，并由一个全域”统一资源定位符”(URL)标识，这些资源通过超文本传输协议HTTP传送给使用者</p>
-<p>万维网使用链接的方法能让用户非常方便从因特网一个站点访问另一个站点，万维网内核部分由3个标准构成：统一资源定位符URL，超文本传输协议HTTP，超文本标记语言HTML</p>
-<p>URL一般格式是：<code>&lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</code><br>常见协议有http，ftp等，主机是存放资源的主机在因特网的域名，也可以是IP地址，端口和路径有时可以省略，URL不区分大小写</p>
-<p>万维网以C/S方式工作，浏览器是客户机</p>
-<h3 id="超文本传输协议HTTP"><a href="#超文本传输协议HTTP" class="headerlink" title="超文本传输协议HTTP"></a>超文本传输协议HTTP</h3><p>每个万维网站点都有一个服务器进程，它不断监听TCP的端口80，当监听到连接请求后便与浏览器建立连接，用户单击鼠标后发生的事件按顺序如下：</p>
-<ol>
-<li>浏览器分析链接指向页面的URL</li>
-<li>浏览器向DNS请求解析</li>
-<li>域名系统DNS解析出服务器的IP地址</li>
-<li>浏览器与该服务器建立TCP连接（HTTP默认端口80）</li>
-<li>浏览器发出HTTP请求，GET /xx/index.html</li>
-<li>服务器通过HTTP响应把文件index.html发送给浏览器</li>
-<li>TCP连接释放</li>
-<li>浏览器解释文件index.html，并将WEB页显示给用户</li>
-</ol>
-<h4 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点"></a>HTTP特点</h4><p>HTTP是无状态的，通常使用Cookie加数据库的方式来跟踪用户的活动，HTTP采用TCP作为运输层协议，但HTTP本身是无连接的，通信双方交换HTTP报文之前不需要先建立HTTP连接</p>
-<p>HTTP非持久连接会对网页元素对象（JPEG图形，Flash等）的传输单独建立一个TCP连接，HTTP/1.1支持持久连接，服务器发送响应后仍保持这条连接，这样可以继续上传后续HTTP请求与响应报文<br>持久连接又分为流水线和非流水线，非流水线是客户收到前一个响应之后才能发出下一个请求，HTTP/1.1默认是流水线的持久连接，客户每遇到一个对象引用就立即发出一个请求，客户可以逐个地连续发出对各个引用对象的请求</p>
-<h4 id="HTTP-1-0与HTTP-1-1的区别"><a href="#HTTP-1-0与HTTP-1-1的区别" class="headerlink" title="HTTP/1.0与HTTP/1.1的区别"></a>HTTP/1.0与HTTP/1.1的区别</h4><ul>
-<li>长连接：HTTP/1.0发送一个响应后就关闭连接，可以使用keep-alive参数来告知服务器建立一个长连接，而HTTP/1.1默认就支持长连接</li>
-<li>节约带宽：HTTP/1.1支持只发送header信息（不带任何body），如果服务器认为客户端有权限请求服务器，就返回100，客户端接收到100才开始把请求body发送到服务器，当服务器返回401，客户端就可以不用发送请求body了，节约了带宽</li>
-<li>HOST域：HTTP/1.0认为每台服务器都绑定一个唯一的IP地址，因此请求消息中的URL并没有传递主机名，现在一台物理服务器可以存在多个虚拟主机，且他们共享同一个IP地址，所以HTTP/1.1引入HOST头域</li>
-</ul>
-<h4 id="HTTP-1-1与HTTP-2-0的区别"><a href="#HTTP-1-1与HTTP-2-0的区别" class="headerlink" title="HTTP/1.1与HTTP/2.0的区别"></a>HTTP/1.1与HTTP/2.0的区别</h4><ul>
-<li>多路复用：HTTP/2.0同一个连接可以并发处理多个请求，且并发数量比HTTP/1.1大了好几个数量级</li>
-<li>数据压缩：HTTP/1.1不支持header数据的压缩，HTTP/2.0使用HPACK算法对header的数据进行压缩</li>
-<li>服务器推送：当我们请求数据的时候，HTTP/2.0的服务器可以顺便把一些客户端需要的资源一起推送到客户端</li>
-</ul>
-<h4 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h4><p>请求报文，CR LF是回车和换行，sp是空格</p>
-<p><img src="https://i.imgur.com/pFnuyW0.png" alt=""></p>
-<p>响应报文</p>
-<p><img src="https://i.imgur.com/UjC1HLk.png" alt=""></p>
-<p>HTTP请求常用的几个方法如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法</th>
-<th style="text-align:left">意义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">GET</td>
-<td style="text-align:left">请求读取由URL标识的信息</td>
-</tr>
-<tr>
-<td style="text-align:left">HEAD</td>
-<td style="text-align:left">请求读取由URL标识的信息的头部</td>
-</tr>
-<tr>
-<td style="text-align:left">POST</td>
-<td style="text-align:left">给服务器添加信息</td>
-</tr>
-</tbody>
-</table>
-<p>CONNECT 用于代理服务器</p>
-<p>请求报文一般用不到实体主体</p>
-<h2 id="常见应用层的协议和熟知端口"><a href="#常见应用层的协议和熟知端口" class="headerlink" title="常见应用层的协议和熟知端口"></a>常见应用层的协议和熟知端口</h2><table>
-<thead>
-<tr>
-<th style="text-align:left">应用程序</th>
-<th style="text-align:left">FTP数据连接</th>
-<th style="text-align:left">FTP控制连接</th>
-<th style="text-align:left">TELNET</th>
-<th style="text-align:left">SMTP</th>
-<th style="text-align:left">DNS</th>
-<th style="text-align:left">TFTP</th>
-<th style="text-align:left">HTTP</th>
-<th style="text-align:left">POP3</th>
-<th style="text-align:left">SNMP</th>
-<th style="text-align:left">HTTPS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">使用协议</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">UDP</td>
-<td style="text-align:left">UDP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-<td style="text-align:left">TCP</td>
-</tr>
-<tr>
-<td style="text-align:left">熟知端口号</td>
-<td style="text-align:left">20</td>
-<td style="text-align:left">21</td>
-<td style="text-align:left">23</td>
-<td style="text-align:left">25</td>
-<td style="text-align:left">53</td>
-<td style="text-align:left">69</td>
-<td style="text-align:left">80</td>
-<td style="text-align:left">110</td>
-<td style="text-align:left">161</td>
-<td style="text-align:left">443</td>
-</tr>
-</tbody>
-</table>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/OrdRHEk.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3010,7 +2883,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3021,7 +2894,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3032,7 +2905,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">241</span>
+                  <span class="site-state-item-count">242</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3058,7 +2931,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-globe"></i>E-Mail</a>
                   </span>

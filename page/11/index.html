@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
+        <p class="site-subtitle">因为图片使用的是imgur的，imgur被墙了，所以不挂VPN图片加载不了</p>
       
   </div>
 
@@ -355,6 +355,237 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/JavaScript08-DOM扩展/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/JavaScript08-DOM扩展/" itemprop="url">JavaScript08-DOM扩展</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-09T11:08:34+08:00">
+                2018-11-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/09/JavaScript08-DOM扩展/" class="leancloud_visitors" data-flag-title="JavaScript08-DOM扩展">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript08-DOM扩展"><a href="#JavaScript08-DOM扩展" class="headerlink" title="JavaScript08-DOM扩展"></a>JavaScript08-DOM扩展</h1><p>对JavaScript的两个主要扩展主要是Selectors API和HTML5</p>
+<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><p>根据CSS选择符选择与某个模式匹配的DOM元素。jQuery的核心就是通过CSS选择符查询DOM文档取得元素的引用，从而抛开了getElementById()和getElementsByTagName()，它有两个核心方法：querySelector()和querySelectorAll()，可以通过Document及Element类型的实例调用它们。</p>
+<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><p>它接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有就返回null。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得ID为myDiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"selected"的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"button"的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.body.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><p>querySelectorAll()方法接收的参数和上面一样，都是一个CSS选择符，但返回的是所有匹配的元素，是一个NodeList实例。</p>
+<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><p><strong>Chrome Version 70.0.3538.77不支持</strong></p>
+<p>Element Travelsal API为DOM元素添加以下5个属性，用于预防元素间空格造成的childNodes和firstChild等属性不一致的差异。</p>
+<ul>
+<li>childElementCount：返回子元素（不包括文本节点和注释）的个数</li>
+<li>firstElementChild：指向第一个元素</li>
+<li>lastElementChild：指向最后一个元素</li>
+<li>previousElementSibling：指向前一个同辈元素</li>
+<li>nextElementSibling：指向后一个同辈元素</li>
+</ul>
+<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName-方法"><a href="#getElementsByClassName-方法" class="headerlink" title="getElementsByClassName()方法"></a>getElementsByClassName()方法</h4><p>可以通过document对象以及所有HTML元素调用该方法，它接收一个参数，即一个包含一个或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
+<p>取得所有类中包含”username”和”current”的元素，类先后无所谓<br><code>var allCurrentUsernames = document.getElementByClassName(&quot;username current&quot;);</code></p>
+<p>取得ID为myDiv的元素中带有类名”selected”的所有元素<br><code>var selected = document.getElementById(&quot;myDiv&quot;).getElementsByClassName(&quot;selected&quot;);</code></p>
+<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><p>操作类名的时候，可以使用classList属性，classList属性是DOMTokenList的实例，他有一个表示自己包含多少元素的length属性，要取得每个元素，可以使用item()方法，也可以使用方括号。如下：</p>
+<p><code>&lt;div class=&quot;bd user disabled&quot;&gt;&lt;/div&gt;</code></p>
+<p>classList属性有三个值分别是bd user和disabled。</p>
+<p>这个属性还定义了下面方法</p>
+<ul>
+<li>add(value)：将给定的字符串值添加到列表中。</li>
+<li>contains(value)：表示列表中是否存在给定的值，存在返回true。</li>
+<li>remove(value)：删除value</li>
+<li>toggle(value)：如果列表中存在给定值，就删除它，如果不存在，就添加它。</li>
+</ul>
+<p>这样，就可以通过上述方法操控className了，如下</p>
+<p><code>div.classList.remove(&quot;user&quot;); // 删除user类</code></p>
+<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><p>HTML5添加了辅助管理DOM焦点的功能。document.activeElement属性始终会引用DOM中当前获得焦点的元素。<br>元素获得焦点方式有页面加载，用户输入和在代码中调用focus()方法</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"myButton"</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"focusMethod()"</span>&gt;</span>Click me to focus on the button!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./aha.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">focusMethod = <span class="function"><span class="keyword">function</span> <span class="title">getFocus</span>(<span class="params"></span>) </span>&#123;          </span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>).focus();</span><br><span class="line">    alert(<span class="built_in">document</span>.activeElement == <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>文档刚刚加载完，<code>document.activeElement</code>中保存的是<code>document.body</code>元素的引用。</p>
+<p><code>document.hasFocus()</code>用于确定文档是否获得了焦点。</p>
+<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><p>HTML5扩展了HTMLDocument，增加了新功能。</p>
+<h4 id="readyState属性"><a href="#readyState属性" class="headerlink" title="readyState属性"></a>readyState属性</h4><p>Document的readyState属性可能有两个值</p>
+<ul>
+<li>loading：正在加载文档</li>
+<li>complete：已经加载完文档</li>
+</ul>
+<p>基本用法如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">"complete"</span>) &#123;</span><br><span class="line">	<span class="comment">// 执行操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="head属性"><a href="#head属性" class="headerlink" title="head属性"></a>head属性</h4><p>作为对document.body引用文档&lt;body&gt;元素的补充，HTML5新增了document.head属性，引用文档的&lt;head&gt;元素。</p>
+<p><code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></p>
+<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><p>charset属性表示文档中实际使用的字符集，也可以用来指定新字符集，可以通过&lt;meta&gt;元素，响应头部或直接设置charset属性修改这个值。</p>
+<p><code>document.charset = &quot;UTF-8&quot;;</code></p>
+<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><p>HTML5可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或提供语义信息。<br>可以通过元素dataset属性访问这些自定义属性的值。dataset是一个DOMStringMap的实例，键为非标准属性名减去data-前缀（比如自定义属性是data-myname，映射对应属性就是myname）</p>
+<p><code>&lt;div id=&quot;myDiv&quot; data-appid=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appid;</span><br><span class="line"><span class="keyword">var</span> myName = div.dataset.myname;</span><br><span class="line"></span><br><span class="line">alert(appId);</span><br></pre></td></tr></table></figure>
+<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><p>在读模式下，innerHTML属性返回与调用元素的所有子节点（包括元素，注释和文本节点）对应的HTML标记。写模式下，innerHTML会根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</p>
+<p>写模式下，innerHTML的值会被解析为DOM子树，替换调用元素原来的所有子节点。因为它的值被认为是HTML，所以其中的所有标签都会按照浏览器处理HTML的标准方式转换为元素。<br>设置了innerHTML之后，可以像访问文档中其他节点一样访问新创建的节点。</p>
+<p>对下面代码的div块调用innerHTML，会返回其内部子元素（字符串形式）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a <span class="tag">&lt;<span class="name">strong</span>&gt;</span>paragraph<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> with a list following it.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面元素不支持innerHTML属性：&lt;col&gt;,&lt;colgroup&gt;,&lt;frameset&gt;,&lt;head&gt;,&lt;html&gt;,&lt;style&gt;,&lt;table&gt;,&lt;tbody&gt;,&lt;thead&gt;,&lt;tfoot&gt;和&lt;tr&gt;</p>
+<h4 id="outerHTML属性"><a href="#outerHTML属性" class="headerlink" title="outerHTML属性"></a>outerHTML属性</h4><p>在读模式下，outerHTML返回调用它的元素及所有子节点的HTML标签。写模式下，outerHTML会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</p>
+<p>对上面代码div块调用outerHTML，会返回上面相同的代码，包括div本身。</p>
+<p><code>div.outerHTML = &quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;&quot;;</code></p>
+<p>对上面代码的调用，等价于下面的代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">p.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"This is a paragraph."</span>));</span><br><span class="line">div.parentNode.replaceChild(p, div);</span><br></pre></td></tr></table></figure>
+<h4 id="insertAdjacentHTML-方法"><a href="#insertAdjacentHTML-方法" class="headerlink" title="insertAdjacentHTML()方法"></a>insertAdjacentHTML()方法</h4><p>它接收两个参数，插入位置和要插入的HTML文本。第一个参数必须是下列值之一：</p>
+<ul>
+<li>beforebegin：当前元素之前插入一个紧邻的同辈元素</li>
+<li>afterbegin：当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素</li>
+<li>beforeend：当前元素之下插入一个新的子元素或再最后一个子元素之后再插入一个新的子元素</li>
+<li>afterend：当前元素之后插入一个紧邻的同辈元素</li>
+</ul>
+<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><p>使用上面2个属性1个方法之前，最好先手工删除要被替换的元素的所有时间处理程序和JavaScript对象属性。</p>
+<p>对上面2个属性，最佳做法是单独构建一个字符串，然后一次性把结果字符串赋值给innerHTML（或outerHTML），这样可以减少访问属性的开支。</p>
+<h3 id="scrollIntoView-方法"><a href="#scrollIntoView-方法" class="headerlink" title="scrollIntoView()方法"></a>scrollIntoView()方法</h3><p>可以在所有HTML元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中，传入true作为参数，或者不传入参数，则窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。传入false，调用元素会尽可能出现在视口中（可能的话，调用元素底部会与视口底部平齐）</p>
+<p>Chrome不支持。。。</p>
+<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><p>这个属性是HTMLCollection的实例，只包含元素中同样还是元素的子节点。children属性与childNodes没什么区别</p>
+<h3 id="contains-方法"><a href="#contains-方法" class="headerlink" title="contains()方法"></a>contains()方法</h3><p>调用contains()方法的应该是祖先节点，这个方法接收一个参数，就是要检测的后代节点。如果被检测的节点是后代节点，就返回true。</p>
+<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><h4 id="innerText属性"><a href="#innerText属性" class="headerlink" title="innerText属性"></a>innerText属性</h4><p>通过这个属性可以操作元素中包含的所有文本内容，包括子文档树中的文本。在通过innerText读取值时，它会按照由浅入深顺序将子文档中所有文本拼接起来。在通过innerText写值时，结果会删除元素的所有子节点。插入包含相应文本值的文本节点。</p>
+<h4 id="outerText属性"><a href="#outerText属性" class="headerlink" title="outerText属性"></a>outerText属性</h4><p>作用范围扩大到了包含调用它的节点，写操作下会替换整个元素（包括子节点）。</p>
+<h3 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h3><ul>
+<li>scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，最终让它可见。如果参数为true，尽量让元素显示在视口中部。</li>
+<li>scrollByLines(lineCount)：元素内容滚动指定的行高，可以正或负值。</li>
+<li>scrollByPages(pageCount)：元素内容滚动指定的页面高度。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2202,187 +2433,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/" itemprop="url">Servlet02-ServletConfig,ServletContext与监听器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
-                2018-09-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Servlet/" itemprop="url" rel="index">
-                    <span itemprop="name">Servlet</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/09/01/Servlet02-ServletConfig,ServletContext与监听器/" class="leancloud_visitors" data-flag-title="Servlet02-ServletConfig,ServletContext与监听器">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Servlet02-ServletConfig-ServletContext与监听器"><a href="#Servlet02-ServletConfig-ServletContext与监听器" class="headerlink" title="Servlet02-ServletConfig,ServletContext与监听器"></a>Servlet02-ServletConfig,ServletContext与监听器</h1><p>通过web.xml可以初始化参数，避免了硬编码改变了源码与重新编译的麻烦，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;init-param&gt;</span><br><span class="line">   &lt;param-name&gt;name&lt;/param-name&gt;</span><br><span class="line">   &lt;param-value&gt;value&lt;/param-value&gt;</span><br><span class="line"> &lt;/init-param&gt;</span><br><span class="line"></span><br><span class="line">&lt;/servlet-name&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在servlet代码中通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">来获取该值</span><br><span class="line">或者通过下面例子处理</span><br><span class="line">```Java</span><br><span class="line">    Enumeration e = getServletConfig().getInitParameterNames();</span><br><span class="line">    while(e.hasMoreElements()) &#123;</span><br><span class="line">        // do something with e.nextElement();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>但ServletConfig仅仅能在该servlet中使用，对于想要在全局使用的参数实在不方便，ServletContext可以很好的解决这个问题</p>
-<h2 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext"></a>ServletContext</h2><p>在<code>web.xml</code>中添加<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>adminEmail<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>231232@oaiw.com<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>Servlet中通过<br><code>getServletContext().getInitParameter(&quot;adminEmail&quot;);</code>来获取</p>
-<h2 id="ServletConfig与ServletContext的区别"><a href="#ServletConfig与ServletContext的区别" class="headerlink" title="ServletConfig与ServletContext的区别"></a>ServletConfig与ServletContext的区别</h2><ol>
-<li>在部署文件中，上下文初始化参数是在&lt;web-app&gt;中的，而Servlet初始化参数是在servlet中的</li>
-<li>ServletConfig的作用域为每个servlet，而ServletContext的作用域为整个WEB应用</li>
-</ol>
-<h2 id="ServletContextListener"><a href="#ServletContextListener" class="headerlink" title="ServletContextListener"></a>ServletContextListener</h2><p>由于ServletContext在初始化的时候只能保存字符串，若要保存一个对象或在应用启动之前利用该字符串做一些准备工作（比如打开数据库），则需要监听器的帮助。<br>ServletContextListener接口可以监听一个上下文初始化事件，得到上下文初始化参数，并在应用为客户提供服务之前运行一些代码，要实现该接口，就要实现下面两个方法<br><code>public void contextInitialized(ServletContextEvent event)</code><br><code>public void contextDestroyed(ServletContextEvent event)</code></p>
-<h3 id="建立一个上下文监听者"><a href="#建立一个上下文监听者" class="headerlink" title="建立一个上下文监听者"></a>建立一个上下文监听者</h3><ol>
-<li>创建一个监听者类</li>
-<li>把编译后的类*.class放入WEB-INF/classes</li>
-<li>在web.xml部署描述文件放一个&lt;listener&gt;元素，如下<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    com.example.MyServletContextListener</span><br><span class="line">  <span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="一个监听器的例子"><a href="#一个监听器的例子" class="headerlink" title="一个监听器的例子"></a>一个监听器的例子</h3><p>web.xml中先注册该Listener，然后设置好对应的servlet以及context-param，如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ListenerTester<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.example.web.ListenerTester<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>ListenerTester<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/listen.ht<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>breed<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>Great Dane<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>com.example.web.MyServletContextListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>监听器的工作是得到该ServletContext的初始值，然后创建一个Dog对象，把该值作为参数传入对象构造函数，并构造一个ServletContext对象，设置该Dog对象作为新的ServletContext的属性。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.model.Dog;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContext;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContextEvent;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletContextListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServletContextListener</span> <span class="keyword">implements</span> <span class="title">ServletContextListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextInitialized</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line">        ServletContext sc = event.getServletContext();</span><br><span class="line">        String dogBreed = sc.getInitParameter(<span class="string">"breed"</span>);</span><br><span class="line">        Dog d = <span class="keyword">new</span> Dog(dogBreed);</span><br><span class="line">        sc.setAttribute(<span class="string">"dog"</span>, d);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextDestroyed</span><span class="params">(ServletContextEvent event)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Dog对象如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String breed;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Dog</span><span class="params">(String breed)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.breed = breed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getBreed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> breed;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Servlet通过<code>getServletContext().getAttribute(&quot;dog&quot;)</code>得到ServletContext的属性值来获取该Dog对象，这样就可以通过ServletContext对象来获取String以外的值了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> com.example.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.model.Dog;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"ListenerTester"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListenerTester</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        response.setContentType(<span class="string">"text/html"</span>);</span><br><span class="line">        PrintWriter out = response.getWriter();</span><br><span class="line"></span><br><span class="line">        out.println(<span class="string">"test context attributes set by listener&lt;br&gt;"</span>);</span><br><span class="line">        out.println(<span class="string">"&lt;br&gt;"</span>);</span><br><span class="line">        Dog dog = (Dog) getServletContext().getAttribute(<span class="string">"dog"</span>);</span><br><span class="line"></span><br><span class="line">        out.println(<span class="string">"Dog's breed is : "</span> + dog.getBreed());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="其他监听者"><a href="#其他监听者" class="headerlink" title="其他监听者"></a>其他监听者</h2><!-- TODO: 插入图片 8个监听器.png -->
-<p><img src="https://i.imgur.com/Gb3PxFL.png" alt=""></p>
-<h2 id="属性API与属性安全"><a href="#属性API与属性安全" class="headerlink" title="属性API与属性安全"></a>属性API与属性安全</h2><!-- TODO : 插入 属性API -->
-<p><img src="https://i.imgur.com/a7QCoEJ.png" alt=""></p>
-<p>上下文属性无法确保线程安全，要对上下文加锁。</p>
-<h2 id="请求属性和请求分派"><a href="#请求属性和请求分派" class="headerlink" title="请求属性和请求分派"></a>请求属性和请求分派</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">request.setAttribute(<span class="string">"attrName"</span>, attrValue);</span><br><span class="line">RequestDispatcher view = request.getRequestDispatcher(<span class="string">"*.jsp"</span>);</span><br><span class="line">view.forward(request, response);</span><br></pre></td></tr></table></figure>
-<p>通过从ServletRequest（或ServletContext）得到RequestDispatcher对象，调用forward()把请求转交给JSP处理</p>
-<p><strong>注意！如果已经提交了响应，就不能转发请求，否则会报IllegalStateException，os.flush()等方法都是提交响应</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/JavaScript04-面向对象的程序设计/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2619,7 +2669,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet05-无脚本JSP/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/Servlet01-WEB应用体系与初窥MVC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -2638,7 +2688,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/09/01/Servlet05-无脚本JSP/" itemprop="url">Servlet05-无脚本JSP</a></h1>
+                <a class="post-title-link" href="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" itemprop="url">Servlet之WEB应用体系与MVC</a></h1>
         
 
         <div class="post-meta">
@@ -2690,7 +2740,7 @@
 
           
           
-             <span id="/2018/09/01/Servlet05-无脚本JSP/" class="leancloud_visitors" data-flag-title="Servlet05-无脚本JSP">
+             <span id="/2018/09/01/Servlet01-WEB应用体系与初窥MVC/" class="leancloud_visitors" data-flag-title="Servlet之WEB应用体系与MVC">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2723,96 +2773,56 @@
       
         
           
-            <h1 id="Servlet05-无脚本JSP"><a href="#Servlet05-无脚本JSP" class="headerlink" title="Servlet05-无脚本JSP"></a>Servlet05-无脚本JSP</h1><h2 id="bean法则-使用bean的规范"><a href="#bean法则-使用bean的规范" class="headerlink" title="bean法则-使用bean的规范"></a>bean法则-使用bean的规范</h2><ol>
-<li>必须有一个无参数的公共构造函数</li>
-<li>必须按命名规范来命名公共的getter和setter</li>
-<li>setter的参数类型和getter的返回类型必须一致</li>
-<li>性质名和类型是由setter和getter得出，而不得来自于类中的一个成员</li>
-<li>结合JSP使用时，性质类型必须是String或其他基本类型</li>
-</ol>
-<h2 id="使用EL"><a href="#使用EL" class="headerlink" title="使用EL"></a>使用EL</h2><p>对于model Person，它是一个JavaBean，所以我们要使用与bean相关的标准动作</p>
-<p>使用脚本：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">foo.Person</span> <span class="attr">p</span> = <span class="string">(foo.Person)</span> <span class="attr">request.getAttribute</span>("<span class="attr">person</span>"); %&gt;</span></span><br><span class="line">Person is : <span class="tag">&lt;<span class="name">%=</span> <span class="attr">p.getName</span>() %&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用标准动作：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"request"</span> /&gt;</span></span><br><span class="line">Person created by servlet: <span class="tag">&lt;<span class="name">jsp:getProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt"><a href="#分析-lt-jsp-useBean-gt-和-lt-jsp-getProperty-gt" class="headerlink" title="分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;"></a>分析&lt;jsp:useBean&gt;和&lt;jsp:getProperty&gt;</h3><h4 id="lt-jsp-useBean-gt"><a href="#lt-jsp-useBean-gt" class="headerlink" title="&lt;jsp:useBean&gt;"></a>&lt;jsp:useBean&gt;</h4><p>用 <code>&lt;jsp:useBean&gt;</code> 声明和初始化一个bean属性，id为声明bean对象的标识符，对应于servlet的<code>request.setAttribute(&quot;person&quot;, p)</code>，class为声明的对象的类类型，scope标识这个bean对象的属性作用域</p>
-<p>&lt;jsp:useBean&gt;还可以创建一个bean，如果它找不到一个名为”person”的属性对象，它就会建一个</p>
-<h4 id="lt-jsp-getProperty-gt"><a href="#lt-jsp-getProperty-gt" class="headerlink" title="&lt;jsp:getProperty&gt;"></a>&lt;jsp:getProperty&gt;</h4><p>用 <code>&lt;jsp:getProperty&gt;</code>得到bean属性的性质值，name标识具体的bean对象，与&lt;jsp:useBean&gt;的id属性相匹配，property标识属性中的性质名(也就是与bean类中getter和setter对应的性质)</p>
-<h4 id="lt-jsp-setProperty-gt"><a href="#lt-jsp-setProperty-gt" class="headerlink" title="&lt;jsp:setProperty&gt;"></a>&lt;jsp:setProperty&gt;</h4><p>&lt;jsp:setProperty&gt;是第三个（也是最后一个）bean标准动作，具体使用如下</p>
-<p><code>&lt;jsp:setProperty name=&quot;person&quot; property=&quot;name&quot; value=&quot;yourNameVal&quot; /&gt;</code></p>
-<h4 id="lt-jsp-useBean-gt-可以有体"><a href="#lt-jsp-useBean-gt-可以有体" class="headerlink" title="&lt;jsp:useBean&gt;可以有体"></a>&lt;jsp:useBean&gt;可以有体</h4><p>如果把设置方法代码<code>&lt;jsp:setProperty&gt;</code>放在<code>&lt;jsp:useBean&gt;</code>的体中，就可以有条件地设置性质，只有创建新bean时才设置性质值</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">class</span>=<span class="string">"foo.Person"</span> <span class="attr">scope</span>=<span class="string">"page"</span> &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"yourNameVal"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="多态bean引用-lt-jsp-useBean-gt-的type属性"><a href="#多态bean引用-lt-jsp-useBean-gt-的type属性" class="headerlink" title="多态bean引用  &lt;jsp:useBean&gt;的type属性"></a>多态bean引用  &lt;jsp:useBean&gt;的type属性</h4><p>可以用&lt;jsp:useBean&gt;的type属性实现引用类型不同于具体的对象类型，假设新对象的类型为Employee，引用类型是Person</p>
-<p><code>&lt;jsp:useBean id=&quot;person&quot; type=&quot;foo.Person&quot; class=&quot;foo.Employee&quot; scope=&quot;page&quot;&gt;</code></p>
-<p>可以实现效果，生成的servlet代码大概如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo.Person person = <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">// 得到person属性的代码</span></span><br><span class="line"><span class="keyword">if</span> (person == <span class="keyword">null</span>) &#123;</span><br><span class="line">  person = <span class="keyword">new</span> foo.Employee();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>type可以是class类型，抽象类型或者是一个接口，class必须是type的一个子类或具体实现，<strong>type是声明的类型，而class是要实例化的类</strong></p>
-<h3 id="直接从表单请求到JSP-param属性"><a href="#直接从表单请求到JSP-param属性" class="headerlink" title="直接从表单请求到JSP - param属性"></a>直接从表单请求到JSP - param属性</h3><p>可以通过设置name一致达到直接从请求到JSP的效果，不需要途中经过servlet</p>
-<p>假设表单是这样的：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userName"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在TestBean.jsp中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">param</span>=<span class="string">"userName"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>利用param属性，可以把bean的性质值设置为一个请求参数的值，只需指定请求参数</p>
-<h4 id="甚至不需要param属性"><a href="#甚至不需要param属性" class="headerlink" title="甚至不需要param属性"></a>甚至不需要param属性</h4><p>只要把表单内的内容设置与bean的性质一致，甚至可以不需要param属性，如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在TestBean.jsp中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"person"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>如果设置表单中所有请求参数名都与bean性质名匹配，那么甚至连property都可以省略</p>
-<p>如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">      name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">      ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在TestBean.jsp中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">jsp:useBean</span> <span class="attr">id</span>=<span class="string">"person"</span> <span class="attr">type</span>=<span class="string">"foo.Person"</span> <span class="attr">class</span>=<span class="string">"foo.Employee"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:setProperty</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">property</span>=<span class="string">"name"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:useBean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="性质是引用类型的情况"><a href="#性质是引用类型的情况" class="headerlink" title="性质是引用类型的情况"></a>性质是引用类型的情况</h3><p>假如Person有一个Dog “dog”性质，Dog有一个String “name”性质，如果想打印Person的dog的name，可以用到EL，如下</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">Dog's name is : $&#123;person.dog.name&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="对-person-dog-name-的解释"><a href="#对-person-dog-name-的解释" class="headerlink" title="对${person.dog.name}的解释"></a>对${person.dog.name}的解释</h4><p><code>${person.dog.name}</code> 等同于 <code>&lt;%= ((foo.Person) request.getAttribute(&quot;person&quot;)).getDog().getName() %&gt;</code></p>
-<p>使用点号(.)可以访问性质和映射值</p>
-<h4 id="使用中括号-，更好的点号"><a href="#使用中括号-，更好的点号" class="headerlink" title="使用中括号[]，更好的点号"></a>使用中括号[]，更好的点号</h4><p>点号右边是一个bean性质或映射键的时候，点号操作符才能正常工作，但[]操作符就强大很多，<strong>它既可以完成点号操作符能完成的工作，也可以当左边变量是一个数组或者List或者右边不遵循正常的Java命名规范的时候仍然可以正常工作</strong></p>
-<h3 id="EL中的隐式对象param与paramValues"><a href="#EL中的隐式对象param与paramValues" class="headerlink" title="EL中的隐式对象param与paramValues"></a>EL中的隐式对象param与paramValues</h3><p>HTML表单中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"TestBean.jsp"</span>&gt;</span></span><br><span class="line">  name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">  ID#: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"empID"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  First food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  Second food: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"food"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>对于单个值，可以在JSP中<code>${param.name}</code>获取表单的name<br>对于多个值，可以在JSP中<code>${paramValues.food[0]}</code>获取多个值中的一个</p>
-<h3 id="EL的其他隐式对象"><a href="#EL的其他隐式对象" class="headerlink" title="EL的其他隐式对象"></a>EL的其他隐式对象</h3><h4 id="得到”host”首部"><a href="#得到”host”首部" class="headerlink" title="得到”host”首部"></a>得到”host”首部</h4><p><code>${header[&quot;host&quot;]}</code>或<code>${header.host}</code></p>
-<h4 id="得到Cookie"><a href="#得到Cookie" class="headerlink" title="得到Cookie"></a>得到Cookie</h4><p>打印”userName” Cookie的值</p>
-<p>使用脚本：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">Cookie</span>[] <span class="attr">cookies</span> = <span class="string">request.getCookies();</span></span></span><br><span class="line"><span class="tag"></span></span><br><span class="line">for (int i = 0; i &lt; cookies.length; i++) &#123;</span><br><span class="line">  if ((cookies[i].getName()).equals("userName")) &#123;</span><br><span class="line">    out.println(cookies[i].getValue());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
-<p>使用EL：</p>
-<p><code>${cookie.uesrName.value}</code></p>
-<h4 id="上下文参数"><a href="#上下文参数" class="headerlink" title="上下文参数"></a>上下文参数</h4><p>在web.xml中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>mainEmail<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>12345@outlook.com<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用脚本：<br><code>&lt;%= application.getInitParameter(&quot;mainEmail&quot;) %&gt;</code></p>
-<p>使用EL：<br><code>${initParam.mainEmail}</code></p>
-<h3 id="EL函数"><a href="#EL函数" class="headerlink" title="EL函数"></a>EL函数</h3><p>使用EL函数有如下四步骤</p>
+            <p>#Servlet之WEB应用体系与MVC</p>
+<p>##WEB应用体系</p>
+<p>###TOMCAT容器的作用</p>
+<dl><br><dt>通信支持</dt><br><dd>容器可以让servlet与WEB容器对话，创建ServerSocket，监听端口，创建流等</dd><br><dt>生命周期管理</dt><br><dd>容器控制着servlet的生命周期，负责加载类，实例化，初始化servlet，调用servlet方法，垃圾回收等</dd><br><dt>多线程支持</dt><br><dd>每次接收到用户servlet请求，就会创建一个新的Java线程，</dd><br><dt>声明方式实现安全</dt><br><dd>使用XML部署描述文件配置安全性</dd><br><dt>JSP支持</dt><br><dd>容器负责把JSP翻译成Java</dd><br></dl>
+
+<p>###容器处理请求</p>
 <ol>
-<li>编写一个有<strong>公共静态</strong>方法的Java类</li>
-<li>编写一个标记库描述文件(.tld)</li>
-<li>在JSP中放一个taglib指令</li>
-<li>使用EL调用函数</li>
+<li>用户点击一个链接，指向一个servlet</li>
+<li>容器看出来这个请求要的是一个servlet，创建两个对象，分别为HttpServletResponse，HttpServletRequest</li>
+<li>容器根据请求的URL找到对应的servlet，为这个请求分配一个线程，并把请求和响应对象传递给这个servlet线程</li>
+<li>容器调用service的service()方法，根据请求的不同类型，service()方法会调用doGet()或doPost()方法</li>
+<li>doGet()方法生成动态页面，塞到响应对象里</li>
+<li>线程结束，容器把响应对象转换为一个HTTP响应，把它发回给客户，然后删除请求和响应对象</li>
 </ol>
-<h4 id="编写一个有公共静态方法的Java类"><a href="#编写一个有公共静态方法的Java类" class="headerlink" title="编写一个有公共静态方法的Java类"></a>编写一个有公共静态方法的Java类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xhj.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DiceRoller</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">rollDice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) ((Math.random() * <span class="number">6</span>) + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="编写一个标记库描述文件"><a href="#编写一个标记库描述文件" class="headerlink" title="编写一个标记库描述文件"></a>编写一个标记库描述文件</h4><p>IDEA中在web目录右键new -&gt; xml configuration file -&gt; JSP tag library descriptor 重命名为*.tld</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">taglib</span> <span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">version</span>=<span class="string">"2.1"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">tlib-version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">tlib-version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uri</span>&gt;</span>DiceFunctions<span class="tag">&lt;/<span class="name">uri</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">function</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>rollIt<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-class</span>&gt;</span>com.xhj.web.DiceRoller<span class="tag">&lt;/<span class="name">function-class</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">function-signature</span>&gt;</span>int rollDice()<span class="tag">&lt;/<span class="name">function-signature</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">function</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Invoke 'Generate' action to add tags or functions --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">taglib</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h4 id="在JSP中放一个taglib指令"><a href="#在JSP中放一个taglib指令" class="headerlink" title="在JSP中放一个taglib指令"></a>在JSP中放一个taglib指令</h4><p><code>&lt;%@ taglib prefix=&quot;mine&quot; uri=&quot;DiceFunctions&quot; %&gt;</code></p>
-<h4 id="使用EL调用函数"><a href="#使用EL调用函数" class="headerlink" title="使用EL调用函数"></a>使用EL调用函数</h4><p>正文添加<br><code>${mine:rollIt()}</code></p>
-<h4 id="对TLD文件的解释"><a href="#对TLD文件的解释" class="headerlink" title="对TLD文件的解释"></a>对TLD文件的解释</h4><ul>
-<li>TLD中的uri对应JSP中taglib指令的uri属性</li>
-<li>TLD中function里的name标签的值对应EL表达式中冒号右边使用的函数</li>
-<li>TLD中function-class标签对应.class</li>
-<li>TLD中function-signature标签的值对应.class里的公共静态方法及其返回值</li>
-<li>taglib指令中的prefix属性的值对应EL表达式冒号左边的值</li>
-</ul>
-<p>*.tld文件可以放在WEB-INF目录或者其某个子目录中</p>
-<h3 id="EL处理null"><a href="#EL处理null" class="headerlink" title="EL处理null"></a>EL处理null</h3><p>对于找不到表达式中指定的属性/性质/键，也会显示页面，<strong>在算术表达式中，EL把null值看做是0，在逻辑表达式中，EL把null看做是false</strong></p>
-<h3 id="可复用的模板部件"><a href="#可复用的模板部件" class="headerlink" title="可复用的模板部件"></a>可复用的模板部件</h3><p>对于网站上每个页面的页眉和页脚都一样的情况下，每个JSP反复编写同样的页眉页脚，会显得效率低下，这个时候可以使用include指令把相同的页面放在不同网页对应的位置上</p>
-<h4 id="lt-include-gt-指令"><a href="#lt-include-gt-指令" class="headerlink" title="&lt;include&gt;指令"></a>&lt;include&gt;指令</h4><p>用法：<br><code>&lt;%@ include file=&quot;*.jsp&quot; %&gt;</code></p>
-<h4 id="lt-jsp-include-gt-标准动作"><a href="#lt-jsp-include-gt-标准动作" class="headerlink" title="&lt;jsp:include&gt;标准动作"></a>&lt;jsp:include&gt;标准动作</h4><p>用法<br><code>&lt;jsp:include page=&quot;*.jsp&quot; /&gt;</code></p>
-<h4 id="lt-include-gt-与-lt-jsp-include-gt-的区别"><a href="#lt-include-gt-与-lt-jsp-include-gt-的区别" class="headerlink" title="&lt;include&gt;与&lt;jsp:include&gt;的区别"></a>&lt;include&gt;与&lt;jsp:include&gt;的区别</h4><p>include指令在转换时发生，&lt;jsp:include&gt;标准动作在运行时发生<br>include指令相当于复制代码粘贴，标准动作则根据页面属性创建一个RequestDispatcher，并应用include()方法。</p>
-<p><strong>注意！不需要把&lt;html&gt;和&lt;body&gt;标签放到可复用部件中</strong></p>
-<h3 id="lt-jsp-param-gt-定制包含的内容"><a href="#lt-jsp-param-gt-定制包含的内容" class="headerlink" title="&lt;jsp:param&gt;定制包含的内容"></a>&lt;jsp:param&gt;定制包含的内容</h3><p>假设我们已经有了一个页眉，但是如果我们想要定制页眉的某一部分，比如我希望在页眉上有一个与上下文相关的子标题，它要依页面而定，如下</p>
-<p>在对应的jsp文件中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">jsp:include</span> <span class="attr">page</span>=<span class="string">"Header.jsp"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:param</span> <span class="attr">name</span>=<span class="string">"subTitle"</span> <span class="attr">value</span>=<span class="string">"aha!this is a sub title."</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">jsp:include</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在Header.jsp中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"directory/images/xxx.png"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>$&#123;param.subTitle&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span><span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="lt-jsp-forward-gt-转发"><a href="#lt-jsp-forward-gt-转发" class="headerlink" title="&lt;jsp:forward&gt;转发"></a>&lt;jsp:forward&gt;转发</h3><p>可以从一个JSP转发到另一个JSP，或者从一个JSP转发到一个servlet，还可以从一个JSP转发到WEB应用中任何其他资源。比如客户访问页面，如果没有登录，就转向另一个页面</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%</span> <span class="attr">if</span> (<span class="attr">request.getParameter</span>("<span class="attr">userName</span>") == <span class="string">null)</span> &#123; &gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">jsp:forward</span> <span class="attr">page</span>=<span class="string">"xx.jsp"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%</span> &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+<p>###servlet的映射方式<br>通过配置部署描述文件web.xml可以配置servlet名对应的URL路径<br>一般的web.xml内容如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>yourDefinedName<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>yourServletClassName<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>yourDefinedName<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/yourUrl<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&lt;servlet&gt;元素告诉容器有哪个类文件<br>&lt;servlet-name&gt;元素用于把一个&lt;servlet&gt;元素与一个特定的&lt;servlet-mapping&gt;元素绑定，最终用户看不到这个名字，这个名字只在这个部署文件的其他部分使用<br>&lt;servlet-class&gt;类的完全限定名，但不要加上.class后缀<br>&lt;servlet-mapping&gt;请求到来时，容器会在运行时使用这个元素，来调用对应的servlet<br>&lt;url-pattern&gt;URL的路径</p>
+<p>客户知道的URL名对应的是&lt;url-pattern&gt;的值，部署人员知道的秘密的内部名对应的是&lt;servlet-name&gt;的值，实际的文件名对应的是&lt;servlet-class&gt;的值</p>
+<p>##初窥MVC<br>MVC分别为model，view，controller，MVC的关键是业务逻辑与表示分离，实际上，业务逻辑甚至根本不知道有表示存在</p>
+<p>###Model<br>实际的业务逻辑和状态放在模型中，系统中只有这部分与数据库通信</p>
+<p>###Controller<br>从请求获得用户输入，并明确输入对模型的影响，告诉模型自行更新，并让视图得到新的模型状态，一个servlet实际上就是一个控制器</p>
+<p>###View<br>负责表示，它从控制器得到模型的状态，还要获得用户输入，交给控制器，一个JSP文件其实就是一个View</p>
+<p>##一个简单的MVC应用<br>目录树如下<br><!-- TODO:directoryTree.png --><br><img src="https://i.imgur.com/FkEytHL.png" alt=""><br>其中，com.example.web.BeerSelect为控制器，com.example.model.BeerExpert为模型，result.jsp为view</p>
+<p>web.xml内容如下<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Ch3 Beer<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.example.web.BeerSelect<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Ch3 Beer<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/SelectBeer.do<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>form.html如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>form test<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"css/form.css"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>Beer Selection Page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"formT"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">action</span>=<span class="string">"SelectBeer.do"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">p</span>&gt;</span>Color:</span><br><span class="line">                    <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">"color"</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">option</span> <span class="attr">name</span>=<span class="string">"light"</span>&gt;</span>light<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">option</span> <span class="attr">name</span>=<span class="string">"dark"</span>&gt;</span>dark<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">form</span>&gt;</span>            </span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>result.jsp<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">import</span>=<span class="string">"java.util.*"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>Bear Recommendations JSP<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">%</span></span></span><br><span class="line"><span class="tag">            <span class="attr">List</span> <span class="attr">styles</span> = <span class="string">(List)request.getAttribute(</span>"<span class="attr">styles</span>");</span></span><br><span class="line"><span class="tag">            <span class="attr">Iterator</span> <span class="attr">it</span> = <span class="string">styles.iterator();</span></span></span><br><span class="line"><span class="tag">            <span class="attr">while</span> (<span class="attr">it.hasNext</span>()) &#123;</span></span><br><span class="line"><span class="tag">                <span class="attr">out.print</span>("<span class="attr">try:</span> " + <span class="attr">it.next</span>());</span></span><br><span class="line"><span class="tag">            &#125;</span></span><br><span class="line"><span class="tag">        %&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>模型BeerExpert.java如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.model;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeerExpert</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List <span class="title">getBrands</span><span class="params">(String color)</span> </span>&#123;</span><br><span class="line">        List brands = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">if</span> (color.equals(<span class="string">"light"</span>)) &#123;</span><br><span class="line">            brands.add(<span class="string">"light a"</span>);</span><br><span class="line">            brands.add(<span class="string">"light b"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            brands.add(<span class="string">"dark1"</span>);</span><br><span class="line">            brands.add(<span class="string">"dark2"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> brands;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>控制器BeelSelect如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.web;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.model.BeerExpert;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.RequestDispatcher;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.annotation.WebServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@WebServlet</span>(name = <span class="string">"BeerSelect"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BeerSelect</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        String c = request.getParameter(<span class="string">"color"</span>);</span><br><span class="line">        BeerExpert be = <span class="keyword">new</span> BeerExpert();</span><br><span class="line">        List result = be.getBrands(c);</span><br><span class="line">        request.setAttribute(<span class="string">"styles"</span>, result);</span><br><span class="line">        RequestDispatcher view = request.getRequestDispatcher(<span class="string">"result.jsp"</span>);</span><br><span class="line">        view.forward(request, response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>##作为Servlet<br>在上述代码中，Servlet作为控制器有如下功能</p>
+<ol>
+<li>获得html页面中参数color的值</li>
+<li>创建一个模型，通过参数获得模型对应的属性</li>
+<li>设置请求的属性并设置对应值为从模型得到的结果（键-值对应）</li>
+<li>创建一个请求分派器对象，获得result.jsp页面</li>
+<li>通过view.forward(request,response)把请求和响应发送给该view，view通过request.getAttribute(“key”)来得到模型发送来的结果</li>
+</ol>
+<p>###Servlet生命周期</p>
+<ol>
+<li>WEB容器加载servlet类</li>
+<li>实例化servlet（构造函数运行）</li>
+<li>init()</li>
+<li>service()调用doGet(),doPost()等等</li>
+<li>destroy()<!-- TODO:插入lifecycle1.png和lifecycle2.png -->
+<img src="https://i.imgur.com/e7ESb0v.png" alt=""><br><img src="https://i.imgur.com/LKmCgwU.png" alt=""></li>
+</ol>
+<p>###HttpServletRequest API<br><!-- TODO:插入HttpServletRequestAPI.png --><br><img src="https://i.imgur.com/5EdBfDz.png" alt=""></p>
+<p>###HttpServletResponse API<br><!-- TODO:插入HttpServletResponseAPI.png --><br><img src="https://i.imgur.com/X34PFJo.png" alt=""></p>
+<p>###输出字符或字节<br>对于输出，可以选择输出字符或者字节<br>输出字符的时候<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter writer = response.getWriter();</span><br><span class="line">writer.println(<span class="string">"some text or HTML"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>输出字节的时候<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ServletOutputStream out = response.getOutputStream();</span><br><span class="line">out.write(aByteArray);</span><br></pre></td></tr></table></figure></p>
+<p>####使用响应完成I/O<br>e.g.Servlet处理下载JAR文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeReutrn</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        </span><br><span class="line">        response.setContentType(<span class="string">"application/jar"</span>); <span class="comment">// 对于这里的ContentType，还有很多其他的，具体可以自行Google</span></span><br><span class="line">        </span><br><span class="line">        ServletContext ctx = getServletContext();</span><br><span class="line">        InputStream is = ctx.getResourceAsStream(<span class="string">"/directory/xxx.jar"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> read = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">        OutputStream os = response.getOutputStream();</span><br><span class="line">        <span class="keyword">while</span>((read = is.read(bytes)) != -<span class="number">1</span>) &#123;</span><br><span class="line">            os.write(bytes, <span class="number">0</span>, read);</span><br><span class="line">        &#125;</span><br><span class="line">        os.flush();</span><br><span class="line">        os.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
           
         
       
@@ -2903,7 +2913,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2914,7 +2924,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2925,7 +2935,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">241</span>
+                  <span class="site-state-item-count">242</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2951,7 +2961,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-globe"></i>E-Mail</a>
                   </span>

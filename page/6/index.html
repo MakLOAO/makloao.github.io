@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
+        <p class="site-subtitle">因为图片使用的是imgur的，imgur被墙了，所以不挂VPN图片加载不了</p>
       
   </div>
 
@@ -355,6 +355,373 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/网络5-应用层/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/31/网络5-应用层/" itemprop="url">计算机网络5-应用层</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:07:34+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/31/网络5-应用层/" class="leancloud_visitors" data-flag-title="计算机网络5-应用层">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="网络4-应用层"><a href="#网络4-应用层" class="headerlink" title="网络4-应用层"></a>网络4-应用层</h1><ul>
+<li>网络应用模型<br>客户/服务器模型；P2P模型</li>
+<li>域名系统DNS<br>层次域名控件；域名服务器；域名解析过程</li>
+<li>文件传输协议FTP<br>FTP的工作原理；控制连接与数据连接</li>
+<li>电子邮件E-mail<br>电子邮件系统的组成结构；电子邮件格式与MIME；SMTP与POP3</li>
+<li>万维网WWW<br>WWW的概念与组成结构；HTTP</li>
+</ul>
+<h2 id="网络应用模型"><a href="#网络应用模型" class="headerlink" title="网络应用模型"></a>网络应用模型</h2><h3 id="客户-服务器模型"><a href="#客户-服务器模型" class="headerlink" title="客户/服务器模型"></a>客户/服务器模型</h3><p>C/S模型中，服务器总是处于打开状态，它服务于许多来自其他客户机的主机请求，工作流程如下</p>
+<ul>
+<li>服务器处于接收请求的状态</li>
+<li>客户机发出服务请求，并等待接收结果</li>
+<li>服务器收到请求后，分析请求，进行必要的处理，得到结果并发送给客户机</li>
+</ul>
+<h3 id="P2P模型"><a href="#P2P模型" class="headerlink" title="P2P模型"></a>P2P模型</h3><p>P2P模型的思想是整个网络中的传输内容不再被保存在中心服务器上，每个结点都同时又下载，上传的功能</p>
+<p>P2P优点是减轻服务器压力，可扩展性好，网络健壮性强，多个客户机之间可以直接共享文档；缺点是占用内存，对硬盘损伤大，使网络非常拥塞</p>
+<h2 id="域名系统DNS"><a href="#域名系统DNS" class="headerlink" title="域名系统DNS"></a>域名系统DNS</h2><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h3 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h3><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h3 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h3><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h4 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h4><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h4 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h4><p>它返回权威服务器的IP地址</p>
+<h4 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h4><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h4 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h4><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h3 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h3><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.edu</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h3 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h3><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h3 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h3><h4 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h4><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h4 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h4><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h4 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h4><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
+<h2 id="文件传输协议FTP"><a href="#文件传输协议FTP" class="headerlink" title="文件传输协议FTP"></a>文件传输协议FTP</h2><p>FTP提供以下功能：</p>
+<ul>
+<li>提供不同种类主机系统之间的文件传输能力</li>
+<li>以用户权限管理的方式提供用户对远程FTP服务器上的文件管理能力</li>
+<li>以匿名FTP的方式提供公用文件共享的能力</li>
+</ul>
+<p>FTP采用C/S工作方式，使用TCP可靠传输服务，FTP服务器进程由两大部分组成：一个主进程负责就收新的请求；另外若干从属进程，负责处理单个请求，工作步骤如下：</p>
+<ul>
+<li>打开端口21（控制端口），等待客户进程发连接请求</li>
+<li>启动从属进程来处理客户进程发来的请求</li>
+</ul>
+<h3 id="控制连接与数据连接"><a href="#控制连接与数据连接" class="headerlink" title="控制连接与数据连接"></a>控制连接与数据连接</h3><p>FTP工作时使用两个并行的TCP连接，一个是控制连接（端口21），一个是数据连接（端口20）</p>
+<p><img src="https://i.imgur.com/wsZwAO2.png" alt=""></p>
+<p><img src="https://i.imgur.com/XcfFv3f.png" alt=""></p>
+<p>控制连接用来传输控制信息（连接请求，传送请求，中止传输等），并且控制信息都以7位ASCII格式传送</p>
+<h2 id="电子邮件"><a href="#电子邮件" class="headerlink" title="电子邮件"></a>电子邮件</h2><h3 id="组成结构"><a href="#组成结构" class="headerlink" title="组成结构"></a>组成结构</h3><p>电子邮件系统主要由用户代理，邮件服务器和电子邮件协议组成，常见电子邮件协议是SMTP,POP3等</p>
+<p><img src="https://i.imgur.com/xbHpobS.png" alt=""></p>
+<p>常见的用户代理是Outlook,Foxmail等，邮件服务器采用C/S工作方式，但它能同时充当客户和服务器，发送方是客户，接收方的服务器，SMTP采用”推”的他通信方式，SMTP客户端是主动将邮件”推”到SMTP服务器的，POP3采用的是”拉”的通信方式，用户读取邮件时，用户代理向邮件服务器发出请求，”拉”取用户邮箱中的邮件</p>
+<p><img src="https://i.imgur.com/fD2xiTH.png" alt=""></p>
+<p>发送方发送邮件到邮件服务器和发送方邮件服务器发送邮件到接收方服务器采用的都是SMTP</p>
+<h3 id="电子邮件格式与MIME"><a href="#电子邮件格式与MIME" class="headerlink" title="电子邮件格式与MIME"></a>电子邮件格式与MIME</h3><p>电子邮件分为信封和内容两大部分，邮件内容又分为首部和主体两部分</p>
+<p>常见的邮件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">From: xxx@xxx.com</span><br><span class="line">To : xxx@xxx.com</span><br><span class="line">Subjuect: xxxxx</span><br><span class="line">主体</span><br></pre></td></tr></table></figure>
+<p>SMTP只能传送一定长度的ASCII码，MIME（多用途网际邮件扩充）的意图是继续使用目前SMTP的格式，但增加了邮件主体的结构，并定义了传送非ASCII码的编码规则</p>
+<p><img src="https://i.imgur.com/yRvFc6Q.png" alt=""></p>
+<ul>
+<li>MIME增加了5个新的邮件首部字段，包括MIME版本，内容描述，内容标识，内容传送编码和内容类型</li>
+<li>定义了许多邮件内容的格式，对多媒体电子邮件的表示方法进行了标准化</li>
+<li>定义了传送编码，可对任何内容格式进行转换，而不会被邮件系统改变</li>
+</ul>
+<h3 id="SMTP和POP3"><a href="#SMTP和POP3" class="headerlink" title="SMTP和POP3"></a>SMTP和POP3</h3><p>SMTP采用C/S方式，TCP连接，端口号25，有连接建立，邮件传送，连接释放三个阶段</p>
+<p>OPO3采用C/S方式，TCP连接，端口号110</p>
+<h2 id="万维网WWW"><a href="#万维网WWW" class="headerlink" title="万维网WWW"></a>万维网WWW</h2><p>万维网是一个资料空间，这个空间中：一样有用的事务称为一样”资源”，并由一个全域”统一资源定位符”(URL)标识，这些资源通过超文本传输协议HTTP传送给使用者</p>
+<p>万维网使用链接的方法能让用户非常方便从因特网一个站点访问另一个站点，万维网内核部分由3个标准构成：统一资源定位符URL，超文本传输协议HTTP，超文本标记语言HTML</p>
+<p>URL一般格式是：<code>&lt;协议&gt;://&lt;主机&gt;:&lt;端口&gt;/&lt;路径&gt;</code><br>常见协议有http，ftp等，主机是存放资源的主机在因特网的域名，也可以是IP地址，端口和路径有时可以省略，URL不区分大小写</p>
+<p>万维网以C/S方式工作，浏览器是客户机</p>
+<h3 id="超文本传输协议HTTP"><a href="#超文本传输协议HTTP" class="headerlink" title="超文本传输协议HTTP"></a>超文本传输协议HTTP</h3><p>每个万维网站点都有一个服务器进程，它不断监听TCP的端口80，当监听到连接请求后便与浏览器建立连接，用户单击鼠标后发生的事件按顺序如下：</p>
+<ol>
+<li>浏览器分析链接指向页面的URL</li>
+<li>浏览器向DNS请求解析</li>
+<li>域名系统DNS解析出服务器的IP地址</li>
+<li>浏览器与该服务器建立TCP连接（HTTP默认端口80）</li>
+<li>浏览器发出HTTP请求，GET /xx/index.html</li>
+<li>服务器通过HTTP响应把文件index.html发送给浏览器</li>
+<li>TCP连接释放</li>
+<li>浏览器解释文件index.html，并将WEB页显示给用户</li>
+</ol>
+<h4 id="HTTP特点"><a href="#HTTP特点" class="headerlink" title="HTTP特点"></a>HTTP特点</h4><p>HTTP是无状态的，通常使用Cookie加数据库的方式来跟踪用户的活动，HTTP采用TCP作为运输层协议，但HTTP本身是无连接的，通信双方交换HTTP报文之前不需要先建立HTTP连接</p>
+<p>HTTP非持久连接会对网页元素对象（JPEG图形，Flash等）的传输单独建立一个TCP连接，HTTP/1.1支持持久连接，服务器发送响应后仍保持这条连接，这样可以继续上传后续HTTP请求与响应报文<br>持久连接又分为流水线和非流水线，非流水线是客户收到前一个响应之后才能发出下一个请求，HTTP/1.1默认是流水线的持久连接，客户每遇到一个对象引用就立即发出一个请求，客户可以逐个地连续发出对各个引用对象的请求</p>
+<h4 id="HTTP-1-0与HTTP-1-1的区别"><a href="#HTTP-1-0与HTTP-1-1的区别" class="headerlink" title="HTTP/1.0与HTTP/1.1的区别"></a>HTTP/1.0与HTTP/1.1的区别</h4><ul>
+<li>长连接：HTTP/1.0发送一个响应后就关闭连接，可以使用keep-alive参数来告知服务器建立一个长连接，而HTTP/1.1默认就支持长连接</li>
+<li>节约带宽：HTTP/1.1支持只发送header信息（不带任何body），如果服务器认为客户端有权限请求服务器，就返回100，客户端接收到100才开始把请求body发送到服务器，当服务器返回401，客户端就可以不用发送请求body了，节约了带宽</li>
+<li>HOST域：HTTP/1.0认为每台服务器都绑定一个唯一的IP地址，因此请求消息中的URL并没有传递主机名，现在一台物理服务器可以存在多个虚拟主机，且他们共享同一个IP地址，所以HTTP/1.1引入HOST头域</li>
+</ul>
+<h4 id="HTTP-1-1与HTTP-2-0的区别"><a href="#HTTP-1-1与HTTP-2-0的区别" class="headerlink" title="HTTP/1.1与HTTP/2.0的区别"></a>HTTP/1.1与HTTP/2.0的区别</h4><ul>
+<li>多路复用：HTTP/2.0同一个连接可以并发处理多个请求，且并发数量比HTTP/1.1大了好几个数量级</li>
+<li>数据压缩：HTTP/1.1不支持header数据的压缩，HTTP/2.0使用HPACK算法对header的数据进行压缩</li>
+<li>服务器推送：当我们请求数据的时候，HTTP/2.0的服务器可以顺便把一些客户端需要的资源一起推送到客户端</li>
+</ul>
+<h4 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h4><p>请求报文，CR LF是回车和换行，sp是空格</p>
+<p><img src="https://i.imgur.com/pFnuyW0.png" alt=""></p>
+<p>响应报文</p>
+<p><img src="https://i.imgur.com/UjC1HLk.png" alt=""></p>
+<p>HTTP请求常用的几个方法如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">请求读取由URL标识的信息</td>
+</tr>
+<tr>
+<td style="text-align:left">HEAD</td>
+<td style="text-align:left">请求读取由URL标识的信息的头部</td>
+</tr>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">给服务器添加信息</td>
+</tr>
+</tbody>
+</table>
+<p>CONNECT 用于代理服务器</p>
+<p>请求报文一般用不到实体主体</p>
+<h2 id="常见应用层的协议和熟知端口"><a href="#常见应用层的协议和熟知端口" class="headerlink" title="常见应用层的协议和熟知端口"></a>常见应用层的协议和熟知端口</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">应用程序</th>
+<th style="text-align:left">FTP数据连接</th>
+<th style="text-align:left">FTP控制连接</th>
+<th style="text-align:left">TELNET</th>
+<th style="text-align:left">SMTP</th>
+<th style="text-align:left">DNS</th>
+<th style="text-align:left">TFTP</th>
+<th style="text-align:left">HTTP</th>
+<th style="text-align:left">POP3</th>
+<th style="text-align:left">SNMP</th>
+<th style="text-align:left">HTTPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">使用协议</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">UDP</td>
+<td style="text-align:left">UDP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+<td style="text-align:left">TCP</td>
+</tr>
+<tr>
+<td style="text-align:left">熟知端口号</td>
+<td style="text-align:left">20</td>
+<td style="text-align:left">21</td>
+<td style="text-align:left">23</td>
+<td style="text-align:left">25</td>
+<td style="text-align:left">53</td>
+<td style="text-align:left">69</td>
+<td style="text-align:left">80</td>
+<td style="text-align:left">110</td>
+<td style="text-align:left">161</td>
+<td style="text-align:left">443</td>
+</tr>
+</tbody>
+</table>
+<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/OrdRHEk.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2679,275 +3046,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/Java集合/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/16/Java集合/" itemprop="url">Java集合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T16:46:30+08:00">
-                2019-07-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/16/Java集合/" class="leancloud_visitors" data-flag-title="Java集合">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h2 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h2><p>Java集合类库将接口与实现分离，比如队列，队列可以有链式的和顺序的，只要设计好对应接口，具体实现继承该接口即可<br>使用的时候利用多态<code>Queue&lt;XXX&gt; xxQueue = new LinkedListQueue&lt;&gt;();</code></p>
-<p>Java类库会有一组名字以Abstract开头的类，例如AbstractQueue，这些类是为类库实现者设计的，扩展AbstractQueue会比实现Queue接口所有方法要轻松</p>
-<h3 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h3><p>集合类的基本接口是Collection，Collection接口如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E element)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line">    Object[] toArray();</span><br><span class="line">    &lt;T&gt; T[] toArray(T[] a);</span><br><span class="line">    <span class="comment">// default method</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> E&gt; action)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意迭代器的游标，迭代器的游标是介于两个元素之间，每次next()就穿过一个元素，并返回越过的元素的引用，每次remove()都会删除迭代器穿过的那个元素，不能连续多次remove()</p>
-<p><strong>迭代器不能与list的add或remove方法同时使用</strong>，否则会报<code>ConcurrentModificationException</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    list.add(<span class="number">0</span>);</span><br><span class="line">    list.add(<span class="number">1</span>);</span><br><span class="line">    list.add(<span class="number">2</span>);</span><br><span class="line">    Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">    System.out.println(iterator.next());</span><br><span class="line">    <span class="comment">// iterator = null; // 如果不注释这个，会报错</span></span><br><span class="line">    list.add(<span class="number">0</span>);</span><br><span class="line">    iterator.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从源码上讲原因</p>
-<p>基本上ArrayList采用size属性来维护自已的状态，而Iterator采用cursor来来维护自已的状态<br>当size出现变化时，cursor并不一定能够得到同步，除非这种变化是Iterator主动导致的<br>当Iterator.remove方法导致ArrayList列表发生变化时，他会更新cursor来同步这一变化。但其他方式导致的ArrayList变化，Iterator是无法感知的，Iterator只会经常做checkForComodification检查，以防有变。如果有变，则以异常抛出，所以就出现了上面的异常</p>
-<p><strong>Collection继承了Iterable接口，因此标准类库中任何集合都可以使用”for each”循环</strong>，在Java SE 8中甚至不用写循环，<strong>可以调用forEachRemaining方法并提供一个lambda表达式，将对迭代器的每一个元素调用这个lambda表达式直到没有元素为止</strong></p>
-<p><code>iterator.forEachRemaining(element -&gt; do something with element);</code></p>
-<p>e.g.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    list.add(<span class="number">0</span>);</span><br><span class="line">    list.add(<span class="number">1</span>);</span><br><span class="line">    list.add(<span class="number">2</span>);</span><br><span class="line">    Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">    iterator.forEachRemaining(element -&gt; System.out.println(element));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="AbstractCollection"><a href="#AbstractCollection" class="headerlink" title="AbstractCollection"></a>AbstractCollection</h3><p>抽象类AbstractCollection除了size()和iterator()是抽象的，其他方法都有默认实现，一个具体的集合类可以扩展AbstractCollection，然后提供iterator()和size()方法即可</p>
-<p><img src="https://i.imgur.com/P0Ph5iD.png" alt=""></p>
-<h3 id="集合框架中的接口"><a href="#集合框架中的接口" class="headerlink" title="集合框架中的接口"></a>集合框架中的接口</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Java集合框架为不同类型的集合定义了大量接口，如下图所示：</p>
-<p><img src="https://i.imgur.com/SSFZLQv.png" alt=""></p>
-<p>集合有两个基本接口：Collection和Map，对于Collection的添加元素，使用<code>boolean add(E element);</code>，而对于Map的添加元素，则要使用<code>V put(K key, V value);</code>，从集合获取元素，可以使用迭代器，而从Map读取值则要用get方法<code>V get(K key);</code></p>
-<p>Set接口等同于Collection接口，但是其方法更严谨定义，set的add方法不允许增加重复的元素，equals方法只要两个集元素相同就相等，不要求有同样的顺序，hashCode方法定义保证包含相同元素的两个集会得到相同的散列码</p>
-<p>List是有序集合，<strong>可以使用迭代器顺序访问或整数索引随机访问</strong>，List接口定义了随机访问的方法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"><span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</span><br></pre></td></tr></table></figure>
-<h4 id="ListIterator"><a href="#ListIterator" class="headerlink" title="ListIterator"></a>ListIterator</h4><p><strong>ListIterator主要用于可以高效在序列中间插入元素的对象（如链表）</strong><br>ListIterator是Iterator的一个子接口，它定义一个方法用于在迭代器的位置前面增加一个元素，具体其他方法可以见API文档：<br><code>void add(E element);</code><br>这个设计不太好，<strong>数组支持的有序集合可以快速随机访问，因此适合使用List方法并提供一个整数索引来访问，而链表随机访问很慢，更适合迭代器遍历</strong></p>
-<h4 id="RandomAccess"><a href="#RandomAccess" class="headerlink" title="RandomAccess"></a>RandomAccess</h4><p>为了避免对链表随机访问，Java引入一个RandomAccess接口，它不包含任何方法，可以用来测试特定的集合是否支持高效的随机访问</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (c <span class="keyword">instanceof</span> RandomAccess) &#123;</span><br><span class="line">    use random access algorithm</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    use sequential access algorithm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="具体的集合"><a href="#具体的集合" class="headerlink" title="具体的集合"></a>具体的集合</h2><p>下面是Java类库中具体的集合，Map结尾的实现了Map接口，其他实现了Collection接口</p>
-<p><img src="https://i.imgur.com/snN6Ku6.png" alt=""></p>
-<p><img src="https://i.imgur.com/ufk66OA.png" alt=""></p>
-<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>链表是一种逻辑上顺序，物理存储单元上非连续、非顺序的存储结构，由一系列结点组成，链表插入时间复杂度O(1)，但查找和访问需要O(n)的时间复杂度，不支持随机存取</p>
-<h4 id="链表的迭代"><a href="#链表的迭代" class="headerlink" title="链表的迭代"></a>链表的迭代</h4><p>Java所有链表都是双向的，在集合中，链表的具体实现是LinkedList，链表的遍历可以通过迭代器实现，<strong>对于在链表中间插入或删除结点，可以通过概述中提到的Iterator的子接口ListIterator实现，LinkedList有一个<code>listIterator(int index)</code>方法，用于返回其ListIterator对象</strong>，ListIterator的API如下</p>
-<p><img src="https://i.imgur.com/XcgaYh7.png" alt=""></p>
-<p>add操作是在游标与越过的元素之间插入，并且插入后游标仍在新插入的元素之后，add只依赖迭代器的位置，<strong>可以连续多次add操作</strong><br>remove操作是删除游标越过的元素，<strong>不可以连续多次remove</strong>，它取决于迭代器的状态<br>set操作是用新元素取代游标越过的元素</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">list.add(<span class="number">0</span>);</span><br><span class="line">list.add(<span class="number">1</span>);</span><br><span class="line">list.add(<span class="number">2</span>);</span><br><span class="line">ListIterator&lt;Integer&gt; listIterator = list.listIterator(); <span class="comment">// | 0 1 2</span></span><br><span class="line">listIterator.next(); <span class="comment">// 0 | 1 2</span></span><br><span class="line">listIterator.add(<span class="number">3</span>); <span class="comment">// 0 3 | 1 2</span></span><br><span class="line">listIterator.add(<span class="number">4</span>); <span class="comment">// 0 3 4 | 1 2</span></span><br><span class="line">listIterator.next(); <span class="comment">// 0 3 4 1 | 2</span></span><br><span class="line">listIterator.remove(); <span class="comment">// 0 3 4 | 2</span></span><br><span class="line">listIterator.previous(); <span class="comment">// 0 3 | 4 2</span></span><br><span class="line">listIterator.remove(); <span class="comment">// 0 3 | 2</span></span><br><span class="line">Iterator&lt;Integer&gt; iterator = list.iterator();</span><br><span class="line">iterator.forEachRemaining(element -&gt; System.out.print(element + <span class="string">" "</span>));</span><br></pre></td></tr></table></figure>
-<p>列表迭代器还有nextIndex方法和previousIndex方法，它们分别返回下一次调用next和previous时的返回元素的索引，这两个方法是高效的，因为迭代器维护当前位置的计数值，list.listIterator(int n)可以接收一个整型参数n，它返回一个迭代器，指向索引为n的元素的前面的位置</p>
-<p>当迭代器发现它的集合被另一个迭代器修改，或者是被该集合自身修改，就会抛出<code>ConcurrentModificationException</code>异常<br>对迭代器的使用应该遵循下面原则：<strong>可以根据需要给容器附加许多迭代器，但是这些迭代器只能读取列表。另外，再单独附加一个既能读又能写的迭代器</strong></p>
-<h4 id="链表对象"><a href="#链表对象" class="headerlink" title="链表对象"></a>链表对象</h4><p>Java类库LinkedList的方法除了add,remove,size,clear等链表方法，也支持双端队列的方法如peek,poll,offer,push,pop等，使用这些方法的时候，声明类型必须是LinkedList（或者强制类型转换）</p>
-<p>Java类库的LinkedList也有get等方法，但是这些方法效率都不高，不符合链表的定义，不建议使用，对链表做如下操作是极其低效的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++) &#123;</span><br><span class="line">    <span class="keyword">do</span> something with list.get(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>建议避免使用以整数索引表示链表中位置的所有方法，如果需要随机访问，最好使用数组或ArrayList，而不要使用链表，使用链表最好使用ListIterator对其操作</strong></p>
-<h3 id="数组列表"><a href="#数组列表" class="headerlink" title="数组列表"></a>数组列表</h3><p>ArrayList内部使用数组实现，支持高效的随机存取</p>
-<h3 id="散列集"><a href="#散列集" class="headerlink" title="散列集"></a>散列集</h3><p>散列集是没有顺序的，支持快速查找元素的数据结构。散列表为每个对象计算一个整数，称为散列码，快速查找元素就是通过散列码实现的</p>
-<p>在Java中，散列表用链表数组实现。数组每一项被称为桶(bucket)，它实际是一个链表，如下：</p>
-<p><img src="https://i.imgur.com/yTQTWh2.png" alt=""></p>
-<p>要查找某个元素，就计算它的散列码，然后与桶总数取余，得到的结果就是保存这个元素的桶的索引。如果桶被占满，就是散列冲突，这时就需要用新对象与桶中所有对象比较，查看这个对象是否已经存在</p>
-<p>Java集合类库提供了HashSet类，实现基于散列表的集合，使用add方法添加元素，contains快速查看某个元素已经出现在集合中，它只在某个桶中查找元素，而不必查看集合中所有元素</p>
-<p><strong>可以初始化其桶数和装填因子，通常桶数为预计元素个数的75%到150%，桶数最好是素数，以防键的集聚。标准类库使用的桶数是2的幂，默认是16；当散列表元素过多，散列表需要再散列，即创建一个桶数更多的表，并将所有元素插入到这个新表。装填因子是0.0 ~ 1.0的浮点数，默认是0.75，指示当表中超过75%的位置都已经填入元素，这个表就会用双倍桶数自动进行再散列，HashSet是通过HashMap实现的，键是HashSet的元素，值是new一个Object对象，contains方法是调用HashMap的containsKey方法</strong>，HashSet的构造方法如下，可以指定桶数和装填因子</p>
-<p><img src="https://i.imgur.com/NkMA1B7.png" alt=""></p>
-<p>API文档</p>
-<p><img src="https://i.imgur.com/i1OjxLy.png" alt=""></p>
-<h3 id="树集"><a href="#树集" class="headerlink" title="树集"></a>树集</h3><p>TreeSet是<strong>有序集合</strong>，可以以任意顺序将元素插入集合中，对集合遍历时每个值都会自动按照<strong>排序后</strong>顺序呈现，TreeSet底层原理是红黑树，插入元素比散列表要慢。如果书中包含n个元素，查找新元素的正确位置平均需要lgn次比较</p>
-<p>树集比HashSet多了有关排序的方法，如ceiling(返回此set中大于或等于给定元素的最小元素，如果没有这样的元素，则返回null)，first(返回此set中当前的第一个（最低）元素)，floor，last，pollFirst等</p>
-<p><strong>树集的元素必须实现Comparator接口，或者构造集时必须提供一个Comparator对象</strong></p>
-<h3 id="队列与双端队列"><a href="#队列与双端队列" class="headerlink" title="队列与双端队列"></a>队列与双端队列</h3><p>Vector所有方法都是同步的，这是与ArrayList主要的区别</p>
-<p>队列的接口是Queue</p>
-<p><img src="https://i.imgur.com/WtGq5Jw.png" alt=""></p>
-<p><img src="https://i.imgur.com/nhI5dNo.png" alt=""></p>
-<p>双端队列接口是Deque</p>
-<p><img src="https://i.imgur.com/Ki4a7lR.png" alt=""></p>
-<p>与队列的比较</p>
-<p><img src="https://i.imgur.com/Sg9qLY0.png" alt=""></p>
-<p>与栈的比较</p>
-<p><img src="https://i.imgur.com/7cWthF0.png" alt=""></p>
-<p><strong>具体实现的双端队列是ArrayDeque和LinkedList，它们都提供了双端队列，因此也可以把他们当做栈使用</strong></p>
-<h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3><p>优先级队列的元素可以按照任意顺序插入，但总是按照排序的顺序进行检索，无论何时调用remove方法，都会获得当前优先级队列中<strong>最小的元素</strong>，其实他实现的是堆，可以为其提供Comparator（需要实现<code>public int compare(String o1, String o2)</code>方法）</p>
-<p><img src="https://i.imgur.com/NIM6Emo.png" alt=""></p>
-<h2 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h2><p>映射用来存放键/值对，Java类库提供了HashMap和TreeMap两种实现，它们都实现了Map接口</p>
-<p><strong>散列映射对键进行散列，树映射用键的整体顺序对元素进行排序，并将其组织成搜索树。散列或比较函数只能作用于键。与键关联的值不能进行散列或比较</strong></p>
-<h3 id="基本映射操作"><a href="#基本映射操作" class="headerlink" title="基本映射操作"></a>基本映射操作</h3><p>如果映射没有与给定键对应的值，get方法会返回null，如果想在没有对应值得时候返回默认值，可以使用getOrDefault方法</p>
-<p>键是唯一的，对同一键调用两次put方法，第二次的会覆盖第一次的值</p>
-<p>迭代处理映射的键值，可以使用forEach方法<br><code>map.forEach((k, v) -&gt; System.out.println(k + &quot;: &quot; + v));</code></p>
-<h3 id="Map接口"><a href="#Map接口" class="headerlink" title="Map接口"></a>Map接口</h3><p><img src="https://i.imgur.com/Z3Ky7l8.png" alt=""></p>
-<h3 id="更新映射项"><a href="#更新映射项" class="headerlink" title="更新映射项"></a>更新映射项</h3><p>更新映射项的一个难点是键第一次出现的时候，如下：<br><code>map.put(word, map.get(word) + 1);</code><br>当map不存在关键字word的时候，即第一次插入的时候，get方法就会返回null，从而报空指针错误</p>
-<p>可以使用putIfAbsent方法，当键原先存在才会放入一个值<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map.putIfAbsent(word, <span class="number">0</span>);</span><br><span class="line">map.put(word, map.get(word) + <span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
-<p>使用merge方法会更好</p>
-<p><code>map.merge(word, 1, Integet::sum);</code></p>
-<p>如果关键字word原先不存在，它会把word与1关联，否则使用sum方法组合原值和1</p>
-<h3 id="映射视图"><a href="#映射视图" class="headerlink" title="映射视图"></a>映射视图</h3><p>Map不继承自Collection接口，即在集合框架中，映射不是一个集合（虽然在其他数据结构中映射是一个键/值对集合），可以得到映射的视图，视图是实现了Collection接口或某个子接口的对象</p>
-<p>有3种视图，键集，值集合（不是一个集）以及键/值对集，下面方法会返回这三个视图</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Set&lt;V&gt; <span class="title">keySet</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">Collection&lt;V&gt; <span class="title">values</span><span class="params">()</span></span>;</span><br><span class="line">Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet();</span><br></pre></td></tr></table></figure>
-<p>keySet不是HashSet或者TreeSet，而是实现了Set接口(AbstractSet)的另外对象</p>
-<h4 id="entrySet"><a href="#entrySet" class="headerlink" title="entrySet"></a>entrySet</h4><p>entrySet()的元素是Map.Entry类，该类API如下</p>
-<p><img src="https://i.imgur.com/J2rGSy3.png" alt=""></p>
-<h4 id="迭代Map"><a href="#迭代Map" class="headerlink" title="迭代Map"></a>迭代Map</h4><p>对map的迭代，可以使用entrySet，也可以使用forEach，如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : map.entrySet()) &#123;</span><br><span class="line">    <span class="comment">// do something with entry.getKey() + entry.getValue();</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map.forEach((k, v) -&gt; &#123;</span><br><span class="line">    <span class="comment">// do something with k, v</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="弱散列映射"><a href="#弱散列映射" class="headerlink" title="弱散列映射"></a>弱散列映射</h4><p>WeakHashMap中当对键的唯一引用来自散列条目时，它就会与垃圾回收器协同工作一起删除键/值对。它使用弱引用保存键</p>
-<h4 id="链接散列集与映射"><a href="#链接散列集与映射" class="headerlink" title="链接散列集与映射"></a>链接散列集与映射</h4><p>LinkedHashSet与LinkedHashMap类记住插入元素项的顺序，内部是由双向链表实现</p>
-<h4 id="枚举集与映射"><a href="#枚举集与映射" class="headerlink" title="枚举集与映射"></a>枚举集与映射</h4><p>EnumSet是枚举类型元素集的高效实现，内部用位序列实现，它没有公共构造器，可以使用静态工厂方法构造集</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> Weekday &#123; MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAT, SUNDAY &#125;;</span><br><span class="line">EnumSet&lt;Weekday&gt; always = EnumSet.allOf(Weekday.class);</span><br><span class="line">EnumSet&lt;Weekday&gt; never = EnumSet.noneOf(Weekday.class);</span><br><span class="line">EnumSet&lt;Weekday&gt; workday = EnumSet.range(Weekday.MONDAY, Weekday.FRIDAY);</span><br><span class="line">EnumSet&lt;Weekday&gt; mwf = EnumSet.of(Weekday.MONDAY, Weekday.WEDNESDAY, Weekday.FRIDAY);</span><br></pre></td></tr></table></figure>
-<p>可以使用Set接口方法来修改EnumSet</p>
-<p>EnumMap键类型为枚举类型，可以直接高效用一个值数组实现，使用时需要在构造器指定键类型<br><code>EnumMap&lt;Weekday, Employee&gt; personInCharge = new EnumMap&lt;&gt;(Weekday.class);</code></p>
-<h4 id="标识散列映射"><a href="#标识散列映射" class="headerlink" title="标识散列映射"></a>标识散列映射</h4><p>IdentityHashMap键的散列值不是用HashCode函数计算，而是用System.identityHashCode方法计算，这是Object.hashCode方法根据对象内存地址计算散列码的方式，对两个对象进行比较，IdentityHashMap类使用==，而不是用equals，即不同的键对象，即使内容相同，也是不同的对象</p>
-<h2 id="视图与包装器"><a href="#视图与包装器" class="headerlink" title="视图与包装器"></a>视图与包装器</h2><h3 id="轻量级集合包装器"><a href="#轻量级集合包装器" class="headerlink" title="轻量级集合包装器"></a>轻量级集合包装器</h3><p>Arrays类的静态方法asList将返回一个包装了普通Java数组的List包装器。这个方法可以将数组传递给一个期望得到列表或集合参数的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] cards = <span class="keyword">new</span> String[<span class="number">100</span>];</span><br><span class="line">...</span><br><span class="line">List&lt;String&gt; cardList = Arrays.asList(cards);</span><br></pre></td></tr></table></figure>
-<p><strong>返回的对象不是ArrayList，它是一个视图对象</strong>，带有访问底层数组的get和set方法。<strong>改变数组大小的所有方法（如迭代器相关的add和remove方法）都会抛出不支持操作异常</strong>，asList不支持基本类型到包装类型的转换</p>
-<p>asList方法可以接收可变数目参数<br><code>List&lt;String&gt; names = Arrays.asList(&quot;Amy&quot;, &quot;Bob&quot;, &quot;Carl&quot;);</code></p>
-<h3 id="子范围"><a href="#子范围" class="headerlink" title="子范围"></a>子范围</h3><p>可以为很多集合建立子范围视图，调用subList方法<br><code>List group2 = list1.subList(10, 20); // 10 ~ 19</code><br><strong>子范围可以任意操作，操作都会自动反应到整个列表</strong>，例如可以删除整个子范围<br><code>group2.clear();</code></p>
-<p>对于有序集和映射，可以使用排序顺序而不是元素位置建立子范围<br>SortedSet有三个方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">subSet</span><span class="params">(E from, E to)</span></span>;</span><br><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">headSet</span><span class="params">(K to)</span></span>;</span><br><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">tailSet</span><span class="params">(E from)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>SortedMap同理</p>
-<h3 id="不可修改的视图"><a href="#不可修改的视图" class="headerlink" title="不可修改的视图"></a>不可修改的视图</h3><p>可以使用如下方法获得不可修改视图</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Collections.unmodifiableCollection</span><br><span class="line">Collections.unmodifiableList</span><br><span class="line">Collections.unmodifiableSet</span><br><span class="line">Collections.unmodifiableSortedSet</span><br><span class="line">Collections.unmodifiableNavigableSet</span><br><span class="line">Collections.unmodifiableMap</span><br><span class="line">Collections.unmodifiableSortedMap</span><br><span class="line">Collections.unmodifiableNavigableMap</span><br></pre></td></tr></table></figure>
-<h3 id="同步视图"><a href="#同步视图" class="headerlink" title="同步视图"></a>同步视图</h3><p>JAVA集合类库也提供了视图机制确保常规集合的线程安全，而不是实现线程安全的集合类，如Collections类的静态synchronizedMap方法可以将任何一个映射表转换成具有相同同步访问方法的Map</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="排序与混排"><a href="#排序与混排" class="headerlink" title="排序与混排"></a>排序与混排</h3><p><strong>Collections类的sort方法可以对实现了List接口的集合进行排序</strong>，该方法假定列表元素实现了Comparable接口</p>
-<p>如果想采用其他方式对列表进行排序，可以使用List接口的sort方法并传入Comparator对象</p>
-<p>e.g.<br>对工资进行排序<br><code>staff.sort(Comparator.comparingDouble(Employee::getSalary));</code></p>
-<p>降序对列表排序<br><code>staff.sort(Comparator.reverseOrder());</code><br><code>staff.sort(Comparator.comparingDouble(Employee::getSalary).reversed());</code></p>
-<p>混排的话，调用Collections的shuffle方法，传入list对象即可</p>
-<h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>Collections.binarySearch，第一个参数为列表，第二个参数为待查找元素，第三个可选参数Comparator。返回负数表示找不到，但可以利用返回值计算应该将element插入到集合哪个位置，插入位置是-i-1，i是binarySearch的返回结果，<code>if(i&lt;0) c.add(-i-1,element);</code></p>
-<h3 id="简单算法"><a href="#简单算法" class="headerlink" title="简单算法"></a>简单算法</h3><p>常见简单算法如下，他们都是Collections类提供的静态方法，具体参数查看API文档</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">min</span><br><span class="line">max</span><br><span class="line">copy <span class="comment">// 第一个参数是to，第二个是from</span></span><br><span class="line">fill <span class="comment">// 填充列表所有值为某个值</span></span><br><span class="line">addAll</span><br><span class="line">replaceAll</span><br><span class="line">indexOfSubList</span><br><span class="line">lastIndexOfSubList</span><br><span class="line">swap</span><br><span class="line">reverse</span><br><span class="line">rotate <span class="comment">// 第二个参数为int d，将索引i的条目移到(i+d)%l.size()</span></span><br><span class="line">frequency <span class="comment">// 返回与对象o相同的元素个数</span></span><br><span class="line">disjoint <span class="comment">// 如果两个列表没有共同元素返回true</span></span><br></pre></td></tr></table></figure>
-<h3 id="数组与集合的转换"><a href="#数组与集合的转换" class="headerlink" title="数组与集合的转换"></a>数组与集合的转换</h3><p>数组-&gt;集合<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] values = ...;</span><br><span class="line">HashSet&lt;String&gt; staff = <span class="keyword">new</span> HashSet&lt;&gt;(Arrays.asList(values));</span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
-<p>集合-&gt;数组<br><code>Object[] values = staff.toArray();</code><br><code>String[] values = staff.toArray(new String[0]);</code></p>
-<p>第二个方法可以提供一个所需类型的长度为0的数组，创建所需类型的数组类型</p>
-<h2 id="遗留的集合"><a href="#遗留的集合" class="headerlink" title="遗留的集合"></a>遗留的集合</h2><h3 id="Hashtable"><a href="#Hashtable" class="headerlink" title="Hashtable"></a>Hashtable</h3><p>它与Hashmap作用一样，但它是同步的</p>
-<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>Enumeration接口对元素序列遍历，有hasMoreElements方法和nextElement方法，它与Iterator接口类似</p>
-<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈Stack类扩展为Vector类</p>
-<h3 id="位集"><a href="#位集" class="headerlink" title="位集"></a>位集</h3><p>BitSet类存放一个位序列，它实际上不是一个集，称为位向量或者位数组更合适，位集将位包装在字节里，使用位集要比使用Boolean对象的ArrayList要更高效</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3004,7 +3102,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3015,7 +3113,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3026,7 +3124,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">241</span>
+                  <span class="site-state-item-count">242</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3052,7 +3150,7 @@
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-globe"></i>E-Mail</a>
                   </span>

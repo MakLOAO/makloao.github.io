@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">因为图片使用的是图床的，图床被墙了，所以不挂VPN图片加载不了</p>
+        <p class="site-subtitle">因为图片使用的是imgur的，imgur被墙了，所以不挂VPN图片加载不了</p>
       
   </div>
 
@@ -355,6 +355,244 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/磁盘存储器的管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/磁盘存储器的管理/" itemprop="url">磁盘存储器的管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T20:32:01+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/11/磁盘存储器的管理/" class="leancloud_visitors" data-flag-title="磁盘存储器的管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="磁盘存储器的管理"><a href="#磁盘存储器的管理" class="headerlink" title="磁盘存储器的管理"></a>磁盘存储器的管理</h1><p>磁盘存储器管理的单位是盘块</p>
+<h2 id="外存的组织方式"><a href="#外存的组织方式" class="headerlink" title="外存的组织方式"></a>外存的组织方式</h2><p>文件的物理结构直接与外存的组织方式有关，不同的外存组织方式形成不同的文件物理结构</p>
+<ul>
+<li>连续组织方式：为每个文件分配连续的磁盘空间</li>
+<li>链接组织方式：为每个文件分配不连续的磁盘空间，通过链接指针将文件的所有盘块链接在一起</li>
+<li>索引组织方式</li>
+</ul>
+<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>特点：</p>
+<ul>
+<li>顺序访问容易，速度快（磁头移动距离小）</li>
+<li>要求连续空间，一段时间后要整理磁盘消除碎片</li>
+<li>必须事先知道长度，文件不易动态增长和删除</li>
+</ul>
+<p>文件对应目录项包含：始址，总块数，最后一块字节数</p>
+<h3 id="链接组织方式"><a href="#链接组织方式" class="headerlink" title="链接组织方式"></a>链接组织方式</h3><p>特点：</p>
+<ul>
+<li>消除磁盘外部碎片，提高外存利用率</li>
+<li>对插入，删除和修改记录容易</li>
+<li>适应文件的动态增长，无需事先知道文件大小</li>
+<li>只能顺序存取</li>
+</ul>
+<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>文件目录的每个目录项都含有指向链接文件第一个盘块和最后一个盘块的指针，只适用于顺序访问，随机访问效率低</p>
+<p>簇：包含多个块的单位，盘块分配时以簇为单位，可以成倍减小查找指定块的时间，增大内部碎片</p>
+<h4 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h4><p>把用于链接文件各物理块的指针显式地存放在内存的一张链接表中，该表在整个磁盘只设置一张</p>
+<p><img src="https://i.imgur.com/r2Cpho8.png" alt=""></p>
+<p>表的序号是物理块号，在每个表项中存放链接指针，即下一个盘块号，凡是属于某一文件的第一个盘块号，均作为文件地址被填入相应FCB的物理地址字段，查找是在内存进行的所以速度提升且减少磁盘访问次数，该表称为文件分配表FAT</p>
+<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>打开某个文件时，只要把该文件占用的索引块号读入内存即可，无需把FAT调入内存，索引的优点是支持直接访问，当要读第i块盘块时，直接从该文件的索引块中找到该盘块号</p>
+<p>单级索引：为每个文件分配一个索引块，文件较大时有利，较小时浪费外存空间，文件较大时索引块较多，需要建立多级索引</p>
+<p>多级索引如下</p>
+<p><img src="https://i.imgur.com/axLLInx.png" alt=""></p>
+<h3 id="混合分配方式"><a href="#混合分配方式" class="headerlink" title="混合分配方式"></a>混合分配方式</h3><p>UNIX采用混合分配方式，一，二，多级索引合用</p>
+<p><img src="https://i.imgur.com/823nqH9.png" alt=""></p>
+<p>i.addr(0)——i.addr(9)存放直接地址，i.addr(10)存放一次间接地址，i.addr(11)存放二次间接地址</p>
+<h3 id="文件组织策略"><a href="#文件组织策略" class="headerlink" title="文件组织策略"></a>文件组织策略</h3><ul>
+<li>文件访问通常是顺序，文件较小，用连续分配</li>
+<li>文件较大顺序访问，链接结构</li>
+<li>文件较大随机访问，索引结构</li>
+</ul>
+<h3 id="分配策略的小习题"><a href="#分配策略的小习题" class="headerlink" title="分配策略的小习题"></a>分配策略的小习题</h3><p><img src="https://i.imgur.com/GJLObbI.png" alt=""></p>
+<p><img src="https://i.imgur.com/MvlYqVV.png" alt=""></p>
+<h2 id="文件存储空间的管理"><a href="#文件存储空间的管理" class="headerlink" title="文件存储空间的管理"></a>文件存储空间的管理</h2><p>设置一个磁盘分配表，用于记住可供分配的存储空间情况，还应提供对盘块分配和回收的手段，存储空间基本分配单位都是磁盘块而非字节</p>
+<h3 id="空闲表法"><a href="#空闲表法" class="headerlink" title="空闲表法"></a>空闲表法</h3><p>空闲表属于连续分配方式，为每个文件分配一块连续的存储空间，即系统为外存上的所有空闲区建立一张空闲表，每个空闲区对应一个空闲表项，包括表项序号，第一个盘块号，空闲盘块数等信息</p>
+<p><img src="https://i.imgur.com/hh96knJ.png" alt=""></p>
+<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><h4 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h4><p>将所有空闲空间以盘块为单位拉成一条链，工作效率低</p>
+<h4 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h4><p>将磁盘所有空闲盘区拉成一条链，每个盘区包含若干个盘块，要有指明本盘块大小的信息</p>
+<h3 id="位示图法"><a href="#位示图法" class="headerlink" title="位示图法"></a>位示图法</h3><p>利用二进制的一位来表示磁盘一个盘块的使用情况，0为盘块空闲，1为已分配</p>
+<p><img src="https://i.imgur.com/betahpN.png" alt=""></p>
+<p><img src="https://i.imgur.com/dU7Bpaj.png" alt=""></p>
+<h4 id="位示图法盘块的分配"><a href="#位示图法盘块的分配" class="headerlink" title="位示图法盘块的分配"></a>位示图法盘块的分配</h4><ol>
+<li>顺序扫描位示图，找出一个或一组值为0的二进制位</li>
+<li>将找到的一个或一组二进制位转换位盘块号，假定找到值为0的二进制位位于位示图第i行j列，则盘块号按下式计算：b=n(i-1)+j</li>
+<li>修改位示图，令map[i,j]=1</li>
+</ol>
+<h4 id="位示图的回收"><a href="#位示图的回收" class="headerlink" title="位示图的回收"></a>位示图的回收</h4><ol>
+<li>将回收盘块号转换为位示图的行号列号i=(b-1)DIVn+1,j=(b-1)MODn+1</li>
+<li>修改位示图，令map[i,j]=0</li>
+</ol>
+<h3 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h3><p>UNIX采用的方法</p>
+<p>基本思想（汤书P281解释更详细）</p>
+<ul>
+<li>空闲盘块号栈存放当前可用的一组空闲盘块号及栈中尚有的空闲盘块号数，唯一存在于内存的栈</li>
+<li>文件区的所有空闲盘块分为若干组</li>
+<li>每一组含有盘块总数和所有的盘块号记入前一组最后一个盘块中</li>
+<li>第一组盘块总数和所有盘块号记入空闲盘块号栈</li>
+<li>最末一组只有N-1各盘块</li>
+</ul>
+<p><img src="https://i.imgur.com/ooa2j7G.png" alt=""></p>
+<p>S.free(0)是栈底</p>
+<h4 id="空闲盘块分配"><a href="#空闲盘块分配" class="headerlink" title="空闲盘块分配"></a>空闲盘块分配</h4><p>首先检查空闲盘块号栈是否上锁，如未上锁，便从<strong>栈顶</strong>取出一空闲盘块号，将与之对应的盘块分配给用户，然后将栈顶指针下移一格<br>若该盘块号已是栈底，即S.free(0)，即最后一个可分配的盘块号。 须调用磁盘读过程，将栈底盘块号所对应盘块的内容读入栈中，作为新的空闲盘块号栈的内容，然后，把原栈底对应的盘块分配出去(其中的有用数据已读入栈中)</p>
+<h4 id="空闲盘块的回收"><a href="#空闲盘块的回收" class="headerlink" title="空闲盘块的回收"></a>空闲盘块的回收</h4><p>将回收盘块的盘块号记入空闲盘块号栈的顶部，并执行空闲盘块数加1操作。<br>当栈中空闲盘块号数目已达100时，表示栈已满，便将现有栈中的100个盘块号，记入新回收的盘块中，再将其盘块号作为新栈底</p>
+<h2 id="提高磁盘I-O速度的途径"><a href="#提高磁盘I-O速度的途径" class="headerlink" title="提高磁盘I/O速度的途径"></a>提高磁盘I/O速度的途径</h2><ul>
+<li>磁盘高速缓存（数据交付，置换算法，周期性写回磁盘）</li>
+<li>提前读</li>
+<li>延迟写</li>
+<li>优化物理块布局</li>
+<li>虚拟盘</li>
+</ul>
+<h2 id="数据一致性控制"><a href="#数据一致性控制" class="headerlink" title="数据一致性控制"></a>数据一致性控制</h2><p>事务：用于访问和修改各种数据项的一个程序单位，可以看作一系列相关的读写操作，被访问的数据可以分散地存放在同一文件的不同记录中，也可放在多个文件中。只有对分布在不同位置的同一数据所进行的读和写(含修改)操作全部完成时，才能再以托付操作(Commit Operation)来终止事务。只要有一个读、写或修改操作失败，便须执行夭折操作(Abort Operation)。读或写操作的失败可能是由于逻辑错误，也可能是系统故障所导致的</p>
+<h3 id="事务记录"><a href="#事务记录" class="headerlink" title="事务记录"></a>事务记录</h3><ul>
+<li>事务名：用于标识该事务的惟一名字</li>
+<li>数据项名：它是被修改数据项的惟一名字</li>
+<li>旧值：修改前数据项的值</li>
+<li>新值：修改后数据项将具有的值</li>
+</ul>
+<h3 id="恢复算法"><a href="#恢复算法" class="headerlink" title="恢复算法"></a>恢复算法</h3><p>undo<ti>，把所有被事务Ti修改过的数据恢复修改前的值<br>redo<ti>，把所有被事务Ti修改过的数据设置为新值</ti></ti></p>
+<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>作用：使对事务记录表中事务记录的清理工作经常化</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1725,224 +1963,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
-                2019-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
-<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
-<blockquote>
-<p>DNS：因特网的目录服务</p>
-</blockquote>
-<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
-<p>而更为严格的定义就是：<br>DNS是：</p>
-<ul>
-<li>一个由分层的DNS服务器实现的分布式数据库</li>
-<li>一个使得主机能够查询分布式数据库的应用层协议</li>
-</ul>
-<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
-<ol>
-<li>同一台用户主机上运行着DNS应用的客户端</li>
-<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
-<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
-<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
-<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
-</ol>
-<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
-<ul>
-<li>主机别名</li>
-<li>邮件服务器别名</li>
-<li>负载分配</li>
-</ul>
-<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
-<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
-<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
-<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
-<p>总结一下，域名的层级结构如下：</p>
-<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
-<p>即<code>host.sld.tld.root</code></p>
-<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
-<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
-<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
-<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
-<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
-<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
-<ol>
-<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
-<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
-<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
-<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
-<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
-</ol>
-<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
-<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
-<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
-<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
-<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
-<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
-<ul>
-<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
-<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
-<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
-<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
-</ul>
-<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
-<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
-<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
-<ol>
-<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
-<li>从”次级域名服务器”查出”主机名”的IP地址</li>
-</ol>
-<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/JavaScript09-事件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2206,6 +2226,224 @@ alert(isSupported);</code></p>
 <p><code>var isSupported = document.implementation.hasFeature(&quot;MutationEvents&quot;, &quot;2.0&quot;);</code>检查是否支持变动事件。</p>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Mutation_events" target="_blank" rel="noopener">MDN的mutation事件</a></p>
 <h3 id="设备事件与触摸手势事件"><a href="#设备事件与触摸手势事件" class="headerlink" title="设备事件与触摸手势事件"></a>设备事件与触摸手势事件</h3><p>主要用于智能手机和平板电脑</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/10/DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/10/DNS/" itemprop="url">计算机网络之DNS服务</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-10T11:08:34+08:00">
+                2019-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/10/DNS/" class="leancloud_visitors" data-flag-title="计算机网络之DNS服务">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><p>DNS是计算机网络应用层一个很重要的服务，了解它基本就了解了整个网络中域名到IP转换的过程。</p>
+<h2 id="DNS是什么"><a href="#DNS是什么" class="headerlink" title="DNS是什么"></a>DNS是什么</h2><p>在《计算机网络-自顶向下方法》中有这么一句话</p>
+<blockquote>
+<p>DNS：因特网的目录服务</p>
+</blockquote>
+<p>DNS（Domain Name System）其实就是一个目录，他的作用是通过用户给定域名，查出对应的IP地址。</p>
+<p>而更为严格的定义就是：<br>DNS是：</p>
+<ul>
+<li>一个由分层的DNS服务器实现的分布式数据库</li>
+<li>一个使得主机能够查询分布式数据库的应用层协议</li>
+</ul>
+<p>或者说DNS是一个黑盒子，它提供了主机名到IP地址的转换，一个简便的DNS黑盒子过程如下：</p>
+<ol>
+<li>同一台用户主机上运行着DNS应用的客户端</li>
+<li>浏览器从URL中抽取出主机名，传给DNS应用的客户端</li>
+<li>DNS客户向DNS服务器发送一个包含主机名的请求</li>
+<li>DNS客户最终收到一份回答报文，其中含有对应该主机名的IP地址</li>
+<li>一旦浏览器获得该地址，就可以向位于该IP地址的80端口的HTTP服务器进程发起一个TCP连接</li>
+</ol>
+<p>DNS主要任务是主机名到IP地址转换的目录服务<br>DNS除了有主机名到IP地址的转换服务外，还有如下服务：</p>
+<ul>
+<li>主机别名</li>
+<li>邮件服务器别名</li>
+<li>负载分配</li>
+</ul>
+<p>值得一提的是，DNS协议运行在UDP之上，使用53端口。</p>
+<h2 id="DNS分布式，层次数据库"><a href="#DNS分布式，层次数据库" class="headerlink" title="DNS分布式，层次数据库"></a>DNS分布式，层次数据库</h2><p>DNS是一个分布式，层次数据库，大致有三类：根DNS服务器，顶级域(TLD)DNS服务器和权威DNS服务器。<br>还有一类是本地DNS服务器，每个ISP都有一台本地DNS服务器，本地DNS服务器起着代理的作用，将请求转发到DNS服务器的层次结构中。</p>
+<p><img src="https://i.imgur.com/jsC0CRt.png" alt=""></p>
+<p>在说服务器分层作用之前，先要说一下域名，常见的域名是例如<code>www.example.com</code>，但是它真正的域名是<code>www.example.com.root</code>，只是省略了后面的<code>.root</code>。<code>.root</code>称为根域名，<code>.com</code>，<code>.net</code>等等称为顶级域名(TLD)，<code>.example</code>称为次级域名，这个域名是用户可以注册的，再下一级是主机名(host)，比如<code>www</code>，又称为三级域名。</p>
+<p>总结一下，域名的层级结构如下：</p>
+<p><code>主机名(三级域名).次级域名.顶级域名.根域名</code></p>
+<p>即<code>host.sld.tld.root</code></p>
+<h3 id="根DNS服务器"><a href="#根DNS服务器" class="headerlink" title="根DNS服务器"></a>根DNS服务器</h3><p>它将返回顶级域名的TLD服务器的IP地址，根域名服务器的NS记录和IP地址一般是不会变化的</p>
+<h3 id="顶级域DNS服务器"><a href="#顶级域DNS服务器" class="headerlink" title="顶级域DNS服务器"></a>顶级域DNS服务器</h3><p>它返回权威服务器的IP地址</p>
+<h3 id="权威DNS服务器"><a href="#权威DNS服务器" class="headerlink" title="权威DNS服务器"></a>权威DNS服务器</h3><p>它返回主机名(如<a href="http://www.amazon.com)的IP地址" target="_blank" rel="noopener">www.amazon.com)的IP地址</a></p>
+<h3 id="本地DNS服务器"><a href="#本地DNS服务器" class="headerlink" title="本地DNS服务器"></a>本地DNS服务器</h3><p>严格上来说它不属于DNS层次结构，但它也很重要。本地DNS服务器由ISP提供，当主机发出DNS请求时，通常被发往到本地DNS服务器，由本地DNS服务器代理转发到DNS服务器层次结构</p>
+<h2 id="工作机理"><a href="#工作机理" class="headerlink" title="工作机理"></a>工作机理</h2><p><img src="https://i.imgur.com/4klvXoE.png" alt=""></p>
+<p>以主机<code>cis.poly.edu</code>请求<code>gaia.cs.umass.ude</code>的IP地址为例，假设<code>cis.poly.edu</code>的本地DNS为<code>dns.poly.edu</code>，并且<code>gaia.cs.umass.edu</code>的权威DNS服务器为<code>dns.umass.edu</code></p>
+<ol>
+<li>主机<code>cis.poly.edu</code>首先向它的本地DNS服务器<code>dns.poly.edu</code>发送一个DNS查询报文</li>
+<li>本地DNS服务器<code>dns.poly.edu</code>将报文转发到根DNS服务器，根DNS服务器注意到edu前缀并向本地DNS服务器返回负责edu的TLD的IP地址列表</li>
+<li>该本地DNS服务器则再次向这些TLD服务器之一发送查询报文</li>
+<li>该TLD服务器注意到<code>umass.edu</code>前缀，并用权威DNS服务器的IP地址进行响应</li>
+<li>最后，本地DNS服务器直接向<code>dns.umass.edu</code>重发查询报文，<code>dns.umass.edu</code>将<code>gaia.cs.umass.edu</code>的IP地址进行响应</li>
+</ol>
+<p>从请求主机到本地DNS服务器的查询是递归的，其余的查询是迭代的</p>
+<h2 id="DNS缓存"><a href="#DNS缓存" class="headerlink" title="DNS缓存"></a>DNS缓存</h2><p>为了改善时延性能并减少在因特网上到处传输的DNS报文数量，DNS广泛采用了缓存技术</p>
+<p>它能够把回答中的信息缓存在本地存储器中，但该缓存不是永久的，由于主机和主机名与IP地址间的映射并不是永久的，所以DNS服务器一般在一段时间后（通常为2天）将丢弃缓存的信息。</p>
+<h2 id="DNS报文和记录"><a href="#DNS报文和记录" class="headerlink" title="DNS报文和记录"></a>DNS报文和记录</h2><h3 id="DNS记录"><a href="#DNS记录" class="headerlink" title="DNS记录"></a>DNS记录</h3><p>共同实现DNS分布式数据库的所有DNS服务器存储了资源记录（Resource Record，RR），RR提供了主机名到IP地址的映射。</p>
+<p>RR是一个包含了下列字段的4元组：<br>(Name, Value, Type, TTL)</p>
+<p>TTL是该记录的生存时间，它决定了资源记录应当从缓存中删除的时间</p>
+<ul>
+<li>如果Type=A，则Name是主机名，Value是该主机名对应的IP地址</li>
+<li>如果Type=NS，则Name是个域（如foo.com），Value是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名。这个记录用于沿着查询链来路由DNS查询。（如(foo.com, dns.foo.com, NS)就是一个NS记录）</li>
+<li>如果Type=CNAME，则Value是别名为Name的主机对应的规范主机名</li>
+<li>如果Type=MX，则Value是个别名为Name的邮件服务器的规范主机名</li>
+</ul>
+<p>如果一台DNS服务器是用于某特定主机名的权威DNS服务器，那么该DNS服务器会有一条包含该主机名的类型A记录<br>如果服务器不是用于某主机名的权威服务器，那么该服务器将包含一条类型NS记录，该记录对应包含主机名的域；它还包括一条类型A记录，提供在NS记录的Value字段中的DNS的IP地址<br>（比如<strong>edu TLD服务器</strong>不是主机gaia.cs.umass.edu的权威DNS服务器，则该服务器将包含一条包括主机cs.umass.edu的域记录，如(umass.edu, dns.umass.edu, NS)，该TLD服务器还将包含一条类型A记录，如(dns.umass.edu, 128.199.40.111, A)，该记录将名字dns.umass.edu映射为一个IP地址）</p>
+<h3 id="DNS报文"><a href="#DNS报文" class="headerlink" title="DNS报文"></a>DNS报文</h3><p><img src="https://i.imgur.com/Q7F2t9H.png" alt=""></p>
+<h3 id="对分级查询的进一步解释"><a href="#对分级查询的进一步解释" class="headerlink" title="对分级查询的进一步解释"></a>对分级查询的进一步解释</h3><p>所谓”分级查询”，就是从根域名开始，依次查询每一级域名的NS记录，直到查到最终的IP地址，见下面的DNS记录可知</p>
+<ol>
+<li>从”根域名服务器”查到”顶级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”顶级域名服务器”查到”次级域名服务器”的NS记录和A记录（IP地址）</li>
+<li>从”次级域名服务器”查出”主机名”的IP地址</li>
+</ol>
+<p>（根域名服务器的NS记录和IP地址一般是不会变化的，所以内置在DNS服务器中）</p>
 
           
         
@@ -2725,237 +2963,6 @@ alert(isSupported);</code></p>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/JavaScript08-DOM扩展/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/JavaScript08-DOM扩展/" itemprop="url">JavaScript08-DOM扩展</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-09T11:08:34+08:00">
-                2018-11-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/11/09/JavaScript08-DOM扩展/" class="leancloud_visitors" data-flag-title="JavaScript08-DOM扩展">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="JavaScript08-DOM扩展"><a href="#JavaScript08-DOM扩展" class="headerlink" title="JavaScript08-DOM扩展"></a>JavaScript08-DOM扩展</h1><p>对JavaScript的两个主要扩展主要是Selectors API和HTML5</p>
-<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><p>根据CSS选择符选择与某个模式匹配的DOM元素。jQuery的核心就是通过CSS选择符查询DOM文档取得元素的引用，从而抛开了getElementById()和getElementsByTagName()，它有两个核心方法：querySelector()和querySelectorAll()，可以通过Document及Element类型的实例调用它们。</p>
-<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><p>它接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有就返回null。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body = <span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得ID为myDiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv = <span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"selected"的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得类为"button"的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img = <span class="built_in">document</span>.body.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><p>querySelectorAll()方法接收的参数和上面一样，都是一个CSS选择符，但返回的是所有匹配的元素，是一个NodeList实例。</p>
-<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><p><strong>Chrome Version 70.0.3538.77不支持</strong></p>
-<p>Element Travelsal API为DOM元素添加以下5个属性，用于预防元素间空格造成的childNodes和firstChild等属性不一致的差异。</p>
-<ul>
-<li>childElementCount：返回子元素（不包括文本节点和注释）的个数</li>
-<li>firstElementChild：指向第一个元素</li>
-<li>lastElementChild：指向最后一个元素</li>
-<li>previousElementSibling：指向前一个同辈元素</li>
-<li>nextElementSibling：指向后一个同辈元素</li>
-</ul>
-<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName-方法"><a href="#getElementsByClassName-方法" class="headerlink" title="getElementsByClassName()方法"></a>getElementsByClassName()方法</h4><p>可以通过document对象以及所有HTML元素调用该方法，它接收一个参数，即一个包含一个或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
-<p>取得所有类中包含”username”和”current”的元素，类先后无所谓<br><code>var allCurrentUsernames = document.getElementByClassName(&quot;username current&quot;);</code></p>
-<p>取得ID为myDiv的元素中带有类名”selected”的所有元素<br><code>var selected = document.getElementById(&quot;myDiv&quot;).getElementsByClassName(&quot;selected&quot;);</code></p>
-<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><p>操作类名的时候，可以使用classList属性，classList属性是DOMTokenList的实例，他有一个表示自己包含多少元素的length属性，要取得每个元素，可以使用item()方法，也可以使用方括号。如下：</p>
-<p><code>&lt;div class=&quot;bd user disabled&quot;&gt;&lt;/div&gt;</code></p>
-<p>classList属性有三个值分别是bd user和disabled。</p>
-<p>这个属性还定义了下面方法</p>
-<ul>
-<li>add(value)：将给定的字符串值添加到列表中。</li>
-<li>contains(value)：表示列表中是否存在给定的值，存在返回true。</li>
-<li>remove(value)：删除value</li>
-<li>toggle(value)：如果列表中存在给定值，就删除它，如果不存在，就添加它。</li>
-</ul>
-<p>这样，就可以通过上述方法操控className了，如下</p>
-<p><code>div.classList.remove(&quot;user&quot;); // 删除user类</code></p>
-<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><p>HTML5添加了辅助管理DOM焦点的功能。document.activeElement属性始终会引用DOM中当前获得焦点的元素。<br>元素获得焦点方式有页面加载，用户输入和在代码中调用focus()方法</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"myButton"</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onclick</span>=<span class="string">"focusMethod()"</span>&gt;</span>Click me to focus on the button!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"./aha.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">focusMethod = <span class="function"><span class="keyword">function</span> <span class="title">getFocus</span>(<span class="params"></span>) </span>&#123;          </span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>).focus();</span><br><span class="line">    alert(<span class="built_in">document</span>.activeElement == <span class="built_in">document</span>.getElementById(<span class="string">"myButton"</span>));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>文档刚刚加载完，<code>document.activeElement</code>中保存的是<code>document.body</code>元素的引用。</p>
-<p><code>document.hasFocus()</code>用于确定文档是否获得了焦点。</p>
-<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><p>HTML5扩展了HTMLDocument，增加了新功能。</p>
-<h4 id="readyState属性"><a href="#readyState属性" class="headerlink" title="readyState属性"></a>readyState属性</h4><p>Document的readyState属性可能有两个值</p>
-<ul>
-<li>loading：正在加载文档</li>
-<li>complete：已经加载完文档</li>
-</ul>
-<p>基本用法如下</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.readyState == <span class="string">"complete"</span>) &#123;</span><br><span class="line">	<span class="comment">// 执行操作</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="head属性"><a href="#head属性" class="headerlink" title="head属性"></a>head属性</h4><p>作为对document.body引用文档&lt;body&gt;元素的补充，HTML5新增了document.head属性，引用文档的&lt;head&gt;元素。</p>
-<p><code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></p>
-<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><p>charset属性表示文档中实际使用的字符集，也可以用来指定新字符集，可以通过&lt;meta&gt;元素，响应头部或直接设置charset属性修改这个值。</p>
-<p><code>document.charset = &quot;UTF-8&quot;;</code></p>
-<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><p>HTML5可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或提供语义信息。<br>可以通过元素dataset属性访问这些自定义属性的值。dataset是一个DOMStringMap的实例，键为非标准属性名减去data-前缀（比如自定义属性是data-myname，映射对应属性就是myname）</p>
-<p><code>&lt;div id=&quot;myDiv&quot; data-appid=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appid;</span><br><span class="line"><span class="keyword">var</span> myName = div.dataset.myname;</span><br><span class="line"></span><br><span class="line">alert(appId);</span><br></pre></td></tr></table></figure>
-<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><p>在读模式下，innerHTML属性返回与调用元素的所有子节点（包括元素，注释和文本节点）对应的HTML标记。写模式下，innerHTML会根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</p>
-<p>写模式下，innerHTML的值会被解析为DOM子树，替换调用元素原来的所有子节点。因为它的值被认为是HTML，所以其中的所有标签都会按照浏览器处理HTML的标准方式转换为元素。<br>设置了innerHTML之后，可以像访问文档中其他节点一样访问新创建的节点。</p>
-<p>对下面代码的div块调用innerHTML，会返回其内部子元素（字符串形式）</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This is a <span class="tag">&lt;<span class="name">strong</span>&gt;</span>paragraph<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> with a list following it.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>下面元素不支持innerHTML属性：&lt;col&gt;,&lt;colgroup&gt;,&lt;frameset&gt;,&lt;head&gt;,&lt;html&gt;,&lt;style&gt;,&lt;table&gt;,&lt;tbody&gt;,&lt;thead&gt;,&lt;tfoot&gt;和&lt;tr&gt;</p>
-<h4 id="outerHTML属性"><a href="#outerHTML属性" class="headerlink" title="outerHTML属性"></a>outerHTML属性</h4><p>在读模式下，outerHTML返回调用它的元素及所有子节点的HTML标签。写模式下，outerHTML会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</p>
-<p>对上面代码div块调用outerHTML，会返回上面相同的代码，包括div本身。</p>
-<p><code>div.outerHTML = &quot;&lt;p&gt;This is a paragraph.&lt;/p&gt;&quot;;</code></p>
-<p>对上面代码的调用，等价于下面的代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">p.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"This is a paragraph."</span>));</span><br><span class="line">div.parentNode.replaceChild(p, div);</span><br></pre></td></tr></table></figure>
-<h4 id="insertAdjacentHTML-方法"><a href="#insertAdjacentHTML-方法" class="headerlink" title="insertAdjacentHTML()方法"></a>insertAdjacentHTML()方法</h4><p>它接收两个参数，插入位置和要插入的HTML文本。第一个参数必须是下列值之一：</p>
-<ul>
-<li>beforebegin：当前元素之前插入一个紧邻的同辈元素</li>
-<li>afterbegin：当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素</li>
-<li>beforeend：当前元素之下插入一个新的子元素或再最后一个子元素之后再插入一个新的子元素</li>
-<li>afterend：当前元素之后插入一个紧邻的同辈元素</li>
-</ul>
-<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><p>使用上面2个属性1个方法之前，最好先手工删除要被替换的元素的所有时间处理程序和JavaScript对象属性。</p>
-<p>对上面2个属性，最佳做法是单独构建一个字符串，然后一次性把结果字符串赋值给innerHTML（或outerHTML），这样可以减少访问属性的开支。</p>
-<h3 id="scrollIntoView-方法"><a href="#scrollIntoView-方法" class="headerlink" title="scrollIntoView()方法"></a>scrollIntoView()方法</h3><p>可以在所有HTML元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中，传入true作为参数，或者不传入参数，则窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。传入false，调用元素会尽可能出现在视口中（可能的话，调用元素底部会与视口底部平齐）</p>
-<p>Chrome不支持。。。</p>
-<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><p>这个属性是HTMLCollection的实例，只包含元素中同样还是元素的子节点。children属性与childNodes没什么区别</p>
-<h3 id="contains-方法"><a href="#contains-方法" class="headerlink" title="contains()方法"></a>contains()方法</h3><p>调用contains()方法的应该是祖先节点，这个方法接收一个参数，就是要检测的后代节点。如果被检测的节点是后代节点，就返回true。</p>
-<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><h4 id="innerText属性"><a href="#innerText属性" class="headerlink" title="innerText属性"></a>innerText属性</h4><p>通过这个属性可以操作元素中包含的所有文本内容，包括子文档树中的文本。在通过innerText读取值时，它会按照由浅入深顺序将子文档中所有文本拼接起来。在通过innerText写值时，结果会删除元素的所有子节点。插入包含相应文本值的文本节点。</p>
-<h4 id="outerText属性"><a href="#outerText属性" class="headerlink" title="outerText属性"></a>outerText属性</h4><p>作用范围扩大到了包含调用它的节点，写操作下会替换整个元素（包括子节点）。</p>
-<h3 id="滚动"><a href="#滚动" class="headerlink" title="滚动"></a>滚动</h3><ul>
-<li>scrollIntoViewIfNeeded(alignCenter)：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，最终让它可见。如果参数为true，尽量让元素显示在视口中部。</li>
-<li>scrollByLines(lineCount)：元素内容滚动指定的行高，可以正或负值。</li>
-<li>scrollByPages(pageCount)：元素内容滚动指定的页面高度。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3012,7 +3019,7 @@ alert(isSupported);</code></p>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-count">123</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3023,7 +3030,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -3034,7 +3041,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">241</span>
+                  <span class="site-state-item-count">242</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3060,7 +3067,7 @@ alert(isSupported);</code></p>
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="mailto:xiehongjian1997@outlook.com" target="_blank" title="E-Mail">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
                       
                         <i class="fa fa-fw fa-globe"></i>E-Mail</a>
                   </span>
