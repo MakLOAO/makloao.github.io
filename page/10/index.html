@@ -369,6 +369,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/磁盘存储器的管理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/11/磁盘存储器的管理/" itemprop="url">磁盘存储器的管理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T20:32:01+08:00">
+                2019-05-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/11/磁盘存储器的管理/" class="leancloud_visitors" data-flag-title="磁盘存储器的管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="磁盘存储器的管理"><a href="#磁盘存储器的管理" class="headerlink" title="磁盘存储器的管理"></a>磁盘存储器的管理</h1><p>磁盘存储器管理的单位是盘块</p>
+<h2 id="外存的组织方式"><a href="#外存的组织方式" class="headerlink" title="外存的组织方式"></a>外存的组织方式</h2><p>文件的物理结构直接与外存的组织方式有关，不同的外存组织方式形成不同的文件物理结构</p>
+<ul>
+<li>连续组织方式：为每个文件分配连续的磁盘空间</li>
+<li>链接组织方式：为每个文件分配不连续的磁盘空间，通过链接指针将文件的所有盘块链接在一起</li>
+<li>索引组织方式</li>
+</ul>
+<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>特点：</p>
+<ul>
+<li>顺序访问容易，速度快（磁头移动距离小）</li>
+<li>要求连续空间，一段时间后要整理磁盘消除碎片</li>
+<li>必须事先知道长度，文件不易动态增长和删除</li>
+</ul>
+<p>文件对应目录项包含：始址，总块数，最后一块字节数</p>
+<h3 id="链接组织方式"><a href="#链接组织方式" class="headerlink" title="链接组织方式"></a>链接组织方式</h3><p>特点：</p>
+<ul>
+<li>消除磁盘外部碎片，提高外存利用率</li>
+<li>对插入，删除和修改记录容易</li>
+<li>适应文件的动态增长，无需事先知道文件大小</li>
+<li>只能顺序存取</li>
+</ul>
+<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>文件目录的每个目录项都含有指向链接文件第一个盘块和最后一个盘块的指针，只适用于顺序访问，随机访问效率低</p>
+<p>簇：包含多个块的单位，盘块分配时以簇为单位，可以成倍减小查找指定块的时间，增大内部碎片</p>
+<h4 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h4><p>把用于链接文件各物理块的指针显式地存放在内存的一张链接表中，该表在整个磁盘只设置一张</p>
+<p><img src="https://i.imgur.com/r2Cpho8.png" alt=""></p>
+<p>表的序号是物理块号，在每个表项中存放链接指针，即下一个盘块号，凡是属于某一文件的第一个盘块号，均作为文件地址被填入相应FCB的物理地址字段，查找是在内存进行的所以速度提升且减少磁盘访问次数，该表称为文件分配表FAT</p>
+<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>打开某个文件时，只要把该文件占用的索引块号读入内存即可，无需把FAT调入内存，索引的优点是支持直接访问，当要读第i块盘块时，直接从该文件的索引块中找到该盘块号</p>
+<p>单级索引：为每个文件分配一个索引块，文件较大时有利，较小时浪费外存空间，文件较大时索引块较多，需要建立多级索引</p>
+<p>多级索引如下</p>
+<p><img src="https://i.imgur.com/axLLInx.png" alt=""></p>
+<h3 id="混合分配方式"><a href="#混合分配方式" class="headerlink" title="混合分配方式"></a>混合分配方式</h3><p>UNIX采用混合分配方式，一，二，多级索引合用</p>
+<p><img src="https://i.imgur.com/823nqH9.png" alt=""></p>
+<p>i.addr(0)——i.addr(9)存放直接地址，i.addr(10)存放一次间接地址，i.addr(11)存放二次间接地址</p>
+<h3 id="文件组织策略"><a href="#文件组织策略" class="headerlink" title="文件组织策略"></a>文件组织策略</h3><ul>
+<li>文件访问通常是顺序，文件较小，用连续分配</li>
+<li>文件较大顺序访问，链接结构</li>
+<li>文件较大随机访问，索引结构</li>
+</ul>
+<h3 id="分配策略的小习题"><a href="#分配策略的小习题" class="headerlink" title="分配策略的小习题"></a>分配策略的小习题</h3><p><img src="https://i.imgur.com/GJLObbI.png" alt=""></p>
+<p><img src="https://i.imgur.com/MvlYqVV.png" alt=""></p>
+<h2 id="文件存储空间的管理"><a href="#文件存储空间的管理" class="headerlink" title="文件存储空间的管理"></a>文件存储空间的管理</h2><p>设置一个磁盘分配表，用于记住可供分配的存储空间情况，还应提供对盘块分配和回收的手段，存储空间基本分配单位都是磁盘块而非字节</p>
+<h3 id="空闲表法"><a href="#空闲表法" class="headerlink" title="空闲表法"></a>空闲表法</h3><p>空闲表属于连续分配方式，为每个文件分配一块连续的存储空间，即系统为外存上的所有空闲区建立一张空闲表，每个空闲区对应一个空闲表项，包括表项序号，第一个盘块号，空闲盘块数等信息</p>
+<p><img src="https://i.imgur.com/hh96knJ.png" alt=""></p>
+<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><h4 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h4><p>将所有空闲空间以盘块为单位拉成一条链，工作效率低</p>
+<h4 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h4><p>将磁盘所有空闲盘区拉成一条链，每个盘区包含若干个盘块，要有指明本盘块大小的信息</p>
+<h3 id="位示图法"><a href="#位示图法" class="headerlink" title="位示图法"></a>位示图法</h3><p>利用二进制的一位来表示磁盘一个盘块的使用情况，0为盘块空闲，1为已分配</p>
+<p><img src="https://i.imgur.com/betahpN.png" alt=""></p>
+<p><img src="https://i.imgur.com/dU7Bpaj.png" alt=""></p>
+<h4 id="位示图法盘块的分配"><a href="#位示图法盘块的分配" class="headerlink" title="位示图法盘块的分配"></a>位示图法盘块的分配</h4><ol>
+<li>顺序扫描位示图，找出一个或一组值为0的二进制位</li>
+<li>将找到的一个或一组二进制位转换位盘块号，假定找到值为0的二进制位位于位示图第i行j列，则盘块号按下式计算：b=n(i-1)+j</li>
+<li>修改位示图，令map[i,j]=1</li>
+</ol>
+<h4 id="位示图的回收"><a href="#位示图的回收" class="headerlink" title="位示图的回收"></a>位示图的回收</h4><ol>
+<li>将回收盘块号转换为位示图的行号列号i=(b-1)DIVn+1,j=(b-1)MODn+1</li>
+<li>修改位示图，令map[i,j]=0</li>
+</ol>
+<h3 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h3><p>UNIX采用的方法</p>
+<p>基本思想（汤书P281解释更详细）</p>
+<ul>
+<li>空闲盘块号栈存放当前可用的一组空闲盘块号及栈中尚有的空闲盘块号数，唯一存在于内存的栈</li>
+<li>文件区的所有空闲盘块分为若干组</li>
+<li>每一组含有盘块总数和所有的盘块号记入前一组最后一个盘块中</li>
+<li>第一组盘块总数和所有盘块号记入空闲盘块号栈</li>
+<li>最末一组只有N-1各盘块</li>
+</ul>
+<p><img src="https://i.imgur.com/ooa2j7G.png" alt=""></p>
+<p>S.free(0)是栈底</p>
+<h4 id="空闲盘块分配"><a href="#空闲盘块分配" class="headerlink" title="空闲盘块分配"></a>空闲盘块分配</h4><p>首先检查空闲盘块号栈是否上锁，如未上锁，便从<strong>栈顶</strong>取出一空闲盘块号，将与之对应的盘块分配给用户，然后将栈顶指针下移一格<br>若该盘块号已是栈底，即S.free(0)，即最后一个可分配的盘块号。 须调用磁盘读过程，将栈底盘块号所对应盘块的内容读入栈中，作为新的空闲盘块号栈的内容，然后，把原栈底对应的盘块分配出去(其中的有用数据已读入栈中)</p>
+<h4 id="空闲盘块的回收"><a href="#空闲盘块的回收" class="headerlink" title="空闲盘块的回收"></a>空闲盘块的回收</h4><p>将回收盘块的盘块号记入空闲盘块号栈的顶部，并执行空闲盘块数加1操作。<br>当栈中空闲盘块号数目已达100时，表示栈已满，便将现有栈中的100个盘块号，记入新回收的盘块中，再将其盘块号作为新栈底</p>
+<h2 id="提高磁盘I-O速度的途径"><a href="#提高磁盘I-O速度的途径" class="headerlink" title="提高磁盘I/O速度的途径"></a>提高磁盘I/O速度的途径</h2><ul>
+<li>磁盘高速缓存（数据交付，置换算法，周期性写回磁盘）</li>
+<li>提前读</li>
+<li>延迟写</li>
+<li>优化物理块布局</li>
+<li>虚拟盘</li>
+</ul>
+<h2 id="数据一致性控制"><a href="#数据一致性控制" class="headerlink" title="数据一致性控制"></a>数据一致性控制</h2><p>事务：用于访问和修改各种数据项的一个程序单位，可以看作一系列相关的读写操作，被访问的数据可以分散地存放在同一文件的不同记录中，也可放在多个文件中。只有对分布在不同位置的同一数据所进行的读和写(含修改)操作全部完成时，才能再以托付操作(Commit Operation)来终止事务。只要有一个读、写或修改操作失败，便须执行夭折操作(Abort Operation)。读或写操作的失败可能是由于逻辑错误，也可能是系统故障所导致的</p>
+<h3 id="事务记录"><a href="#事务记录" class="headerlink" title="事务记录"></a>事务记录</h3><ul>
+<li>事务名：用于标识该事务的惟一名字</li>
+<li>数据项名：它是被修改数据项的惟一名字</li>
+<li>旧值：修改前数据项的值</li>
+<li>新值：修改后数据项将具有的值</li>
+</ul>
+<h3 id="恢复算法"><a href="#恢复算法" class="headerlink" title="恢复算法"></a>恢复算法</h3><p>undo<ti>，把所有被事务Ti修改过的数据恢复修改前的值<br>redo<ti>，把所有被事务Ti修改过的数据设置为新值</ti></ti></p>
+<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>作用：使对事务记录表中事务记录的清理工作经常化</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/文件管理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -606,244 +844,6 @@
 <li>磁盘容错技术防止磁盘故障造成文件不安全</li>
 <li>后备系统防止自然因素造成的不安全性</li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/11/磁盘存储器的管理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/05/11/磁盘存储器的管理/" itemprop="url">磁盘存储器的管理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-11T20:32:01+08:00">
-                2019-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/05/11/磁盘存储器的管理/" class="leancloud_visitors" data-flag-title="磁盘存储器的管理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="磁盘存储器的管理"><a href="#磁盘存储器的管理" class="headerlink" title="磁盘存储器的管理"></a>磁盘存储器的管理</h1><p>磁盘存储器管理的单位是盘块</p>
-<h2 id="外存的组织方式"><a href="#外存的组织方式" class="headerlink" title="外存的组织方式"></a>外存的组织方式</h2><p>文件的物理结构直接与外存的组织方式有关，不同的外存组织方式形成不同的文件物理结构</p>
-<ul>
-<li>连续组织方式：为每个文件分配连续的磁盘空间</li>
-<li>链接组织方式：为每个文件分配不连续的磁盘空间，通过链接指针将文件的所有盘块链接在一起</li>
-<li>索引组织方式</li>
-</ul>
-<h3 id="连续组织方式"><a href="#连续组织方式" class="headerlink" title="连续组织方式"></a>连续组织方式</h3><p>特点：</p>
-<ul>
-<li>顺序访问容易，速度快（磁头移动距离小）</li>
-<li>要求连续空间，一段时间后要整理磁盘消除碎片</li>
-<li>必须事先知道长度，文件不易动态增长和删除</li>
-</ul>
-<p>文件对应目录项包含：始址，总块数，最后一块字节数</p>
-<h3 id="链接组织方式"><a href="#链接组织方式" class="headerlink" title="链接组织方式"></a>链接组织方式</h3><p>特点：</p>
-<ul>
-<li>消除磁盘外部碎片，提高外存利用率</li>
-<li>对插入，删除和修改记录容易</li>
-<li>适应文件的动态增长，无需事先知道文件大小</li>
-<li>只能顺序存取</li>
-</ul>
-<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>文件目录的每个目录项都含有指向链接文件第一个盘块和最后一个盘块的指针，只适用于顺序访问，随机访问效率低</p>
-<p>簇：包含多个块的单位，盘块分配时以簇为单位，可以成倍减小查找指定块的时间，增大内部碎片</p>
-<h4 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h4><p>把用于链接文件各物理块的指针显式地存放在内存的一张链接表中，该表在整个磁盘只设置一张</p>
-<p><img src="https://i.imgur.com/r2Cpho8.png" alt=""></p>
-<p>表的序号是物理块号，在每个表项中存放链接指针，即下一个盘块号，凡是属于某一文件的第一个盘块号，均作为文件地址被填入相应FCB的物理地址字段，查找是在内存进行的所以速度提升且减少磁盘访问次数，该表称为文件分配表FAT</p>
-<h3 id="索引组织方式"><a href="#索引组织方式" class="headerlink" title="索引组织方式"></a>索引组织方式</h3><p>打开某个文件时，只要把该文件占用的索引块号读入内存即可，无需把FAT调入内存，索引的优点是支持直接访问，当要读第i块盘块时，直接从该文件的索引块中找到该盘块号</p>
-<p>单级索引：为每个文件分配一个索引块，文件较大时有利，较小时浪费外存空间，文件较大时索引块较多，需要建立多级索引</p>
-<p>多级索引如下</p>
-<p><img src="https://i.imgur.com/axLLInx.png" alt=""></p>
-<h3 id="混合分配方式"><a href="#混合分配方式" class="headerlink" title="混合分配方式"></a>混合分配方式</h3><p>UNIX采用混合分配方式，一，二，多级索引合用</p>
-<p><img src="https://i.imgur.com/823nqH9.png" alt=""></p>
-<p>i.addr(0)——i.addr(9)存放直接地址，i.addr(10)存放一次间接地址，i.addr(11)存放二次间接地址</p>
-<h3 id="文件组织策略"><a href="#文件组织策略" class="headerlink" title="文件组织策略"></a>文件组织策略</h3><ul>
-<li>文件访问通常是顺序，文件较小，用连续分配</li>
-<li>文件较大顺序访问，链接结构</li>
-<li>文件较大随机访问，索引结构</li>
-</ul>
-<h3 id="分配策略的小习题"><a href="#分配策略的小习题" class="headerlink" title="分配策略的小习题"></a>分配策略的小习题</h3><p><img src="https://i.imgur.com/GJLObbI.png" alt=""></p>
-<p><img src="https://i.imgur.com/MvlYqVV.png" alt=""></p>
-<h2 id="文件存储空间的管理"><a href="#文件存储空间的管理" class="headerlink" title="文件存储空间的管理"></a>文件存储空间的管理</h2><p>设置一个磁盘分配表，用于记住可供分配的存储空间情况，还应提供对盘块分配和回收的手段，存储空间基本分配单位都是磁盘块而非字节</p>
-<h3 id="空闲表法"><a href="#空闲表法" class="headerlink" title="空闲表法"></a>空闲表法</h3><p>空闲表属于连续分配方式，为每个文件分配一块连续的存储空间，即系统为外存上的所有空闲区建立一张空闲表，每个空闲区对应一个空闲表项，包括表项序号，第一个盘块号，空闲盘块数等信息</p>
-<p><img src="https://i.imgur.com/hh96knJ.png" alt=""></p>
-<h3 id="空闲链表法"><a href="#空闲链表法" class="headerlink" title="空闲链表法"></a>空闲链表法</h3><h4 id="空闲盘块链"><a href="#空闲盘块链" class="headerlink" title="空闲盘块链"></a>空闲盘块链</h4><p>将所有空闲空间以盘块为单位拉成一条链，工作效率低</p>
-<h4 id="空闲盘区链"><a href="#空闲盘区链" class="headerlink" title="空闲盘区链"></a>空闲盘区链</h4><p>将磁盘所有空闲盘区拉成一条链，每个盘区包含若干个盘块，要有指明本盘块大小的信息</p>
-<h3 id="位示图法"><a href="#位示图法" class="headerlink" title="位示图法"></a>位示图法</h3><p>利用二进制的一位来表示磁盘一个盘块的使用情况，0为盘块空闲，1为已分配</p>
-<p><img src="https://i.imgur.com/betahpN.png" alt=""></p>
-<p><img src="https://i.imgur.com/dU7Bpaj.png" alt=""></p>
-<h4 id="位示图法盘块的分配"><a href="#位示图法盘块的分配" class="headerlink" title="位示图法盘块的分配"></a>位示图法盘块的分配</h4><ol>
-<li>顺序扫描位示图，找出一个或一组值为0的二进制位</li>
-<li>将找到的一个或一组二进制位转换位盘块号，假定找到值为0的二进制位位于位示图第i行j列，则盘块号按下式计算：b=n(i-1)+j</li>
-<li>修改位示图，令map[i,j]=1</li>
-</ol>
-<h4 id="位示图的回收"><a href="#位示图的回收" class="headerlink" title="位示图的回收"></a>位示图的回收</h4><ol>
-<li>将回收盘块号转换为位示图的行号列号i=(b-1)DIVn+1,j=(b-1)MODn+1</li>
-<li>修改位示图，令map[i,j]=0</li>
-</ol>
-<h3 id="成组链接法"><a href="#成组链接法" class="headerlink" title="成组链接法"></a>成组链接法</h3><p>UNIX采用的方法</p>
-<p>基本思想（汤书P281解释更详细）</p>
-<ul>
-<li>空闲盘块号栈存放当前可用的一组空闲盘块号及栈中尚有的空闲盘块号数，唯一存在于内存的栈</li>
-<li>文件区的所有空闲盘块分为若干组</li>
-<li>每一组含有盘块总数和所有的盘块号记入前一组最后一个盘块中</li>
-<li>第一组盘块总数和所有盘块号记入空闲盘块号栈</li>
-<li>最末一组只有N-1各盘块</li>
-</ul>
-<p><img src="https://i.imgur.com/ooa2j7G.png" alt=""></p>
-<p>S.free(0)是栈底</p>
-<h4 id="空闲盘块分配"><a href="#空闲盘块分配" class="headerlink" title="空闲盘块分配"></a>空闲盘块分配</h4><p>首先检查空闲盘块号栈是否上锁，如未上锁，便从<strong>栈顶</strong>取出一空闲盘块号，将与之对应的盘块分配给用户，然后将栈顶指针下移一格<br>若该盘块号已是栈底，即S.free(0)，即最后一个可分配的盘块号。 须调用磁盘读过程，将栈底盘块号所对应盘块的内容读入栈中，作为新的空闲盘块号栈的内容，然后，把原栈底对应的盘块分配出去(其中的有用数据已读入栈中)</p>
-<h4 id="空闲盘块的回收"><a href="#空闲盘块的回收" class="headerlink" title="空闲盘块的回收"></a>空闲盘块的回收</h4><p>将回收盘块的盘块号记入空闲盘块号栈的顶部，并执行空闲盘块数加1操作。<br>当栈中空闲盘块号数目已达100时，表示栈已满，便将现有栈中的100个盘块号，记入新回收的盘块中，再将其盘块号作为新栈底</p>
-<h2 id="提高磁盘I-O速度的途径"><a href="#提高磁盘I-O速度的途径" class="headerlink" title="提高磁盘I/O速度的途径"></a>提高磁盘I/O速度的途径</h2><ul>
-<li>磁盘高速缓存（数据交付，置换算法，周期性写回磁盘）</li>
-<li>提前读</li>
-<li>延迟写</li>
-<li>优化物理块布局</li>
-<li>虚拟盘</li>
-</ul>
-<h2 id="数据一致性控制"><a href="#数据一致性控制" class="headerlink" title="数据一致性控制"></a>数据一致性控制</h2><p>事务：用于访问和修改各种数据项的一个程序单位，可以看作一系列相关的读写操作，被访问的数据可以分散地存放在同一文件的不同记录中，也可放在多个文件中。只有对分布在不同位置的同一数据所进行的读和写(含修改)操作全部完成时，才能再以托付操作(Commit Operation)来终止事务。只要有一个读、写或修改操作失败，便须执行夭折操作(Abort Operation)。读或写操作的失败可能是由于逻辑错误，也可能是系统故障所导致的</p>
-<h3 id="事务记录"><a href="#事务记录" class="headerlink" title="事务记录"></a>事务记录</h3><ul>
-<li>事务名：用于标识该事务的惟一名字</li>
-<li>数据项名：它是被修改数据项的惟一名字</li>
-<li>旧值：修改前数据项的值</li>
-<li>新值：修改后数据项将具有的值</li>
-</ul>
-<h3 id="恢复算法"><a href="#恢复算法" class="headerlink" title="恢复算法"></a>恢复算法</h3><p>undo<ti>，把所有被事务Ti修改过的数据恢复修改前的值<br>redo<ti>，把所有被事务Ti修改过的数据设置为新值</ti></ti></p>
-<h3 id="检查点"><a href="#检查点" class="headerlink" title="检查点"></a>检查点</h3><p>作用：使对事务记录表中事务记录的清理工作经常化</p>
 
           
         
@@ -3013,7 +3013,7 @@ alert(isSupported);</code></p>
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
