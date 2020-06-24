@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">图片上传使用的是imgur的，需要出去才能加载图片</p>
+        <p class="site-subtitle">加载图片需要翻出去</p>
       
   </div>
 
@@ -355,6 +355,182 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/01/JavaScript01-语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/JavaScript01-语法/" itemprop="url">JavaScript01-语法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T11:08:34+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/01/JavaScript01-语法/" class="leancloud_visitors" data-flag-title="JavaScript01-语法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript01-语法"><a href="#JavaScript01-语法" class="headerlink" title="JavaScript01-语法"></a>JavaScript01-语法</h1><h2 id="在HTML中嵌入JavaScript"><a href="#在HTML中嵌入JavaScript" class="headerlink" title="在HTML中嵌入JavaScript"></a>在HTML中嵌入JavaScript</h2><p>有两种方法，第一种是内嵌在&lt;head&gt;标签的&lt;script&gt;标签之间<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    JavaScript goes here...</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>另一种更好的方法是存在.js文件中，利用&lt;script&gt;标签的src属性指向该文件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"file.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Script标签元素详解"><a href="#Script标签元素详解" class="headerlink" title="Script标签元素详解"></a>Script标签元素详解</h3><p>有如下6个属性</p>
+<ul>
+<li>async: 可选，表示立即下载脚本，但不应妨碍页面其他操作，只对外部脚本有效。</li>
+<li>charset: 可选，基本不用。</li>
+<li>defer: 可选，表示脚本可以延迟到文档完全被解析和显示后再执行。只对外部脚本有效。</li>
+<li>src: 可选，表示包含要执行代码的外部文件。</li>
+<li>type: 可选，使用脚的脚本语言的内容类型，目前用的比较多的还是 text/javascript</li>
+</ul>
+<h3 id="Script标签的位置"><a href="#Script标签的位置" class="headerlink" title="Script标签的位置"></a>Script标签的位置</h3><p>最好的做法就是把&lt;script&gt;标签放在HTML文档的最后，&lt;body&gt;标签的前面<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    Mark-up goes here...</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"file.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="JavaScript数据类型"><a href="#JavaScript数据类型" class="headerlink" title="JavaScript数据类型"></a>JavaScript数据类型</h2><p>JS有6种数据类型，可以通过关键词typeof检测。</p>
+<dl><br> <dt>Undefined类型</dt><br> <dd>只有一个值undefined。</dd><br> <dt>Null类型</dt><br> <dd>只有一个值null，undefined派生于null，typeof null检测null会返回boject。</dd><br> <dt>Boolean类型</dt><br> <dd>只有true与false。</dd><br> <dt>Number类型</dt><br> <dd>NaN(Not a number)是一个特殊的数值，表示一个本来要返回数值的操作数未返回数值的情况。</dd><br> <dt>String类型</dt><br> <dd>与Python类似，用双引号或者单引号都OK。</dd><br> <dt>Object类型</dt><br> <dd>ECMAScript的对象其实就是一组数据和功能的集合，可以通过new操作符创建，后续会讲到。</dd><br></dl>
+
+<h2 id="JavaScript语句"><a href="#JavaScript语句" class="headerlink" title="JavaScript语句"></a>JavaScript语句</h2><p>JS很多语句都和Java类似，这里就只列举JS独有的语句</p>
+<h3 id="for-in语句"><a href="#for-in语句" class="headerlink" title="for-in语句"></a>for-in语句</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> propName <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">  <span class="built_in">document</span>.write(propName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 枚举BOM中window对象的所有属性，顺序不可预测</span></span><br></pre></td></tr></table></figure>
+<p>for-in语句是一种精准的迭代语句，可以用来枚举对象的属性。</p>
+<h3 id="label语句"><a href="#label语句" class="headerlink" title="label语句"></a>label语句</h3><p>与Java类似，在代码中添加标签以便将来使用，<strong>多用于for语句等循环语句</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">start: <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; count; i++)&#123;</span><br><span class="line">  alert(i);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// start标签可以在将来由break或continue语句引用</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>将代码的作用于设置到一个特定的对象中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> qs = location.search.substring(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> hostName = location.hostname;</span><br><span class="line"><span class="keyword">var</span> url = location.href;</span><br></pre></td></tr></table></figure></p>
+<p>等价于下面代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span>(location) &#123;</span><br><span class="line">  <span class="keyword">var</span> qs = search.substring(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> hostName = hostname;</span><br><span class="line">  <span class="keyword">var</span> url = href;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="JavaScript函数"><a href="#JavaScript函数" class="headerlink" title="JavaScript函数"></a>JavaScript函数</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">functionName</span>(<span class="params">arg0, arg1, arg2, ... ,argN</span>) </span>&#123;</span><br><span class="line">    statements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="理解参数"><a href="#理解参数" class="headerlink" title="理解参数"></a>理解参数</h3><p>ECMAScript函数的参数与大多数其他语言函数的参数不同，ECMAScript函数不介意传递进来多少个参数，也不在乎传进来参数是什么类型的。即使你定义的函数只接受两个参数，在调用这个函数的时候传递多少个也没问题，<strong>原因是ECMAScript中参数在内部是用一个数组来表示的</strong>，函数接受到的始终都是这个数组，<strong>实际上可以在函数体内通过arguments对象来访问这个数组</strong>，从而获取传递给函数的每一个参数。</p>
+<p><em>ECMAScript所有参数传递都是值传递，不可能通过引用传递参数，对于引用数据类型，其值就是其引用</em></p>
+<h3 id="没有重载"><a href="#没有重载" class="headerlink" title="没有重载"></a>没有重载</h3><p>对于同一名字的多个函数，该名字只属于最后定义的</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2251,170 +2427,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/JavaDoc与Jar/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/01/JavaDoc与Jar/" itemprop="url">JavaDoc与Jar</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T10:29:09+08:00">
-                2018-06-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/06/01/JavaDoc与Jar/" class="leancloud_visitors" data-flag-title="JavaDoc与Jar">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用JavaDoc生成文档"><a href="#使用JavaDoc生成文档" class="headerlink" title="使用JavaDoc生成文档"></a>使用JavaDoc生成文档</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javadoc -d 目录名 -encoding UTF-8 -charset UTF-8 xxx.java</span><br></pre></td></tr></table></figure>
-<p> java内格式：  /<em>**   文档内容   </em>/</p>
-<p><strong> @author : 对类的说明，表明开发该类模块的作者 </strong><br><strong> @version : 对类的说明，表明该模块版本 </strong><br><strong> @see : 对类，属性，方法的说明，参考转向，也就是相关主题 </strong><br><strong> @param : 对方法的说明，对方法中某参数的说明 </strong><br><strong> @return : 对方法的说明，对方法返回值的说明</strong><br><strong> @exception : 对方法的说明，对方法可能抛出的异常进行说明</strong></p>
-<p>下为《算法》中StdRandom.java源码的注释与文档效果<br><img src="https://i.imgur.com/uIqbUXJ.png" alt=""></p>
-<p><img src="https://i.imgur.com/8iQjkva.png" alt=""></p>
-<p><img src="https://i.imgur.com/LmOpOT7.png" alt=""></p>
-<p><img src="https://i.imgur.com/O6G6pu0.png" alt=""></p>
-<p><img src="https://i.imgur.com/qvY2iH7.png" alt=""></p>
-<p><img src="https://i.imgur.com/PcMiqHD.png" alt=""></p>
-<p><img src="https://i.imgur.com/fZXvVHd.png" alt=""></p>
-<h1 id="使用jar打包"><a href="#使用jar打包" class="headerlink" title="使用jar打包"></a>使用jar打包</h1><p><strong>（1）编译 javac A.java </strong><br><strong>（2）打包 jar cvfm A.jar A.man A.class </strong><br>——c表示创建(create)，v表示显示详情(verbose)，f表示指定文件名，m表示清单文件<br><strong>（3）运行 java -jar A.jar</strong></p>
-<p>其中A.man是清单文件（manifest），内容如下：<br>·Manifest-Version：1.0<br>Class-Path：.<br>Main-Class：A</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2471,7 +2483,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2482,7 +2494,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2493,7 +2505,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">242</span>
+                  <span class="site-state-item-count">243</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

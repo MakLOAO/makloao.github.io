@@ -131,7 +131,7 @@
 <meta property="og:site_name" content="MakaL-0-">
 <meta property="og:description" content="SpringBoot07-缓存Spring缓存抽象Spring自带缓存抽象，相关有如下： 1234567891011Cache：缓存接口，定义缓存操作，实现有：RedisCache，EhCacheCache，ConcurrentMapCache等CacheManager：缓存管理器，管理各种缓存@Cacheable：针对方法配置，根据方法的请求参数对其结果进行缓存@CacheEvict：清空缓存@">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-02-05T07:34:02.674Z">
+<meta property="og:updated_time" content="2020-06-22T09:25:59.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot07-缓存">
 <meta name="twitter:description" content="SpringBoot07-缓存Spring缓存抽象Spring自带缓存抽象，相关有如下： 1234567891011Cache：缓存接口，定义缓存操作，实现有：RedisCache，EhCacheCache，ConcurrentMapCache等CacheManager：缓存管理器，管理各种缓存@Cacheable：针对方法配置，根据方法的请求参数对其结果进行缓存@CacheEvict：清空缓存@">
@@ -224,7 +224,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">图片上传使用的是imgur的，需要出去才能加载图片</p>
+        <p class="site-subtitle">加载图片需要翻出去</p>
       
   </div>
 
@@ -473,6 +473,7 @@
         <h1 id="SpringBoot07-缓存"><a href="#SpringBoot07-缓存" class="headerlink" title="SpringBoot07-缓存"></a>SpringBoot07-缓存</h1><h2 id="Spring缓存抽象"><a href="#Spring缓存抽象" class="headerlink" title="Spring缓存抽象"></a>Spring缓存抽象</h2><p>Spring自带缓存抽象，相关有如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Cache：缓存接口，定义缓存操作，实现有：RedisCache，EhCacheCache，ConcurrentMapCache等</span><br><span class="line">CacheManager：缓存管理器，管理各种缓存</span><br><span class="line">@Cacheable：针对方法配置，根据方法的请求参数对其结果进行缓存</span><br><span class="line">@CacheEvict：清空缓存</span><br><span class="line">@CachePut：保证方法被调用，又希望结果被缓存</span><br><span class="line">@EnableCaching：用于启动类，开启缓存</span><br><span class="line">keyGenerator：缓存数据时key生成策略</span><br><span class="line">serialize：缓存数据时value序列化策略</span><br><span class="line"></span><br><span class="line">具体使用略，有需要时去搜Spring缓存抽象即可</span><br><span class="line">底层使用的是ConcurrentMapCacheManager,ConcurrentMapCache和ConcurrentHashMap</span><br></pre></td></tr></table></figure>
 <h2 id="整合Redis"><a href="#整合Redis" class="headerlink" title="整合Redis"></a>整合Redis</h2><p>docker安装redis： <code>docker pull redis</code><br>docker启动redis： <code>docker run -d -p 6379:6379 --name redis01 redis</code><br>bash启动： <code>docker exec -it redis01 bash</code><br>进入redis控制台： <code>redis-cli -h localhost -p 6379</code></p>
+<p>或者：<code>docker exec -it redis01 redis-cli</code></p>
 <p>SpringBoot整合redis导包</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>配置文件指定redis配置：</p>
@@ -631,7 +632,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -642,7 +643,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -653,7 +654,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">242</span>
+                  <span class="site-state-item-count">243</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

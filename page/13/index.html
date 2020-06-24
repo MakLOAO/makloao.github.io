@@ -223,7 +223,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">图片上传使用的是imgur的，需要出去才能加载图片</p>
+        <p class="site-subtitle">加载图片需要翻出去</p>
       
   </div>
 
@@ -355,6 +355,170 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/JavaDoc与Jar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/01/JavaDoc与Jar/" itemprop="url">JavaDoc与Jar</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T10:29:09+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/01/JavaDoc与Jar/" class="leancloud_visitors" data-flag-title="JavaDoc与Jar">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用JavaDoc生成文档"><a href="#使用JavaDoc生成文档" class="headerlink" title="使用JavaDoc生成文档"></a>使用JavaDoc生成文档</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javadoc -d 目录名 -encoding UTF-8 -charset UTF-8 xxx.java</span><br></pre></td></tr></table></figure>
+<p> java内格式：  /<em>**   文档内容   </em>/</p>
+<p><strong> @author : 对类的说明，表明开发该类模块的作者 </strong><br><strong> @version : 对类的说明，表明该模块版本 </strong><br><strong> @see : 对类，属性，方法的说明，参考转向，也就是相关主题 </strong><br><strong> @param : 对方法的说明，对方法中某参数的说明 </strong><br><strong> @return : 对方法的说明，对方法返回值的说明</strong><br><strong> @exception : 对方法的说明，对方法可能抛出的异常进行说明</strong></p>
+<p>下为《算法》中StdRandom.java源码的注释与文档效果<br><img src="https://i.imgur.com/uIqbUXJ.png" alt=""></p>
+<p><img src="https://i.imgur.com/8iQjkva.png" alt=""></p>
+<p><img src="https://i.imgur.com/LmOpOT7.png" alt=""></p>
+<p><img src="https://i.imgur.com/O6G6pu0.png" alt=""></p>
+<p><img src="https://i.imgur.com/qvY2iH7.png" alt=""></p>
+<p><img src="https://i.imgur.com/PcMiqHD.png" alt=""></p>
+<p><img src="https://i.imgur.com/fZXvVHd.png" alt=""></p>
+<h1 id="使用jar打包"><a href="#使用jar打包" class="headerlink" title="使用jar打包"></a>使用jar打包</h1><p><strong>（1）编译 javac A.java </strong><br><strong>（2）打包 jar cvfm A.jar A.man A.class </strong><br>——c表示创建(create)，v表示显示详情(verbose)，f表示指定文件名，m表示清单文件<br><strong>（3）运行 java -jar A.jar</strong></p>
+<p>其中A.man是清单文件（manifest），内容如下：<br>·Manifest-Version：1.0<br>Class-Path：.<br>Main-Class：A</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -993,7 +1157,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">123</span>
+                  <span class="site-state-item-count">124</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1004,7 +1168,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1015,7 +1179,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">242</span>
+                  <span class="site-state-item-count">243</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
