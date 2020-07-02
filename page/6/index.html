@@ -369,6 +369,719 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/02/程序编译与代码优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/02/程序编译与代码优化/" itemprop="url">程序编译与代码优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T13:08:34+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/02/程序编译与代码优化/" class="leancloud_visitors" data-flag-title="程序编译与代码优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="程序编译与代码优化"><a href="#程序编译与代码优化" class="headerlink" title="程序编译与代码优化"></a>程序编译与代码优化</h1><p>Java语言的编译期既可能是一个前端编译器把<em>.java文件转变成</em>.class文件的过程，也有可能是指虚拟机的后端运行期编译器（JIT编译器）把字节码转变为机器码的过程，还可能是静态提前编译器（AOT编译器）直接把*.java文件编译成本地机器代码的过程</p>
+<p>这3类编译过程中一些比较有代表性的编译器如下：</p>
+<ul>
+<li>前端编译器：Sun的Javac</li>
+<li>JIT编译器：HotSpot的C1，C2编译器</li>
+<li>AOT编译器：GNU Complier for the Java（GCJ）</li>
+</ul>
+<h2 id="早期-编译期-优化"><a href="#早期-编译期-优化" class="headerlink" title="早期(编译期)优化"></a>早期(编译期)优化</h2><h3 id="Javac编译器"><a href="#Javac编译器" class="headerlink" title="Javac编译器"></a>Javac编译器</h3><p>Javac编译器的编译过程可以分为3个步骤：</p>
+<ol>
+<li>解析与填充符号表</li>
+<li>插入式注解处理器的注解处理</li>
+<li>分析与字节码生成</li>
+</ol>
+<p><img src="https://i.imgur.com/FQozt8K.png" alt=""></p>
+<h3 id="Java语法糖"><a href="#Java语法糖" class="headerlink" title="Java语法糖"></a>Java语法糖</h3><h4 id="泛型与类型擦除"><a href="#泛型与类型擦除" class="headerlink" title="泛型与类型擦除"></a>泛型与类型擦除</h4><p>Java的泛型只在程序源码中存在，在编译后的字节码文件中，就已经替换为原来的原生类型，并在相应地方插入了强制类型转换代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">map.put(<span class="string">"hello"</span>, <span class="string">"你好"</span>);</span><br><span class="line">System.out.println(map.get(<span class="string">"hello"</span>));</span><br></pre></td></tr></table></figure>
+<p>编译成Class文件，再用字节码反编译工具反编译后，会如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">map.put(<span class="string">"hello"</span>, <span class="string">"你好"</span>);</span><br><span class="line">System.out.println((String) map.get(<span class="string">"hello"</span>));</span><br></pre></td></tr></table></figure>
+<p>泛型擦除导致以下代码会报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTypes</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"list&lt;String&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">(List&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"list&lt;Integer&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为泛型擦除，它们的特征签名变得一模一样，方法重载要求方法具备不同的特征签名<br>但只要返回值不同即可，因为描述符不是完全一致的两个方法就可以完全共存</p>
+<h4 id="自动装箱，拆箱和遍历循环"><a href="#自动装箱，拆箱和遍历循环" class="headerlink" title="自动装箱，拆箱和遍历循环"></a>自动装箱，拆箱和遍历循环</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SyntaxSugars</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : list)&#123;</span><br><span class="line">            sum += i;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"sum = "</span> + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SyntaxSugars</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        List list = Arrays.asList(<span class="keyword">new</span> Integer[]&#123;</span><br><span class="line">                Integer.valueOf(<span class="number">1</span>),</span><br><span class="line">                Integer.valueOf(<span class="number">2</span>),</span><br><span class="line">                Integer.valueOf(<span class="number">3</span>),</span><br><span class="line">                Integer.valueOf(<span class="number">4</span>),</span><br><span class="line">                Integer.valueOf(<span class="number">5</span>)</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (Iterator iterable = list.iterator(); iterable.hasNext(); ) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = ((Integer) iterable.next()).intValue();</span><br><span class="line">            sum += i;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"sum = "</span> + sum);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h4><p>根据布尔常量值的真假，编译器会把分支中不成立的代码块消除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"block 1"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"block 2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>反编译结果如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"block 1"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="晚期-运行期-优化"><a href="#晚期-运行期-优化" class="headerlink" title="晚期(运行期)优化"></a>晚期(运行期)优化</h2><p>在部分商业虚拟机中，Java 最初是通过解释器解释执行的，当虚拟机发现某个方法或者代码块的运行特别频繁时，就会把这些代码认定为”热点代码”（Hot Spot Code）。为了提高热点代码的执行效率，在运行时，虚拟机将会把这些代码编译成与本地平台相关的机器码，并进行各种层次的优化，完成这个任务的编译器称为即时编译器（JIT）</p>
+<p>即时编译器不是虚拟机必须的部分，Java 虚拟机规范并没有规定虚拟机内部必须要有即时编译器存在，更没有限定或指导即时编译器应该如何实现。但是 JIT 编译性能的好坏、代码优化程度的高低却是衡量一款商用虚拟机优秀与否的最关键指标之一</p>
+<h3 id="HotSpot虚拟机内的即时编译器"><a href="#HotSpot虚拟机内的即时编译器" class="headerlink" title="HotSpot虚拟机内的即时编译器"></a>HotSpot虚拟机内的即时编译器</h3><h4 id="解释器与编译器"><a href="#解释器与编译器" class="headerlink" title="解释器与编译器"></a>解释器与编译器</h4><p>解释器与编译器两者各有优势：</p>
+<ul>
+<li>当程序需要迅速启动和执行的时候，解释器可以首先发挥作用，省去编译的时间，立即执行。在程序运行后，随着时间的推移，编译器逐渐发挥作用，把越来越多的代码编译成本地机器码之后，可以获得更高的执行效率</li>
+<li>当程序运行环境中内存资源限制较大（如部分嵌入式系统），可以使用解释器执行来节约内存，反之可以使用编译执行来提升效率</li>
+</ul>
+<p>HotSpot内置两个即时编译器，分别称为Client Compiler和Server Compiler，或者简称为C1编译器和C2编译器，默认是混合模式，即解释器与编译器搭配使用，可以使用参数-Xint强制让虚拟机运行于解释模式，或-Xcomp使虚拟机强制运行编译模式</p>
+<p>HotSpot虚拟机还启用分层编译策略，其中包括如下三层：</p>
+<ul>
+<li>第0层，程序解释执行，解释器不开启性能监控功能</li>
+<li>第1层，也称为C1编译，将字节码编译为本地代码，进行简单，可靠的优化，如有必要将加入性能监控的逻辑</li>
+<li>第2层，也称为C2编译，将字节码编译为本地代码，但是会启用一些编译耗时较长的优化，甚至会根据性能监控信息进行一些不可靠的激进优化</li>
+</ul>
+<p>Client Compiler有更高的编译速度，Server Compiler有更好的编译质量</p>
+<h4 id="编译对象与触发条件"><a href="#编译对象与触发条件" class="headerlink" title="编译对象与触发条件"></a>编译对象与触发条件</h4><p>在运行过程会被即时编译器编译的热点代码有两类：</p>
+<ul>
+<li>被多次调用的方法体</li>
+<li>被多次执行的循环体</li>
+</ul>
+<p>注意的是，第二种情况，虽然编译动作由循环体触发，但编译器仍然会以整个方法（而不是单独的循环体）作为编译对象</p>
+<p>多次的判定可以由基于采样的热点探测或基于计数器的热点探测来判定</p>
+<ul>
+<li>基于采样的热点探测：采用这种方法的虚拟机会周期性地检查各个线程栈顶，如果发现某个（或某些）方法经常出现在栈顶，那这个方法就是「热点方法」。基于采样的热点探测的好处是实现简单、高效，还可以很容易地获取方法调用关系（将调用栈展开即可），缺点是很难精确地确认一个方法的热度，容易因为受到线程阻塞或别的外界因数的影响而扰乱热点探测</li>
+<li>基于计数器的热点探测：采用这种方法的虚拟机会为每个方法（甚至代码块）建立计数器，统计方法的执行次数，如果执行次数超过一定的阈值就认为它是「热点方法」。这种统计方法实现起来麻烦一些，需要为每个方法建立并维护计数器，而且不能直接获取到方法的调用关系，但是统计结果相对来说更加精确和严谨</li>
+</ul>
+<p>HotSpot使用的是第二种，整个JIT编译的交互过程如下图</p>
+<p><img src="https://i.imgur.com/5xPlcmM.png" alt=""></p>
+<h3 id="编译优化技术"><a href="#编译优化技术" class="headerlink" title="编译优化技术"></a>编译优化技术</h3><p>虚拟机设计团队几乎把对代码的所有优化措施都集中在JIT编译器中，一个简单的例子如下：（注意底层使用的是字节码或机器码指令的优化）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">final</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    y = b.get();</span><br><span class="line">    z = b.get();</span><br><span class="line">    sum = y + z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先是内联，它可以去除方法调用的成本（栈帧等），并且为其他优化建立良好的基础，内联后如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    y = b.value;</span><br><span class="line">    z = b.value;</span><br><span class="line">    sum = y + z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是冗余访问消除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    y = b.value;</span><br><span class="line">    z = y;</span><br><span class="line">    sum = y + z;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是复写传播，这段程序的逻辑中并不需要用一个额外的变量z</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    y = b.value;</span><br><span class="line">    y = y;</span><br><span class="line">    sum = y + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后是无用代码消除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    y = b.value;</span><br><span class="line">    sum = y + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后的代码和一开始的代码效果是一样的，但是省略了很多语句（尤其体现在字节码和机器码指令上）</p>
+<p>接下来看几项最具有代表性的优化技术</p>
+<ul>
+<li>语言无关的经典优化技术之一：公共子表达式消除</li>
+<li>语言相关的经典优化技术之一：数组范围检查消除</li>
+<li>最重要的优化技术之一：方法内联</li>
+<li>最前沿的优化技术之一：逃逸分析</li>
+</ul>
+<h4 id="公共子表达式消除"><a href="#公共子表达式消除" class="headerlink" title="公共子表达式消除"></a>公共子表达式消除</h4><p>如果一个表达式 E 已经计算过了，并且从先前的计算到现在 E 中所有变量的值都没有发生变化，那么 E 的这次出现就成了公共子表达式。对于这种表达式，没有必要花时间再对它进行计算，只需要直接使用前面计算过的表达式结果代替 E 就好了。如果这种优化仅限于程序的基本块内，便称为局部公共子表达式消除，如果这种优化的范围覆盖了多个基本块，那就称为全局公共子表达式消除</p>
+<h4 id="数组边界检查消除"><a href="#数组边界检查消除" class="headerlink" title="数组边界检查消除"></a>数组边界检查消除</h4><p>如果有一个数组 array[]，在 Java 中访问数组元素 array[i] 的时候，系统会自动进行上下界的范围检查，即检查 i 必须满足 i &gt;= 0 &amp;&amp; i &lt; array.length，否则会抛出一个运行时异常：java.lang.ArrayIndexOutOfBoundsException，这就是数组边界检查</p>
+<p>对于虚拟机执行子系统来说，每次数组元素的读写都带有一次隐含的条件判定操作，对于拥有大量数组访问的程序代码，这是一种不小的性能开销。为了安全，数组边界检查是必须做的，但是数组边界检查并不一定每次都要进行。比如在循环的时候访问数组，如果编译器只要通过数据流分析就知道循环变量是不是在区间 [0, array.length] 之内，那在整个循环中就可以把数组的上下界检查消除</p>
+<h4 id="方法内联"><a href="#方法内联" class="headerlink" title="方法内联"></a>方法内联</h4><p>前面代码已经解释过</p>
+<h4 id="逃逸分析"><a href="#逃逸分析" class="headerlink" title="逃逸分析"></a>逃逸分析</h4><p>逃逸分析不是直接优化代码的手段，而是为其它优化手段提供依据的分析技术。逃逸分析的基本行为就是分析对象的动态作用域：当一个对象在方法中被定义后，它可能被外部方法所引用，例如作为调用参数传递到其它方法中，称为方法逃逸。甚至还有可能被外部线程访问到，例如赋值给类变量或可以在其他线程中访问的实例变量，称为线程逃逸</p>
+<p>如果能证明一个对象不会逃逸到方法或者线程之外，也就是别的方法和线程无法通过任何途径访问到这个方法，则可能为这个变量进行一些高效优化。比如：</p>
+<ul>
+<li>栈上分配：如果确定一个对象不会逃逸到方法之外，那么就可以在栈上分配内存，对象所占的内存空间就可以随栈帧出栈而销毁。通常，不会逃逸的局部对象所占的比例很大，如果能栈上分配就会大大减轻 GC 的压力</li>
+<li>同步消除：如果逃逸分析能确定一个变量不会逃逸出线程，无法被其它线程访问，那这个变量的读写就不会有多线程竞争的问题，因而变量的同步措施也就可以消除了</li>
+<li>标量替换：标量是指一个数据无法再拆分成更小的数据来表示了，Java 虚拟机中的原始数据类型都不能再进一步拆分，所以它们就是标量。相反，一个数据可以继续分解，那它就称作聚合量，Java 中的对象就是聚合量。如果把一个 Java 对象拆散，根据访问情况将其使用到的成员变量恢复成原始类型来访问，就叫标量替换。如果逃逸分析证明一个对象不会被外部访问，并且这个对象可以被拆散，那程序执行的时候就可能不创建这个对象，而改为直接创建它的若干个被这个方法使用到的成员变量来替代。对象被拆分后，除了可以让对象的成员变量在栈上分配和读写，还可以为后续进一步的优化手段创造条件。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/虚拟机字节码执行引擎/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/08/01/虚拟机字节码执行引擎/" itemprop="url">虚拟机字节码执行引擎</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-01T17:13:34+08:00">
+                2019-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/01/虚拟机字节码执行引擎/" class="leancloud_visitors" data-flag-title="虚拟机字节码执行引擎">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="虚拟机字节码执行引擎"><a href="#虚拟机字节码执行引擎" class="headerlink" title="虚拟机字节码执行引擎"></a>虚拟机字节码执行引擎</h1><p>执行引擎是Java虚拟机最核心的组成部分之一，物理机的执行引擎是直接建立在处理机，硬件，指令集和操作系统层面上的，而虚拟机的执行引擎是自己实现的，可以自行制定指令集与执行引擎的结构体系，所有Java虚拟机的执行引擎都是输入字节码文件，处理过程是字节码解析的等效过程，输出的是执行结果</p>
+<h2 id="运行时栈帧结构"><a href="#运行时栈帧结构" class="headerlink" title="运行时栈帧结构"></a>运行时栈帧结构</h2><p>栈帧是用于支持虚拟机进行<strong>方法调用和方法执行</strong>的数据结构，它是虚拟机运行时数据区中虚拟机栈的栈元素，栈帧存储了方法的局部变量表，操作数栈，动态链接和方法返回地址等信息。<strong>每一个方法从调用开始到执行完成的过程，都对应着一个栈帧在虚拟机栈里入栈到出栈的过程</strong></p>
+<p>每一个栈帧都包括局部变量表，操作数栈，动态链接，方法返回地址和一些额外的附加信息。在编译程序代码的时候，栈帧需要多大的局部变量表，多深的操作数栈都已经完全确定，并且写入方法表的Code属性中，因此一个栈帧需要分配多少内存，不会受程序运行期变量数据的影响，而仅仅取决于具体的虚拟机实现</p>
+<p>一个线程的方法调用链可能很长，很多方法都同时处于执行状态。对于执行引擎来说，在活动线程中，只有位于栈顶的栈帧才是有效的，称为当前栈帧，与这个栈帧相关联的方法称为当前方法。执行引擎运行的所有字节码指令都只针对当前栈帧进行操作，概念模型上，典型的栈帧结构如下图：</p>
+<p><img src="https://i.imgur.com/Pgh8fZf.png" alt=""></p>
+<h3 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h3><p>局部变量表是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。在Java程序编译为Class文件时，就在方法的Code属性的max_locals数据项中确定了该方法所需要分配的局部变量表的最大容量</p>
+<h3 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h3><p>操作数栈是一个后进先出栈。同局部变量表一样，操作数栈的最大深度也可以在编译阶段写入Code属性中，数据项为max_stacks。操作数栈的每一个元素可以是任意Java数据类型，32位数据类型所占栈容量为1，64位为2</p>
+<p>一个方法刚开始运行的时候，操作数栈是空的，在方法执行过程中，会有各种字节码指令往操作数栈写入和提取内容，也就是入栈和出栈操作</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p><strong>每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用，持有这个引用是为了支持方法调用过程中的动态链接</strong>。Class文件的常量池中存在大量的符号引用，字节码中的方法调用指令就以常量池中指向方法的符号引用作为参数。这些符号引用一部分会在类加载阶段或者第一次使用的时候就转化为直接引用，这种转化称为静态链接，<strong>另外一部分符号引用将在每一次运行期间转化为直接引用，这部分称为动态链接</strong></p>
+<h3 id="方法返回地址"><a href="#方法返回地址" class="headerlink" title="方法返回地址"></a>方法返回地址</h3><p>当一个方法开始执行后，只有两种方式可以退出这个方法</p>
+<p>一种是执行引擎遇到任意一个方法返回的字节码指令，这时候可能有返回值传递给上层方法的调用者，是否有返回值和返回值的类型将根据何种方法返回指令来决定，这种退出方法称为正常完成出口</p>
+<p>另外一种退出方法是，在方法执行过程中遇到了异常，并且这个异常没有在方法体内得到处理，无论是Java虚拟机内部产生的异常，还是代码中使用athrow字节码指令产生的异常，只要在本方法的异常表没有搜索到匹配的异常处理器，就会导致方法退出。这种称为异常完成出口，一个方法使用异常完成出口的方式退出，是不会给上层调用者产生任何返回值的</p>
+<p>无论采用何种退出方式，在方法退出后都需要返回到方法被调用的位置，程序才能继续运行，方法返回时可能需要在栈帧中保存一些信息，用来恢复它的上层方法的执行状态。一般来说，方法正常退出时，调用者的PC计数值可以作为返回地址，栈帧中很可能会保存这个计数器值。而方法异常退出时，返回地址要通过异常处理表来确定，栈帧中一般不会保存这部分信息</p>
+<p>方法退出的过程实际上等同于把当前栈帧出栈，因此退出时可能执行的操作有：恢复上次方法的局部变量表和操作数栈，把返回值（如果有的话）压入调用者栈帧的操作数栈中，调整PC计数器的值以指向方法调用指令后面的一条指令等</p>
+<h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><p>方法调用不是方法执行，<strong>方法调用阶段唯一的任务就是确定被调用方法的版本（即调用哪一个方法）</strong>，暂时还不涉及方法内部的具体运行过程。在程序运行时，方法调用是最普遍最频繁的操作，但Class文件的编译过程中不包含传统编译中的连接步骤，一切方法调用在Class文件里面存储的都只是符号引用，而不是方法在实际运行时内存布局的入口地址（即直接引用），这个特性给Java带来啊了强大的动态扩展能力，但也让Java方法调用过程变得相对复杂起来，需要在类加载期间，甚至到运行期间才能确定目标方法的直接引用</p>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>所有方法调用中的目标方法在Class文件里都是一个常量池中的符号引用，在类加载的解析阶段，会将其中一部分符号引用转化为直接引用，这种解析能成立的前提是：方法在程序真正运行之前就有一个可确定的调用版本，并且这个方法的调用版本在运行期是不可改变的。换句话说，<strong>调用目标在程序代码写好，编译器进行编译时就必须确定下来。这类方法的调用称为解析</strong></p>
+<p><strong>在Java语言中符合”编译期可知，运行期不可知”这个要求的方法，主要包括静态方法和私有方法两大类，这两种方法各自的特点决定了它们不可能通过继承或别的方法重写其他版本，因此它们都适合在类加载阶段进行解析</strong></p>
+<p><strong>只要能被invokestatic和invokespecial（调用实例构造器&lt;init&gt;方法，私有方法和父类方法）指令调用的方法，都可以在解析阶段中确定唯一的调用版本，符合这个条件的有静态方法，私有方法，实例构造器，父类方法4类，它们在类加载的时候就会把符号引用解析为该方法的直接引用</strong>，这些方法称为非虚方法，与之相反的方法称为虚方法（final除外）</p>
+<p>对于final修饰的方法，虽然使用invokevirtual指令来调用，但是由于它无法被覆盖，所以也无须对方法接收者进行多态选择，final方法也是一种非虚方法</p>
+<p>解析调用一定是静态的过程，在编译期就完全确认，在类装载的解析阶段就会把涉及的符号引用转变为可确定的直接引用，不会延迟到运行期再去完成</p>
+<h3 id="分派"><a href="#分派" class="headerlink" title="分派"></a>分派</h3><p>分派调用过程会揭示多态性特征的一些最基本的体现，如”重载”和”重写”在Java虚拟机是如何实现的</p>
+<h4 id="静态分派"><a href="#静态分派" class="headerlink" title="静态分派"></a>静态分派</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticDispatch</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Human guy)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Hello, guy!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Man man)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Hello, man!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Woman woman)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Hello, woman!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            Human man = <span class="keyword">new</span> Man();</span><br><span class="line">            Human woman = <span class="keyword">new</span> Woman();</span><br><span class="line">            StaticDispatch dispatch = <span class="keyword">new</span> StaticDispatch();</span><br><span class="line">            dispatch.sayHello(man);</span><br><span class="line">            dispatch.sayHello(woman);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输出结果：</span></span><br><span class="line"><span class="comment">Hello, guy!</span></span><br><span class="line"><span class="comment">Hello, guy!</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>上面main函数的代码中，Human称为变量的静态类型，或者叫做外观类型，而后面的Man或者Woman则是变量的实际类型，静态类型和实际类型在程序中都可以发生一些变化，<strong>区别是静态类型的变化仅仅在使用时（方法调用时）发生，变量本身的静态类型不会被改变，并且最终的静态类型是在编译期可知的；而实际类型变化的结果在运行期才可确定，编译器在编译程序的时候并不知道一个对象的实际类型是什么</strong>，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实际类型变化</span></span><br><span class="line">Human man = <span class="keyword">new</span> Man();</span><br><span class="line">man = <span class="keyword">new</span> Woman();</span><br><span class="line"><span class="comment">// 静态类型变化</span></span><br><span class="line">sr.sayHello((Man) man);</span><br><span class="line">sr.sayHello((Woman) man);</span><br></pre></td></tr></table></figure>
+<p><strong>虚拟机（编译器）在重载时通过参数的静态类型而不是实际类型作为判定依据，编译阶段Javac编译器会根据参数的静态类型决定使用哪个重载版本，并将这个方法的符号引用写到invokevirtual指令参数中</strong>。所有依赖静态类型来定位方法执行版本的分派动作称为静态分派。静态分派典型应用是方法重载。静态分派发生在编译阶段</p>
+<p>很多情况下重载版本不是唯一的，往往只能确定一个更加合适的版本，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Overload</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Object arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, Object!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, int!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(<span class="keyword">long</span> arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, long!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Character arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, Character!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(<span class="keyword">char</span> arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, char!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(<span class="keyword">char</span>... arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, char...!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Serializable arg)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello, Serializable!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        sayHello(<span class="string">'a'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它会输出”Hello, char!”，注释掉sayHello(char arg)，会输出”Hello int!”，这时发生了一次自动类型转换，它会按照char-&gt;int-&gt;long-&gt;float-&gt;double的顺序转型进行匹配（不会匹配到byte和short，因为是不安全的），继续注释到sayHello(long)，会输出”Hello, Character!”，这次发生了自动装箱，继续注释则”Hello, Serializable!”，装箱类实现了序列化类的接口，所以可以自动转型，注意Character不会转型为Integer，它只能安全地转型为它实现的接口或父类，如果实现了多个接口，且优先级一样，则会提示类型模糊，拒绝编译，如果有多个父类，则在继承关系中从下往上搜索，越靠近上层优先级越低，变长参数的重载优先级是最低的</p>
+<h4 id="动态分派"><a href="#动态分派" class="headerlink" title="动态分派"></a>动态分派</h4><p>动态分派和动态性的另一个重要体现—重写有很密切关系</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicDispatch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Man say hello!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Woman say hello!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        Human man = <span class="keyword">new</span> Man();</span><br><span class="line">        Human woman = <span class="keyword">new</span> Woman();</span><br><span class="line">        man.sayHello();</span><br><span class="line">        woman.sayHello();</span><br><span class="line"></span><br><span class="line">        man = <span class="keyword">new</span> Woman();</span><br><span class="line">        man.sayHello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态类型同样都是Human的两个变量man和woman在调用sayHello()方法的时候执行了不同的行为，关键是invokevirtual指令的多态查找过程，invokevirtual指令的运行时解析过程大致分为以下几个步骤：</p>
+<ol>
+<li>找到操作数栈顶的第一个元素所指向的对象的实际类型，记为C</li>
+<li>如果在类型C中找到与常量中描述符和简单名称都相符的方法，则进行访问权限校验，如果通过则返回这个方法的直接引用，查找过程结束；如果不通过则返回java.lang.IllegalAccessError异常</li>
+<li>否则，按照继承关系从下往上依次对C的各个父类进行第2步的搜索和验证过程</li>
+<li>如果始终没有找到合适的方法，则抛出java.lang.AbstractMethodError异常</li>
+</ol>
+<p><strong>即重写使用的是动态分派，最终调用的方法一般上来说是实际类型的方法，如果没有则往上搜索其父类的方法</strong></p>
+<h4 id="单分派与多分派"><a href="#单分派与多分派" class="headerlink" title="单分派与多分派"></a>单分派与多分派</h4><p><strong>方法的接收者与方法的参数统称为方法的宗量</strong>，根据分派基于多少种宗量，可以将分派划分为单分派和多分派，单分派是根据一个宗量对目标方法进行选择，多分派则是根据多于一个宗量对目标方法进行选择</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dispatch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">QQ</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">_360</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hardChoice</span><span class="params">(QQ qq)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Father choose QQ!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hardChoice</span><span class="params">(_360 qiHu360)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Father choose 360!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> <span class="keyword">extends</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hardChoice</span><span class="params">(QQ qq)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Son choose QQ!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hardChoice</span><span class="params">(_360 _360)</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"Son choose 360!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Father father = <span class="keyword">new</span> Father();</span><br><span class="line">        Father son = <span class="keyword">new</span> Son();</span><br><span class="line"></span><br><span class="line">        father.hardChoice(<span class="keyword">new</span> QQ());</span><br><span class="line">        son.hardChoice(<span class="keyword">new</span> _360());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输出结果</span></span><br><span class="line"><span class="comment">Father choice QQ!</span></span><br><span class="line"><span class="comment">Son choice 360!</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>首先看编译阶段编译器的选择过程，也就是静态分派的过程，这时选择目标方法的依据有两点：一是静态类型是Father还是Son，二是方法参数是QQ还是360，这次选择结果的最终产物是产生了两条invokevirtual指令，两条指令的参数分别为常量池中指向Father.hardChoice(360)及Father.hardChoice(QQ)方法的符号引用。因为是根据两个宗量进行选择，所以Java语言的静态分派属于多分派类型</p>
+<p>再看看运行阶段虚拟机的选择，也就是动态分派的过程。在执行”son.hardChoice(new QQ())”的时候，由于编译期已经决定目标方法的签名必须是hardChoice(QQ)，唯一影响虚拟机选择的因素只有此方法的接受者的时机类型是Father还是Son，因为只有一个宗量可以选择，所以Java语言的动态分派属于单分派类型</p>
+<p>综上，目前Java语言是一门静态多分派，动态单分派的语言</p>
+<h2 id="基于栈的字节码解释执行引擎"><a href="#基于栈的字节码解释执行引擎" class="headerlink" title="基于栈的字节码解释执行引擎"></a>基于栈的字节码解释执行引擎</h2><p>Java虚拟机的执行引擎在执行Java代码的时候都有解释执行（通过解释器执行）和编译执行（通过即时编译器产生本地代码执行）两种选择</p>
+<h3 id="解释执行"><a href="#解释执行" class="headerlink" title="解释执行"></a>解释执行</h3><p>Java 语言常被人们定义成「解释执行」的语言，但随着 JIT 以及可直接将 Java 代码编译成本地代码的编译器的出现，这种说法就不对了。只有确定了谈论对象是某种具体的 Java 实现版本和执行引擎运行模式时，谈解释执行还是编译执行才会比较确切。</p>
+<p>无论是解释执行还是编译执行，无论是物理机还是虚拟机，对于应用程序，机器都不可能像人一样阅读、理解，然后获得执行能力。大部分的程序代码到物理机的目标代码或者虚拟机执行的指令之前，都需要经过下图中的各个步骤。下图中最下面的那条分支，就是传统编译原理中程序代码到目标机器代码的生成过程；中间那条分支，则是解释执行的过程。</p>
+<p><img src="https://i.imgur.com/EYhGC4Y.png" alt=""></p>
+<p>如今，基于物理机、Java 虚拟机或者非 Java 的其它高级语言虚拟机的语言，大多都会遵循这种基于现代编译原理的思路，在执行前先对程序源代码进行词法分析和语法分析处理，把源代码转化为抽象语法树。对于一门具体语言的实现来说，词法分析、语法分析以至后面的优化器和目标代码生成器都可以选择独立于执行引擎，形成一个完整意义的编译器去实现，这类代表是 C/C++。也可以为一个半独立的编译器，这类代表是 Java。又或者把这些步骤和执行全部封装在一个封闭的黑匣子中，如大多数的 JavaScript 执行器。Java 语言中，Javac 编译器完成了程序代码经过词法分析、语法分析到抽象语法树、再遍历语法树生成字节码指令流的过程。因为这一部分动作是在 Java 虚拟机之外进行的，而解释器在虚拟机的内部，所以 Java 程序的编译就是半独立的实现</p>
+<h3 id="基于栈的指令集与基于寄存器的指令集"><a href="#基于栈的指令集与基于寄存器的指令集" class="headerlink" title="基于栈的指令集与基于寄存器的指令集"></a>基于栈的指令集与基于寄存器的指令集</h3><p>Java 编译器输出的指令流，基本上是一种基于栈的指令集架构。基于栈的指令集主要的优点就是可移植，寄存器由硬件直接提供，程序直接依赖这些硬件寄存器则不可避免的要受到硬件约束。栈架构的指令集还有一些其他优点，比如相对更加紧凑（字节码中每个字节就对应一条指令，而多地址指令集中还需要存放参数）、编译实现更加简单（不需要考虑空间分配的问题，所有空间都是在栈上操作）等</p>
+<p>栈架构指令集的主要缺点是执行速度相对来说会稍慢一些。所有主流物理机的指令集都是寄存器架构也从侧面印证了这一点</p>
+<p>虽然栈架构指令集的代码非常紧凑，但是完成相同功能需要的指令集数量一般会比寄存器架构多，因为出栈、入栈操作本身就产生了相当多的指令数量。更重要的是，栈实现在内存中，频繁的栈访问也意味着频繁的内存访问，相对于处理器来说，内存始终是执行速度的瓶颈。由于指令数量和内存访问的原因，所以导致了栈架构指令集的执行速度会相对较慢</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/虚拟机类加载机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/31/虚拟机类加载机制/" itemprop="url">虚拟机类加载机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T15:51:34+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/31/虚拟机类加载机制/" class="leancloud_visitors" data-flag-title="虚拟机类加载机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="虚拟机类加载机制"><a href="#虚拟机类加载机制" class="headerlink" title="虚拟机类加载机制"></a>虚拟机类加载机制</h1><p>虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验，转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制</p>
+<p>与编译时需要进行连接工作的语言不同，Java语言里，类型的加载，连接和初始化过程都是在程序运行期间完成的</p>
+<h2 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h2><p>类从被加载到虚拟机内存开始，到卸载出内存为止，整个生命周期包括：加载，验证，准备，解析，初始化，使用和卸载 7个阶段，其中验证，准备，解析 3个部分统称为连接，发生顺序如下图所示</p>
+<p><img src="https://i.imgur.com/93TFYm3.png" alt=""></p>
+<p>加载，验证，准备，初始化和卸载这5个阶段的顺序是确定的，类加载过程必须按照这种顺序按部就班的开始（这些阶段都是互相交叉混合进行的，通常会在一个阶段执行的过程中调用，激活另一阶段），而解析阶段则不一定，它在某些情况下可以在初始化阶段之后再开始，这是为了支持Java语言的运行时绑定</p>
+<p>对于什么时候开始加载阶段，Java虚拟机规范中并没有强制约束，可以交给虚拟机具体实现来自由把握，而对于初始化阶段，虚拟机规范严格规定有且只有5种情况必须立即对类进行初始化（加载，验证，准备要在初始化之前开始）：</p>
+<ul>
+<li>遇到new，getstatic，putstatic或invokestatic这4条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。生成这4条指令最常见的Java代码场景是：使用new关键字实例化对象的时候，读取或设置一个类的静态字段（被final修饰，已在编译期把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候</li>
+<li>使用java.lang.reflect包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化</li>
+<li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要先触发其父类的初始化</li>
+<li>虚拟机启动时，用户需要指定一个要执行的主类（main()方法那个类），虚拟机会先初始化这个主类</li>
+<li>动态语言支持时，如果java.lang.invoke.MethodHandle实例最后的解析结果REF_getStatic,REF_putStatic,REF_invokeStatic的方法句柄并且这个句柄所对应的类没有初始化，则需要先触发其初始化</li>
+</ul>
+<p>这5个场景会触发类进行初始化的场景，它们的行为称为对一个类进行主动引用，所有其他场景都不会触发初始化，称为被动引用，如下面例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过子类引用父类的静态字段，不会导致子类的初始化</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"SuperClass init!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> superValue = <span class="number">123</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"SubClass init!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(SubClass.superValue);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果：</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">SuperClass init!</span></span><br><span class="line"><span class="comment">123</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过数组定义来引用类，不会触发此类的初始化</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    SuperClass[] sca = <span class="keyword">new</span> SuperClass[<span class="number">10</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConstClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@program</span>: MyAlgothrims</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>:</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: makaloo</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>: 2019-07-19 12:00</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"ConstClass init!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String HELLOWORLD = <span class="string">"hello world!"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(ConstClass.HELLOWORLD);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">hello world!</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>接口和类的区别是：当类在初始化时，要求其父类全部都已经初始化，而接口并不要求父接口全部完成初始化，只有在真正使用到父接口的时候才会初始化（如引用接口中定义的常量）</p>
+<h2 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h2><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p>加载是类加载过程的一个阶段，加载阶段，虚拟机需要完成以下3件事情</p>
+<ul>
+<li>通过一个类的全限定名来获取定义此类的二进制字节流</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口</li>
+</ul>
+<p>常见的获取二进制字节流的例子为：从ZIP包读取（以及之后的JAR,EAR,WAR包），其他文件生成（JSP）等</p>
+<p>非数组类的加载阶段可控性最强，它既可以使用系统提供的引导类加载器来完成，也可以用用户自定义的类加载器去完成，开发人员可以通过定义自己的类加载器去控制字节流的获取方式（即重写一个loadClass()方法）<br><strong>对于数组类，它本身不通过类加载器创建，而是由Java虚拟机直接创建</strong>，但数组类的元素类型最终还是要靠类加载器去完成，一个数组类（下面简称为C）创建过程遵循以下规则：</p>
+<ul>
+<li>如果数组的组件类型是引用类型，就递归采用本节中定义的加载过程去加载这个组件类型，数组C将在加载该组件类型的类加载器的类名称控件上被标识</li>
+<li>如果数组的组件类型不是引用类型，Java虚拟机将会把数组C标记为与引导类加载器关联</li>
+<li>数组类的可见性与它的组件类型的可见性一致，如果数组类型不是引用类型，那数组类的可见性将默认为public</li>
+</ul>
+<p>加载阶段完成后，虚拟机外部的二进制字节流就按照虚拟机所需的格式<strong>存储在方法区中</strong>，方法区中的数据存储格式由虚拟机自行定义（虚拟机规范未规定此区域的具体数据结构），然后在内存中实例化一个java.lang.Class类的对象（规范里没有说明在Java堆，但<strong>HotSpot虚拟机Class对象存放在方法区里</strong>），这个对象将作为程序访问方法区的这些类型数据的外部接口</p>
+<p>加载阶段与连接阶段的部分内容（如一部分字节码文件格式验证动作）是交叉进行的，加载阶段尚未完成，连接阶段可能就已经开始</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>验证是连接阶段的第一步，这一阶段目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的安全</p>
+<p>Java语言是相对安全的语言，使用纯粹Java代码无法做到访问数组边界以外的数据，对象转型为未实现的类型等，如果这样做，编译器拒绝编译。但Class文件不要求用Java源代码编译而来，可以使用任何途径包括十六进制编辑器等，从字节码语言层面上讲，这些途径是可以实现Java代码无法做到的事情（至少语义上可以表达出来），因此虚拟机需要检查输入的字节流。验证是虚拟机对自身保护的一项重要工作</p>
+<p>整体上讲，验证分为4个阶段：文件格式验证，元数据验证，字节码验证，符号引用验证</p>
+<h4 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h4><p>这一阶段可能包含下面验证点</p>
+<ul>
+<li>是否以魔数0xCAFEBABE开头</li>
+<li>主，次版本号是否在当前虚拟机处理范围内</li>
+<li>常量池的常量中是否有不被支持的常量类型（检查常量tag标志）</li>
+<li>指向常量的各种索引值是否有指向不存在的常量或不符合类型的常量</li>
+<li>CONSTANT_Utf8_info型的常量中是否有不符合UTF8编码的数据</li>
+<li>Class文件中各个部分及文件本身是否有被删除的或附加的其他信息<br>……</li>
+</ul>
+<p>第一阶段还有许多验证点，<strong>该验证阶段确保输入的字节流能正确解析并存储于方法区内，格式上符合一个Java类型信息的要求</strong>。这阶段的验证是基于二进制字节流进行的，只有通过这个阶段的验证后，字节流才会进入内存的方法区中进行存储，后面3个阶段全部是基于方法区的存储结构进行的，不再直接操作字节流</p>
+<h4 id="元数据验证"><a href="#元数据验证" class="headerlink" title="元数据验证"></a>元数据验证</h4><p>对字节码描述的信息进行语义分析，以保证其描述的信息符合Java语言规范的要求，可能包括的验证点如下</p>
+<ul>
+<li>这个类是否有父类（除了java.lang.Object，其他所有类都有父类）</li>
+<li>这个类的父类是否继承了不允许被继承的类（被final修饰的类）</li>
+<li>如果这个类不是抽象类，是否实现了其父类或接口之中要求实现的所有方法</li>
+<li>类中的字段，方法是否与父类产生矛盾（覆盖父类final字段，出现不符合规则的方法重载等）</li>
+</ul>
+<p>第二阶段主要目的是<strong>对类的元数据信息进行语义校验，保证不存在不符合Java语言规范的元数据信息</strong></p>
+<h4 id="字节码验证"><a href="#字节码验证" class="headerlink" title="字节码验证"></a>字节码验证</h4><p>第三阶段是验证过程最复杂的一个阶段，主要目的是<strong>通过数据流和控制流分析，确定程序语义是合法的，符合逻辑的</strong>。在第二阶段对元数据信息中的数据类型做完校验后，这个阶段将<strong>对类的方法体进行校验分析，保证被校验类的方法在运行时不会做出危害虚拟机安全的事件</strong></p>
+<ul>
+<li>保证任何时刻操作数栈的数据类型与指令代码序列都能配合工作，例如不会出现操作栈放置一个int类型的数据，使用时却按long类型来加载到本地变量表</li>
+<li>保证跳转指令不会跳转到方法体以外的字节码指令中</li>
+<li>保证方法体的类型转换是有效的，例如父类对象赋值给子类数据类型，对象赋值给与它无关的数据类型都是危险的，不合法的</li>
+</ul>
+<p>没通过字节码验证的类方法体肯定有问题，通过字节码验证的方法体不一定没有问题：通过程序去校验程序逻辑是无法做到绝对准确的</p>
+<p>为了避免过多时间消耗在字节码验证阶段，JDK 1.6之后Javac编译器和Java虚拟机进行一项优化是给方法体的Code属性的属性表增加一项名为”StackMapTable”的属性，这项属性描述方法体中所有基本块开始时本地变量表和操作栈应有的状态，字节码验证期间，不需要根据程序推导这些状态的合法性，只需要检查StackMapTable属性的记录是否合法即可，这样将字节码验证的类型推导转变为类型检查从而节省时间</p>
+<h4 id="符号引用验证"><a href="#符号引用验证" class="headerlink" title="符号引用验证"></a>符号引用验证</h4><p>最后一个阶段的校验发生在虚拟机将符号引用转化为直接引用的时候，这个转化动作在连接的第三阶段——解析阶段中发生。<strong>符号引用验证可以看做是对类自身以外（常量池中的各种符号引用）的信息进行匹配性校验</strong>，通常需要校验下列内容：</p>
+<ul>
+<li>符号引用中通过字符串描述的全限定名是否能找到对应的类</li>
+<li>在指定类中是否存在符合方法的字段描述符以及简单名称所描述的方法和字段</li>
+<li>符号引用中的类，字段和方法的访问性（private等）是否可以被当前类访问</li>
+</ul>
+<p><strong>符号引用验证的目的是确保解析动作能正常执行</strong>，如果无法通过符号引用验证，会抛出一个java.lang.IncompatibleClassChangeError异常的子类，如java.lang.IllegalAccessError,java.lang.NoSuchFieldError,java.lang.NoSuchMethodError等</p>
+<p>验证阶段是非常重要但不是必要的阶段，如果所运行的全部代码都已经被反复使用和验证过，那么实施阶段可以考虑使用-Xverify:none参数来关闭大部分的类验证措施，以缩短虚拟机类加载的时间</p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><p><strong>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段</strong>，这些变量所使用的内存都将在方法区中进行分配。这个阶段进行内存分配的仅包括类变量（static），而不包括实例变量，实例变量将会在对象实例化的时候随着对象一起分配到Java堆中。初始值”通常情况下”是数据类型的零值，假设一个类变量定义为：<code>public static int value = 123;</code>，这时变量value在准备阶段后的初始值为0，而不是123，因为这时还没有执行任何Java方法，把value赋值为123的putstatic指令是程序被编译后，存放于类构造器&lt;clinit&gt;()方法之中，所以把value赋值为123的动作将在初始化阶段才会执行，零值表如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">数据类型</th>
+<th style="text-align:left">int</th>
+<th style="text-align:left">long</th>
+<th style="text-align:left">short</th>
+<th style="text-align:left">char</th>
+<th style="text-align:left">byte</th>
+<th style="text-align:left">boolean</th>
+<th style="text-align:left">float</th>
+<th style="text-align:left">double</th>
+<th style="text-align:left">reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">零值</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0L</td>
+<td style="text-align:left">(short) 0</td>
+<td style="text-align:left">‘\u0000’</td>
+<td style="text-align:left">(byte) 0</td>
+<td style="text-align:left">false</td>
+<td style="text-align:left">0.0f</td>
+<td style="text-align:left">0.0d</td>
+<td style="text-align:left">null</td>
+</tr>
+</tbody>
+</table>
+<p>特殊情况指类字段的字段属性表中存在ConstantValue属性，那么准备阶段变量value就会被初始化为ConstantValue属性所指定的值，如<code>public static final int value = 123;</code>，编译时javac将为value生成ConstantValue属性，在准备阶段，虚拟机根据ConstantValue的设置将value赋值为123</p>
+<h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p><strong>解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</strong>，在Class文件中符号引用以CONSTANT_Class_info,CONSTANT_Fieldref_info,CONSTANT_Methodref_info等类型的常量出现，符号引用和直接引用的关联如下：</p>
+<ul>
+<li>符号引用：以一组符号来描述所引用的目标，符号可以是任何形式的字面量，只要使用时无歧义的定位到目标即可。符号引用和虚拟机实现的内存布局无关，引用的目标并不一定已经加载到内存中。各种虚拟机实现的内存布局可以各不相同，但能接受的符号引用必须一致，因为符号引用的字面量形式明确定义在Java虚拟机规范的Class文件格式中</li>
+<li>直接引用：可以是直接指向目标的指针，相对偏移量或是一个能间接定位到目标的句柄。直接引用是和虚拟机实现的内部布局相关的，同一个符号引用在不同虚拟机实例上翻译出来的直接引用一般不会相同。如果有了直接引用，那引用的目标必定已经在内存中存在</li>
+</ul>
+<p>虚拟机规范没有规定解析阶段发生的具体时间，具体虚拟机实现可以根据需要来判断到底是在类被加载器加载时就对常量池的符号引用进行解析，还是等到一个符号引用将要被使用前才去解析它</p>
+<p>解析动作主要针对类或接口，字段，类方法，接口方法，方法类型，方法句柄和调用点限定符7类符号引用进行，对应常量池的CONSTANT_Class_info,CONSTANT_Fieldref_info,CONSTANT_Methodref_info,CONSTANT_InterfaceMethodref_info,CONSTANT_MethodType_info,CONSTANT_MethodHandle_info和CONSTANT_InvokeDynamic_info 7种常量类型</p>
+<p>主要分为类或接口的解析，字段解析，类方法解析和接口方法解析，过程略</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>类初始化阶段是类加载过程的最后一步。在初始化阶段才真正执行类中定义的Java程序代码</p>
+<p>初始化阶段是执行类构造器&lt;clinit&gt;()方法的过程</p>
+<ul>
+<li>&lt;clinit&gt;()方法是由编译器自动收集类中所有类变量的赋值动作和静态语句块中的语句合并产生的，顺序由语句在源文件中出现的顺序决定，静态语句块只能访问到定义在静态语句块之前的变量，定义在它之后的变量，在前面的静态语句块可以赋值，但不能访问，如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        i = <span class="number">0</span>; <span class="comment">// 正常编译通过</span></span><br><span class="line">        System.out.println(i); <span class="comment">// 提示非法向前引用</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>&lt;clinit&gt;()方法与类的构造函数（或者说与实例构造器&lt;init&gt;()方法）不同，它不需要显式地调用父类构造器，虚拟机会保证子类的&lt;clinit&gt;()方法执行之前，父类的&lt;clinit&gt;()方法已经执行完毕，所以虚拟机第一个被执行的&lt;clinit&gt;()方法的类是java.lang.Object</li>
+<li>&lt;clinit&gt;()方法不是必须的，如果一个类没有为类变量赋值和静态语句块，就不会有&lt;clinit&gt;()方法</li>
+<li>&lt;clinit&gt;()方法会在多线程环境被正确加锁，同步</li>
+</ul>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>类与类加载器，双亲委派模型，破坏双亲委派模型，略</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/网络6-思维导图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2174,773 +2887,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/网络2-链路层/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/18/网络2-链路层/" itemprop="url">计算机网络2-链路层</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T14:52:34+08:00">
-                2019-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络/" itemprop="url" rel="index">
-                    <span itemprop="name">网络</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/18/网络2-链路层/" class="leancloud_visitors" data-flag-title="计算机网络2-链路层">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="网络2-链路层"><a href="#网络2-链路层" class="headerlink" title="网络2-链路层"></a>网络2-链路层</h1><ul>
-<li>数据链路层功能</li>
-<li>组帧</li>
-<li>差错控制<br>检错编码；纠错编码</li>
-<li>流量控制与可靠传输机制<br>流量控制，可靠传输与滑动窗口机制；停止-等待协议<br>后退N帧协议（GBN）；选择重传协议（SR）</li>
-<li>介质访问控制<ul>
-<li>信道划分<br>频分多路复用，时分多路复用，波分多路复用，码分多路复用的概念和基本原理</li>
-<li>随机访问<br>ALOHA协议，CSMA协议，CSMA/CD协议，CSMA/CA协议</li>
-<li>轮询访问：令牌传递协议</li>
-</ul>
-</li>
-<li>局域网<br>局域网的基本概念与体系结构；以太网与IEEE 802.3<br>IEEE 802.11；令牌环网的基本原理</li>
-<li>广域网<br>广域网的基本概念；PPP协议；HDLC协议</li>
-<li>数据链路层设备<br>网桥的概念及其基本原理；局域网交换机及其工作原理</li>
-</ul>
-<h2 id="数据链路层的功能"><a href="#数据链路层的功能" class="headerlink" title="数据链路层的功能"></a>数据链路层的功能</h2><p>数据链路层主要作用是加强物理层传输原始比特流的功能，将物理层提供的可能出错的物理连接改造为逻辑上无差错的数据链路，使之对网络层表现为一条无差错的链路</p>
-<p>具体功能为：</p>
-<ul>
-<li>为网络层提供服务</li>
-<li>链路管理</li>
-<li>帧定界，帧同步与透明传输</li>
-<li>流量控制</li>
-<li>差错控制</li>
-</ul>
-<h3 id="为网络层提供服务"><a href="#为网络层提供服务" class="headerlink" title="为网络层提供服务"></a>为网络层提供服务</h3><p>数据链路层可以为网络层提供如下服务：</p>
-<ul>
-<li>无确认的无连接服务：适用于以太网</li>
-<li>有确认的无连接服务：目的机器收到数据帧必须发回确认；源机器超时未收到确认信号，就重传失去的帧，适用于无线通信</li>
-<li>有确认的面向连接服务：建立数据链路，传输帧，释放数据链路</li>
-</ul>
-<h3 id="链路管理"><a href="#链路管理" class="headerlink" title="链路管理"></a>链路管理</h3><p>数据链路层连接的建立，维持和释放过程称为链路管理，主要用于面向连接服务</p>
-<h3 id="帧定界，帧同步与透明传输"><a href="#帧定界，帧同步与透明传输" class="headerlink" title="帧定界，帧同步与透明传输"></a>帧定界，帧同步与透明传输</h3><p>将网络层的分组封装成帧，以帧格式传送。将数据前后分别添加首部尾部就构成了帧。首部尾部要确定帧的界限，称为帧定界。帧同步指接收方能从接收到的二进制比特流中区分帧的起始与终止。透明传输指不管所传数据是怎么样的比特组合，都能在链路上传送，如果在数据中恰好出现与帧定界相同的比特组合，可以采取有效措施解决这个问题</p>
-<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>限制发送方的数据流量，使其发送速率不超过接收方的接收能力，以防止后面发送的帧淹没前面还未被接收的帧的情况。流量控制需要反馈机制使发送方知道什么时候可以发送下一帧</p>
-<p>链路层的流量控制主要面向相邻两结点之间，区别于运输层控制源端到目的端</p>
-<h3 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h3><p>可以通过循环冗余检验（CRC）发现位错，自动重传请求（ARQ）重传出错的帧。发送方将数据帧附加一定的CRC冗余检错码并发送，接收方检验若发现错误则丢弃，发送方超时重传该数据帧，这种方法称为ARQ法</p>
-<h2 id="组帧"><a href="#组帧" class="headerlink" title="组帧"></a>组帧</h2><p>比特组合成帧发送的目的是为了在出错时只重发出错的帧，而不必重发全部数据，组帧主要解决帧定界，帧同步，透明传输等问题</p>
-<p>下面是4种实现组帧的方法</p>
-<h3 id="字符计数法"><a href="#字符计数法" class="headerlink" title="字符计数法"></a>字符计数法</h3><p>帧头部使用计数字段标明帧内字符数，目的结点通过该值得知帧结束的位置，问题是如果计数字段出错，会失去同步</p>
-<h3 id="字符填充的首尾定界符法"><a href="#字符填充的首尾定界符法" class="headerlink" title="字符填充的首尾定界符法"></a>字符填充的首尾定界符法</h3><p>字符填充法使用特定字符定界一帧的开始与结束。信息位的特殊字符添加转移字符区分防止误判</p>
-<h3 id="比特填充的首尾标志法"><a href="#比特填充的首尾标志法" class="headerlink" title="比特填充的首尾标志法"></a>比特填充的首尾标志法</h3><p>允许数据帧包含任意个数比特，允许每个字符编码包含任意个数的比特。它用01111110标志一帧的开始和结束，信息位中出现的比特流01111110为了不被误判，发送方在信息位遇到连续5个1时，会自动在其后插入一个0，接收方做该过程的逆操作</p>
-<h3 id="违规编码法"><a href="#违规编码法" class="headerlink" title="违规编码法"></a>违规编码法</h3><p>物理层进行比特编码时，通常采用违规编码法，如曼彻斯特编码将数据比特1编码成高-低电平对，数据比特0编码成低-高电平对，而高-高电平对和低-低电平对在数据比特中是违规的，可以借用这些违规编码序列来界定帧的起始和终止。局域网IEEE 802标准采用这种方法</p>
-<h2 id="差错控制-1"><a href="#差错控制-1" class="headerlink" title="差错控制"></a>差错控制</h2><p>差错由噪声引起，噪声有两大类：信道固有的随机热噪声和外界特定短暂原因造成的冲击噪声，前者可以提高信噪比减少，后者是产生差错的重要原因</p>
-<p>可以利用编码技术进行差错控制，主要有自动重传请求ARQ和前向纠错FEC。ARQ方式接收端检测出差错时就设法通知发送端重传，直到接收到正确码字为止。FEC方式接收端不但能发现差错，还能确定二进制数码的错误位置，从而加以纠正。因此差错控制又可分为纠错编码和检错编码</p>
-<h3 id="检错编码"><a href="#检错编码" class="headerlink" title="检错编码"></a>检错编码</h3><p>检错编码采用冗余编码技术，核心思想是在有效数据被发送前，先按某种关系附加一定的冗余位，构成一个符合某一规则的码字后再发送。码字遵从不变的规则，随有效数据的变化而变化。接收端根据收到的码字是否符合原规则来判断是否出错，常见的检错编码有奇偶检验码和循环冗余码</p>
-<h4 id="奇偶检验码"><a href="#奇偶检验码" class="headerlink" title="奇偶检验码"></a>奇偶检验码</h4><p>奇检验码在附加一个检验元后，码长为n的码字中1的个数为奇数，偶检验码在附加一个检验元后，码长为n的码字中1的个数为偶数</p>
-<h4 id="循环冗余码CRC"><a href="#循环冗余码CRC" class="headerlink" title="循环冗余码CRC"></a>循环冗余码CRC</h4><p>给定一个m bit的帧或报文，发送器生成一个r bit的序列，称为帧检验序列，所形成的帧由m+r比特组成，发送方和接收方事先商定一个多项式G(x)，使带检验码的帧刚好被预先确定的G(x)整除，接收方用相同的多项式去除收到的帧，如果无余数就认为无差错。计算过程略</p>
-<h3 id="纠错编码"><a href="#纠错编码" class="headerlink" title="纠错编码"></a>纠错编码</h3><p>纠错编码需要在每个要发送数据块上附加足够冗余信息，使接收方能推导发送方实际发出的应该是什么样的比特串，常见的是海明码</p>
-<h2 id="流量控制与可靠传输机制"><a href="#流量控制与可靠传输机制" class="headerlink" title="流量控制与可靠传输机制"></a>流量控制与可靠传输机制</h2><h3 id="流量控制，可靠传输与滑动窗口机制"><a href="#流量控制，可靠传输与滑动窗口机制" class="headerlink" title="流量控制，可靠传输与滑动窗口机制"></a>流量控制，可靠传输与滑动窗口机制</h3><p>流量控制涉及对链路上的帧的发送速率的限制，以使接收方有足够缓冲空间来接收每个帧，常见方式有停止-等待协议和滑动窗口协议</p>
-<h4 id="停止-等待流量控制基本原理"><a href="#停止-等待流量控制基本原理" class="headerlink" title="停止-等待流量控制基本原理"></a>停止-等待流量控制基本原理</h4><p>发送方每发送一帧，都要等待接收方的应答信号，之后才发送下一帧，接收方每接收一帧都要反馈一个应答信号，如果接收方不反馈，发送方必须一直等待</p>
-<h4 id="滑动窗口流量控制基本原理"><a href="#滑动窗口流量控制基本原理" class="headerlink" title="滑动窗口流量控制基本原理"></a>滑动窗口流量控制基本原理</h4><p>发送方维持一组连续的允许发送的帧的序号，称为发送窗口，接收方也维持一组连续的允许接收帧的序号，称为接收窗口。发送窗口的大小WT代表在还未收到对方确认信息的情况下发送方最多还可以发送多少个数据帧。接收端设置的接收窗口控制可以接收哪些数据帧和不可以接收哪些数据帧，若接收到的数据帧在窗口之外就丢弃</p>
-<h3 id="单帧滑动窗口与停止-等待协议"><a href="#单帧滑动窗口与停止-等待协议" class="headerlink" title="单帧滑动窗口与停止-等待协议"></a>单帧滑动窗口与停止-等待协议</h3><p>发送方每发送一帧都要等待接收方的应答信号才能发送下一帧</p>
-<h3 id="多帧滑动窗口与后退N帧协议（GBN）"><a href="#多帧滑动窗口与后退N帧协议（GBN）" class="headerlink" title="多帧滑动窗口与后退N帧协议（GBN）"></a>多帧滑动窗口与后退N帧协议（GBN）</h3><p>发送方一次可发送N帧，按序接收，重传从最后一个确认开始</p>
-<h3 id="多帧滑动窗口与选择重传协议（SR）"><a href="#多帧滑动窗口与选择重传协议（SR）" class="headerlink" title="多帧滑动窗口与选择重传协议（SR）"></a>多帧滑动窗口与选择重传协议（SR）</h3><p>发送方一次可发送N帧，可以不按序接收，重传没有确认的帧</p>
-<h2 id="介质访问控制"><a href="#介质访问控制" class="headerlink" title="介质访问控制"></a>介质访问控制</h2><p>当同一信道被多个结点共用时，两对结点之间的通信可能会因为互相干扰而失败，需要采取一定措施，使得两对结点之间的通信不会发生互相干扰的情况</p>
-<p>常见介质访问控制方法有信道划分介质访问控制，随机访问介质访问控制，轮询访问介质访问控制，前者是静态划分信道方法，后两者是动态分配信道方法</p>
-<h3 id="信道划分介质访问控制"><a href="#信道划分介质访问控制" class="headerlink" title="信道划分介质访问控制"></a>信道划分介质访问控制</h3><p>采取多路复用可以把多个输入通道的信息整合到一个复用通道中，在接收端把收到的信息分离出来并传送到对应的输出通道，<strong>实质是通过分时，分码，分频等方法把原来的一条广播信道，逻辑上分为几条用于两个结点之间通信的互不干扰的子信道，实际上就是把广播信道转变为点对点信道</strong></p>
-<ul>
-<li>频分多路复用：多路基带信号调制到不同频率载波上，再叠加成一个复合信号</li>
-<li>时分多路复用：物理信道按时间分成若干时间片，轮流分配给多个信号使用</li>
-<li>波分多路复用：一根光纤中传输多种不同波长的光信号</li>
-<li>码分多路复用：采用不同编码区分各路原始信号</li>
-</ul>
-<h3 id="随机访问介质访问控制"><a href="#随机访问介质访问控制" class="headerlink" title="随机访问介质访问控制"></a>随机访问介质访问控制</h3><p>所有用户都可以随机发送信息，占用信道全部速率，如果2个或多个用户同时发送，会产生帧的冲突，导致所有冲突用户发送失败，为了解决随机接入发送的碰撞，每个用户需要按照一定规则反复重传它的帧，这些规则就是随机访问介质访问控制协议，常见有ALOHA协议，CSMA协议，CSMA/CD协议和CSMA/CA协议等，它们核心都是胜利者通过争用获得信道</p>
-<h4 id="ALOHA协议"><a href="#ALOHA协议" class="headerlink" title="ALOHA协议"></a>ALOHA协议</h4><p>纯ALOHA基本思想：网络中任何一个站点需要发送数据时，可以不进行任何检测就发送，如果一段时间内未收到确认，该站点就认为传输冲突，发送站点等待一段时间后再发送数据，直到发送成功</p>
-<p>时隙ALOHA协议把所有各站在时间上同步起来，将时间划分为一段段等长的时隙，规定只能在每个时隙开始时才能发送一个帧</p>
-<p>时隙ALOHA效率是纯ALOHA的两倍</p>
-<h4 id="CSMA协议"><a href="#CSMA协议" class="headerlink" title="CSMA协议"></a>CSMA协议</h4><p>ALOHA用户发送数据随意，即使其他站点正在发送也照发不误，如果每个站点在发送前先侦听一下共用信道，发现信道空闲后再发送，就可以提高信道利用率，CSMA就是这样做的<br>根据侦听方式和侦听到信道忙后的处理方式不同，CSMA分为三种</p>
-<ul>
-<li>1-坚持CSMA：一个节点要发送数据时，首先侦听信道，如果信道空闲，立即发送数据，如果信道忙，等待并侦听直到信道空闲，如果冲突，则随机等待一段时间后再重新开始侦听</li>
-<li>非坚持CSMA：一个节点要发送数据时，首先侦听信道，如果信道空闲，那么立即发送数据，如果信道忙，放弃侦听，等待一个随机实践后再重复上述过程</li>
-<li>p-坚持CSMA：用于时分信道，一个节点要发送数据，先侦听信道，如果信道忙，那么等待下一时隙再侦听，如果信道空闲，那么以概率p发送数据，以概率1-p推迟到下一个时隙</li>
-</ul>
-<h4 id="CSMA-CD协议"><a href="#CSMA-CD协议" class="headerlink" title="CSMA/CD协议"></a>CSMA/CD协议</h4><p>是CSMA协议的改进方案，CD指碰撞检测，边发送边侦听，以判断自己在发送数据时其他站点是否也在发送数据</p>
-<p>工作流程简单概括为：先听后发，边听边发（区别于CSMA），冲突停发，随机重发</p>
-<h4 id="CSMA-CA协议"><a href="#CSMA-CA协议" class="headerlink" title="CSMA/CA协议"></a>CSMA/CA协议</h4><p>CSMA/CD不适用于无线领域，因此定义了CSMA/CA协议用于无线领域，使用预约信道，ACK帧，RTS/CTS帧三种机制实现碰撞避免</p>
-<h3 id="轮询访问介质访问控制"><a href="#轮询访问介质访问控制" class="headerlink" title="轮询访问介质访问控制"></a>轮询访问介质访问控制</h3><p>轮询访问中，用户不能随机发送信息，而是通过一个集中控制的监控站，以循环方法轮询每个结点，再决定信道的分配，信道是独占的，典型的轮询访问介质访问控制是令牌传递协议，主要用于令牌环局域网</p>
-<p>令牌在各节点间以某种固定次序交换，令牌是由一组特殊比特组合而成的帧，环上一个站希望传送帧时，必须等待令牌，一旦收到令牌，站点便可启动发送帧，否则站必须把令牌转发给下一个站</p>
-<h2 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h2><p>局域网LAN指在一个较小的地理范围内，将各个计算机，外部设备和数据库系统等通过双绞线，同轴电缆等连接介质互相连接起来，组成资源和信息共享的计算机互联网络</p>
-<p>局域网特性由拓扑结构，传输介质，介质访问控制方式决定</p>
-<p>拓扑结构分为星形结构，环形结构，总线结构，星形和总线形结合的复合型结构<br>传输介质可以用双绞线，铜缆，光纤等，双绞线是主流<br>介质访问控制方法主要有CSMA/CD，令牌总线和令牌环</p>
-<p>三种特殊的局域网拓扑实现如下：</p>
-<ul>
-<li>以太网（使用最广）：逻辑拓扑是总线形结构，物理拓扑是星形或拓展星形结构</li>
-<li>令牌环：逻辑拓扑是环形结构，物理拓扑是星形结构</li>
-<li>FDDI：逻辑拓扑是环形结构，物理拓扑是双环结构</li>
-</ul>
-<h3 id="以太网与IEEE-802-3"><a href="#以太网与IEEE-802-3" class="headerlink" title="以太网与IEEE 802.3"></a>以太网与IEEE 802.3</h3><p>IEEE 802.3标准是一种基带总线形的局域网标准，它描述了物理层和数据链路层的MAC子层的实现方法，通常符合802.3标准的局域网简称为以太网<br>以太网逻辑上是总线形拓扑结构，所有计算机共享同一条总线，信息以广播方式发送，使用CSMA/DA方式对总线进行访问控制。以太网采用两种措施简化通信：采用无连接的工作方式，不对发送的数据帧编号，也不要求接收方发送确认，即以太网最大努力交付数据，是不可靠服务，对于差错纠正也由高层完成</p>
-<p>计算机与外界局域网连接通过主机箱内插入一块网络接口板（网卡）实现，网卡上装有处理器和存储器，实现与局域网传输介质之间的物理连接和电信号匹配，帧的发送接收，封装拆封，介质访问控制，数据编码与解码，数据缓存等。网卡有唯一代码称为介质访问控制（MAC）地址，网卡工作在物理层，只关注比特</p>
-<h4 id="以太网的MAC帧"><a href="#以太网的MAC帧" class="headerlink" title="以太网的MAC帧"></a>以太网的MAC帧</h4><p>当一台主机向另一台主机发送一个IP数据报，且这两台主机在相同的以太局域网上，发送端的网卡会在一个以太网帧中封装这个IP数据报，并把该帧传递给物理层，接收端的网卡接收到这个帧，提取出IP数据报传递给网络层</p>
-<p>每块网卡都有MAC地址，长6字节，由连字符（或冒号）分隔的6个十六进制数表示，如02-60-8c-e4-b1-21（高24位厂商代码，低24位网卡序列号）。以太网总线上使用的是广播通信，因此网卡从网络上每收到一个MAC帧，都用硬件检查MAC帧的MAC地址，如果是发往本站才收下</p>
-<p>MAC帧格式如下：</p>
-<p><img src="https://i.imgur.com/WjmedOU.png" alt=""></p>
-<p>前导码：使接收端和发送端时钟同步，在帧前面插入的8字节可再为两个字段，第一个字段7字节，是前同步码，用于快速实现MAC帧的比特同步，第二个字段是帧开始定界符，表示后面的信息就是MAC帧<br>地址：6字节地址（MAC地址）<br>类型：2字节，指出数据域中携带的数据应交给哪个协议实体处理<br>数据：46~1500字节，包含高层的协议消息，CSMA/CD算法限制，以太网帧必须满足最小长度64字节（MAC帧首位占了18字节），数据较少时加以填充<br>检验码FCS：4字节，从目的地址段到数据端末尾，算法采用32位循环冗余码CRC，不但检验MAC帧数据部分，还检验目的地址，源地址和类型数据，但不检验前导码</p>
-<h4 id="IEEE-802-11"><a href="#IEEE-802-11" class="headerlink" title="IEEE 802.11"></a>IEEE 802.11</h4><p>IEEE 802.11是无线局域网的一系列协议标准，MAC层采用CSMA/CA协议。冲突避免要求每个发送结点在发送帧之前先侦听信道，如果空闲则发送，发送完一帧后必须等待一个短的时间间隔，检查接收站是否发挥帧的确认ACK，如果没有接收到，则发送冲突，重发该帧，直到规定最大重发次数之内发送成功</p>
-<h2 id="广域网"><a href="#广域网" class="headerlink" title="广域网"></a>广域网</h2><p>广域网指覆盖范围很广的长距离网络，是因特网的核心部分，局域网可以通过广域网与另一个相隔很远的局域网通信。广域网不等于互联网，互联网可以连接不同类型的网络（即可以连接局域网，也可以连接广域网），通常使用路由器连接</p>
-<p>广域网由结点交换机（不是路由器）及连接这些交换机的链路组成，结点交换机将分组存储并转发</p>
-<p>广域网与局域网区别很大，局域网使用的协议主要在数据链路层，而广域网使用协议主要在网络层</p>
-<p>广域网中一个重要问题是路由选择和分组转发，PPP协议和HDLC协议是目前最常用的两种广域网数据链路层控制协议</p>
-<h3 id="PPP协议"><a href="#PPP协议" class="headerlink" title="PPP协议"></a>PPP协议</h3><p>PPP是使用串行线路通信的面向字节的协议，该协议应用在直接连接的两个结点的链路上，设计的目的是用来通过拨号或专线方式建立点对点连接发送数据，使其成为各种主机，网桥和路由器之间简单连接的一种共同的解决方案</p>
-<p>PPP协议有三个组成部分：</p>
-<ul>
-<li>链路控制协议LCP：一种扩展链路控制协议，用于建立，配置，测试和管理数据链路</li>
-<li>网络控制协议NCP：PPP协议允许同时采用多种网络层协议，每个不同的网络层协议要用一个相应的NCP配置，为网络层协议建立和配置逻辑连接</li>
-<li>一个将IP数据报封装到串行链路的方法：IP数据报在PPP帧中就是其信息部分，这个信息部分的长度受最大传送单元MTU的限制</li>
-</ul>
-<p>PPP帧格式如下图所示</p>
-<p><img src="https://i.imgur.com/choURvx.png" alt=""></p>
-<p>前3个字段和最后2个字段与HDLC帧是一样的，首部第一个和尾部第二个字段都是标志字段F(flag)，规定为0x7E，表示一个帧的开始或结束，标志字段是PPP帧的定界符，连续两帧之间只需要用一个标志字段<br>首部的地址字段A规定为0xFF，控制字段C规定为0x03，实际上并没有携带任何信息<br>第四个字段是2字节的协议字段，当协议字段为0x0021时，PPP帧的信息字段就是IP数据报<br>信息字段的长度是可变的，不超过1500字节<br>尾部第一个字段（2字节）是使用CRC的帧检验序列FCS</p>
-<p>PPP建立，使用，撤销的状态图如下</p>
-<p><img src="https://i.imgur.com/Z8Hltr4.png" alt=""></p>
-<ul>
-<li>PPP提供差错检测但不纠错（CRC检验），不可靠的传输协议，不使用序号和确认机制</li>
-<li>仅支持点对点</li>
-<li>仅支持全双工</li>
-<li>PPP两端可以运行不同的网络层协议</li>
-<li>PPP是面向字节的，如果信息字段出现和标志字段一样的比特组合，在异步线路，PPP采用字节填充法，同步线路，则采用硬件来完成比特填充</li>
-</ul>
-<h3 id="HDLC协议"><a href="#HDLC协议" class="headerlink" title="HDLC协议"></a>HDLC协议</h3><p>HDLC是面向比特的数据链路层协议，不依赖于任何一个字符编码集，全双工，CRC检验，帧按顺序编号，传输可靠性高</p>
-<h2 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h2><p><img src="https://i.imgur.com/0nSDkkL.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/18/Java并发基础2-同步/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/18/Java并发基础2-同步/" itemprop="url">Java并发基础2-同步</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T10:31:34+08:00">
-                2019-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/18/Java并发基础2-同步/" class="leancloud_visitors" data-flag-title="Java并发基础2-同步">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java并发基础2-同步"><a href="#Java并发基础2-同步" class="headerlink" title="Java并发基础2-同步"></a>Java并发基础2-同步</h1><h2 id="锁对象"><a href="#锁对象" class="headerlink" title="锁对象"></a>锁对象</h2><p>有两种机制防止代码块受并发访问的干扰，Java语言提供了一个synchronized的关键字达到这一目的，并且Java5引入了ReentrantLock类</p>
-<p>ReentrantLock保护代码块基本结构如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lock myLock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">myLock.lock();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	critical section</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">	myLock.unlock(); <span class="comment">// make sure the lock is unlocked even if an exception is thrown</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>锁是可重入的，线程可以重复地获得已经持有的锁，锁保持一个持有计数来跟踪对lock方法的嵌套调用，线程每一次调用lock都要调用unlock来释放锁。由于这个特性，被一个锁保护的代码可以调用另一个使用相同的锁的方法</p>
-<p>通过银行对象来描述锁：下面这段代码是一个银行对象，它维护了一个double数组是银行账户，值为账户余额，对余额转账需要同步操作，因此每次转帐前都需要上锁，转账后释放锁，如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bank</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Lock bankLock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span>[] accounts;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bank</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span> initialBalance)</span> </span>&#123;</span><br><span class="line">        accounts = <span class="keyword">new</span> <span class="keyword">double</span>[n];</span><br><span class="line">        Arrays.fill(accounts, initialBalance);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">double</span> amount)</span> </span>&#123;</span><br><span class="line">        bankLock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (accounts[from] &lt; amount) <span class="keyword">return</span>;</span><br><span class="line">            System.out.print(Thread.currentThread());</span><br><span class="line">            accounts[from] -= amount;</span><br><span class="line">            System.out.printf(<span class="string">" %10.2f from %d to %d"</span>, amount, from, to);</span><br><span class="line">            accounts[to] += amount;</span><br><span class="line">            System.out.printf(<span class="string">" Total Balance: %10.2f%n"</span>, getTotalBalance());</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            bankLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getTotalBalance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> a : accounts)</span><br><span class="line">            sum += a;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accounts.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="条件对象"><a href="#条件对象" class="headerlink" title="条件对象"></a>条件对象</h2><p>通常，线程进入临界区，却发现在某一条件满足后它才能执行。要使用一个条件对象来管理那些已经获得一个锁但是却不能做有用工作的线程</p>
-<p>引例：上面的银行对象，假如要避免选择没有足够资金的账户作为转出账户，注意不能使用下面代码，下面代码不是同步的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (bank.getBalance(from) &gt;= amount)</span><br><span class="line">    bank.transfer(from, to, amount)</span><br></pre></td></tr></table></figure>
-<p>上面代码当前线程完全有可能通过了if条件，然后被中断，然后在线程再次运行前，账户余额已经低于提款金额，必须确保没有其他线程在本检查余额与转账活动之间修改余额</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    banLock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (account[from] &lt; amount) &#123;</span><br><span class="line">            <span class="comment">// wait</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// transfer funds</span></span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123; banLock.unlock(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但是当账户没有足够余额时，它会一直等直到另一个线程向账户注入资金，但是因为上锁了，其他线程也没有存款操作的机会，<strong>所以需要一种机制，当线程获得了锁，又需要满足某一条件时，就让它阻塞并放弃锁，直到该条件满足，这就是条件对象</strong></p>
-<p>条件对象是java.util.concurrent.locks.Condition，<strong>它的创建可以通过锁对象的newCondition()方法</strong>，如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">bank</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Condition sufficientFunds;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bank</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">        sufficientFunds = bankLock.newCondition();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果transfer方法发现余额不足，它调用<code>sufficientFunds.await();</code>方法</p>
-<p>等待获得锁的线程与调用await方法的线程存在本质上的不同，<strong>一旦一个线程调用await方法，它就进入该条件的等待集，当锁可用时，该线程不能马上解除阻塞，相反，它仍处于阻塞状态，直到另一个线程调用同一条件上的signalAll方法为止</strong><br>当另一个线程转账，它应该调用<code>sufficientFunds.signalAll();</code>，<strong>这一调用重新激活因为这一条件而等待的所有进程，一旦锁成为可用的，它们中的某个将从await调用返回，获得该锁并从被阻塞的地方继续执行</strong><br>此时，<strong>线程应该再次测试该条件，因为无法确保该条件被满足</strong>，对await的调用应该是如下形式的，是使用while语句判断的</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!(ok to proceed)) condition.await();</span><br></pre></td></tr></table></figure>
-<p>调用signalAll方法的时机是最重要的，稍有不慎就会死锁，经验上讲，在对象的状态有利于等待线程的方向改变时调用signalAll，例如当一个账户余额发生改变时，等待的线程会应该有机会检查余额</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    banLock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (account[from] &lt; amount) &#123;</span><br><span class="line">            sufficientFunds.await();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// transfer funds</span></span><br><span class="line">        sufficientFunds.signalAll();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123; banLock.unlock(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="对锁和条件对象的总结"><a href="#对锁和条件对象的总结" class="headerlink" title="对锁和条件对象的总结"></a>对锁和条件对象的总结</h2><ul>
-<li>锁用来保护代码片段，任何时刻只能有一个线程执行被保护的代码</li>
-<li>锁可以管理试图进入被保护代码段的线程</li>
-<li>锁可以拥有一个或多个相关的条件对象</li>
-<li>每个条件对象管理那些已经进入被保护的代码段但还不能运行的线程</li>
-</ul>
-<h2 id="synchronized关键字"><a href="#synchronized关键字" class="headerlink" title="synchronized关键字"></a>synchronized关键字</h2><p><strong>Java每一个对象都有一个内部锁，如果一个方法用<code>synchronized</code>关键字声明，那么对象的锁将保护整个方法，即要调用该方法，线程必须获得内部的对象锁，</strong>也只有方法才能用synchronized关键字声明</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    method body</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>等价于</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.intrinsicLock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        method body</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123; <span class="keyword">this</span>.intrinsicLock.unlock(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>内部对象锁只有一个内部条件(Condition)</strong>，wait方法添加一个线程到等待集中，notify/notifyAll方法解除等待线程的阻塞状态</p>
-<p>synchronized机制由锁来管理那些试图进入synchronized方法的线程，由条件来管理那些调用wait的线程</p>
-<p>wait和notifyAll是Object类的final方法（因此Condition的方法才被命名为await和signalAll以免发生冲突）</p>
-<p>此时Bank类可以如下实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bank</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span>[] accounts;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bank</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">double</span> initialBalance)</span> </span>&#123;</span><br><span class="line">        accounts = <span class="keyword">new</span> <span class="keyword">double</span>[n];</span><br><span class="line">        Arrays.fill(accounts, initialBalance);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">double</span> amount)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (accounts[from] &lt; amount)</span><br><span class="line">            wait();</span><br><span class="line">        System.out.print(Thread.currentThread());</span><br><span class="line">        accounts[from] -= amount;</span><br><span class="line">        System.out.printf(<span class="string">" %10.2f from %d to %d"</span>, amount, from, to);</span><br><span class="line">        accounts[to] += amount;</span><br><span class="line">        System.out.printf(<span class="string">" Total Balance: %10.2f%n"</span>, getTotalBalance());</span><br><span class="line">        notifyAll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">double</span> <span class="title">getTotalBalance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">double</span> a : accounts)</span><br><span class="line">            sum += a;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accounts.length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>静态方法声明为synchronized也是合法的，如果调用这种方法，该方法获得相关的类对象的内部锁，当该方法被调用时，xxx.class对象的锁被锁住，没有其他线程可以调用同一个类的这个或任何其他的同步静态方法</p>
-<h3 id="内部锁和条件的局限"><a href="#内部锁和条件的局限" class="headerlink" title="内部锁和条件的局限"></a>内部锁和条件的局限</h3><ul>
-<li>不能中断一个试图获得锁的线程</li>
-<li>试图获得锁时不能设定超时</li>
-<li>每个锁仅有单一的条件</li>
-</ul>
-<h2 id="对使用Lock-Condition和synchronized的建议"><a href="#对使用Lock-Condition和synchronized的建议" class="headerlink" title="对使用Lock/Condition和synchronized的建议"></a>对使用Lock/Condition和synchronized的建议</h2><ul>
-<li>最好既不使用Lock/Condition也不使用synchronized关键字，许多情况下可以使用java.util.concurrent包中的一种机制，它会为你处理所有的加锁</li>
-<li>如果synchronized关键字适合你的程序，尽量使用它，减少代码量</li>
-<li>如果特别需要Lock/Condition结构提供的独有特性时，才使用Lock/Condition</li>
-</ul>
-<h2 id="同步阻塞"><a href="#同步阻塞" class="headerlink" title="同步阻塞"></a>同步阻塞</h2><p>同步阻塞可以获得锁，语法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (obj) <span class="comment">// this is the syntax for a synchronized bolck</span></span><br><span class="line">&#123;</span><br><span class="line">    critical section</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>它可以获得obj的锁</p>
-<h2 id="监视器概念"><a href="#监视器概念" class="headerlink" title="监视器概念"></a>监视器概念</h2><p>监视器是面向对象的，有如下特性</p>
-<ul>
-<li>监视器是只包含私有域的类</li>
-<li>每个监视器类的对象有一个相关的锁</li>
-<li>使用该锁对所有方法进行加锁</li>
-<li>该锁可以有任意多个相关条件</li>
-</ul>
-<p>Java设计者以不是很精确的方式采用了监视器概念，Java的每一个对象有一个内部锁和内部条件，如果一个方法用synchronized关键字声明，那么它表现就像是一个监视器方法，通过调用wait/notifyAll/notify来访问条件变量，然而Java对象仍然不同于监视器，表现为：</p>
-<ul>
-<li>域不要求必须是private</li>
-<li>方法不要求必须是synchronized</li>
-<li>内部锁对客户是可用的</li>
-</ul>
-<h2 id="Volatile域"><a href="#Volatile域" class="headerlink" title="Volatile域"></a>Volatile域</h2><p>有时为了读写一个或两个实例域就使用同步，开销会过大，但不同步的话，使用现代的处理器与编译器，仍然会有很大可能出错：</p>
-<ul>
-<li>多处理器的计算机能暂时在寄存器或本地内存缓冲区保存内存的值，结果是，运行在不同处理器上的线程可能在同一内存位置取到不同的值</li>
-<li>编译器可以改变指令执行的顺序以使吞吐量最大化，这种顺序上变化不会改变代码语义，但是编译器假定内存的值仅仅在代码中有显式的修改指令时才会改变，然而内存的值可以被另一个线程改变（即指令重排不改变程序执行结果，但可能影响多线程执行结果）</li>
-</ul>
-<p>如果使用锁来保护可以被多个线程访问的代码，那么可以不考虑这种问题，编译器被要求通过在必要的时候刷新本地缓存来保持锁的效应，并且不能不正当地重新排序指令</p>
-<p>volatile关键字为实例域的同步访问提供了一种免锁机制。<strong>如果声明一个域为volatile，那么编译器和虚拟机就知道该域是可能被另一个线程并发更新的</strong></p>
-<p>&nbsp;</p>
-<p>e.g.一个对象有一个布尔标记done，它的值被一个线程设置却被另一个线程查询，那么我们可以使用锁</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">boolean</span> done;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">isDone</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> done; &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setDone</span><span class="params">()</span> </span>&#123; done = <span class="keyword">true</span>; &#125;</span><br></pre></td></tr></table></figure>
-<p>但是如果另一个线程已经对该对象加锁，isDone和setDone方法可能会阻塞，这时可以为这一变量使用独立的Lock，但会带来许多麻烦<br>这时将域声明为volatile是合理的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> done<span class="string">'</span></span><br><span class="line"><span class="string">public boolean isDone() &#123; return done; &#125;</span></span><br><span class="line"><span class="string">public void setDone() &#123; done = true; &#125;</span></span><br></pre></td></tr></table></figure>
-<p>要理解volatile，首先要知道Java内存模型</p>
-<p><img src="https://i.imgur.com/ft7hGJm.jpg" alt=""></p>
-<p>在Java内存模型中，每个线程有它自己的工作内存，它们又共享一个主内存。主内存存储了共享变量(静态变量，堆内存的实例)的”本尊”。而工作内存可以理解为计算机的高速缓存，它存储共享变量的”副本”</p>
-<p>在内存模型中，假如线程A从主存读取变量S=0，然后为其赋值S=3，再刷新写回到主存，线程B读取主存数据S，此时线程B可能会出现两种结果，S=3或者S=0（即线程A还没把S写回到主存时，线程B就已经读取主存的S了）</p>
-<p>此时就需要用到关键字volatile，它的作用是保证volatile修饰的变量对所有线程的可见性，<strong>可见性指当一个线程修改了变量的值，新的值会立刻同步到主内存当中，而其他线程读取这个变量的时候，也会从主内存中拉取最新的变量值</strong><br>volatile可以有这样的特性，得益于Java的<strong>先行发生原则</strong>，，先行发生原则指两个事件的结果之间的关系，如果一个事件发生在另一个事件之前，结果必须反映，即使这些事件实际上是乱序执行的，在这里，线程A的写操作就先于线程B的读操作的发生</p>
-<p>但是，<strong>volatile只能保证变量的可见性，并不能保证变量的原子性</strong>，如下面例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">VolatileTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Runnable r = () -&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">100</span>; j++) &#123;</span><br><span class="line">                    count++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">            <span class="keyword">new</span> Thread(r).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"count = "</span> + count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>理论上，count最后输出的结果是1000，但实际上很难达到1000，这是因为count++并不是原子操作，count++在字节码层面如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">getstatic // 读取静态变量count</span><br><span class="line">iconst_1 // 定义常量1</span><br><span class="line">iadd // count加1</span><br><span class="line">putstatic // 把count结果同步到主内存</span><br></pre></td></tr></table></figure>
-<p>可能会发生这种情况：线程A读取静态变量count，此时主内存的count值为0，然后线程A定义常量1的时候，主内存的count被其他线程修改，写为8，当线程A执行putstatic时，它工作内存上的count为1，会覆盖掉主内存的8</p>
-<p>还有另一个例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> start = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">volatile</span> <span class="keyword">static</span> <span class="keyword">int</span> end = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 线程A执行下面代码</span></span><br><span class="line"><span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 线程B执行下面代码</span></span><br><span class="line">start += <span class="number">3</span>;</span><br><span class="line">end += <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-<p>假如线程B执行start+=3后，跳由线程A执行，它判断start&lt;end不成立，就会跳出while循环</p>
-<p>综上，<strong>适用volatile关键字的情况如下</strong>：</p>
-<ul>
-<li>运行结果不依赖变量当前值（即不能count=count+t，可以count=t)，或者能够确保只有单一的线程修改变量的值</li>
-<li>变量不需要与其他状态变量共同参与不变约束（如上面例子）</li>
-</ul>
-<p>volatile对指令重排也会有影响，在介绍影响之前，先了解内存屏障</p>
-<p>内存屏障是一种屏障指令，它使CPU和编译器对屏障指令之前和之后发出的内存操作执行一个排序约束，通常意味着屏障之前发布的操作被保证在屏障之后的操作之前执行，分为四种屏障：</p>
-<ul>
-<li>LoadLoad屏障：Load1;LoadLoad;Load2，Load2要读取的数据之前，保证Load1要读取的数据读取完毕</li>
-<li>StoreStore屏障：Store1;StoreStore;Store2，Store2写入数据前，保证Store1写入操作对其他处理器可见</li>
-<li>LoadStore屏障同上</li>
-<li>StoreLoad屏障同上</li>
-</ul>
-<p>volatile修饰变量后，JVM会做两件事：</p>
-<ul>
-<li>每个volatile写操作前插入StoreStore屏障，写操作后插入StoreLoad屏障</li>
-<li>每个volatile读操作前插入LoadLoad屏障，读操作后插入LoadStore屏障</li>
-</ul>
-<p>&nbsp;</p>
-<p>Volatile总结</p>
-<ul>
-<li>volatile只能保证变量的可见性，并不能保证变量的原子性，可见性的保证是基于CPU的内存屏障指令，称为happens-before</li>
-<li>阻止指令重排，编译时编译器遵循内存屏障约束，运行时依靠CPU屏障指令阻止重排</li>
-</ul>
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>如果仅对变量赋值，不做其他操作，可以对这些共享变量声明为volatile<br>除此之外，java.util.concurrent.atomic包有很多类使用高效的机器级指令(而不是锁)来保证其他操作的原子性，如<code>incrementAndGet</code>和<code>decrementAndGet</code>可以以原子方式将一个整数自增或自减并返回该值，如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> AtomicLong nextNum = <span class="keyword">new</span> AtomicLong();</span><br><span class="line"><span class="keyword">long</span> id = nextNum.incrementAndGet();</span><br></pre></td></tr></table></figure>
-<p>还有compareAndSet,updateAndGet,accumulateAndGet方法，查看API文档<br>AtomicInteger等类也同样有，查看API文档，略</p>
-<h2 id="线程局部变量"><a href="#线程局部变量" class="headerlink" title="线程局部变量"></a>线程局部变量</h2><p>有时要避免共享变量，使用ThreadLocal辅助类为各个线程提供各自的实例</p>
-<p>e.g. SimpleDateFormat类不是线程安全的，假设有一个静态变量<br><code>public static final SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</code><br>如果两个线程都执行：<br><code>String dateStamp = dateFormat.format(new Date());</code><br>可能会破坏dateFormat的内部数据结构，而使用同步开销很大，这时可以为每个线程构造一个实例<br><code>public static final ThreadLoacl&lt;SimpleDateFormat&gt; dateFormat = ThreadLocal.withInitial(() -&gt; new SimpleDateFormat(&quot;yyyy-MM-dd&quot;));</code><br>访问具体格式化方法<br><code>String dateStamp = dateFormat.get().format(new Date());</code></p>
-<h2 id="锁测试与超时"><a href="#锁测试与超时" class="headerlink" title="锁测试与超时"></a>锁测试与超时</h2><p>线程调用lock方法来获得另一个线程持有的锁时，会发生阻塞，应该更谨慎的申请锁。tryLock方法试图申请一个锁，在成功后返回true</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (myLock.tryLock()) &#123;</span><br><span class="line">    <span class="comment">// own the lock</span></span><br><span class="line">    <span class="keyword">try</span> &#123; ... &#125;</span><br><span class="line">    <span class="keyword">finally</span> &#123; myLock.unlock(); &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="comment">// do something without the lock</span></span><br></pre></td></tr></table></figure>
-<p>tryLock可以有超时参数<code>myLock.tryLock(100, TimeUtil.MILLISECONDS);</code></p>
-<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><p>Java除了有ReentrantLock类，还有ReentrantReadWriteLock类</p>
-<p>构造对象：<br><code>private ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();</code><br>抽取读锁和写锁：<br><code>private Lock readLock = rwl.readLock();</code><br><code>private Lock writeLock = rwl.writeLock();</code><br>加锁：<br><code>readLock.lock(); readLock.unlock();</code></p>
-<h2 id="弃用stop和suspend"><a href="#弃用stop和suspend" class="headerlink" title="弃用stop和suspend"></a>弃用stop和suspend</h2><p>stop会终止所有未结束的方法，释放锁，会导致对象处于不一致的状态<br>suspend容易导致死锁，当线程A suspend线程B，线程B持有的锁不会释放，而线程A又试图获得该锁，就会导致死锁</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/17/MySQL基本语句/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/17/MySQL基本语句/" itemprop="url">MySQL基本语句</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-17T20:00:34+08:00">
-                2019-07-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2019/07/17/MySQL基本语句/" class="leancloud_visitors" data-flag-title="MySQL基本语句">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="MySQL基本语句"><a href="#MySQL基本语句" class="headerlink" title="MySQL基本语句"></a>MySQL基本语句</h1><h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> 数据库名;</span><br></pre></td></tr></table></figure>
-<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> 数据库名;</span><br></pre></td></tr></table></figure>
-<h3 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> 数据库名;</span><br></pre></td></tr></table></figure>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>数值类型</p>
-<p><img src="https://i.imgur.com/DfLvB47.png" alt=""></p>
-<p>时间和日期类型</p>
-<p><img src="https://i.imgur.com/BhqTFhK.png" alt=""></p>
-<p>字符串类型</p>
-<p><img src="https://i.imgur.com/Zic12r0.png" alt=""></p>
-<h2 id="表相关"><a href="#表相关" class="headerlink" title="表相关"></a>表相关</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name column_type);</span><br></pre></td></tr></table></figure>
-<p>例子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`runoob_tbl`</span>(</span><br><span class="line">   <span class="string">`runoob_id`</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT,</span><br><span class="line">   <span class="string">`runoob_title`</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   <span class="string">`runoob_author`</span> <span class="built_in">VARCHAR</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   <span class="string">`submission_date`</span> <span class="built_in">DATE</span>,</span><br><span class="line">   PRIMARY <span class="keyword">KEY</span> ( <span class="string">`runoob_id`</span> )</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
-<p>AUTO_INCREMENT自增，用于主键，PAIMARY KEY定义主键，多列主键用逗号分隔</p>
-<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> table_name;</span><br></pre></td></tr></table></figure>
-<h3 id="ALTER"><a href="#ALTER" class="headerlink" title="ALTER"></a>ALTER</h3><h4 id="删除表字段"><a href="#删除表字段" class="headerlink" title="删除表字段"></a>删除表字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">DROP</span> i;</span><br></pre></td></tr></table></figure>
-<h4 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">ADD</span> i <span class="built_in">INT</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="修改字段"><a href="#修改字段" class="headerlink" title="修改字段"></a>修改字段</h4><p>修改字段类型及名称, 可以在ALTER命令中使用 MODIFY 或 CHANGE 子句 </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">MODIFY</span> c <span class="built_in">CHAR</span>(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">CHANGE</span> i j <span class="built_in">BIGINT</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="修改字段默认值"><a href="#修改字段默认值" class="headerlink" title="修改字段默认值"></a>修改字段默认值</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">ALTER</span> i <span class="keyword">SET</span> <span class="keyword">DEFAULT</span> <span class="number">1000</span>;</span><br></pre></td></tr></table></figure>
-<h4 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> testalter_tbl <span class="keyword">RENAME</span> <span class="keyword">TO</span> alter_tbl;</span><br></pre></td></tr></table></figure>
-<h2 id="数据操作相关"><a href="#数据操作相关" class="headerlink" title="数据操作相关"></a>数据操作相关</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name ( field1, field2,...fieldN )</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( value1, value2,...valueN );</span><br></pre></td></tr></table></figure>
-<h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name,column_name</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line">[<span class="keyword">WHERE</span> Clause]</span><br><span class="line">[<span class="keyword">LIMIT</span> N][ <span class="keyword">OFFSET</span> M]</span><br></pre></td></tr></table></figure>
-<p>LIMIT设定返回的记录数，OFFSET指定查询的数据偏移量，默认为0</p>
-<p>LIMIT可以<code>LIMIT m,n</code>，意思是从第m+1条开始，取n条数据</p>
-<p>可以在字段之前添加DINSTINCT去重<br><code>SELECT DISTINCT field FROM table WHERE condition</code></p>
-<h4 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h4><p>WHERE常见的用法如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">table</span> <span class="keyword">WHERE</span> <span class="keyword">field</span> = (<span class="keyword">SELECT</span> <span class="keyword">field</span> <span class="keyword">FROM</span> <span class="keyword">table</span> <span class="keyword">WHERE</span> condition);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">table</span> <span class="keyword">WHERE</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">table</span> <span class="keyword">WHERE</span> condition);</span><br></pre></td></tr></table></figure>
-<h4 id="LIKE子句"><a href="#LIKE子句" class="headerlink" title="LIKE子句"></a>LIKE子句</h4><p>LIKE子句用于模糊搜索，<code>%</code>表示模糊项，如<br><code>SELECT * FROM runoob_tbl WHERE runoob_author LIKE &#39;%COM&#39;;</code><br>会返回所有runoob_author以COM结尾的数据</p>
-<p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> field1, field2,...fieldN </span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> field1 <span class="keyword">LIKE</span> condition1 [<span class="keyword">AND</span> [<span class="keyword">OR</span>]] filed2 = <span class="string">'somevalue'</span></span><br></pre></td></tr></table></figure>
-<h4 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h4><p>UNION用于连接两个以上的SELECT语句的结果组合到一个结果集中，多个SELECT语句会删除重复的数据</p>
-<p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> expression1, expression2, ... expression_n</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">tables</span></span><br><span class="line">[<span class="keyword">WHERE</span> conditions]</span><br><span class="line"><span class="keyword">UNION</span> [ALL | <span class="keyword">DISTINCT</span>]</span><br><span class="line"><span class="keyword">SELECT</span> expression1, expression2, ... expression_n</span><br><span class="line"><span class="keyword">FROM</span> <span class="keyword">tables</span></span><br><span class="line">[<span class="keyword">WHERE</span> conditions];</span><br></pre></td></tr></table></figure>
-<p>DISTINCT表示删除结果集中重复的数据，ALL表示包含重复数据</p>
-<ul>
-<li>对于联合查询的多张表的列数必须保持一致</li>
-<li>推荐：对于每一列的字段类型也要保持一致</li>
-<li>对于多个select语句的查询，列名可能不同，要以第一个select语句的列名为准</li>
-<li>如果多个select语句查询到相同的记录，就会把重复的记录合并为一条记录</li>
-<li>如果不想将相同的查询结果去重，直接在union后加all，当然，这种效率会高一点</li>
-</ul>
-<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>ORDER BY可以对结果排序</p>
-<p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> field1, field2,...fieldN <span class="keyword">FROM</span> table_name1, table_name2...</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> field1 [<span class="keyword">ASC</span> [<span class="keyword">DESC</span>][默认 <span class="keyword">ASC</span>]], [field2...] [<span class="keyword">ASC</span> [<span class="keyword">DESC</span>][默认 <span class="keyword">ASC</span>]]</span><br></pre></td></tr></table></figure>
-<p>默认情况是升序</p>
-<h4 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h4><p>GROUP BY可以对结果集分组，分组列上可以使用COUNT，SUM，AVG等函数</p>
-<p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, <span class="keyword">function</span>(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name;</span><br></pre></td></tr></table></figure>
-<p>WHERE语句在GROUP BY语句之前；SQL会在分组之前计算WHERE语句。<br>HAVING语句在GROUP BY语句之后；SQL会在分组之后计算HAVING语句。</p>
-<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><ul>
-<li>INNER JOIN：内连接，获取两个表中字段匹配关系的记录</li>
-<li>LEFT JOIN：左连接，获取左表所有记录，即使右表没有对应匹配的记录</li>
-<li>RIGHT JOIN：右连接，与上面相反</li>
-</ul>
-<p><img src="https://i.imgur.com/Lem8bhI.png" alt=""></p>
-<p><img src="https://i.imgur.com/ZbfltHM.png" alt=""></p>
-<p><img src="https://i.imgur.com/YyrGzlW.png" alt=""></p>
-<p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.field, b.field <span class="keyword">FROM</span> tablea a <span class="keyword">INNER</span> <span class="keyword">JOIN</span> tableb b <span class="keyword">ON</span> [条件];</span><br></pre></td></tr></table></figure>
-<h4 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h4><p>MySQL的SQL语句支持正则表达式</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">field</span> <span class="keyword">FROM</span> <span class="keyword">table</span> <span class="keyword">WHERE</span> <span class="keyword">field</span> REGEXP <span class="string">'regex expression'</span></span><br></pre></td></tr></table></figure>
-<h3 id="更新数据"><a href="#更新数据" class="headerlink" title="更新数据"></a>更新数据</h3><p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> table_name <span class="keyword">SET</span> field1=<span class="keyword">new</span>-value1, field2=<span class="keyword">new</span>-value2</span><br><span class="line">[<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
-<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><p>通用语法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> table_name [<span class="keyword">WHERE</span> Clause]</span><br></pre></td></tr></table></figure>
-<h2 id="MySQL函数"><a href="#MySQL函数" class="headerlink" title="MySQL函数"></a>MySQL函数</h2><p><a href="https://www.runoob.com/mysql/mysql-functions.html" target="_blank" rel="noopener">Runoob中MySQL的函数</a></p>
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p><code>CREATE VIEW view_name[{column_list}] AS select_statement</code><br><code>REPLACE VIEW view_name[{column_list}] AS select_statement</code></p>
-<p>e.g.</p>
-<p>创建视图 <code>CREATE VIEW test_view_1 AS SELECT name FROM user</code><br>查询视图 <code>SELECT * FROM test_view_1</code><br>创建视图并指定视图字段名 <code>CREATE VIEW test_view_2(username) AS SELECT name FROM user</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2997,7 +2943,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3019,7 +2965,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">243</span>
+                  <span class="site-state-item-count">254</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

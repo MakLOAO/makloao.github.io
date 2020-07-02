@@ -369,7 +369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/vue01/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/02/Redis04-持久化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MakaLoo">
@@ -388,7 +388,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/03/08/vue01/" itemprop="url">vue快速入门</a></h1>
+                <a class="post-title-link" href="/2020/07/02/Redis04-持久化/" itemprop="url">Redis04-持久化</a></h1>
         
 
         <div class="post-meta">
@@ -400,366 +400,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T17:57:34+08:00">
-                2020-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/03/08/vue01/" class="leancloud_visitors" data-flag-title="vue快速入门">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vue快速入门"><a href="#vue快速入门" class="headerlink" title="vue快速入门"></a>vue快速入门</h1><p><strong>文档啥都有</strong><br><a href="https://cn.vuejs.org/" target="_blank" rel="noopener">vue</a><br><a href="https://cli.vuejs.org/zh/" target="_blank" rel="noopener">vue-cli</a><br><a href="https://www.webpackjs.com/" target="_blank" rel="noopener">webpack</a><br><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">vue-router</a><br><a href="http://www.axios-js.com/" target="_blank" rel="noopener">axios</a><br><a href="https://element.eleme.cn/#/zh-CN" target="_blank" rel="noopener">element-ui</a><br><a href="https://panjiachen.github.io/vue-element-admin-site/zh/" target="_blank" rel="noopener">vue-element-admin</a><br><a href="https://youzan.github.io/vant-weapp/#/intro" target="_blank" rel="noopener">vant</a></p>
-<p>vue是MVVM模式的实现者</p>
-<ul>
-<li>Model：模型层，这里表示JS对象</li>
-<li>View：视图层，表示DOM</li>
-<li>ViewModel：连接视图和数据的中间件，Vue.js就是MVVM中ViewModel层的实现者</li>
-</ul>
-<p>ViewModel能够观察到数据的变化，并对视图对应的内容进行更新；也能够监听视图的变化，并通知数据发生改变</p>
-<p>MVVM如下：</p>
-<p><img src="https://i.imgur.com/ub9KzzH.png" alt=""></p>
-<p>View展现的不是Model的数据，而是ViewModel的数据，由ViewModel来与Model进行交互，这就完全解耦了View层和Model层</p>
-<h2 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h2><p>安装nodejs</p>
-<p>安装cnpm： <code>npm install cnpm -g</code><br>安装vue-cli： <code>cnpm install vue-cli -g</code>（这个可能过时了，vue-cli官方文档有最新的安装）<br>查看可以基于哪些模板创建vue应用程序： <code>vue list</code></p>
-<p>安装webpack：<br><code>npm install webpack -g</code><br><code>npm install webpack-cli -g</code></p>
-<p>第一次创建vue项目：<br><code>vue init webpack myvue</code><br>填写基本信息，一路选No（自己体验一次自己创建的流程）<br><code>cd myvue</code><br><code>npm install</code><br><code>npm run dev</code> 启动项目</p>
-<p>webstorm配置启动vue：<br>右上角Add Configuration，点击加号里面的npm，在Scripts栏添加dev即可，然后启动就成功启动项目了</p>
-<p><img src="https://i.imgur.com/LJ6OJH4.png" alt=""></p>
-<h3 id="使用Vue-router"><a href="#使用Vue-router" class="headerlink" title="使用Vue-router"></a>使用Vue-router</h3><p>当前目录路径下安装vue-router： <code>npm install vue-router --save-dev</code><br>（axios也是同理，查看官方文档）</p>
-<h3 id="使用element-ui"><a href="#使用element-ui" class="headerlink" title="使用element-ui"></a>使用element-ui</h3><p>当前目录路径下安装： <code>npm i element-ui -S</code><br>安装SASS加载器：<code>npm install sass-loader node-sass --save-dev</code></p>
-<p>如果报错 <code>Module build failed: TypeError: this.getResolve is not a function</code><br>修改sass-loader版本降为 <code>^7.3.1</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载当前版本   npm uninstall sass-loader</span><br><span class="line">安装     npm install sass-loader@7.3.1 --save-dev</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/SpringCloud05-Config/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/08/SpringCloud05-Config/" itemprop="url">SpringCloud05-Config</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T17:57:34+08:00">
-                2020-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringCloud/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringCloud</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/03/08/SpringCloud05-Config/" class="leancloud_visitors" data-flag-title="SpringCloud05-Config">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SpringCloud05-Config"><a href="#SpringCloud05-Config" class="headerlink" title="SpringCloud05-Config"></a>SpringCloud05-Config</h1><p>微服务意味着将单体应用中的业务拆分成一个个子服务，每个服务粒度相对较小，因此系统中会出现大量的服务，由于每个服务都需要必要的配置信息才能运行，所以一套集中式的，动态的配置管理设施必不可少。SpringCloud提供了ConfigServer来解决这个问题</p>
-<p>Spring Cloud Config为微服务架构中的微服务提供了集中化的外部配置支持，配置服务器为各个不同微服务应用的所有环节提供了一个中心化的外部配置</p>
-<p>Spring Cloud Config分为服务端和客户端两部分：</p>
-<p>服务端也称为分布式配置中心，它是一个独立的微服务应用，用来连接配置服务器并为客户端提供获取配置信息，加密，解密信息等访问接口</p>
-<p>客户端则是通过指定的配置中心来管理应用资源，以及与业务相关的配置内容，并在启动的时候从配置中心获取和加载配置信息。配置服务器默认采用git来存储配置信息，这样有助于对环境配置进行版本管理。并且可以通过git客户端工具来方便的管理和访问配置内容</p>
-<p>SpringCloud Config分布式配置中心能干嘛？</p>
-<ul>
-<li>集中管理配置文件</li>
-<li>不同环境，不同配置，动态化的配置更新，分环境部署，比如/dev /test/ /prod /beta /release</li>
-<li>运行期间动态调整配置，不再需要在每个服务部署的机器上编写配置文件，服务会向配置中心统一拉取配置自己的信息</li>
-<li>当配置发生变动时，服务不需要重启，即可感知到配置的变化，并应用新的配置</li>
-<li>将配置信息以REST接口的形式暴露</li>
-</ul>
-<h2 id="Config服务端的配置"><a href="#Config服务端的配置" class="headerlink" title="Config服务端的配置"></a>Config服务端的配置</h2><p>首先创建一个 <code>config-client.yml</code> 测试用例，并上传到GitHub</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  profiles:</span><br><span class="line">    active: dev</span><br><span class="line">    </span><br><span class="line">---</span><br><span class="line">server:</span><br><span class="line">  port: 3355</span><br><span class="line">spring:</span><br><span class="line">  profiles: dev</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-provider-dept</span><br><span class="line">    </span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://eureka7001.com:7001/eureka/</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">server:</span><br><span class="line">  port: 8202</span><br><span class="line">spring:</span><br><span class="line">  profiles: test</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-provider-dept</span><br><span class="line">    </span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://eureka7001.com:7001/eureka/</span><br></pre></td></tr></table></figure>
-<p>上传后，创建一个module作为Config Server，名为： <code>springcloud-config-server-3344</code><br>导包：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>编写它自己的配置文件application.yml：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 3344</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-config-server</span><br><span class="line">  # 连接远程仓库</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      server:</span><br><span class="line">        git:</span><br><span class="line">          uri: https://github.com/MakLOAO/spring-cloud-demo.git # https</span><br></pre></td></tr></table></figure>
-<p>然后主启动类如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServer_3344</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServer_3344.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动后，访问 <code>http://localhost:3344/config-client-dev.yml</code><br>就可以访问到dev环境相关的配置信息，就实现了通过config-server连接到git并且访问到其中的资源以及配置了</p>
-<p>下面是提供的格式访问方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/&#123;application&#125;/&#123;profile&#125;[/&#123;label&#125;]</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.properties</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties</span><br></pre></td></tr></table></figure>
-<h2 id="Config客户端的配置"><a href="#Config客户端的配置" class="headerlink" title="Config客户端的配置"></a>Config客户端的配置</h2><p>创建一个模块 <code>springcloud-config-client-3355</code> 作为Config客户端用于测试配置是否导入</p>
-<p>导包：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>编写 <code>application.yml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 用户级别的配置</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-config-client-3355</span><br></pre></td></tr></table></figure>
-<p>编写 <code>bootstrap.yml</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 系统级别的配置</span><br><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      # 服务器连接远程仓库，客户端连接服务器</span><br><span class="line">      uri: http://localhost:3344</span><br><span class="line">      name: config-client # 需要从git上读取资源的名称，不需要后缀</span><br><span class="line">      profile: dev # 哪个环境</span><br><span class="line">      label: master # git的哪个分支访问</span><br></pre></td></tr></table></figure>
-<p>编写Controller（启动类略）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.application.name&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String applicationName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;eureka.client.service-url.defaultZone&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String eurekaServer;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/config"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"applicationName:"</span> + applicationName + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"eurekaServer:"</span> + eurekaServer + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"port:"</span> + port + <span class="string">"\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动后项目正常启动（此时配置文件已经生效），并且访问： <code>http://localhost:3355/config</code> 可以得到相应的配置信息</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/Redis01-背景/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/03/08/Redis01-背景/" itemprop="url">Redis01-背景</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T17:57:34+08:00">
-                2020-03-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-02T18:33:34+08:00">
+                2020-07-02
               </time>
             
 
@@ -798,7 +440,7 @@
 
           
           
-             <span id="/2020/03/08/Redis01-背景/" class="leancloud_visitors" data-flag-title="Redis01-背景">
+             <span id="/2020/07/02/Redis04-持久化/" class="leancloud_visitors" data-flag-title="Redis04-持久化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -831,7 +473,871 @@
       
         
           
-            <h1 id="Redis01-背景与基本数据类型"><a href="#Redis01-背景与基本数据类型" class="headerlink" title="Redis01-背景与基本数据类型"></a>Redis01-背景与基本数据类型</h1><h2 id="NoSQL概述"><a href="#NoSQL概述" class="headerlink" title="NoSQL概述"></a>NoSQL概述</h2><p>NoSQL全称Not Only SQL</p>
+            <h1 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h1><h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><p>RDB持久化是把当前进程数据生成快照保存到硬盘的过程，触发RDB持久化过程分为手动触发和自动触发</p>
+<ul>
+<li>save：阻塞当前Redis服务器，直到RDB过程完成，对内存比较大的实例会造成长时间的阻塞，线上环境不建议使用</li>
+<li>bgsave：Redis进程执行fork操作创建子进程，RDB持久化过程由子进程负责，完成后自动结束。阻塞只发生在fork阶段</li>
+</ul>
+<p>RDB内部存在自动触发RDB的持久化机制</p>
+<ul>
+<li>使用save相关配置，如 <code>save m n</code> ，表示m秒内数据集存在n次修改时，自动触发bgsave（配置文件conf中有相关配置，默认有 <code>save 900 1</code>，<code>save 300 10</code>，<code>save 60 10000</code>）</li>
+<li>如果从节点执行全量复制操作，主节点自动执行bgsave生成RDB文件并发送给从节点</li>
+<li>执行debug reload命令重新加载Redis时，也会自动触发save操作</li>
+<li>默认情况下执行shutdown命令时，如果没有开启AOF持久化功能则自动执行bgsave</li>
+</ul>
+<h3 id="RDB流程"><a href="#RDB流程" class="headerlink" title="RDB流程"></a>RDB流程</h3><p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200701182028.png" alt=""></p>
+<ol>
+<li>执行bgsave命令，Redis父进程判断当前是否存在正在执行的子进程，如RDB/AOF子进程，如果存在bgsave命令直接返回</li>
+<li>父进程执行fork操作创建子进程，fork操作过程中父进程会阻塞，通过info stats命令查看latest_fork_usec选项，可以获取最近一个fork操作的耗时，单位为微秒</li>
+<li>父进程fork后，bgsave返回 <code>Background saving started</code> 信息后不再阻塞父进程，可以响应其他命令</li>
+<li>子进程创建RDB文件，根据父进程内存生成临时快照文件，完成后对原有文件进行原子替换。执行lastsave命令可以获取最后一次生成RDB的时间，对应info统计的rdb_last_save_time选项</li>
+<li>进程发送信号给父进程表示完成，父进程更新统计信息，具体键info Persistence下的rdb_*选项</li>
+</ol>
+<h3 id="RDB文件的处理"><a href="#RDB文件的处理" class="headerlink" title="RDB文件的处理"></a>RDB文件的处理</h3><p>RDB文件保存在dir配置指定的目录下，文件名通过dbfilename配置指定。可以通过执行 <code>config set dir {newDir}</code> 和 <code>config set dbfilename {newFileName}</code> 运行期动态执行，当下次运行时RDB文件会保存到新目录（win10下目录默认喂我当前目录，文件名默认为dump.rdb，所以配置都可以在conf下修改）</p>
+<p>RDB使用LZF算法对生成的RDB文件做压缩处理，可以关闭：<code>config set rdbcompression {yes|no}</code></p>
+<h3 id="RDB优缺点"><a href="#RDB优缺点" class="headerlink" title="RDB优缺点"></a>RDB优缺点</h3><p>优点：</p>
+<ul>
+<li>RDB是一个紧凑压缩的二进制文件，代表Redis在某个时间点上的数据快照，适用于备份，全量复制等场景，比如每6小时执行bgsave备份，并把RDB文件拷贝到远程机器或文件系统中，用于灾难恢复</li>
+<li>Redis加载RDB恢复数据远远快于AOF方式</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>RDB无法做到实时持久化/秒级持久化，bgsave每次运行都要执行fork操作创建子进程，属于重量级操作，频繁执行成本大</li>
+<li>RDB使用二进制格式保存，版本演进过程中有多个格式的RDB版本，存在老版本Redis服务无法兼容新版RDB格式的问题</li>
+</ul>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>AOF（append only file）持久化，以独立日志的方式记录每次写命令，重启时再重新执行AOF文件中的命令达到恢复数据的目的。AOF的主要作用是解决数据持久化的实时性，目前是Redis持久化的主流方式</p>
+<h3 id="使用AOF"><a href="#使用AOF" class="headerlink" title="使用AOF"></a>使用AOF</h3><p><code>config get appendonly</code>：查看当前是否使用AOF</p>
+<p><code>confgi set appendony yes</code>：开启AOF，同样可以在conf配置文件下开启</p>
+<p>AOF文件通过 <code>appendfilename</code> 配置，默认为 <code>appendonly.aof</code>，保存路径同RDB，使用 <code>dir</code> 来进行配置</p>
+<p>AOF工作流程如下：</p>
+<ol>
+<li>所有的写入命令追加到aof_buf（缓冲区）中</li>
+<li>AOF缓冲区根据对应的策略向硬盘做同步操作</li>
+<li>随着AOF文件的越来越大，需要定期对AOF文件进行重写，达到压缩的目的</li>
+<li>当Redis服务器重启时，可以加载AOF文件进行数据恢复</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200701222310.png" alt=""></p>
+<h3 id="命令写入"><a href="#命令写入" class="headerlink" title="命令写入"></a>命令写入</h3><p>AOF命令写入的内容直接是文本协议格式，具体格式参照RESP</p>
+<p>使用aof_buf可以避免性能取决于硬盘负载的问题，可以提供多种缓冲区同步硬盘的策略，在性能和安全性方面做出平衡</p>
+<h3 id="文件同步"><a href="#文件同步" class="headerlink" title="文件同步"></a>文件同步</h3><p>Redis提供多种AOF缓冲区同步文件策略，由参数 <code>appendfsync</code> 控制，不同值的含义如下：</p>
+<p><img src="https://i.loli.net/2020/07/02/PYMpLWsfe7h6wto.png" alt=""></p>
+<p>系统调用write和fsync说明：</p>
+<ul>
+<li>write操作会触发延迟写（delayed write）机制，Linux在内核提供页缓冲区来提高硬盘IO性能。<strong>write操作在写入系统缓冲区后直接返回</strong>。<strong>同步操作依赖系统调度机制</strong>，如：缓冲区页空间写满或达到特定时间周期。同步文件之前，如果系统故障宕机，缓冲区内的数据将丢失</li>
+<li>fsync针对单个文件操作（比如AOF文件），<strong>做强制硬盘同步</strong>，<strong>fsync将阻塞直到写入硬盘完成后返回，保证了数据持久化</strong></li>
+</ul>
+<p>AOF缓冲区同步文件策略说明：</p>
+<ul>
+<li>always：每次写入都要同步AOF文件，一般的SATA硬盘上，Redis只能提供大约几百TPS写入，显然跟Redis高性能特性背道而驰，不建议配置</li>
+<li>no：由于操作系统每次同步AOF文件的周期不可控，而且会加大每次同步硬盘的数据量，虽然提高了性能，但数据安全性无法保证</li>
+<li>everysec：是建议的同步策略，也是默认配置，理论上只有在系统突然宕机的情况下丢失1秒的数据</li>
+</ul>
+<h3 id="重写机制"><a href="#重写机制" class="headerlink" title="重写机制"></a>重写机制</h3><p>随着命令不断写入AOF，文件会越来越大，Redis支持AOF重写机制来压缩文件体积以此解决这个问题。AOF文件重写是把Redis进程内的数据转化为写命令同步到新AOF文件的过程</p>
+<p>重写能压缩文件主要有如下原因 ：</p>
+<ul>
+<li>进程内已经超时的数据不再写入文件</li>
+<li>旧的AOF文件含有无效命令，如：del key1，hdel key2，srem keys，set a 111等，重写使用进程内数据直接生成，<strong>这样新的AOF文件只保留最终数据的写入命令</strong></li>
+<li>多条写命令可以合并为一个，如：lpush list a，lpush list b，lpush list c可以转化为：lpush list a b c，为了防止单条命令过大造成客户端缓冲区溢出，以64个元素为界拆分写入命令</li>
+</ul>
+<p>AOF重写过程可以手动触发和自动触发</p>
+<p>手动触发：直接调用 <code>bgrewriteaof</code> 命令</p>
+<p>自动触发：根据 <code>auto-aof-rewrite-min-size</code> 和 <code>auto-aof-rewrite-percentage</code> 参数确定自动触发时机，前者表示运行AOF重写时文件的最小体积，默认为64MB，后者代表当前AOF文件空间（aof_current_size）和上一次重写后AOF文件空间（aof_base_size）的比值</p>
+<p>自动触发时机 = aof_current_size &gt; auto-aof-rewrite-min-size &amp;&amp; (aof_current_size - aof_base_size) / aof_base_size &gt;= auto-aof-rewrite-percentage</p>
+<p><img src="https://gitee.com/makaloo/picgo/raw/master/20200702120402.jpg" alt=""></p>
+<ol>
+<li><p>执行AOF重写请求，如果当前进程正在执行bgsave，重写命令延迟到bgsave完成之后执行</p>
+</li>
+<li><p>父进程执行fork创建子进程，开销等同于bgsave</p>
+</li>
+<li><ol>
+<li><p>主进程fork完成后，继续响应其他命令，所有修改命令依然写入AOF缓冲区并根据appendfsync策略同步到硬盘，保证原有AOF机制正确性</p>
+</li>
+<li><p>由于fork操作运用写时复制技术，子进程只能共享fork操作时的内存数据。由于父进程依然响应命令，Redis使用”AOF重写缓冲区”保存这部分新数据，防止新AOF文件生成期间丢失这部分数据</p>
+</li>
+</ol>
+</li>
+<li><p>子进程根据内存快照，按照命令合并规则写入到新AOF文件，每次批量写入硬盘的数据量由 <code>aof-rewrite-incremental-fsync</code> 控制，默认为32MB，防止单次刷盘数据过多造成硬盘阻塞</p>
+</li>
+<li><ol>
+<li>新AOF文件写入后，子进程发送信号给父进程，父进程更新统计信息，具体见 <code>info persistence</code> 下的 aof_* 相关统计</li>
+<li>父进程把AOF重写缓冲区的数据写入到新的AOF文件</li>
+<li>使用新AOF文件替换老文件，完成AOF重写</li>
+</ol>
+</li>
+</ol>
+<h3 id="重启加载"><a href="#重启加载" class="headerlink" title="重启加载"></a>重启加载</h3><p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200702171835.jpg" alt=""></p>
+<p>如果AOF已经开启，就优先加载AOF文件，AOF关闭时，加载RDB文件，AOF/RDB文件存在错误时，Redis启动失败并打印错误信息</p>
+<p>加载AOF文件时，可能由于机器断电等情况导致AOF尾部文件命令写入不全，Redis提供 <code>aof-load-truncated</code> 配置来兼容这种情况，默认开启，加载AOF时，当遇到这类问题会忽略并继续启动，同时打印警告信息</p>
+<h2 id="问题定位与优化"><a href="#问题定位与优化" class="headerlink" title="问题定位与优化"></a>问题定位与优化</h2><p>Redis持久化是影响Redis性能的高发地，需要对其持久化问题进行分析定位和优化</p>
+<p>主要方向是fork消耗，CPU，内存，硬盘的资源监控，AOF追加阻塞，多实例部署的子进程处理问题等，详细有需要再查阅书籍，博客等资料</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/30/Redis03-客户端/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/30/Redis03-客户端/" itemprop="url">Redis03-客户端</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-30T12:31:34+08:00">
+                2020-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/30/Redis03-客户端/" class="leancloud_visitors" data-flag-title="Redis03-客户端">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Redis03-客户端"><a href="#Redis03-客户端" class="headerlink" title="Redis03-客户端"></a>Redis03-客户端</h1><h2 id="客户端通信协议"><a href="#客户端通信协议" class="headerlink" title="客户端通信协议"></a>客户端通信协议</h2><p>几乎所有主流编程语言都有Redis的客户端，Redis制定了RESP（Redis Serialization Protocol，Redis序列化协议）实现客户端与服务端的正常交互，客户端与服务端的连接建立在TCP之上</p>
+<h2 id="Java客户端"><a href="#Java客户端" class="headerlink" title="Java客户端"></a>Java客户端</h2><p>Java一般使用Jedis，具体使用略，主要留意如下几点：</p>
+<ul>
+<li>区分Jedis直连与连接池，生产环境中应该使用连接池，连接池需要注意对异常进行判断</li>
+<li>Jedis.close()在直连是关闭连接，在连接池是归还连接</li>
+<li>Jedis客户端没有内置序列化，需要自己选用</li>
+</ul>
+<h2 id="客户端管理"><a href="#客户端管理" class="headerlink" title="客户端管理"></a>客户端管理</h2><h3 id="client-list"><a href="#client-list" class="headerlink" title="client list"></a>client list</h3><p>client list列出与Redis服务端相连的所有客户端连接信息</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630113322.png" alt=""></p>
+<ul>
+<li><p>id：客户端连接唯一标识，自增</p>
+</li>
+<li><p>addr：客户端连接的ip和端口</p>
+</li>
+<li><p>fd：socket的文件描述符，与lsof命令结果的fd是同一个，如果fd=-1代表当前客户端不是外部客户端，而是Redis内部的伪装客户端</p>
+</li>
+<li><p>name：客户端名称</p>
+</li>
+<li><p>qbuf：输入缓冲区总容量</p>
+</li>
+<li><p>qbuf-free：输入缓冲区剩余容量</p>
+<p>输入缓冲区模型如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630114358.png" alt=""></p>
+<p>输入缓冲区没有相应配置规定大小，会根据输入内容动态调整</p>
+<p>一旦某个客户端的输入缓冲区超过1G，客户端就会被关闭</p>
+<p>输入缓冲区不受maxmemory控制，已超出maxmemory的部分可能会产生数据丢失，键值淘汰，OOM等情况</p>
+</li>
+<li><p>age：当前客户端已经连接的时间，单位秒</p>
+</li>
+<li>idle：当前客户端最近一次的空闲时间，单位秒</li>
+<li>maxclients：最大客户端连接数，通过 <code>config set maxclients</code> 设置，默认10000</li>
+<li>timeout：连接的最大空闲时间，单位秒，如果idle超过timeout，连接会被关闭，默认为0，实际开发和运维中，timeout设置大于0，客户端添加空闲检测和验证等</li>
+<li>obl：输出缓冲区的固定缓冲区长度</li>
+<li>oll：输出缓冲区的动态缓冲区长度</li>
+<li>omem：输出缓冲区一共使用的字节数</li>
+</ul>
+<p>输出缓冲区的作用是保存命令执行的结果返回给客户端，容量可以通过 <code>client-output-buffer-limit</code> 来进行设置，按照客户端的不同分为三种输出缓冲区：普通客户端，发布订阅客户端，slave客户端</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630120003.png" alt=""></p>
+<p>对应配置规则： <code>client-output-buffer-limit &lt;class&gt; &lt;hard limit&gt; &lt;soft limit&gt; &lt;soft seconds&gt;</code></p>
+<p><code>&lt;class&gt;</code>：客户端类型，normal：普通客户端，slave：slave客户端，用于复制，pubsub：发布订阅客户端</p>
+<p><code>&lt;hard limit&gt;</code>：如果客户端使用的输出缓冲区大于该值，客户端会被立即关闭</p>
+<p><code>&lt;soft limit&gt;</code> 和 <code>&lt;soft seconds&gt;</code>：如果客户端使用的输出缓冲区超过了soft limit并且持续了soft seconds秒，客户端会被立即关闭</p>
+<p>默认配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">client-output-buffer-limit normal 0 0 0</span><br><span class="line">client-output-buffer-limit slave 256mb 64mb 60</span><br><span class="line">client-output-buffer-limit pubsub 32mb 8mb 60</span><br></pre></td></tr></table></figure>
+<p>输出缓冲区由两部分组成：固定缓冲区（16KB，字节数组）和动态缓冲区（列表），固定缓冲区用于返回比较小的执行结果，动态缓冲区返回比较大的结果，固定缓冲区用满后新的返回结果会存放在动态缓冲区</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630121116.png" alt=""></p>
+<ul>
+<li><p>flag：客户端类型，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630121252.png" alt=""></p>
+</li>
+<li><p>db：当前客户端使用的数据库索引下标</p>
+</li>
+<li>sub/psub：当前客户端订阅的频道/模式数</li>
+<li>multi：当前事务已执行命令个数</li>
+<li>events：文件描述符事件（r、w）：r和w分别代表客户端套接字可读和可写</li>
+<li>cmd：当前客户端最后一次执行的命令，不包括参数</li>
+</ul>
+<h3 id="info-clients"><a href="#info-clients" class="headerlink" title="info clients"></a>info clients</h3><p>它执行速度比client list快，但是不能精准定位到客户端，不能显示所有输入缓冲区的总量，只会显示最大量</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200630121809.png" alt=""></p>
+<ul>
+<li>connected_clients：已连接的客户端数量</li>
+<li>client_longest_output_list：输出缓冲区列表最大对象数</li>
+<li>client_biggest_input_buf：最大的输入缓冲区</li>
+<li>blocked_clients：正在执行阻塞命令（blpop，brpop，brpoplpush）的客户端个数</li>
+</ul>
+<h3 id="info-stats"><a href="#info-stats" class="headerlink" title="info stats"></a>info stats</h3><ul>
+<li>total_connections_received：Redis自启动来处理的客户端连接数总数</li>
+<li>rejected_connections：Redis自启动以来拒绝的客户端连接数，需要重点监控</li>
+</ul>
+<h3 id="client-setName和client-getName"><a href="#client-setName和client-getName" class="headerlink" title="client setName和client getName"></a>client setName和client getName</h3><p>用于客户端设置名称</p>
+<h3 id="client-kill"><a href="#client-kill" class="headerlink" title="client kill"></a>client kill</h3><p><code>client kill ip:port</code> 用于沙雕指定IP地址和端口的客户端</p>
+<h3 id="client-pause"><a href="#client-pause" class="headerlink" title="client pause"></a>client pause</h3><p><code>client pause timeout(毫秒)</code> 用于阻塞客户端timeout毫秒数</p>
+<p>此命令只对普通和发布订阅客户端有效，对于主从复制是无效的，在此期间主从复制是正常进行，可以用来让主从复制保持一致</p>
+<h3 id="monitor"><a href="#monitor" class="headerlink" title="monitor"></a>monitor</h3><p>监控Redis正在执行的命令和详细的时间戳，但注意如果Redis并发量过大，monitor客户端的输出缓冲会暴涨，占用大量内存</p>
+<h3 id="其他客户端配置"><a href="#其他客户端配置" class="headerlink" title="其他客户端配置"></a>其他客户端配置</h3><p>在conf配置文件同样可以配置</p>
+<ul>
+<li>timeout：超时时间</li>
+<li>maxclients：最大连接数</li>
+<li>tcp-keepalive：检测TCP连接活性的周期，默认是0，也就是不检测，建议60，Redis每隔60秒对它创建的TCP连接进行活性检测，防止大量死连接占用系统资源</li>
+<li>tcp-backlog：TCP三次握手后将接受的连接放入队列中，tcp-backlog就是队列的大小，默认是511</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/29/Redis02-其他数据结构API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/29/Redis02-其他数据结构API/" itemprop="url">Redis02-其他数据结构API</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-29T15:32:34+08:00">
+                2020-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/29/Redis02-其他数据结构API/" class="leancloud_visitors" data-flag-title="Redis02-其他数据结构API">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="其他功能数据结构API"><a href="#其他功能数据结构API" class="headerlink" title="其他功能数据结构API"></a>其他功能数据结构API</h1><h2 id="慢查询分析"><a href="#慢查询分析" class="headerlink" title="慢查询分析"></a>慢查询分析</h2><p>所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624163928.png" alt=""></p>
+<p>慢查询分析主要分析的是第三步的时间</p>
+<p>Redis提供两个参数：</p>
+<ul>
+<li>slowlog-log-slower-than：预设阈值，默认是10000（微妙）</li>
+<li>slowlog-max-len：Redis使用一个列表来存储慢查询日志，这个参数就是列表的最大长度。当慢查询日志列表已处于最大长度，最早插入的一条命令会被从列表中移出</li>
+<li>使用config set命令来动态修改，使用config rewrite命令来将配置持久化到本地配置文件</li>
+</ul>
+<p>获取慢查询日志：</p>
+<ul>
+<li>slowlog get [n]：n指定条数，结果有4个属性，分别是：慢查询日志的标识ID，发生时间戳，命令耗时，执行命令和参数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624172851.png" alt=""></p>
+<ul>
+<li>slowlog len：获取慢查询日志当前的长度</li>
+<li>slowlog reset：慢查询日志重置</li>
+</ul>
+<h3 id="慢查询分析最佳实践"><a href="#慢查询分析最佳实践" class="headerlink" title="慢查询分析最佳实践"></a>慢查询分析最佳实践</h3><ul>
+<li>slowlog-max-len配置建议：线上调大慢查询列表，可设置为1000以上（会对长命令截断操作，不会占用大量内存）</li>
+<li>slowlog-log-slower-than配置建议：默认超过10毫秒判定为慢查询，需要根据Redis并发量调整该值，对于高OPS场景Redis建议设置为1毫秒</li>
+<li>慢查询仅仅记录命令执行时间，而不包括命令排队时间（单线程）和网络传输时间，因为命令执行排队机制，慢查询会导致其他命令级联阻塞，当客户端出现请求超时，需要检查该时间点是否有对应的慢查询，从而分析出是否为慢查询导致的命令级联阻塞</li>
+<li>慢查询日志是一个先进先出的队列，如果慢查询比较多，可能导致部分慢查询命令丢失，可以定期执行slow get命令将慢查询日志持久化到其他存储中（比如MySQL），然后制作可视化界面进行查询</li>
+</ul>
+<h2 id="Redis-Shell"><a href="#Redis-Shell" class="headerlink" title="Redis Shell"></a>Redis Shell</h2><h3 id="redis-cli"><a href="#redis-cli" class="headerlink" title="redis-cli"></a>redis-cli</h3><ul>
+<li>-r：命令执行多次，e.g. redis-cli -r 3 ping</li>
+<li>-i：间隔几秒执行一次，必须和-r一起使用，e.g. redis-cli -r 5 -i 1 ping，表示间隔1秒执行一次ping，一共执行5次</li>
+<li>-x：从标准输入读取数据作为redis-cli的最后一个参数</li>
+<li>-c：连接Redis Cluster节点使用，防止moved和ask异常</li>
+<li>-a：不需要手动输入auth命令</li>
+<li>–scan和–pattern：扫描指定模式的键，相当于scan命令</li>
+<li>–salve：把当前客户端模拟成当前Redis节点的从节点，可用来获取当前Redis节点的更新操作</li>
+<li>–rdb：请求Redis实例生成并发送RDB持久化文件，保存在本地</li>
+<li>–pipe：将命令封装成Redis通信协议定义的数据格式，批量发送给Redis执行</li>
+<li>–bigkeys：使用scan对Redis键采样，找到内存占用比较大的键值</li>
+<li>–eval：执行Lua脚本</li>
+<li>–latency，–latency-history，–latency-dist：测试客户端到目标Redis的网络延迟</li>
+<li>–stat：实时获取Redis的重要统计信息</li>
+<li>–raw和–no-raw：–no-raw要求命令返回的结果是原始的格式，–raw则相反，返回格式化后的结果</li>
+</ul>
+<h3 id="redis-server"><a href="#redis-server" class="headerlink" title="redis-server"></a>redis-server</h3><ul>
+<li>–test-memory：检测当前OS是否稳定地分配指定容量的内存给Redis</li>
+</ul>
+<h3 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h3><p>redis-benchmark可以为Redis做基准性能测试</p>
+<ul>
+<li>-c：代表客户端的并发数量（默认是50）</li>
+<li>-n：代表客户端请求总量（默认是100000）</li>
+<li>-q：显示requests per second信息</li>
+<li>-r：默认只插入3个键，可以使用-r插入更多的随机的键</li>
+<li>-p：每个请求pipeline的数据量（默认为1）</li>
+<li>-k [boolean]：客户端是否使用keepalive，1位使用，0不使用，默认1</li>
+<li>-t：对指定命令进行基准测试</li>
+<li>–csv：结果按照csv格式输出</li>
+</ul>
+<h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><p>RTT（Round Trip Time，往返时间），RTT在Redis中为发送命令的时间加上返回结果的时间（不包括命令排队和命令执行时间）。Pipeline能将一组Redis命令进行组装，通过一次RTT传输给Redis，再将这组Redis命令的执行结果按顺序返回给客户端</p>
+<p>一般不建议使用命令行（Redis-cli的–pipe选项）来使用pipeline机制，更多的是高级语言有封装pipeline，建议使用</p>
+<p>但需要注意pipeline不是原子的，一次pipeline如果数据量过大，会增加客户端等待时间和造成网络阻塞，因此不宜过大</p>
+<h2 id="事务与Lua"><a href="#事务与Lua" class="headerlink" title="事务与Lua"></a>事务与Lua</h2><h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>Redis事务使用在 <code>multi</code> 和 <code>exec</code> 两个命令之间， <code>multi</code> 命令代表事务开始， <code>exec</code> 命令代表事务结束，它们之间的命令是原子顺序执行的，Redis的事务是简单的，<strong>它不支持回滚，无法实现命令之间的逻辑关系计算</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; sadd user:a:follow user:b</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; sadd user:b:fans user:a</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">1) (integer) 1</span><br><span class="line">2) (integer) 1</span><br></pre></td></tr></table></figure>
+<p>Redis处理错误机制如下：</p>
+<ul>
+<li>命令错误：比如把set写成sett，属于语法错误，会造成整个事务无法执行</li>
+<li>运行时错误：比如用户B在添加粉丝列表时，误把sadd命令写成zadd，这时上面的往用户A添加关注用户B的sadd命令会执行成功，而下面的用户B添加粉丝会执行失败报错，不支持回滚，需要开发人员自己修复这类问题</li>
+</ul>
+<p>有些应用场景需要在事务开始之前，确保事务中的key没有被其他客户端修改过，才执行事务，否则不执行（类似乐观锁），Redis提供了watch命令来解决这类问题</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163408.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163418.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163426.png" alt=""></p>
+<h3 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h3><h4 id="Lua语法"><a href="#Lua语法" class="headerlink" title="Lua语法"></a>Lua语法</h4><p>Lua语言提供如下几种数据类型：booleans（布尔），numbers（数值），strings（字符串），tables（表格）</p>
+<ul>
+<li><p>字符串： <code>local strings val = &quot;world&quot;</code> ，local代表val是一个全局变量</p>
+</li>
+<li><p>数组： <code>local tables myArray = {&quot;redis&quot;, &quot;jedis&quot;}</code> ，<strong>Lua数组下标从1开始</strong></p>
+<ul>
+<li><p>for：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> int sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">100</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    sum = sum + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 输出结果5050</span></span><br><span class="line"><span class="built_in">print</span>(sum)</span><br><span class="line"><span class="comment">-- 遍历myArray</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #myArray</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(myArray[i])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 遍历myArray的下标和值</span></span><br><span class="line"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="built_in">ipairs</span>(myArray)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(index)</span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>while</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> int sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">local</span> int i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt;= <span class="number">100</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    sum = sum + i</span><br><span class="line">    i = i + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(sum)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if else</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tables myArray = &#123;<span class="string">"redis"</span>, <span class="string">"jedis"</span>, <span class="literal">true</span>, <span class="number">88.0</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #myArray</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> myArray[i] == <span class="string">"jedis"</span></span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"true"</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">-- do nothing</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>哈希： <code>local tables user_1 = {age = 28, name = &quot;tom&quot;}</code> ，使用tables类型实现哈希功能</p>
+<ul>
+<li>遍历：</li>
+</ul>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tables user_1 = &#123;age = <span class="number">28</span>, name = <span class="string">"tom"</span>&#125;</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="built_in">pairs</span>[user_1]</span><br><span class="line"><span class="keyword">do</span> <span class="built_in">print</span>(key .. value)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数定义：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span><span class="params">(arg1, arg2)</span></span></span><br><span class="line">	...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Redis与Lua"><a href="#Redis与Lua" class="headerlink" title="Redis与Lua"></a>Redis与Lua</h4><p>Redis中使用Lua脚本：</p>
+<ul>
+<li>eval 脚本内容 key个数 key列表 参数列表<ul>
+<li>e.g. <code>eval &#39;return &quot;hello &quot; .. KEYS[1] .. ARGV[1]&#39; 1 redis world</code>，输出 <code>hello redisworld</code></li>
+</ul>
+</li>
+<li>evalsha：使用SHA1作为参数可以直接执行对应Lua脚本，避免每次发送Lua脚本的开销，这样客户端就不需要每次执行脚本内容，脚本常驻服务端，也得到复用<ul>
+<li>script load：加载脚本，<code>redis-cli script load &quot;${cat lua_get.lua}&quot;</code>，会返回其SHA1值</li>
+<li>evalsha 脚本SHA1值 key个数 key列表 参数列表：执行Lua脚本</li>
+<li>script exists sha1：判断内存中是否存在此sha1对应的Lua脚本</li>
+<li>script flush：清除Redis内存中已加载的所有Lua脚本</li>
+<li>script kill：杀掉正在执行的Lua脚本</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200628172202.png" alt=""></p>
+<ul>
+<li><strong>Lua使用Redis.call函数实现对Redis的访问</strong><ul>
+<li>e.g. <code>redis.call(&quot;set&quot;, &quot;hello&quot;, &quot;world&quot;)</code>，<code>redis.call(&quot;get&quot;, &quot;hello&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>Lua脚本的好处：</p>
+<ul>
+<li>原子执行，中途不会插入其他命令</li>
+<li>帮助开发和运维人员创造出自己定制的命令，并常驻在内存中实现复用</li>
+<li>将多条命令一次性打包，减少网络开销</li>
+</ul>
+<h2 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h2><p>Redis提供Bitmaps实现对位的操作，在Redis中，Bitmaps有如下特性：</p>
+<ul>
+<li>Redis的Bitmaps本身不是一种数据结构，实际上是一种字符串，但它可以对字符串的位进行操作</li>
+<li>Bitmaps单独提供一套命令，所以在Redis中使用Bitmaps和使用字符串的方法不太一样。可以把Bitmaps想象成一个以为单位的数组，数组的每个单元只能存储0和1，数组的下标在Bitmaps中叫做偏移量</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>setbit key offset value：设置值，设置键的第offset个位的值（从0开始），位图的长度跟max(offset)有关，如果执行了 <code>setbit bitmapsKey 5000 1</code>，位图就长5000位</li>
+<li>getbit key offset：获取值，获取键的第offset位的值</li>
+<li>bitcount key [start end]：获取Bitmaps指定范围值为1的个数，start和end代表起始<strong>字节</strong>和结束<strong>字节</strong></li>
+<li>bitop op destkey key [key …]：可以对多个Bitmaps做and，or，not，xor操作，并把结果保存在destkey中<ul>
+<li>e.g. 对两天都访问过网站的用户统计 <code>bitop and unique:users:and:2016-04-04_03  unique:users:and:2016-04-03 unique:users:and:2016-04-04</code></li>
+</ul>
+</li>
+<li>bitpos key targetBit [start] [end]：计算Bitmaps中第一个值为targetBit的偏移量，start和end代表起始<strong>字节</strong>和结束<strong>字节</strong>，</li>
+</ul>
+<h3 id="Bitmaps分析"><a href="#Bitmaps分析" class="headerlink" title="Bitmaps分析"></a>Bitmaps分析</h3><p>假设网站有1亿用户，每天独立访问的用户有5千万，每天使用集合类型和Bitmaps存储独立用户性能如下：</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629143823.png" alt=""></p>
+<p>但是如果网站每天独立用户很少，例如只有10万（大量僵尸用户），那么两者对比如下图，这时候使用Bitmaps就不合适了，因为基本上大部分位都是0</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629144707.png" alt=""></p>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>HyperLogLog是一种基数算法（在Redis中实际是字符串类型），<strong>通过它可以利用极小的内存空间完成独立总数的统计</strong>，数据集可以是IP，Email，ID等。</p>
+<p>HyperLogLog提供三个命令：pfadd，pfcount，pfmerge</p>
+<p>如下图，2016-03-06的访问用户是uuid-1，uuid-2，uuid-3，uuid-4,2016-03-05的访问用户是uuid-4，uuid-5，uuid-6，uuid-7</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145045.png" alt=""></p>
+<ul>
+<li><p>pfadd key element [element …]：往HyperLogLog添加元素，成功返回1</p>
+</li>
+<li><p>pfcount key [key …]：计算一个或多个HyperLogLog的独立总数</p>
+<ul>
+<li>HyperLogLog占用内存和集合类型对比如下，<strong>HyperLogLog存在误差，Redis官方的数字是0.81%的失误率</strong>：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145458.png" alt=""></p>
+</li>
+<li><p>pfmerge destkey sourcekey [sourcekey …]：可以求出多个HyperLogLog的并集并赋值给destkey</p>
+</li>
+<li>使用HyperLogLog一般有如下两条目的和约束<ul>
+<li><strong>只为了计算独立总数，不需要获取单条数据</strong></li>
+<li><strong>为了HyperLogLog的内存占用量优势，可以容忍一定误差率</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h2><p>Redis的发布订阅模型如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150103.png" alt=""></p>
+<h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><ul>
+<li><p>publish channel message：发布消息</p>
+<ul>
+<li>e.g. <code>publish channel:sports &quot;Tim won the championship&quot;</code>，往channel:sports频道发布一条”Tim won the championship”的消息</li>
+</ul>
+</li>
+<li><p>subscribe channel [channel …]：订阅消息</p>
+<ul>
+<li>订阅后客户端处于订阅状态，只能接收subscribe，psubscribe，unsubscribe，punsubscribe四个命令</li>
+<li><p>新开启的订阅客户端不会接收到该频道之前的消息，因为Redis不会对发布的消息进行持久化</p>
+</li>
+<li><p>订阅后接收到消息如下图</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150732.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>unsubscribe [channel [channel …]]：取消订阅</p>
+</li>
+<li>psubscribe pattern [pattern …]：按照正则表达式模式订阅</li>
+<li>punsubscribe [pattern [pattern …]]：按照正则表达式模式取消订阅</li>
+<li><p>pubsub channels [pattern]：查看活跃的频道，活跃的频道指当前频道至少有一个订阅者</p>
+</li>
+<li><p>pubsub numsub [channel …]：查看频道订阅数</p>
+</li>
+<li><p>pubsub numpat：查看模式订阅数，即查看多少个客户端通过模式订阅频道</p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>聊天室，公告牌，服务之间利用消息解耦都可以使用发布订阅模式，如视频管理系统和视频服务</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151603.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151611.png" alt=""></p>
+<h2 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h2><p>Redis 3.2版本提供GEO（地理信息定位）功能，支持存储地理位置信息用来实现诸如附近位置，摇一摇这类依赖地理位置信息的功能。Redis的GEO是借鉴Ardb实现的</p>
+<ul>
+<li><p>geoadd key longitude latitude member [longitude latitude member …]：增加地理位置信息，longitude，latitude，member分别是精度，维度，成员，返回结果是成功添加的个数</p>
+</li>
+<li><p>geopos key member [member …]：获取地理位置信息</p>
+</li>
+<li><p>geodist key member1 member2 [unit]：获取两个地理位置的距离，unit表示返回结果的单位，包含四种：m（米），km（公里），mi（英里），ft（尺）</p>
+</li>
+<li><p>georadius key longitude latitude radius m|km|ft|mi [withcoord] [withdist] [withhash] [asc|desc] [COUNT count] [store key] [storedist key]：获取指定位置范围内的地理信息位置集合，longitude和latitude指定经纬度，radius指定半径，后面是单位</p>
+<ul>
+<li>withcoord：返回结果包含经纬度</li>
+<li>withdist：返回结果包含离中心节点位置的距离</li>
+<li>withhash：返回结果包含geohash</li>
+<li>count：指定返回结果的数量</li>
+<li>asc|desc：按照离中心节点距离作升降序排序</li>
+<li>store key：将返回结果的地理位置信息保存到指定键</li>
+<li>storedist key：将返回结果离中心节点的距离保存到指定键</li>
+</ul>
+</li>
+<li><p>georadiusbymember key member radius m|km|ft|mi [withcoord] [withdist] [withhash] [asc|desc] [COUNT count] [store key] [storedist key]：同上，只不过它的目标中心是成员</p>
+</li>
+<li><p>geohash key member [member …]：获取geohash，geohash用来把二维经纬度转换为一维字符串，有如下特点：</p>
+<ul>
+<li>GEO的数据类型为zset，Redis把所有地理位置信息的geohash存放在zset中</li>
+<li>字符串越长，表示位置更精准，具体长度与精度如下图</li>
+<li>两个字符串越相似，它们之间的距离越近，Redis利用字符串前缀匹配算法实现相关的命令</li>
+<li>geohash编码和经纬度之间可以互相转换</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629153143.png" alt=""></p>
+</li>
+<li><p>zrem key member：删除地理位置信息，GEO没有删除命令，但是底层使用的zset，所以可以使用zrem来删除</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/26/Redis01-背景与基本数据类型API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/06/26/Redis01-背景与基本数据类型API/" itemprop="url">Redis01-背景与数据结构API</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-26T17:57:34+08:00">
+                2020-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/26/Redis01-背景与基本数据类型API/" class="leancloud_visitors" data-flag-title="Redis01-背景与数据结构API">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Redis01-背景与基本数据类型API"><a href="#Redis01-背景与基本数据类型API" class="headerlink" title="Redis01-背景与基本数据类型API"></a>Redis01-背景与基本数据类型API</h1><h2 id="NoSQL概述"><a href="#NoSQL概述" class="headerlink" title="NoSQL概述"></a>NoSQL概述</h2><p>NoSQL全称Not Only SQL</p>
 <p>分类：</p>
 <p>KV键值对：Redis，Memecached，Tair<br>文档型数据库：MongoDB<br>列存储数据库：HBase<br>图数据库：Neo4j</p>
 <p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/NoSQL%E5%88%86%E7%B1%BB.png" alt=""></p>
@@ -1122,7 +1628,437 @@
 <li>select dbIndex：切换数据库（默认16个，编号0-15），不建议使用多数据库</li>
 <li>flushdb/flushall：清除数据库，flushdb只清除当前数据库，flushall清除所有</li>
 </ul>
+<h2 id="其他功能数据结构API"><a href="#其他功能数据结构API" class="headerlink" title="其他功能数据结构API"></a>其他功能数据结构API</h2><h3 id="慢查询分析"><a href="#慢查询分析" class="headerlink" title="慢查询分析"></a>慢查询分析</h3><p>所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624163928.png" alt=""></p>
+<p>慢查询分析主要分析的是第三步的时间</p>
+<p>Redis提供两个参数：</p>
+<ul>
+<li>slowlog-log-slower-than：预设阈值，默认是10000（微妙）</li>
+<li>slowlog-max-len：Redis使用一个列表来存储慢查询日志，这个参数就是列表的最大长度。当慢查询日志列表已处于最大长度，最早插入的一条命令会被从列表中移出</li>
+<li>使用config set命令来动态修改，使用config rewrite命令来将配置持久化到本地配置文件</li>
+</ul>
+<p>获取慢查询日志：</p>
+<ul>
+<li>slowlog get [n]：n指定条数，结果有4个属性，分别是：慢查询日志的标识ID，发生时间戳，命令耗时，执行命令和参数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624172851.png" alt=""></p>
+<ul>
+<li>slowlog len：获取慢查询日志当前的长度</li>
+<li>slowlog reset：慢查询日志重置</li>
+</ul>
+<h4 id="慢查询分析最佳实践"><a href="#慢查询分析最佳实践" class="headerlink" title="慢查询分析最佳实践"></a>慢查询分析最佳实践</h4><ul>
+<li>slowlog-max-len配置建议：线上调大慢查询列表，可设置为1000以上（会对长命令截断操作，不会占用大量内存）</li>
+<li>slowlog-log-slower-than配置建议：默认超过10毫秒判定为慢查询，需要根据Redis并发量调整该值，对于高OPS场景Redis建议设置为1毫秒</li>
+<li>慢查询仅仅记录命令执行时间，而不包括命令排队时间（单线程）和网络传输时间，因为命令执行排队机制，慢查询会导致其他命令级联阻塞，当客户端出现请求超时，需要检查该时间点是否有对应的慢查询，从而分析出是否为慢查询导致的命令级联阻塞</li>
+<li>慢查询日志是一个先进先出的队列，如果慢查询比较多，可能导致部分慢查询命令丢失，可以定期执行slow get命令将慢查询日志持久化到其他存储中（比如MySQL），然后制作可视化界面进行查询</li>
+</ul>
+<h3 id="Redis-Shell"><a href="#Redis-Shell" class="headerlink" title="Redis Shell"></a>Redis Shell</h3><h4 id="redis-cli"><a href="#redis-cli" class="headerlink" title="redis-cli"></a>redis-cli</h4><ul>
+<li>-r：命令执行多次，e.g. redis-cli -r 3 ping</li>
+<li>-i：间隔几秒执行一次，必须和-r一起使用，e.g. redis-cli -r 5 -i 1 ping，表示间隔1秒执行一次ping，一共执行5次</li>
+<li>-x：从标准输入读取数据作为redis-cli的最后一个参数</li>
+<li>-c：连接Redis Cluster节点使用，防止moved和ask异常</li>
+<li>-a：不需要手动输入auth命令</li>
+<li>–scan和–pattern：扫描指定模式的键，相当于scan命令</li>
+<li>–salve：把当前客户端模拟成当前Redis节点的从节点，可用来获取当前Redis节点的更新操作</li>
+<li>–rdb：请求Redis实例生成并发送RDB持久化文件，保存在本地</li>
+<li>–pipe：将命令封装成Redis通信协议定义的数据格式，批量发送给Redis执行</li>
+<li>–bigkeys：使用scan对Redis键采样，找到内存占用比较大的键值</li>
+<li>–eval：执行Lua脚本</li>
+<li>–latency，–latency-history，–latency-dist：测试客户端到目标Redis的网络延迟</li>
+<li>–stat：实时获取Redis的重要统计信息</li>
+<li>–raw和–no-raw：–no-raw要求命令返回的结果是原始的格式，–raw则相反，返回格式化后的结果</li>
+</ul>
+<h4 id="redis-server"><a href="#redis-server" class="headerlink" title="redis-server"></a>redis-server</h4><ul>
+<li>–test-memory：检测当前OS是否稳定地分配指定容量的内存给Redis</li>
+</ul>
+<h4 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h4><p>redis-benchmark可以为Redis做基准性能测试</p>
+<ul>
+<li>-c：代表客户端的并发数量（默认是50）</li>
+<li>-n：代表客户端请求总量（默认是100000）</li>
+<li>-q：显示requests per second信息</li>
+<li>-r：默认只插入3个键，可以使用-r插入更多的随机的键</li>
+<li>-p：每个请求pipeline的数据量（默认为1）</li>
+<li>-k [boolean]：客户端是否使用keepalive，1位使用，0不使用，默认1</li>
+<li>-t：对指定命令进行基准测试</li>
+<li>–csv：结果按照csv格式输出</li>
+</ul>
+<h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><p>RTT（Round Trip Time，往返时间），RTT在Redis中为发送命令的时间加上返回结果的时间（不包括命令排队和命令执行时间）。Pipeline能将一组Redis命令进行组装，通过一次RTT传输给Redis，再将这组Redis命令的执行结果按顺序返回给客户端</p>
+<p>一般不建议使用命令行（Redis-cli的–pipe选项）来使用pipeline机制，更多的是高级语言有封装pipeline，建议使用</p>
+<p>但需要注意pipeline不是原子的，一次pipeline如果数据量过大，会增加客户端等待时间和造成网络阻塞，因此不宜过大</p>
+<h3 id="事务与Lua"><a href="#事务与Lua" class="headerlink" title="事务与Lua"></a>事务与Lua</h3><h4 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h4><p>Redis事务使用在 <code>multi</code> 和 <code>exec</code> 两个命令之间， <code>multi</code> 命令代表事务开始， <code>exec</code> 命令代表事务结束，它们之间的命令是原子顺序执行的，Redis的事务是简单的，<strong>它不支持回滚，无法实现命令之间的逻辑关系计算</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; sadd user:a:follow user:b</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; sadd user:b:fans user:a</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">1) (integer) 1</span><br><span class="line">2) (integer) 1</span><br></pre></td></tr></table></figure>
+<p>Redis处理错误机制如下：</p>
+<ul>
+<li>命令错误：比如把set写成sett，属于语法错误，会造成整个事务无法执行</li>
+<li>运行时错误：比如用户B在添加粉丝列表时，误把sadd命令写成zadd，这时上面的往用户A添加关注用户B的sadd命令会执行成功，而下面的用户B添加粉丝会执行失败报错，不支持回滚，需要开发人员自己修复这类问题</li>
+</ul>
+<p>有些应用场景需要在事务开始之前，确保事务中的key没有被其他客户端修改过，才执行事务，否则不执行（类似乐观锁），Redis提供了watch命令来解决这类问题</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163408.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163418.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163426.png" alt=""></p>
+<h4 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h4><p>Lua语言提供如下几种数据类型：booleans（布尔），numbers（数值），strings（字符串），tables（表格）</p>
+<ul>
+<li>字符串： <code>local strings val = &quot;world&quot;</code> ，local代表val是一个全局变量</li>
+</ul>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/SpringCloud05-Config/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/08/SpringCloud05-Config/" itemprop="url">SpringCloud05-Config</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T17:57:34+08:00">
+                2020-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringCloud/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringCloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/08/SpringCloud05-Config/" class="leancloud_visitors" data-flag-title="SpringCloud05-Config">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SpringCloud05-Config"><a href="#SpringCloud05-Config" class="headerlink" title="SpringCloud05-Config"></a>SpringCloud05-Config</h1><p>微服务意味着将单体应用中的业务拆分成一个个子服务，每个服务粒度相对较小，因此系统中会出现大量的服务，由于每个服务都需要必要的配置信息才能运行，所以一套集中式的，动态的配置管理设施必不可少。SpringCloud提供了ConfigServer来解决这个问题</p>
+<p>Spring Cloud Config为微服务架构中的微服务提供了集中化的外部配置支持，配置服务器为各个不同微服务应用的所有环节提供了一个中心化的外部配置</p>
+<p>Spring Cloud Config分为服务端和客户端两部分：</p>
+<p>服务端也称为分布式配置中心，它是一个独立的微服务应用，用来连接配置服务器并为客户端提供获取配置信息，加密，解密信息等访问接口</p>
+<p>客户端则是通过指定的配置中心来管理应用资源，以及与业务相关的配置内容，并在启动的时候从配置中心获取和加载配置信息。配置服务器默认采用git来存储配置信息，这样有助于对环境配置进行版本管理。并且可以通过git客户端工具来方便的管理和访问配置内容</p>
+<p>SpringCloud Config分布式配置中心能干嘛？</p>
+<ul>
+<li>集中管理配置文件</li>
+<li>不同环境，不同配置，动态化的配置更新，分环境部署，比如/dev /test/ /prod /beta /release</li>
+<li>运行期间动态调整配置，不再需要在每个服务部署的机器上编写配置文件，服务会向配置中心统一拉取配置自己的信息</li>
+<li>当配置发生变动时，服务不需要重启，即可感知到配置的变化，并应用新的配置</li>
+<li>将配置信息以REST接口的形式暴露</li>
+</ul>
+<h2 id="Config服务端的配置"><a href="#Config服务端的配置" class="headerlink" title="Config服务端的配置"></a>Config服务端的配置</h2><p>首先创建一个 <code>config-client.yml</code> 测试用例，并上传到GitHub</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  profiles:</span><br><span class="line">    active: dev</span><br><span class="line">    </span><br><span class="line">---</span><br><span class="line">server:</span><br><span class="line">  port: 3355</span><br><span class="line">spring:</span><br><span class="line">  profiles: dev</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-provider-dept</span><br><span class="line">    </span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://eureka7001.com:7001/eureka/</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">server:</span><br><span class="line">  port: 8202</span><br><span class="line">spring:</span><br><span class="line">  profiles: test</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-provider-dept</span><br><span class="line">    </span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://eureka7001.com:7001/eureka/</span><br></pre></td></tr></table></figure>
+<p>上传后，创建一个module作为Config Server，名为： <code>springcloud-config-server-3344</code><br>导包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编写它自己的配置文件application.yml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 3344</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-config-server</span><br><span class="line">  # 连接远程仓库</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      server:</span><br><span class="line">        git:</span><br><span class="line">          uri: https://github.com/MakLOAO/spring-cloud-demo.git # https</span><br></pre></td></tr></table></figure>
+<p>然后主启动类如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServer_3344</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServer_3344.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动后，访问 <code>http://localhost:3344/config-client-dev.yml</code><br>就可以访问到dev环境相关的配置信息，就实现了通过config-server连接到git并且访问到其中的资源以及配置了</p>
+<p>下面是提供的格式访问方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/&#123;application&#125;/&#123;profile&#125;[/&#123;label&#125;]</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml</span><br><span class="line">/&#123;application&#125;-&#123;profile&#125;.properties</span><br><span class="line">/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties</span><br></pre></td></tr></table></figure>
+<h2 id="Config客户端的配置"><a href="#Config客户端的配置" class="headerlink" title="Config客户端的配置"></a>Config客户端的配置</h2><p>创建一个模块 <code>springcloud-config-client-3355</code> 作为Config客户端用于测试配置是否导入</p>
+<p>导包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编写 <code>application.yml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 用户级别的配置</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: springcloud-config-client-3355</span><br></pre></td></tr></table></figure>
+<p>编写 <code>bootstrap.yml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 系统级别的配置</span><br><span class="line">spring:</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      # 服务器连接远程仓库，客户端连接服务器</span><br><span class="line">      uri: http://localhost:3344</span><br><span class="line">      name: config-client # 需要从git上读取资源的名称，不需要后缀</span><br><span class="line">      profile: dev # 哪个环境</span><br><span class="line">      label: master # git的哪个分支访问</span><br></pre></td></tr></table></figure>
+<p>编写Controller（启动类略）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;spring.application.name&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String applicationName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;eureka.client.service-url.defaultZone&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String eurekaServer;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/config"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"applicationName:"</span> + applicationName + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"eurekaServer:"</span> + eurekaServer + <span class="string">"\n"</span> +</span><br><span class="line">                <span class="string">"port:"</span> + port + <span class="string">"\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动后项目正常启动（此时配置文件已经生效），并且访问： <code>http://localhost:3355/config</code> 可以得到相应的配置信息</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/vue01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/08/vue01/" itemprop="url">vue快速入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T17:57:34+08:00">
+                2020-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/03/08/vue01/" class="leancloud_visitors" data-flag-title="vue快速入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vue快速入门"><a href="#vue快速入门" class="headerlink" title="vue快速入门"></a>vue快速入门</h1><p><strong>文档啥都有</strong><br><a href="https://cn.vuejs.org/" target="_blank" rel="noopener">vue</a><br><a href="https://cli.vuejs.org/zh/" target="_blank" rel="noopener">vue-cli</a><br><a href="https://www.webpackjs.com/" target="_blank" rel="noopener">webpack</a><br><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">vue-router</a><br><a href="http://www.axios-js.com/" target="_blank" rel="noopener">axios</a><br><a href="https://element.eleme.cn/#/zh-CN" target="_blank" rel="noopener">element-ui</a><br><a href="https://panjiachen.github.io/vue-element-admin-site/zh/" target="_blank" rel="noopener">vue-element-admin</a><br><a href="https://youzan.github.io/vant-weapp/#/intro" target="_blank" rel="noopener">vant</a></p>
+<p>vue是MVVM模式的实现者</p>
+<ul>
+<li>Model：模型层，这里表示JS对象</li>
+<li>View：视图层，表示DOM</li>
+<li>ViewModel：连接视图和数据的中间件，Vue.js就是MVVM中ViewModel层的实现者</li>
+</ul>
+<p>ViewModel能够观察到数据的变化，并对视图对应的内容进行更新；也能够监听视图的变化，并通知数据发生改变</p>
+<p>MVVM如下：</p>
+<p><img src="https://i.imgur.com/ub9KzzH.png" alt=""></p>
+<p>View展现的不是Model的数据，而是ViewModel的数据，由ViewModel来与Model进行交互，这就完全解耦了View层和Model层</p>
+<h2 id="Vue-cli"><a href="#Vue-cli" class="headerlink" title="Vue-cli"></a>Vue-cli</h2><p>安装nodejs</p>
+<p>安装cnpm： <code>npm install cnpm -g</code><br>安装vue-cli： <code>cnpm install vue-cli -g</code>（这个可能过时了，vue-cli官方文档有最新的安装）<br>查看可以基于哪些模板创建vue应用程序： <code>vue list</code></p>
+<p>安装webpack：<br><code>npm install webpack -g</code><br><code>npm install webpack-cli -g</code></p>
+<p>第一次创建vue项目：<br><code>vue init webpack myvue</code><br>填写基本信息，一路选No（自己体验一次自己创建的流程）<br><code>cd myvue</code><br><code>npm install</code><br><code>npm run dev</code> 启动项目</p>
+<p>webstorm配置启动vue：<br>右上角Add Configuration，点击加号里面的npm，在Scripts栏添加dev即可，然后启动就成功启动项目了</p>
+<p><img src="https://i.imgur.com/LJ6OJH4.png" alt=""></p>
+<h3 id="使用Vue-router"><a href="#使用Vue-router" class="headerlink" title="使用Vue-router"></a>使用Vue-router</h3><p>当前目录路径下安装vue-router： <code>npm install vue-router --save-dev</code><br>（axios也是同理，查看官方文档）</p>
+<h3 id="使用element-ui"><a href="#使用element-ui" class="headerlink" title="使用element-ui"></a>使用element-ui</h3><p>当前目录路径下安装： <code>npm i element-ui -S</code><br>安装SASS加载器：<code>npm install sass-loader node-sass --save-dev</code></p>
+<p>如果报错 <code>Module build failed: TypeError: this.getResolve is not a function</code><br>修改sass-loader版本降为 <code>^7.3.1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">卸载当前版本   npm uninstall sass-loader</span><br><span class="line">安装     npm install sass-loader@7.3.1 --save-dev</span><br></pre></td></tr></table></figure>
           
         
       
@@ -2100,597 +3036,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/26/lombok的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/26/lombok的使用/" itemprop="url">lombok的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-26T14:34:34+08:00">
-                2020-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/02/26/lombok的使用/" class="leancloud_visitors" data-flag-title="lombok的使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="lombok的使用"><a href="#lombok的使用" class="headerlink" title="lombok的使用"></a>lombok的使用</h1><p>lombok可以通过简单的注解来简化Java代码，用于为实体类简化getter/setter，constructor等的代码</p>
-<p>SpringBoot导入lombok：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lombok.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>@Data</code> ：注解在类上，为类所有属性自动生成setter/getter,equals,hashCode,toString(),canEqual方法，如果为final属性则不会生成setter<br>（ <code>@Data</code> 集合了 <code>@ToString</code> 、 <code>@EqualsAndHashCode</code> 、<code>@Getter/@Setter</code> 、 <code>@RequiredArgsConstructor</code> 的所有特性）</li>
-<li><code>@Getter/@Setter</code> ：注解在类上，为类所有属性生成对应getter/setter，注解在属性上，则为对应属性生成getter/setter，可以指定 <code>@Setter(AccessLevel.PROTECTED)</code></li>
-<li><code>@ToString</code> ：用在类上，覆盖默认的 <code>toString()</code> 方法，可以通过of属性指定限定显示某些字段，exclude属性排除某些字段<br><code>@ToString(of={&quot;name&quot;,&quot;age&quot;}, exclude={&quot;gender&quot;})</code></li>
-<li><code>@EqualsAndHashCode</code> ：作用于类，覆盖默认的equals和hashCode</li>
-<li><code>@NonNull</code> ：主要作用于成员变量和参数中，标识不能为空，否则抛出空指针异常。<br><code>@NonNull private String name;</code><br>相当于代码级别添加了<br><code>if (name == null) throw new NullPointerException();</code></li>
-<li><code>@NoArgsConstructor</code>, <code>@RequiredArgsConstructor</code>, <code>@AllArgsConstructor</code>： 作用于类上，用于生成构造函数。有staticName、access等属性。<br>staticName属性一旦设定，将采用静态方法的方式生成实例，access属性可以限定访问权限。</li>
-<li><code>@NoArgsConstructor</code>：生成无参构造器；</li>
-<li><code>@RequiredArgsConstructor</code>：生成包含final和@NonNull注解的成员变量的构造器；</li>
-<li><code>@AllArgsConstructor</code>：生成全参构造器</li>
-<li><code>@Accessors(chain = true)</code> ：允许链式写法，链式写法如下：<br><code>dept.setDeptNo(11).setDname(&quot;aa&quot;).setXxx()...</code></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/SpringBoot13-热部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/13/SpringBoot13-热部署/" itemprop="url">SpringBoot13-监控与热部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T22:57:34+08:00">
-                2020-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/02/13/SpringBoot13-热部署/" class="leancloud_visitors" data-flag-title="SpringBoot13-监控与热部署">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SpringBoot13-监控与热部署"><a href="#SpringBoot13-监控与热部署" class="headerlink" title="SpringBoot13-监控与热部署"></a>SpringBoot13-监控与热部署</h1><h2 id="热部署devtools"><a href="#热部署devtools" class="headerlink" title="热部署devtools"></a>热部署devtools</h2><p>devtools</p>
-<p>POM添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>true<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--热部署配置--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--fork:如果没有该项配置,整个devtools不会起作用--&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>每次只需要重新build（快捷键ctrl+F9）即可热部署</p>
-<h2 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h2><p>具体监控到时再去查就行了</p>
-<p>导入 <code>spring-boot-starter-actuator</code> ，可以使用springboot为我们提供的准生产环境下的应用监控和管理功能，可以通过HTTP， JMX，SSH协议来进行操作，自动得到审计，健康及指标信息等</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#设置监控访问的应用根路径，默认是/actuator</span><br><span class="line">management.endpoints.web.base-path=/actuator</span><br><span class="line"></span><br><span class="line">#暴露监控访问接口，默认是/health和/info</span><br><span class="line">management.endpoints.web.exposure.include=*</span><br><span class="line"></span><br><span class="line">#显式屏蔽监控访问接口</span><br><span class="line">management.endpoints.web.exposure.exclude=env,metrics</span><br><span class="line"></span><br><span class="line">#开放关闭应用程序端点，不建议开启</span><br><span class="line">management.endpoint.shutdown.enabled=true</span><br></pre></td></tr></table></figure>
-<p>1    /health/{component}/{instance}    GET</p>
-<pre><code>报告程序的健康指标，这些数据由HealthIndicator实现类提供
-</code></pre><p>2    /info    GET</p>
-<pre><code>获取程序指定发布的信息，这些信息由配置文件中info打头的属性提供
-</code></pre><p>3    /configprops    GET</p>
-<pre><code>描述配置属性（包含默认值）如何注入到bean
-</code></pre><p>4    /beans    GET</p>
-<pre><code>描述程序中的bean，及之间的依赖关系
-</code></pre><p>5    /env    GET</p>
-<pre><code>获取全部环境属性
-</code></pre><p>6    /env/{name}    GET</p>
-<pre><code>根据名称获取指定的环境属性值
-</code></pre><p>7    /mappings    GET</p>
-<pre><code>描述全部的URI路径，及和控制器的映射关系
-</code></pre><p>8    /metrics/{requiredMetricName}    GET</p>
-<pre><code>统计程序的各种度量信息，如内存用量和请求数
-</code></pre><p>9    /httptrace    GET</p>
-<pre><code>提供基本的http请求跟踪信息，如请求头等
-</code></pre><p>10    /threaddump    GET</p>
-<pre><code>获取线程活动的快照
-</code></pre><p>11    /conditions    GET</p>
-<pre><code>提供自动配置报告，记录哪些自动配置通过，哪些没有通过
-</code></pre><p>12    /loggers/{name}    GET</p>
-<pre><code>查看日志配置信息
-</code></pre><p>13    /auditevents    GET</p>
-<pre><code>查看系统发布的事件信息
-</code></pre><p>14    /caches/{cache}    GET/DELETE</p>
-<pre><code>查看系统的缓存管理器，另可根据缓存管理器名称查询；
-
-另DELETE操作可清除缓存
-</code></pre><p>15    /scheduledtasks    GET</p>
-<pre><code>查看系统发布的定时任务信息
-</code></pre><p>16    /features    GET</p>
-<pre><code>查看Springcloud全家桶组件信息
-</code></pre><p>17    /refresh    POST</p>
-<pre><code>重启应用程序，慎用
-</code></pre><p>18    /shutdown    POST</p>
-<pre><code>关闭应用程序，慎用
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/13/SpringBoot12-分布式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MakaLoo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="MakaL-0-">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/02/13/SpringBoot12-分布式/" itemprop="url">SpringBoot12-分布式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T22:35:34+08:00">
-                2020-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2020/02/13/SpringBoot12-分布式/" class="leancloud_visitors" data-flag-title="SpringBoot12-分布式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SpringBoot12-分布式"><a href="#SpringBoot12-分布式" class="headerlink" title="SpringBoot12-分布式"></a>SpringBoot12-分布式</h1><p><a href="https://github.com/apache/dubbo" target="_blank" rel="noopener">dubbo官方GitHub，内有示例</a></p>
-<p><a href="http://dubbo.apache.org/zh-cn/docs/user/quick-start.html" target="_blank" rel="noopener">dubbo官方文档</a></p>
-<p><a href="https://github.com/apache/dubbo-spring-boot-project/blob/master/README_CN.md" target="_blank" rel="noopener">dubbo spring boot project</a></p>
-<p><strong>写给自己的前提摘要：去看自己写过的DEMO里（已上传GitHub）的POM依赖是怎么样的，尤其注意父子工程的写法，以及父工程的 <code>&lt;packaging&gt;</code> 标签</strong></p>
-<h2 id="dubbo-zookeeper"><a href="#dubbo-zookeeper" class="headerlink" title="dubbo+zookeeper"></a>dubbo+zookeeper</h2><p>dubbo是远程调用(rpc)的分布式框架，对部署在不同服务器的应用，通过dubbo进行远程调用</p>
-<p>dubbo有如下两个概念：</p>
-<ul>
-<li>Provider（生产者）：暴露服务的服务提供方</li>
-<li>Consumer（消费者）：调用远程服务的服务消费方</li>
-</ul>
-<p>Zookeeper是用于分布式中一致性处理的框架，是注册中心，所有Provider都在注册中心注册，Consumer从注册中心中调用服务，它类似于现实世界中的中介系统</p>
-<p><img src="https://i.imgur.com/mJ6FqaI.png" alt=""></p>
-<ol start="0">
-<li>服务容器负责启动，加载，运行服务提供者</li>
-<li>服务提供者启动时向注册中心注册自己提供的服务</li>
-<li>注册中心返回服务提供者地址列表给消费者，如有变更，注册中心将基于长连接推送变更数据给消费者</li>
-<li>服务消费者从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用</li>
-<li>服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心</li>
-</ol>
-<h3 id="环境安装与测试demo"><a href="#环境安装与测试demo" class="headerlink" title="环境安装与测试demo"></a>环境安装与测试demo</h3><p>安装zookeeper： <code>docker pull zookeeper</code><br>运行： <code>docker run --name zk01 -p 2181:2181 --restart always -d zookeeper</code></p>
-<p>首先创建一个空项目： <code>File -&gt; New -&gt; Project -&gt; Empty Project</code><br>然后分别创建2个module，一个消费者，一个提供者<br><code>File -&gt; New -&gt; Module -&gt; Spring Initializr</code><br>都只选择 <code>Spring Web</code> 包</p>
-<p><img src="https://i.imgur.com/umDI3Ll.png" alt=""></p>
-<p><img src="https://i.imgur.com/CyRs61E.png" alt=""></p>
-<p>创建后创建两个Service，一个提供服务，一个消费服务，目录树如下：</p>
-<p><img src="https://i.imgur.com/edwNuEN.png" alt=""></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 2020/2/13 Apache官方的稳定的最新版，消费者和生产者都要导入 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Dubbo Spring Boot Starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo-dependencies-zookeeper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>编写生产者：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dubbo.application.name=provider-ticket</span><br><span class="line">dubbo.scan.base-packages=com.mkl.ticket.service</span><br><span class="line">dubbo.registry.address=zookeeper://192.168.186.128:2181</span><br><span class="line"></span><br><span class="line"># 这两个参数之前版本出现过timeout，加了才成功，不过现在使用Apache的2.7.4.1的版本，去掉也可以正常使用</span><br><span class="line">dubbo.config-center.timeout=50000</span><br><span class="line">dubbo.registry.timeout=40000</span><br><span class="line"></span><br><span class="line">server.port=8081</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mkl.providerticket.service;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TicketService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTicket</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mkl.providerticket.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.dubbo.config.annotation.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意是dubbo包的service，它将服务发布出去</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Service</span>(version = <span class="string">"1.2.3"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TicketServiceImpl</span> <span class="keyword">implements</span> <span class="title">TicketService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTicket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"ready to get a ticket..."</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要添加 @EnableDubbo</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDubbo</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProviderTicketApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ProviderTicketApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动项目，去注册中心可以看到有生产者，命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it zk01 bash</span><br><span class="line">/apache-zookeeper-3.5.6-bin/bin/zkCli.sh</span><br><span class="line">ls /dubbo</span><br><span class="line">就可以查看到生产者提供的服务</span><br><span class="line">ls /dubbo/com.mkl.providerticket.service.TicketService</span><br><span class="line">可以看他是否有消费者和查看生产者</span><br><span class="line">ls /dubbo/com.mkl.providerticket.service.TicketService/providers</span><br><span class="line">ls /dubbo/com.mkl.providerticket.service.TicketService/consumers</span><br><span class="line">分别查看生产者和消费者</span><br></pre></td></tr></table></figure>
-<p>dubbo-admin也可以，但使用略</p>
-<p>消费者编写如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dubbo.application.name=consumer-user</span><br><span class="line"></span><br><span class="line">dubbo.registry.address=zookeeper://192.168.186.128:2181</span><br><span class="line"></span><br><span class="line">dubbo.config-center.timeout=50000</span><br><span class="line">dubbo.registry.timeout=40000</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mkl.consumeruser.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.mkl.providerticket.service.TicketService;</span><br><span class="line"><span class="keyword">import</span> org.apache.dubbo.config.annotation.Reference;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Reference</span>(version = <span class="string">"1.2.3"</span>)</span><br><span class="line">    TicketService ticketService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(ticketService.getTicket());</span><br><span class="line">        System.out.println(<span class="string">"already got the ticket!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>主程序可以不用添加 <code>@EnableDubbo</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsumerUserApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        userService.hello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>Spring Cloud是一个分布式的<strong>整体</strong>解决方案，为开发者提供在分布式系统（配置管理，服务发现，熔断，路由，微代理，控制总线，一次性token，全局锁，leader选举，分布式session，集群状态）中快速构建的工具，使用Spring Cloud的开发者可以快速启动服务或构建应用，同时快速和云平台资源进行对接</p>
-<p>5大常用组件：</p>
-<ul>
-<li>服务发现：Netflix Eureka</li>
-<li>客服端负载均衡：Netflix Ribbon</li>
-<li>断路由：Netflix Hystrix</li>
-<li>服务网关：Netflix Zuul</li>
-<li>分布式配置：Spring Cloud Config</li>
-</ul>
-<h3 id="简单demo"><a href="#简单demo" class="headerlink" title="简单demo"></a>简单demo</h3><p><img src="https://i.imgur.com/sBVPqLH.png" alt=""></p>
-<h4 id="注册中心"><a href="#注册中心" class="headerlink" title="注册中心"></a>注册中心</h4><p>作为一个单独的module</p>
-<p>注册中心的创建：</p>
-<p><img src="https://i.imgur.com/EYJ6Slf.png" alt=""></p>
-<p><img src="https://i.imgur.com/6CIRPVK.png" alt=""></p>
-<p>服务提供者和消费者导入的包：</p>
-<p><img src="https://i.imgur.com/hFTUL2Z.png" alt=""></p>
-<p>编写注册中心：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8761</span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    hostname: eureka-server # eureka实例的主机名</span><br><span class="line">  client:</span><br><span class="line">    register-with-eureka: false # 不把eureka本身注册进去</span><br><span class="line">    fetch-registry: false # 不从eureka上获取服务的注册信息</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:8761/eureka/</span><br></pre></td></tr></table></figure>
-<p>主程序注解：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EurekaServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(EurekaServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动后访问： <code>http://localhost:8761/</code> 即可成功访问Eureka</p>
-<h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>作为单独一个module</p>
-<p>配置文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8001</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: provider-ticket</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true # 注册服务的时候使用服务的IP地址</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:8761/eureka/</span><br></pre></td></tr></table></figure>
-<p>Controller与Service</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TicketService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTicket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"ticket01~~"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TicketController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    TicketService ticketService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/ticket"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTicket</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ticketService.getTicket();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动项目后，访问 <code>http://localhost:8761/</code> 即可发现多了一个provider，访问 <code>http://localhost:8001/ticket</code> 可以得到 <code>ticket01~~</code></p>
-<h4 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h4><p>配置文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: consumer-user</span><br><span class="line">server:</span><br><span class="line">  port: 8200</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true # 注册服务的时候使用服务的IP地址</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://localhost:8761/eureka/</span><br></pre></td></tr></table></figure>
-<p>主程序：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient // 开启发现服务功能</span><br><span class="line">public class ConsumerApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ConsumerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @LoadBalanced // 使用负载均衡</span><br><span class="line">    @Bean</span><br><span class="line">    public RestTemplate restTemplate() &#123;</span><br><span class="line">        return new RestTemplate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Controller</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/buy"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">buyTicket</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        String s = restTemplate.getForObject(<span class="string">"http://PROVIDER-TICKET/ticket"</span>, String.class);</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">" buy "</span> + s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>访问 <code>http://localhost:8200/buy?name=aaa</code> 即可得到： <code>aaa buy get the ticket</code> 且注册中心多了一个consumer</p>
-<p><img src="https://i.imgur.com/KybNCQ7.png" alt=""></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2747,7 +3092,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">127</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2769,7 +3114,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">243</span>
+                  <span class="site-state-item-count">254</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

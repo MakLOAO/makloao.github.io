@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis,NoSQL,GEO,HyperLogLog,Bitmaps,Lua,Pipeline,Redis Shell,慢查询分析,发布订阅," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="其他功能数据结构API慢查询分析所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）  慢查询分析主要分析的是第三步的时间 Redis提供两个参数：  slowlog-log-slower-than：预设阈值，默认是10000（微妙） slowlog-max-len：Redis使用一个列表来存储慢查询日志，这">
+<meta name="keywords" content="redis,NoSQL,GEO,HyperLogLog,Bitmaps,Lua,Pipeline,Redis Shell,慢查询分析,发布订阅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis02-其他数据结构API">
+<meta property="og:url" content="http://yoursite.com/2020/06/29/Redis02-其他数据结构API/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="其他功能数据结构API慢查询分析所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）  慢查询分析主要分析的是第三步的时间 Redis提供两个参数：  slowlog-log-slower-than：预设阈值，默认是10000（微妙） slowlog-max-len：Redis使用一个列表来存储慢查询日志，这">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624163928.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624172851.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163418.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163426.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200628172202.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629143823.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629144707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145045.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150103.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150732.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151603.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629153143.png">
+<meta property="og:updated_time" content="2020-06-29T07:33:54.888Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis02-其他数据结构API">
+<meta name="twitter:description" content="其他功能数据结构API慢查询分析所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）  慢查询分析主要分析的是第三步的时间 Redis提供两个参数：  slowlog-log-slower-than：预设阈值，默认是10000（微妙） slowlog-max-len：Redis使用一个列表来存储慢查询日志，这">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624163928.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/29/Redis02-其他数据结构API/"/>
+
+
+
+
+
+  <title>Redis02-其他数据结构API | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">加载图片需要翻出去</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/29/Redis02-其他数据结构API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redis02-其他数据结构API</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-29T15:32:34+08:00">
+                2020-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/06/29/Redis02-其他数据结构API/" class="leancloud_visitors" data-flag-title="Redis02-其他数据结构API">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="其他功能数据结构API"><a href="#其他功能数据结构API" class="headerlink" title="其他功能数据结构API"></a>其他功能数据结构API</h1><h2 id="慢查询分析"><a href="#慢查询分析" class="headerlink" title="慢查询分析"></a>慢查询分析</h2><p>所谓慢查询日志就是系统在命令执行前后计算每条命令的执行时间，当超过预设阈值，就将这条命令的相关信息记录下来（如发生时间，耗时，命令的详细信息）</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624163928.png" alt=""></p>
+<p>慢查询分析主要分析的是第三步的时间</p>
+<p>Redis提供两个参数：</p>
+<ul>
+<li>slowlog-log-slower-than：预设阈值，默认是10000（微妙）</li>
+<li>slowlog-max-len：Redis使用一个列表来存储慢查询日志，这个参数就是列表的最大长度。当慢查询日志列表已处于最大长度，最早插入的一条命令会被从列表中移出</li>
+<li>使用config set命令来动态修改，使用config rewrite命令来将配置持久化到本地配置文件</li>
+</ul>
+<p>获取慢查询日志：</p>
+<ul>
+<li>slowlog get [n]：n指定条数，结果有4个属性，分别是：慢查询日志的标识ID，发生时间戳，命令耗时，执行命令和参数</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200624172851.png" alt=""></p>
+<ul>
+<li>slowlog len：获取慢查询日志当前的长度</li>
+<li>slowlog reset：慢查询日志重置</li>
+</ul>
+<h3 id="慢查询分析最佳实践"><a href="#慢查询分析最佳实践" class="headerlink" title="慢查询分析最佳实践"></a>慢查询分析最佳实践</h3><ul>
+<li>slowlog-max-len配置建议：线上调大慢查询列表，可设置为1000以上（会对长命令截断操作，不会占用大量内存）</li>
+<li>slowlog-log-slower-than配置建议：默认超过10毫秒判定为慢查询，需要根据Redis并发量调整该值，对于高OPS场景Redis建议设置为1毫秒</li>
+<li>慢查询仅仅记录命令执行时间，而不包括命令排队时间（单线程）和网络传输时间，因为命令执行排队机制，慢查询会导致其他命令级联阻塞，当客户端出现请求超时，需要检查该时间点是否有对应的慢查询，从而分析出是否为慢查询导致的命令级联阻塞</li>
+<li>慢查询日志是一个先进先出的队列，如果慢查询比较多，可能导致部分慢查询命令丢失，可以定期执行slow get命令将慢查询日志持久化到其他存储中（比如MySQL），然后制作可视化界面进行查询</li>
+</ul>
+<h2 id="Redis-Shell"><a href="#Redis-Shell" class="headerlink" title="Redis Shell"></a>Redis Shell</h2><h3 id="redis-cli"><a href="#redis-cli" class="headerlink" title="redis-cli"></a>redis-cli</h3><ul>
+<li>-r：命令执行多次，e.g. redis-cli -r 3 ping</li>
+<li>-i：间隔几秒执行一次，必须和-r一起使用，e.g. redis-cli -r 5 -i 1 ping，表示间隔1秒执行一次ping，一共执行5次</li>
+<li>-x：从标准输入读取数据作为redis-cli的最后一个参数</li>
+<li>-c：连接Redis Cluster节点使用，防止moved和ask异常</li>
+<li>-a：不需要手动输入auth命令</li>
+<li>–scan和–pattern：扫描指定模式的键，相当于scan命令</li>
+<li>–salve：把当前客户端模拟成当前Redis节点的从节点，可用来获取当前Redis节点的更新操作</li>
+<li>–rdb：请求Redis实例生成并发送RDB持久化文件，保存在本地</li>
+<li>–pipe：将命令封装成Redis通信协议定义的数据格式，批量发送给Redis执行</li>
+<li>–bigkeys：使用scan对Redis键采样，找到内存占用比较大的键值</li>
+<li>–eval：执行Lua脚本</li>
+<li>–latency，–latency-history，–latency-dist：测试客户端到目标Redis的网络延迟</li>
+<li>–stat：实时获取Redis的重要统计信息</li>
+<li>–raw和–no-raw：–no-raw要求命令返回的结果是原始的格式，–raw则相反，返回格式化后的结果</li>
+</ul>
+<h3 id="redis-server"><a href="#redis-server" class="headerlink" title="redis-server"></a>redis-server</h3><ul>
+<li>–test-memory：检测当前OS是否稳定地分配指定容量的内存给Redis</li>
+</ul>
+<h3 id="redis-benchmark"><a href="#redis-benchmark" class="headerlink" title="redis-benchmark"></a>redis-benchmark</h3><p>redis-benchmark可以为Redis做基准性能测试</p>
+<ul>
+<li>-c：代表客户端的并发数量（默认是50）</li>
+<li>-n：代表客户端请求总量（默认是100000）</li>
+<li>-q：显示requests per second信息</li>
+<li>-r：默认只插入3个键，可以使用-r插入更多的随机的键</li>
+<li>-p：每个请求pipeline的数据量（默认为1）</li>
+<li>-k [boolean]：客户端是否使用keepalive，1位使用，0不使用，默认1</li>
+<li>-t：对指定命令进行基准测试</li>
+<li>–csv：结果按照csv格式输出</li>
+</ul>
+<h2 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h2><p>RTT（Round Trip Time，往返时间），RTT在Redis中为发送命令的时间加上返回结果的时间（不包括命令排队和命令执行时间）。Pipeline能将一组Redis命令进行组装，通过一次RTT传输给Redis，再将这组Redis命令的执行结果按顺序返回给客户端</p>
+<p>一般不建议使用命令行（Redis-cli的–pipe选项）来使用pipeline机制，更多的是高级语言有封装pipeline，建议使用</p>
+<p>但需要注意pipeline不是原子的，一次pipeline如果数据量过大，会增加客户端等待时间和造成网络阻塞，因此不宜过大</p>
+<h2 id="事务与Lua"><a href="#事务与Lua" class="headerlink" title="事务与Lua"></a>事务与Lua</h2><h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>Redis事务使用在 <code>multi</code> 和 <code>exec</code> 两个命令之间， <code>multi</code> 命令代表事务开始， <code>exec</code> 命令代表事务结束，它们之间的命令是原子顺序执行的，Redis的事务是简单的，<strong>它不支持回滚，无法实现命令之间的逻辑关系计算</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; multi</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; sadd user:a:follow user:b</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; sadd user:b:fans user:a</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; exec</span><br><span class="line">1) (integer) 1</span><br><span class="line">2) (integer) 1</span><br></pre></td></tr></table></figure>
+<p>Redis处理错误机制如下：</p>
+<ul>
+<li>命令错误：比如把set写成sett，属于语法错误，会造成整个事务无法执行</li>
+<li>运行时错误：比如用户B在添加粉丝列表时，误把sadd命令写成zadd，这时上面的往用户A添加关注用户B的sadd命令会执行成功，而下面的用户B添加粉丝会执行失败报错，不支持回滚，需要开发人员自己修复这类问题</li>
+</ul>
+<p>有些应用场景需要在事务开始之前，确保事务中的key没有被其他客户端修改过，才执行事务，否则不执行（类似乐观锁），Redis提供了watch命令来解决这类问题</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163408.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163418.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200626163426.png" alt=""></p>
+<h3 id="Lua"><a href="#Lua" class="headerlink" title="Lua"></a>Lua</h3><h4 id="Lua语法"><a href="#Lua语法" class="headerlink" title="Lua语法"></a>Lua语法</h4><p>Lua语言提供如下几种数据类型：booleans（布尔），numbers（数值），strings（字符串），tables（表格）</p>
+<ul>
+<li><p>字符串： <code>local strings val = &quot;world&quot;</code> ，local代表val是一个全局变量</p>
+</li>
+<li><p>数组： <code>local tables myArray = {&quot;redis&quot;, &quot;jedis&quot;}</code> ，<strong>Lua数组下标从1开始</strong></p>
+<ul>
+<li><p>for：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> int sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, <span class="number">100</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    sum = sum + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 输出结果5050</span></span><br><span class="line"><span class="built_in">print</span>(sum)</span><br><span class="line"><span class="comment">-- 遍历myArray</span></span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #myArray</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(myArray[i])</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment">-- 遍历myArray的下标和值</span></span><br><span class="line"><span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="built_in">ipairs</span>(myArray)</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="built_in">print</span>(index)</span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>while</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> int sum = <span class="number">0</span></span><br><span class="line"><span class="keyword">local</span> int i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt;= <span class="number">100</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    sum = sum + i</span><br><span class="line">    i = i + <span class="number">1</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">print</span>(sum)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>if else</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tables myArray = &#123;<span class="string">"redis"</span>, <span class="string">"jedis"</span>, <span class="literal">true</span>, <span class="number">88.0</span>&#125;</span><br><span class="line"><span class="keyword">for</span> i = <span class="number">1</span>, #myArray</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> myArray[i] == <span class="string">"jedis"</span></span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"true"</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">-- do nothing</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>哈希： <code>local tables user_1 = {age = 28, name = &quot;tom&quot;}</code> ，使用tables类型实现哈希功能</p>
+<ul>
+<li>遍历：</li>
+</ul>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> tables user_1 = &#123;age = <span class="number">28</span>, name = <span class="string">"tom"</span>&#125;</span><br><span class="line"><span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="built_in">pairs</span>[user_1]</span><br><span class="line"><span class="keyword">do</span> <span class="built_in">print</span>(key .. value)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数定义：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">funcName</span><span class="params">(arg1, arg2)</span></span></span><br><span class="line">	...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Redis与Lua"><a href="#Redis与Lua" class="headerlink" title="Redis与Lua"></a>Redis与Lua</h4><p>Redis中使用Lua脚本：</p>
+<ul>
+<li>eval 脚本内容 key个数 key列表 参数列表<ul>
+<li>e.g. <code>eval &#39;return &quot;hello &quot; .. KEYS[1] .. ARGV[1]&#39; 1 redis world</code>，输出 <code>hello redisworld</code></li>
+</ul>
+</li>
+<li>evalsha：使用SHA1作为参数可以直接执行对应Lua脚本，避免每次发送Lua脚本的开销，这样客户端就不需要每次执行脚本内容，脚本常驻服务端，也得到复用<ul>
+<li>script load：加载脚本，<code>redis-cli script load &quot;${cat lua_get.lua}&quot;</code>，会返回其SHA1值</li>
+<li>evalsha 脚本SHA1值 key个数 key列表 参数列表：执行Lua脚本</li>
+<li>script exists sha1：判断内存中是否存在此sha1对应的Lua脚本</li>
+<li>script flush：清除Redis内存中已加载的所有Lua脚本</li>
+<li>script kill：杀掉正在执行的Lua脚本</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200628172202.png" alt=""></p>
+<ul>
+<li><strong>Lua使用Redis.call函数实现对Redis的访问</strong><ul>
+<li>e.g. <code>redis.call(&quot;set&quot;, &quot;hello&quot;, &quot;world&quot;)</code>，<code>redis.call(&quot;get&quot;, &quot;hello&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>Lua脚本的好处：</p>
+<ul>
+<li>原子执行，中途不会插入其他命令</li>
+<li>帮助开发和运维人员创造出自己定制的命令，并常驻在内存中实现复用</li>
+<li>将多条命令一次性打包，减少网络开销</li>
+</ul>
+<h2 id="Bitmaps"><a href="#Bitmaps" class="headerlink" title="Bitmaps"></a>Bitmaps</h2><p>Redis提供Bitmaps实现对位的操作，在Redis中，Bitmaps有如下特性：</p>
+<ul>
+<li>Redis的Bitmaps本身不是一种数据结构，实际上是一种字符串，但它可以对字符串的位进行操作</li>
+<li>Bitmaps单独提供一套命令，所以在Redis中使用Bitmaps和使用字符串的方法不太一样。可以把Bitmaps想象成一个以为单位的数组，数组的每个单元只能存储0和1，数组的下标在Bitmaps中叫做偏移量</li>
+</ul>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><ul>
+<li>setbit key offset value：设置值，设置键的第offset个位的值（从0开始），位图的长度跟max(offset)有关，如果执行了 <code>setbit bitmapsKey 5000 1</code>，位图就长5000位</li>
+<li>getbit key offset：获取值，获取键的第offset位的值</li>
+<li>bitcount key [start end]：获取Bitmaps指定范围值为1的个数，start和end代表起始<strong>字节</strong>和结束<strong>字节</strong></li>
+<li>bitop op destkey key [key …]：可以对多个Bitmaps做and，or，not，xor操作，并把结果保存在destkey中<ul>
+<li>e.g. 对两天都访问过网站的用户统计 <code>bitop and unique:users:and:2016-04-04_03  unique:users:and:2016-04-03 unique:users:and:2016-04-04</code></li>
+</ul>
+</li>
+<li>bitpos key targetBit [start] [end]：计算Bitmaps中第一个值为targetBit的偏移量，start和end代表起始<strong>字节</strong>和结束<strong>字节</strong>，</li>
+</ul>
+<h3 id="Bitmaps分析"><a href="#Bitmaps分析" class="headerlink" title="Bitmaps分析"></a>Bitmaps分析</h3><p>假设网站有1亿用户，每天独立访问的用户有5千万，每天使用集合类型和Bitmaps存储独立用户性能如下：</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629143823.png" alt=""></p>
+<p>但是如果网站每天独立用户很少，例如只有10万（大量僵尸用户），那么两者对比如下图，这时候使用Bitmaps就不合适了，因为基本上大部分位都是0</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629144707.png" alt=""></p>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><p>HyperLogLog是一种基数算法（在Redis中实际是字符串类型），<strong>通过它可以利用极小的内存空间完成独立总数的统计</strong>，数据集可以是IP，Email，ID等。</p>
+<p>HyperLogLog提供三个命令：pfadd，pfcount，pfmerge</p>
+<p>如下图，2016-03-06的访问用户是uuid-1，uuid-2，uuid-3，uuid-4,2016-03-05的访问用户是uuid-4，uuid-5，uuid-6，uuid-7</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145045.png" alt=""></p>
+<ul>
+<li><p>pfadd key element [element …]：往HyperLogLog添加元素，成功返回1</p>
+</li>
+<li><p>pfcount key [key …]：计算一个或多个HyperLogLog的独立总数</p>
+<ul>
+<li>HyperLogLog占用内存和集合类型对比如下，<strong>HyperLogLog存在误差，Redis官方的数字是0.81%的失误率</strong>：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629145458.png" alt=""></p>
+</li>
+<li><p>pfmerge destkey sourcekey [sourcekey …]：可以求出多个HyperLogLog的并集并赋值给destkey</p>
+</li>
+<li>使用HyperLogLog一般有如下两条目的和约束<ul>
+<li><strong>只为了计算独立总数，不需要获取单条数据</strong></li>
+<li><strong>为了HyperLogLog的内存占用量优势，可以容忍一定误差率</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="发布订阅"><a href="#发布订阅" class="headerlink" title="发布订阅"></a>发布订阅</h2><p>Redis的发布订阅模型如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150103.png" alt=""></p>
+<h3 id="命令-1"><a href="#命令-1" class="headerlink" title="命令"></a>命令</h3><ul>
+<li><p>publish channel message：发布消息</p>
+<ul>
+<li>e.g. <code>publish channel:sports &quot;Tim won the championship&quot;</code>，往channel:sports频道发布一条”Tim won the championship”的消息</li>
+</ul>
+</li>
+<li><p>subscribe channel [channel …]：订阅消息</p>
+<ul>
+<li>订阅后客户端处于订阅状态，只能接收subscribe，psubscribe，unsubscribe，punsubscribe四个命令</li>
+<li><p>新开启的订阅客户端不会接收到该频道之前的消息，因为Redis不会对发布的消息进行持久化</p>
+</li>
+<li><p>订阅后接收到消息如下图</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629150732.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>unsubscribe [channel [channel …]]：取消订阅</p>
+</li>
+<li>psubscribe pattern [pattern …]：按照正则表达式模式订阅</li>
+<li>punsubscribe [pattern [pattern …]]：按照正则表达式模式取消订阅</li>
+<li><p>pubsub channels [pattern]：查看活跃的频道，活跃的频道指当前频道至少有一个订阅者</p>
+</li>
+<li><p>pubsub numsub [channel …]：查看频道订阅数</p>
+</li>
+<li><p>pubsub numpat：查看模式订阅数，即查看多少个客户端通过模式订阅频道</p>
+</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>聊天室，公告牌，服务之间利用消息解耦都可以使用发布订阅模式，如视频管理系统和视频服务</p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151603.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629151611.png" alt=""></p>
+<h2 id="GEO"><a href="#GEO" class="headerlink" title="GEO"></a>GEO</h2><p>Redis 3.2版本提供GEO（地理信息定位）功能，支持存储地理位置信息用来实现诸如附近位置，摇一摇这类依赖地理位置信息的功能。Redis的GEO是借鉴Ardb实现的</p>
+<ul>
+<li><p>geoadd key longitude latitude member [longitude latitude member …]：增加地理位置信息，longitude，latitude，member分别是精度，维度，成员，返回结果是成功添加的个数</p>
+</li>
+<li><p>geopos key member [member …]：获取地理位置信息</p>
+</li>
+<li><p>geodist key member1 member2 [unit]：获取两个地理位置的距离，unit表示返回结果的单位，包含四种：m（米），km（公里），mi（英里），ft（尺）</p>
+</li>
+<li><p>georadius key longitude latitude radius m|km|ft|mi [withcoord] [withdist] [withhash] [asc|desc] [COUNT count] [store key] [storedist key]：获取指定位置范围内的地理信息位置集合，longitude和latitude指定经纬度，radius指定半径，后面是单位</p>
+<ul>
+<li>withcoord：返回结果包含经纬度</li>
+<li>withdist：返回结果包含离中心节点位置的距离</li>
+<li>withhash：返回结果包含geohash</li>
+<li>count：指定返回结果的数量</li>
+<li>asc|desc：按照离中心节点距离作升降序排序</li>
+<li>store key：将返回结果的地理位置信息保存到指定键</li>
+<li>storedist key：将返回结果离中心节点的距离保存到指定键</li>
+</ul>
+</li>
+<li><p>georadiusbymember key member radius m|km|ft|mi [withcoord] [withdist] [withhash] [asc|desc] [COUNT count] [store key] [storedist key]：同上，只不过它的目标中心是成员</p>
+</li>
+<li><p>geohash key member [member …]：获取geohash，geohash用来把二维经纬度转换为一维字符串，有如下特点：</p>
+<ul>
+<li>GEO的数据类型为zset，Redis把所有地理位置信息的geohash存放在zset中</li>
+<li>字符串越长，表示位置更精准，具体长度与精度如下图</li>
+<li>两个字符串越相似，它们之间的距离越近，Redis利用字符串前缀匹配算法实现相关的命令</li>
+<li>geohash编码和经纬度之间可以互相转换</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/MakLOAO/PicGo/master/img/20200629153143.png" alt=""></p>
+</li>
+<li><p>zrem key member：删除地理位置信息，GEO没有删除命令，但是底层使用的zset，所以可以使用zrem来删除</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/tags/NoSQL/" rel="tag"># NoSQL</a>
+          
+            <a href="/tags/GEO/" rel="tag"># GEO</a>
+          
+            <a href="/tags/HyperLogLog/" rel="tag"># HyperLogLog</a>
+          
+            <a href="/tags/Bitmaps/" rel="tag"># Bitmaps</a>
+          
+            <a href="/tags/Lua/" rel="tag"># Lua</a>
+          
+            <a href="/tags/Pipeline/" rel="tag"># Pipeline</a>
+          
+            <a href="/tags/Redis-Shell/" rel="tag"># Redis Shell</a>
+          
+            <a href="/tags/慢查询分析/" rel="tag"># 慢查询分析</a>
+          
+            <a href="/tags/发布订阅/" rel="tag"># 发布订阅</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/26/Redis01-背景与基本数据类型API/" rel="next" title="Redis01-背景与数据结构API">
+                <i class="fa fa-chevron-left"></i> Redis01-背景与数据结构API
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/30/Redis03-客户端/" rel="prev" title="Redis03-客户端">
+                Redis03-客户端 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">254</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#其他功能数据结构API"><span class="nav-number">1.</span> <span class="nav-text">其他功能数据结构API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#慢查询分析"><span class="nav-number">1.1.</span> <span class="nav-text">慢查询分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#慢查询分析最佳实践"><span class="nav-number">1.1.1.</span> <span class="nav-text">慢查询分析最佳实践</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-Shell"><span class="nav-number">1.2.</span> <span class="nav-text">Redis Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-cli"><span class="nav-number">1.2.1.</span> <span class="nav-text">redis-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-server"><span class="nav-number">1.2.2.</span> <span class="nav-text">redis-server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-benchmark"><span class="nav-number">1.2.3.</span> <span class="nav-text">redis-benchmark</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipeline"><span class="nav-number">1.3.</span> <span class="nav-text">Pipeline</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务与Lua"><span class="nav-number">1.4.</span> <span class="nav-text">事务与Lua</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务"><span class="nav-number">1.4.1.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lua"><span class="nav-number">1.4.2.</span> <span class="nav-text">Lua</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Lua语法"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">Lua语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis与Lua"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">Redis与Lua</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bitmaps"><span class="nav-number">1.5.</span> <span class="nav-text">Bitmaps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">1.5.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmaps分析"><span class="nav-number">1.5.2.</span> <span class="nav-text">Bitmaps分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLogLog"><span class="nav-number">1.6.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布订阅"><span class="nav-number">1.7.</span> <span class="nav-text">发布订阅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">1.7.2.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GEO"><span class="nav-number">1.8.</span> <span class="nav-text">GEO</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
