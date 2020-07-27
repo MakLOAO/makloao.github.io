@@ -136,7 +136,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/07/02/PYMpLWsfe7h6wto.png">
 <meta property="og:image" content="https://gitee.com/makaloo/picgo/raw/master/20200702120402.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/MakLOAO/PicGo/master/20200702171835.jpg">
-<meta property="og:updated_time" content="2020-07-02T10:33:26.665Z">
+<meta property="og:updated_time" content="2020-07-02T13:07:56.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis04-持久化">
 <meta name="twitter:description" content="持久化RDBRDB持久化是把当前进程数据生成快照保存到硬盘的过程，触发RDB持久化过程分为手动触发和自动触发  save：阻塞当前Redis服务器，直到RDB过程完成，对内存比较大的实例会造成长时间的阻塞，线上环境不建议使用 bgsave：Redis进程执行fork操作创建子进程，RDB持久化过程由子进程负责，完成后自动结束。阻塞只发生在fork阶段  RDB内部存在自动触发RDB的持久化机制">
@@ -494,7 +494,7 @@
 <li>父进程执行fork操作创建子进程，fork操作过程中父进程会阻塞，通过info stats命令查看latest_fork_usec选项，可以获取最近一个fork操作的耗时，单位为微秒</li>
 <li>父进程fork后，bgsave返回 <code>Background saving started</code> 信息后不再阻塞父进程，可以响应其他命令</li>
 <li>子进程创建RDB文件，根据父进程内存生成临时快照文件，完成后对原有文件进行原子替换。执行lastsave命令可以获取最后一次生成RDB的时间，对应info统计的rdb_last_save_time选项</li>
-<li>进程发送信号给父进程表示完成，父进程更新统计信息，具体键info Persistence下的rdb_*选项</li>
+<li>进程发送信号给父进程表示完成，父进程更新统计信息，具体见 <code>info Persistence</code> 下的rdb_*选项</li>
 </ol>
 <h3 id="RDB文件的处理"><a href="#RDB文件的处理" class="headerlink" title="RDB文件的处理"></a>RDB文件的处理</h3><p>RDB文件保存在dir配置指定的目录下，文件名通过dbfilename配置指定。可以通过执行 <code>config set dir {newDir}</code> 和 <code>config set dbfilename {newFileName}</code> 运行期动态执行，当下次运行时RDB文件会保存到新目录（win10下目录默认喂我当前目录，文件名默认为dump.rdb，所以配置都可以在conf下修改）</p>
 <p>RDB使用LZF算法对生成的RDB文件做压缩处理，可以关闭：<code>config set rdbcompression {yes|no}</code></p>
@@ -634,6 +634,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/07/02/Redis05-复制/" rel="prev" title="Redis05-复制">
+                Redis05-复制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -721,7 +725,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">127</span>
+                  <span class="site-state-item-count">132</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -743,7 +747,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">254</span>
+                  <span class="site-state-item-count">256</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
