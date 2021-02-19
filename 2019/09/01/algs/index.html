@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="algs," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="algs二叉树遍历略排序排序算法的过程gif图 排序算法总览对于各种排序，要心中有数，知道它的过程是怎么样的我是这样理解的：交换排序中，交换的对象是两个指针的对象（冒泡中指针是相邻的，快排指针是不相邻的），交换的目的是让某元素处在全局有序的位置，每趟交换都有一个元素处于全局有序，直到交换完毕插入排序中，插入是插入到前面的有序区，需要有记录后移的步骤，让有序区慢慢变长最终从局部有序转变为全局有序选择">
+<meta name="keywords" content="algs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="algs（持续更新）">
+<meta property="og:url" content="http://yoursite.com/2019/09/01/algs/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="algs二叉树遍历略排序排序算法的过程gif图 排序算法总览对于各种排序，要心中有数，知道它的过程是怎么样的我是这样理解的：交换排序中，交换的对象是两个指针的对象（冒泡中指针是相邻的，快排指针是不相邻的），交换的目的是让某元素处在全局有序的位置，每趟交换都有一个元素处于全局有序，直到交换完毕插入排序中，插入是插入到前面的有序区，需要有记录后移的步骤，让有序区慢慢变长最终从局部有序转变为全局有序选择">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.imgur.com/VtSETGs.png">
+<meta property="og:image" content="https://i.imgur.com/cvN09rf.png">
+<meta property="og:image" content="https://i.imgur.com/aYMLN3D.jpg">
+<meta property="og:updated_time" content="2019-10-14T04:41:35.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="algs（持续更新）">
+<meta name="twitter:description" content="algs二叉树遍历略排序排序算法的过程gif图 排序算法总览对于各种排序，要心中有数，知道它的过程是怎么样的我是这样理解的：交换排序中，交换的对象是两个指针的对象（冒泡中指针是相邻的，快排指针是不相邻的），交换的目的是让某元素处在全局有序的位置，每趟交换都有一个元素处于全局有序，直到交换完毕插入排序中，插入是插入到前面的有序区，需要有记录后移的步骤，让有序区慢慢变长最终从局部有序转变为全局有序选择">
+<meta name="twitter:image" content="https://i.imgur.com/VtSETGs.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/01/algs/"/>
+
+
+
+
+
+  <title>algs（持续更新） | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">加载图片需要翻出去</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/algs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">algs（持续更新）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/algs/" class="leancloud_visitors" data-flag-title="algs（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="algs"><a href="#algs" class="headerlink" title="algs"></a>algs</h1><h2 id="二叉树遍历略"><a href="#二叉树遍历略" class="headerlink" title="二叉树遍历略"></a>二叉树遍历略</h2><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p><a href="https://mp.weixin.qq.com/s?__biz=MzUyNjQxNjYyMg==&mid=2247484184&idx=1&sn=62965b401aa42107b3c17d1d8ea17454&chksm=fa0e6c99cd79e58f298e9026f677f912bd8c8e55edb48fc509b2b5834f05e529a9b47d59d202&mpshare=1&scene=1&srcid=0820oKBXNA76pmi1PqVQq5Xc&sharer_sharetime=1566295206852&sharer_shareid=c11e2c1a9c05bf44777f31c18b751c81&key=4062b15c04f483fc8e22ac0e052b7d3bdaa8d8243d73aaa65fe34cb403b1e4123de576f04a44d8b186849fc9e6d1e18829c717920f5670c865c7711514774ca9b2002f4b7ddc1a2b54f6252d52743844&ascene=1&uin=MTcwOTI3NDAwNA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=fOpQ1JJ0XdzGdbA77QtCN%2Ft6WmETYrTji0PRqyD8RR5NuOlSkaS5%2B31ojLLYMEwI" target="_blank" rel="noopener">排序算法的过程gif图</a></p>
+<h3 id="排序算法总览"><a href="#排序算法总览" class="headerlink" title="排序算法总览"></a>排序算法总览</h3><p><strong>对于各种排序，要心中有数，知道它的过程是怎么样的</strong><br>我是这样理解的：<br>交换排序中，交换的对象是两个指针的对象（冒泡中指针是相邻的，快排指针是不相邻的），交换的目的是让某元素处在全局有序的位置，每趟交换都有一个元素处于全局有序，直到交换完毕<br>插入排序中，插入是<strong>插入到前面的有序区</strong>，需要有记录后移的步骤，让有序区慢慢变长最终从局部有序转变为全局有序<br>选择排序中，只有一个指针，该指针选择处于该位置的值直接把它换过来</p>
+<p>交换：交换是指根据序列中两个元素关键字的比较结果来对换这两个记录在序列中的位置（<strong>全局有序</strong>）<br>插入：每次将一个待排序的记录按其关键字大小插入到<strong>前面已排好序的子序列中</strong>，直到全部记录插入完成（<strong>局部有序</strong>）<br>选择：每一趟（如第i趟）在后面n-i+1个待排序元素中选取关键字最小的元素，作为有序子序列的第i个元素（与第i个元素直接交换），直到第n-1趟做完，待排序元素只剩下一个，就不用再选了</p>
+<p><img src="https://i.imgur.com/VtSETGs.png" alt=""></p>
+<p>快排最好情况是每次都能均分序列（即选取中间元素），这样递归树的深度就是；最坏情况就是每次只能把序列分为1个元素与其他元素两部分，这样快排就会退化成冒泡排序，画出来是一棵单斜树</p>
+<h3 id="排序算法的代码"><a href="#排序算法的代码" class="headerlink" title="排序算法的代码"></a>排序算法的代码</h3><p>在复习完排序算法后，我个人觉得贴代码就够了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExchangeSort</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 交换排序：冒泡排序，全局有序，从后往前冒泡</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(ArrayList&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (list == <span class="keyword">null</span> || list.size() == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> length = list.size();</span><br><span class="line">        <span class="comment">// i &lt; length - 1可以少一次进入循环，因为只有一个元素时就不需要再冒泡了</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">boolean</span> sorted = <span class="keyword">true</span>; <span class="comment">// 当进入第二层循环没有交换任何元素，就表明此时数组已经有序</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = length - <span class="number">1</span>; j &gt; i; j--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (list.get(j) &lt; list.get(j - <span class="number">1</span>)) &#123;</span><br><span class="line">                    swap(list, j, j - <span class="number">1</span>);</span><br><span class="line">                    sorted = <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (sorted) <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换排序：快速排序</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(ArrayList&lt;Integer&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (list == <span class="keyword">null</span> || list.size() &lt;= <span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> low = <span class="number">0</span>, high = list.size() - <span class="number">1</span>;</span><br><span class="line">        quickSort(list, low, high);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(ArrayList&lt;Integer&gt; list, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="keyword">int</span> pivotPos = partition(list, low, high);</span><br><span class="line">            quickSort(list, low, pivotPos - <span class="number">1</span>);</span><br><span class="line">            quickSort(list, pivotPos + <span class="number">1</span>, high);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(ArrayList&lt;Integer&gt; list ,<span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pivot = list.get(low);</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="comment">// 判断这两个指针的值的大小时，必须设置大于等于，否则当等于的时候会陷入死循环，也正是因为这个等于才导致快排是不稳定的</span></span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; list.get(high) &gt;= pivot) high--;</span><br><span class="line">            list.set(low, list.get(high));</span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; list.get(low) &lt;= pivot) low++;</span><br><span class="line">            list.set(high, list.get(low));</span><br><span class="line">        &#125;</span><br><span class="line">        list.set(low, pivot);</span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(ArrayList&lt;Integer&gt; list, <span class="keyword">int</span> pos1, <span class="keyword">int</span> pos2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = list.get(pos1);</span><br><span class="line">        list.set(pos1, list.get(pos2));</span><br><span class="line">        list.set(pos2, temp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换排序：冒泡排序，全局有序，从后往前冒泡</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 交换排序：快速排序</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/cvN09rf.png" alt=""></p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><p>红黑树是一棵自平衡的二叉查找树，除了符合二叉查找树的基本特性，它还符合如下特性：</p>
+<ul>
+<li>节点是红色或黑色</li>
+<li>根节点是黑色</li>
+<li>每个叶子节点都是黑色的空节点（NIL节点）</li>
+<li>每个红色节点的两个子结点都是黑色（从每个叶子到根的所有路径上不能有两个连续的红色节点）</li>
+<li>从<strong>任一节点到其每个叶子</strong>的所有路径都包含相同数目的黑色节点</li>
+</ul>
+<p><img src="https://i.imgur.com/aYMLN3D.jpg" alt=""></p>
+<p>这些约束强制了红黑树的关键性质: <strong>从根到叶子的最长的可能路径不多于最短的可能路径的两倍长</strong></p>
+<p>红黑树失衡时可以通过<strong>旋转</strong>和<strong>变色</strong>来让红黑树重新恢复平衡并且保持上述特性不变，具体如何操作需要看失衡的情况来决定，略</p>
+<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><h3 id="哈希函数的构造方法"><a href="#哈希函数的构造方法" class="headerlink" title="哈希函数的构造方法"></a>哈希函数的构造方法</h3><p>直接定址法：H(key) = a * key + b<br>除留余数法：H(key) = key % p  &nbsp;(p&lt;=m)</p>
+<p>Java集合框架的HashMap的哈希函数是：高16位不变，低16位为低16位与高16位异或的结果<br><code>hash = (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16)</code><br><code>p = tab[i = (n - 1) &amp; hash] // n为哈希表长度，当哈希表长度为2的次幂时，实际就是取模运算</code></p>
+<h3 id="解决冲突的方法"><a href="#解决冲突的方法" class="headerlink" title="解决冲突的方法"></a>解决冲突的方法</h3><ul>
+<li>链地址法</li>
+<li>开放定址法<ul>
+<li>线性探测法：Hi = (H(key) + i) % m</li>
+<li>二次探测法：Hi = (H(key) + di) % m，di = 1^2, -1^2, 2^2, -2^2, … k^2, -k^2</li>
+</ul>
+</li>
+<li>再哈希法：产生冲突再计算另一个哈希函数，直到不再发生冲突为止</li>
+<li>公共溢出区法：建立一个公共溢出区域，把冲突的都放在另一个地方，不在表里面</li>
+</ul>
+<h3 id="哈夫曼树"><a href="#哈夫曼树" class="headerlink" title="哈夫曼树"></a>哈夫曼树</h3><p>构造过程：</p>
+<p>给定n个权值为w1,w2,…,wn的结点</p>
+<ol>
+<li>将这n个结点分别作为n棵只有一个结点的二叉树，构成森林F</li>
+<li>构造一个新的结点，从F中选取两颗根节点权值最小的树作为新节点的左右子树，并且将新节点的权值置为左右子树上根节点的权值之和</li>
+<li>从F中删除刚才选出的两棵树，同时将新得到的树加入到F中</li>
+<li>重复2和3直到F中只剩下一棵树</li>
+</ol>
+<p>特点：</p>
+<ul>
+<li>每个初始结点最终都成为叶子节点，权值越小，到达根的路径长度越大</li>
+<li>共新建了n-1个结点，结点总数是2n-1</li>
+<li>每次构造都选2棵树作为新结点的左右子树，所以哈夫曼树中不存在度为1的结点</li>
+</ul>
+<p>哈夫曼树的总权值就是<strong>每个叶结点的高度乘以它的权值之和（根节点高度为0）</strong></p>
+<h3 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h3><p>KMP用于串的模式匹配问题，即求一个子串在主串中位置，它返回这个子串在主串的首位置</p>
+<p><a href="https://www.bilibili.com/video/av3246487?from=search&seid=3199971024709012374" target="_blank" rel="noopener">印度小哥的KMP算法</a></p>
+<p>如果是暴力硬解，则时间复杂度是O(m*n)，m是主串长度，n是子串长度，而KMP算法只需要O(m+n)的时间复杂度</p>
+<p>它是这样做的：<strong>主串不需要从头重新匹配，当匹配到有不同的字符，判断已匹配的子串中某个前缀或后缀是否相同，相同则让模式串”走到”后缀处，然后继续匹配（继续从该后缀下一个字符匹配，而不需要回到前面重新匹配），否则模式串”走到”主串不匹配的下一个字符继续下一次匹配</strong>（暴力硬解是让模式串回到当次匹配的字符的下一个字符继续匹配）</p>
+<p>KMP的模式串不需要往回走，只需要一直走下去就好了，可以理解为匹配的工作指针i不需要回到前面，只需要一直往后面走</p>
+<p>KMP过程演示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">pos    :0 1 2 3 4 5 6 7 8 9 10111213141516171819202122</span><br><span class="line">text   :a b c x a b c d a b x a b c d a b c d a b c y</span><br><span class="line">pattern:a b c d a b c y</span><br><span class="line">// 开始匹配，一直到x与d不匹配，因为此时已匹配串中abc没有相同前缀和后缀，所以走到不匹配的下一个字符继续匹配</span><br><span class="line">pos    :0 1 2 3 4 5 6 7 8 9 10111213141516171819202122</span><br><span class="line">text   :a b c x a b c d a b x a b c d a b c d a b c y</span><br><span class="line">pattern:        a b c d a b c y</span><br><span class="line">// 继续匹配，一直到a与y不匹配，此时已匹配子串中，具有ab既是前缀，又是后缀，所以走到相同后缀处继续匹配</span><br><span class="line">pos    :0 1 2 3 4 5 6 7 8 9 10111213141516171819202122</span><br><span class="line">text   :a b c x a b c d a b x a b c d a b c d a b c y</span><br><span class="line">pattern:                a b c d a b c y</span><br><span class="line">// 继续匹配，x与c不匹配，已匹配子串没有相同前后缀，走到不匹配的下一个字符</span><br><span class="line">pos    :0 1 2 3 4 5 6 7 8 9 10111213141516171819202122</span><br><span class="line">text   :a b c x a b c d a b x a b c d a b c d a b c y</span><br><span class="line">pattern:                      a b c d a b c y</span><br><span class="line">// d和y不匹配，此时已匹配子串有abc既是前缀又是后缀，则子串往后走到后缀处</span><br><span class="line">pos    :0 1 2 3 4 5 6 7 8 9 10111213141516171819202122</span><br><span class="line">text   :a b c x a b c d a b x a b c d a b c d a b c y</span><br><span class="line">pattern:                              a b c d a b c y</span><br><span class="line">// 此时匹配了，返回位置15</span><br></pre></td></tr></table></figure>
+<h4 id="计算next数组"><a href="#计算next数组" class="headerlink" title="计算next数组"></a>计算next数组</h4><p>说实话时间不太够了，所以KMP我就随便看了一下，还没写完如何求next数组和如何利用next数组，这些王道的书都有写，我自己总结了一下<strong>快速手算next数组的方法：比如abcdabca，先拿出子串a，它的最长公共前缀后缀长度为0，然后ab最长公共前后缀长度0，abc最长公共前后缀长度0，abcd最长公共前后缀长度0，abcda最长公共前后缀长度1，abcdab最长公共前后缀长度2，abcdabc最长公共前后缀长度3，abcdabca最长公共前后缀长度1，所以next数组为：00001231</strong>，另一个例子也是这样：ababa：a最长公共前后缀长度0，ab最长公共前后缀长度0，aba最长公共前后缀长度1，abab最长公共前后缀长度2，ababa最长公共前后缀长度3，所以next数组00123</p>
+<p>KMP的关键和难点就是计算next数组，看下面例子</p>
+<p>构建next数组的时间和空间复杂度都是O(n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">        j i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0</span><br><span class="line">// i和j的值不相等，0填入next，i继续往前走</span><br><span class="line">        j   i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0</span><br><span class="line">// i和j的值不相等，0填入next，i继续往前走</span><br><span class="line">        j     i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0</span><br><span class="line"></span><br><span class="line">        j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0</span><br><span class="line"></span><br><span class="line">          j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1</span><br><span class="line"></span><br><span class="line">            j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2</span><br><span class="line"></span><br><span class="line">              j       i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2 3</span><br><span class="line"></span><br><span class="line">        j             i</span><br><span class="line">pos    :0 1 2 3 4 5 6 7</span><br><span class="line">pattern:a b c d a b c a</span><br><span class="line">next   :0 0 0 0 1 2 3 1</span><br></pre></td></tr></table></figure>
+<h2 id="递归的思想"><a href="#递归的思想" class="headerlink" title="递归的思想"></a>递归的思想</h2><p>剑指offer58题，判断对错二叉树isSymmetrical，对boolean类型返回值的<strong>尾</strong>递归，实质上是一个&amp;&amp;问题，它是这样的：<strong>只要子问题有一个返回false，则整个系列问题都返回false，必须要所有子问题都返回true，最终结果才是true，即对于一个整体问题，递归求解它的子问题，只要有某一个子问题出现了错误，直接全局问题出错</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/algs/" rel="tag"># algs</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/OS/" rel="next" title="OS（持续更新）">
+                <i class="fa fa-chevron-left"></i> OS（持续更新）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/Java集合类/" rel="prev" title="Java集合（持续更新）">
+                Java集合（持续更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">262</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#algs"><span class="nav-number">1.</span> <span class="nav-text">algs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树遍历略"><span class="nav-number">1.1.</span> <span class="nav-text">二叉树遍历略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">1.2.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法总览"><span class="nav-number">1.2.1.</span> <span class="nav-text">排序算法总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法的代码"><span class="nav-number">1.2.2.</span> <span class="nav-text">排序算法的代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#散列表"><span class="nav-number">1.4.</span> <span class="nav-text">散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数的构造方法"><span class="nav-number">1.4.1.</span> <span class="nav-text">哈希函数的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决冲突的方法"><span class="nav-number">1.4.2.</span> <span class="nav-text">解决冲突的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈夫曼树"><span class="nav-number">1.4.3.</span> <span class="nav-text">哈夫曼树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KMP"><span class="nav-number">1.4.4.</span> <span class="nav-text">KMP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算next数组"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">计算next数组</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归的思想"><span class="nav-number">1.5.</span> <span class="nav-text">递归的思想</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

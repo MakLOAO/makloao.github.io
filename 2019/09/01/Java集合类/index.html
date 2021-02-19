@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="集合," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
+<meta name="keywords" content="集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合（持续更新）">
+<meta property="og:url" content="http://yoursite.com/2019/09/01/Java集合类/index.html">
+<meta property="og:site_name" content="MakaL-0-">
+<meta property="og:description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-25T05:33:35.801Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java集合（持续更新）">
+<meta name="twitter:description" content="Java集合类HashMap去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章 HashMap相关问题为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣 而红黑树不要求完全的平衡，可以把红黑">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/01/Java集合类/"/>
+
+
+
+
+
+  <title>Java集合（持续更新） | MakaL-0-</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-120154502-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f15c3fa6d339dfe768bc3d4f2e2f856e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">MakaL-0-</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">加载图片需要翻出去</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Java集合类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MakaLoo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MakaL-0-">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java集合（持续更新）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T00:00:00+08:00">
+                2019-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面经/" itemprop="url" rel="index">
+                    <span itemprop="name">面经</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/09/01/Java集合类/" class="leancloud_visitors" data-flag-title="Java集合（持续更新）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Java集合类"><a href="#Java集合类" class="headerlink" title="Java集合类"></a>Java集合类</h1><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p><strong>去看我写的另一篇博客，在Java目录下的名为 源码解析-Map相关 的文章</strong></p>
+<h3 id="HashMap相关问题"><a href="#HashMap相关问题" class="headerlink" title="HashMap相关问题"></a>HashMap相关问题</h3><h4 id="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"><a href="#为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？" class="headerlink" title="为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"></a>为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？</h4><p>AVL树要求每个节点的左右节点高度差都不超过1，这样的要求十分严格，导致在一些插入，删除很频繁的场合，会使得AVL树频繁的进行调整，导致平衡树的性能大打折扣</p>
+<p>而红黑树不要求完全的平衡，可以把红黑树理解成不太严格的AVL树，是一个折中方案，它降低了对旋转的要求，从而提高了性能<br>红黑树的算法时间复杂度和AVL树相同，但是统计性能更高</p>
+<h4 id="hashMap怎么实现的"><a href="#hashMap怎么实现的" class="headerlink" title="hashMap怎么实现的"></a>hashMap怎么实现的</h4><p>Entry数组+链表+红黑树，具体看源码解析那里</p>
+<h4 id="key的hash相同时是插入链表头还是尾"><a href="#key的hash相同时是插入链表头还是尾" class="headerlink" title="key的hash相同时是插入链表头还是尾"></a>key的hash相同时是插入链表头还是尾</h4><p>JDK 1.8中插入尾部</p>
+<h4 id="HashMap扩容连珠炮"><a href="#HashMap扩容连珠炮" class="headerlink" title="HashMap扩容连珠炮"></a>HashMap扩容连珠炮</h4><h5 id="什么条件下扩容"><a href="#什么条件下扩容" class="headerlink" title="什么条件下扩容"></a>什么条件下扩容</h5><p>bucket超过load factor * current capacity，就要resize，扩大2倍</p>
+<h5 id="长度为什么要是2的n次方"><a href="#长度为什么要是2的n次方" class="headerlink" title="长度为什么要是2的n次方"></a>长度为什么要是2的n次方</h5><p>HashMap底层实现对哈希值取余得到位置值的时候，为了提高效率，不是通过<code>hash % length</code>来计算的，而是通过<code>hash &amp; (length - 1)</code>来计算，<strong>这两个结果相等的前提是：length是2的次幂</strong></p>
+<h5 id="为什么要先高16位异或低16位再取模运算"><a href="#为什么要先高16位异或低16位再取模运算" class="headerlink" title="为什么要先高16位异或低16位再取模运算"></a>为什么要先高16位异或低16位再取模运算</h5><p>表默认容量是16，即只有1-15的位置上是可以用的，位置的计算公式为：<code>tab[i = (n - 1) &amp; hash]</code>，在做&amp;运算的时候，只有后4位是有效的（因为容量只有16），如果我们key的哈希值高位变化很大，低位变化很小，直接拿去做&amp;运算，就会导致计算出来的hash值冲突次数会很多<strong>
+</strong>而将key的哈希值的高位也做了运算<strong>（哈希值低位与高位做了异或运算，使得在做&amp;运算时，低位实际上是高低位的结合），</strong>这就增加了随机性，减少碰撞冲突的可能性**</p>
+<h4 id="我用LinkedList代替数组结构可以么-为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？"><a href="#我用LinkedList代替数组结构可以么-为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？" class="headerlink" title="我用LinkedList代替数组结构可以么?为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？"></a>我用LinkedList代替数组结构可以么?为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？</h4><p>可以，因为LinkedList效率没有数组高，通过哈希函数计算出位置后，需要随机访问该位置，LinkedList不支持随机访问</p>
+<p>ArrayList虽然支持随机访问，但是ArrayList的扩容机制不是自己定义的，它内部的扩容机制是1.5倍扩容，HashMap数组扩容刚好是2的次幂，在做取模运算的效率高</p>
+<h4 id="get-put过程（请把每个字都记住）"><a href="#get-put过程（请把每个字都记住）" class="headerlink" title="get/put过程（请把每个字都记住）"></a>get/put过程（请把每个字都记住）</h4><ol>
+<li>put主要调用putVal方法，先计算哈希值（哈希的高16位与低16位相异或作为低16位，高16位是原来的高16位）并传入给putVal方法</li>
+<li>putVal方法先判断table是否为null或者table的容量是否为0，如果是则使用resize函数初始化它</li>
+<li>然后再判断是否碰撞，没有碰撞就创建新的结点（newNode函数），直接放入bucket</li>
+<li>如果碰撞，首先判断桶中元素的hash值与待插入元素是否相同，相同再判断key是否相等（==判断或key.equals判断，只要有个返回true则返回true），相等则更新该key对应的value，并返回旧的value <code>if (p.hash == hash &amp;&amp; ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))</code></li>
+<li>当桶中key不相等时，就开始沿next域往下寻找，如果是红黑树就按红黑树方式查找，如果是链表就按照链表方式寻找</li>
+<li>如果判断存在该key（第4点的判断方法），则更新新值返回旧值</li>
+<li>如果找到末尾都没找到相等的key，就在末尾处插入该key的结点，然后判断结点个数是否大于8，大于8就转为红黑树</li>
+<li>如果表长度大于容量*装载因子，则调用resize扩容</li>
+<li>它还有afterNodeAccess和afterNodeInsertion方法，在HashMap中是空方法，主要用在LinkedHashMap访问结点后的更新链表</li>
+</ol>
+<p>&nbsp;</p>
+<ol>
+<li>get主要调用getNode方法，先计算哈希值传入给getNode方法</li>
+<li>getNode方法通过对哈希值取模计算出位置，如果直接命中则直接返回，如果桶为null或者table为null则返回null</li>
+<li>否则顺着链表或红黑树去查找，直到找到就返回</li>
+<li>命中的判定方法同put的方法 <code>if (e.hash == hash &amp;&amp; ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))</code></li>
+</ol>
+<h4 id="HashMap红黑树连珠炮"><a href="#HashMap红黑树连珠炮" class="headerlink" title="HashMap红黑树连珠炮"></a>HashMap红黑树连珠炮</h4><h5 id="Java-8的HashMap的更改"><a href="#Java-8的HashMap的更改" class="headerlink" title="Java 8的HashMap的更改"></a>Java 8的HashMap的更改</h5><ul>
+<li>数组+链表结构改为数组+链表+红黑树</li>
+<li>优化高位运算的hash算法：h ^ (h &gt;&gt;&gt; 16)</li>
+<li>扩容后，元素要么是在原位置，要么是在原位置再移动2次幂的位置，且链表顺序不变（这条变动让HashMap不会再出现死循环问题）</li>
+</ul>
+<h5 id="为什么在解决hash冲突的时候，不直接用红黑树-而选择先用链表，再转红黑树"><a href="#为什么在解决hash冲突的时候，不直接用红黑树-而选择先用链表，再转红黑树" class="headerlink" title="为什么在解决hash冲突的时候，不直接用红黑树?而选择先用链表，再转红黑树?"></a>为什么在解决hash冲突的时候，不直接用红黑树?而选择先用链表，再转红黑树?</h5><p>因为红黑树需要左旋，右旋，变色来保持平衡，而单链表不需要，当元素小于8个的时候，做查询操作，链表结构也能够保证查询性能，大于8个的时候就需要红黑树来加快查询速度了，如果一开始就用红黑树，则增加元素的效率慢，查找效率也不会高到哪，就很浪费性能</p>
+<h5 id="使用二叉查找树或者平衡二叉树可以吗？"><a href="#使用二叉查找树或者平衡二叉树可以吗？" class="headerlink" title="使用二叉查找树或者平衡二叉树可以吗？"></a>使用二叉查找树或者平衡二叉树可以吗？</h5><p>可以，但是二叉查找树特殊情况下会变成线性结构，平衡二叉树则对平衡的定义的太严格，使得AVL树频繁的进行调整，导致平衡树的性能大打折扣</p>
+<h5 id="什么时候二叉树退化成链表"><a href="#什么时候二叉树退化成链表" class="headerlink" title="什么时候二叉树退化成链表"></a>什么时候二叉树退化成链表</h5><p>当树节点个数为6时退化，中间差值7可以防止链表和树之间频繁的转换</p>
+<h4 id="并发问题连珠炮"><a href="#并发问题连珠炮" class="headerlink" title="并发问题连珠炮"></a>并发问题连珠炮</h4><h5 id="并发编程环境下有什么问题"><a href="#并发编程环境下有什么问题" class="headerlink" title="并发编程环境下有什么问题"></a>并发编程环境下有什么问题</h5><ul>
+<li>多线程扩容，引起死循环问题</li>
+<li>多线程put的时候可能导致元素丢失</li>
+<li>put非null元素后get出来的却是null</li>
+</ul>
+<p>JDK 1.8后解决了扩容死循环问题</p>
+<h5 id="怎么解决这些问题"><a href="#怎么解决这些问题" class="headerlink" title="怎么解决这些问题"></a>怎么解决这些问题</h5><p>使用ConcurrentHashMap，Hashtable等线程安全集合类</p>
+<h4 id="HashMap的key连珠炮"><a href="#HashMap的key连珠炮" class="headerlink" title="HashMap的key连珠炮"></a>HashMap的key连珠炮</h4><h5 id="key可以为null吗"><a href="#key可以为null吗" class="headerlink" title="key可以为null吗"></a>key可以为null吗</h5><p>可以</p>
+<h5 id="一般用什么作为key"><a href="#一般用什么作为key" class="headerlink" title="一般用什么作为key"></a>一般用什么作为key</h5><p>Integet，String这些不可变类当key，因为HashMap底层使用的是hashCode，如果使用如List这些可变类，当插入元素后，hashCode出来的值会发生变化，就会导致同一个实例对象却得不到对应的value的情况</p>
+<h4 id="HashMap和Hashtable有什么区别"><a href="#HashMap和Hashtable有什么区别" class="headerlink" title="HashMap和Hashtable有什么区别"></a>HashMap和Hashtable有什么区别</h4><p>它和HashMap的最大的不同是它是线程安全的，另外它不允许key和value为null。Hashtable是个过时的集合类，不建议在新代码中使用</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">不同点</th>
+<th style="text-align:left">HashMap</th>
+<th style="text-align:left">Hashtable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">数据结构</td>
+<td style="text-align:left">数组+链表+红黑树</td>
+<td style="text-align:left">数组+链表</td>
+</tr>
+<tr>
+<td style="text-align:left">继承的类</td>
+<td style="text-align:left">AbstractMap</td>
+<td style="text-align:left">Dictionary</td>
+</tr>
+<tr>
+<td style="text-align:left">线程安全</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">是</td>
+</tr>
+<tr>
+<td style="text-align:left">性能高低</td>
+<td style="text-align:left">高</td>
+<td style="text-align:left">低</td>
+</tr>
+<tr>
+<td style="text-align:left">key和value为null</td>
+<td style="text-align:left">允许</td>
+<td style="text-align:left">不允许</td>
+</tr>
+<tr>
+<td style="text-align:left">默认初始化容量</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">11</td>
+</tr>
+<tr>
+<td style="text-align:left">扩容方式</td>
+<td style="text-align:left">原始容量* 2</td>
+<td style="text-align:left">原始容量*2 + 1</td>
+</tr>
+<tr>
+<td style="text-align:left">底层数组的容量</td>
+<td style="text-align:left">要求为2的整数次幂</td>
+<td style="text-align:left">不作要求</td>
+</tr>
+<tr>
+<td style="text-align:left">确认key在数组中的索引的方法</td>
+<td style="text-align:left">i = (n - 1) &amp; hash</td>
+<td style="text-align:left">index = (hash &amp; 0x7FFFFFFF) % tab.length</td>
+</tr>
+<tr>
+<td style="text-align:left">遍历方式</td>
+<td style="text-align:left">Iterator</td>
+<td style="text-align:left">Iterator和Enumeration</td>
+</tr>
+<tr>
+<td style="text-align:left">Iterator遍历数组顺序</td>
+<td style="text-align:left">索引从小到大</td>
+<td style="text-align:left">索引从大到小</td>
+</tr>
+</tbody>
+</table>
+<h4 id="null问题"><a href="#null问题" class="headerlink" title="null问题"></a>null问题</h4><p>HashMap和LinkedHashMap允许key，value为null<br>TreeMap，ConcurrentHashMap不允许key，value为null</p>
+<h4 id="ConcurrentHashMap的区别"><a href="#ConcurrentHashMap的区别" class="headerlink" title="ConcurrentHashMap的区别"></a>ConcurrentHashMap的区别</h4><p>ConcurrentHashMap是J.U.C包的类，是线程安全的哈希表<br>JDK1.7之前的ConcurrentHashMap使用分段锁机制实现，JDK1.8则使用数组+链表+红黑树数据结构和CAS原子操作实现ConcurrentHashMap</p>
+<p>在JDK 1.8中，ConcurrentHashMap的核心要点如下：</p>
+<ul>
+<li>底层是散列表（数组+链表）+红黑树，与HashMap相同</li>
+<li>Hashtable将所有方法进行同步，效率低下，而ConcurrentHashMap通过<strong>部分锁定+CAS算法来实现线程安全</strong>，CAS算法也可以认为是乐观锁的一种</li>
+<li>高并发环境下，统计数据（计算size等）无意义，因为下一时刻size值就发生变化</li>
+<li>get方法非阻塞，无锁。重写Node类，<strong>通过volatile修饰Node的next指针</strong>来实现每次获取都是<strong>最新</strong>设置的值</li>
+<li>key和value不能为null</li>
+<li>通过Thread.yield()保证只有一个线程初始化散列表</li>
+</ul>
+<h4 id="synchronizedMap"><a href="#synchronizedMap" class="headerlink" title="synchronizedMap"></a>synchronizedMap</h4><p>Collections.synchronizedMap可以传入一个Map参数，它会把该Map转变为线程安全的Map，主要实现的原理是在每个方法外面添加一个synchronized(object)的同步机制</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h3><p>底层是 <code>transient Object[] elementData;</code> 和 private int size<br>初始容量是10<br>add方法首先会调用 <code>ensureCapacityInternal(size + 1);</code> 如果判断加入元素后容量会超过数组最大容量，则扩容，扩容是扩1.5倍 <code>int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</code></p>
+<h3 id="常用集合常用API"><a href="#常用集合常用API" class="headerlink" title="常用集合常用API"></a>常用集合常用API</h3><h4 id="ArrayList-1"><a href="#ArrayList-1" class="headerlink" title="ArrayList"></a>ArrayList</h4><h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><h4 id="HashMap-1"><a href="#HashMap-1" class="headerlink" title="HashMap"></a>HashMap</h4><h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><h4 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h4><h4 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/01/algs/" rel="next" title="algs（持续更新）">
+                <i class="fa fa-chevron-left"></i> algs（持续更新）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/01/java基础/" rel="prev" title="Java基础（持续更新）">
+                Java基础（持续更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk3Mi8xMzUwOA=="></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="MakaLoo" />
+            
+              <p class="site-author-name" itemprop="name">MakaLoo</p>
+              <p class="site-description motion-element" itemprop="description">Beautifully struggle every day</p>
+          </div>
+
+          <nav class="site-state motion-element">
+		  
+		  
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">262</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/makloao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://www.zhihu.com/people/makaloo" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-globe"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xiehj1997@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java集合类"><span class="nav-number">1.</span> <span class="nav-text">Java集合类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">1.1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap相关问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">HashMap相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">为什么有了AVL树或BST树还要有红黑树？或者为什么HashMap要使用红黑树？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hashMap怎么实现的"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">hashMap怎么实现的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#key的hash相同时是插入链表头还是尾"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">key的hash相同时是插入链表头还是尾</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap扩容连珠炮"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">HashMap扩容连珠炮</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么条件下扩容"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">什么条件下扩容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#长度为什么要是2的n次方"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">长度为什么要是2的n次方</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要先高16位异或低16位再取模运算"><span class="nav-number">1.1.1.4.3.</span> <span class="nav-text">为什么要先高16位异或低16位再取模运算</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我用LinkedList代替数组结构可以么-为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">我用LinkedList代替数组结构可以么?为什么HashMap不使用LinkedList代替？为什么不用ArrayList代替数组？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get-put过程（请把每个字都记住）"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">get/put过程（请把每个字都记住）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap红黑树连珠炮"><span class="nav-number">1.1.1.7.</span> <span class="nav-text">HashMap红黑树连珠炮</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Java-8的HashMap的更改"><span class="nav-number">1.1.1.7.1.</span> <span class="nav-text">Java 8的HashMap的更改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么在解决hash冲突的时候，不直接用红黑树-而选择先用链表，再转红黑树"><span class="nav-number">1.1.1.7.2.</span> <span class="nav-text">为什么在解决hash冲突的时候，不直接用红黑树?而选择先用链表，再转红黑树?</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用二叉查找树或者平衡二叉树可以吗？"><span class="nav-number">1.1.1.7.3.</span> <span class="nav-text">使用二叉查找树或者平衡二叉树可以吗？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候二叉树退化成链表"><span class="nav-number">1.1.1.7.4.</span> <span class="nav-text">什么时候二叉树退化成链表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发问题连珠炮"><span class="nav-number">1.1.1.8.</span> <span class="nav-text">并发问题连珠炮</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#并发编程环境下有什么问题"><span class="nav-number">1.1.1.8.1.</span> <span class="nav-text">并发编程环境下有什么问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#怎么解决这些问题"><span class="nav-number">1.1.1.8.2.</span> <span class="nav-text">怎么解决这些问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap的key连珠炮"><span class="nav-number">1.1.1.9.</span> <span class="nav-text">HashMap的key连珠炮</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#key可以为null吗"><span class="nav-number">1.1.1.9.1.</span> <span class="nav-text">key可以为null吗</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#一般用什么作为key"><span class="nav-number">1.1.1.9.2.</span> <span class="nav-text">一般用什么作为key</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap和Hashtable有什么区别"><span class="nav-number">1.1.1.10.</span> <span class="nav-text">HashMap和Hashtable有什么区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#null问题"><span class="nav-number">1.1.1.11.</span> <span class="nav-text">null问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcurrentHashMap的区别"><span class="nav-number">1.1.1.12.</span> <span class="nav-text">ConcurrentHashMap的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#synchronizedMap"><span class="nav-number">1.1.1.13.</span> <span class="nav-text">synchronizedMap</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">1.2.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.2.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用集合常用API"><span class="nav-number">1.2.2.</span> <span class="nav-text">常用集合常用API</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ArrayList-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">ArrayList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedList"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">LinkedList</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashMap-1"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HashSet"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">HashSet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TreeMap"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">TreeMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinkedHashMap"><span class="nav-number">1.2.2.6.</span> <span class="nav-text">LinkedHashMap</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MakaLoo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("oE3JvjxaL9UMPCdKOwyY8BNP-gzGzoHsz", "0mpd8MSRyvkSyuoF6lMMy84W");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
